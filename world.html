@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>世界观 · 山东省舒心市</title>
+<style>
+/* ========== 白色微信风格 ========== */
+:root {
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-inner: #f8f8f8;
+  --bg-chip: #f0f0f0;
+  --bg-soft: rgba(58, 123, 213, 0.08);
+  --bg-yellow: rgba(255, 159, 10, 0.12);
+  --b: #e8e8e8;
+  --b2: #d9d9d9;
+  --ba: #3a7bd5;
+  --bay: #FF9F0A;
+  --t: #1a1a1a;
+  --t2: #666;
+  --tm: #8e8e93;
+  --ok: #2e7d32;
+  --d: #ff3b30;
+  --r: 8px; --r2: 12px; --r3: 16px; --rf: 999px;
+  --font: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  display: flex; justify-content: center; align-items: stretch;
+  width: 100%; height: 100%; background: #ededed;
+  color: var(--t); font-family: var(--font); overflow: hidden;
+}
+.app {
+  max-width: 430px; margin: 0 auto; height: 100vh;
+  background: #ffffff; display: flex; flex-direction: column;
+  overflow: hidden; width: 100%;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+/* ===== 顶部导航 ===== */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  background: #ffffff;
+  border-bottom: 0.5px solid var(--b2);
+  flex-shrink: 0;
+  min-height: 50px;
+}
+.tl { display: flex; align-items: center; gap: 8px; }
+.tl h1 { font: 700 17px/24px var(--font); color: var(--t); }
+.tr { display: flex; gap: 8px; align-items: center; }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #f5f5f5; border: 0.5px solid var(--b2);
+  color: #333; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: 0.15s;
+}
+.icon-btn:active { transform: scale(0.92); }
+
+/* ===== 4个功能Tab ===== */
+.tab4 {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 6px; padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 0.5px solid var(--b);
+  flex-shrink: 0;
+}
+.t4 {
+  padding: 8px 4px;
+  background: #f5f5f5;
+  border: 0.5px solid var(--b);
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.15s;
+  font-family: inherit;
+}
+.t4:active { background: #e8e8e8; }
+.t4.active {
+  background: var(--bg-soft);
+  border-color: var(--ba);
+}
+.t4 .em { font-size: 16px; display: block; }
+.t4 .nm { font: 500 10px/14px var(--font); color: var(--tm); }
+.t4.active .nm { color: var(--t); font-weight: 600; }
+
+/* ===== 内容区 ===== */
+.content {
+  flex: 1; overflow-y: auto; padding: 12px 14px 20px;
+  background: #ffffff;
+}
+.content::-webkit-scrollbar { width: 0; display: none; }
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 0.5px solid var(--b);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-weight: 600; font-size: 14px; color: var(--t);
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 0.5px solid var(--b);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.card-title .badge {
+  font-size: 10px; color: var(--tm); font-weight: 400;
+}
+
+/* ===== 9×9网格 ===== */
+.grid33 {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.g-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 0.5px solid var(--b);
+  background: #f5f5f5;
+  padding: 6px;
+  cursor: pointer;
+  transition: 0.15s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 60px;
+}
+.g-cell:active { transform: scale(0.97); }
+.g-cell .ge { font-size: 16px; }
+.g-cell .gn { font-size: 10px; font-weight: 600; color: var(--t); }
+.g-cell .gs { font-size: 8px; color: var(--tm); }
+.g-cell .gd {
+  position: absolute; top: 4px; right: 4px;
+  font-size: 7px; color: var(--tm);
+  background: rgba(255,255,255,0.7); padding: 1px 5px; border-radius: 4px;
+}
+.g-cell .gperson { display: flex; gap: 2px; }
+.gp-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6px; color: #fff; font-weight: 700; border: 1px solid #fff;
+}
+.gp-dot.a { background: #f472b6; }
+.gp-dot.b { background: #a78bfa; }
+.gp-dot.c { background: #34d399; }
+.gp-dot.d { background: #fbbf24; color: #333; }
+.g-cell.has-bg .gn { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+.g-cell.has-bg .gs { color: rgba(255,255,255,0.8); text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.g-cell.has-bg .gd { background: rgba(0,0,0,0.5); color: #fff; }
+.g-cell.has-bg .ge { text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+
+/* ===== 地标列表 ===== */
+.lm-item {
+  display: flex; align-items: center;
+  padding: 8px 10px; border-bottom: 0.5px solid #f5f5f5;
+  gap: 10px; cursor: pointer;
+}
+.lm-item:last-child { border-bottom: none; }
+.lm-item:active { background: #f5f5f5; }
+.lm-item .icon { font-size: 16px; }
+.lm-item .info { flex: 1; }
+.lm-item .info .name { font-size: 13px; font-weight: 500; color: var(--t); }
+.lm-item .info .addr { font-size: 11px; color: var(--tm); }
+.lm-item .cat {
+  font-size: 10px; padding: 2px 8px; border-radius: 8px;
+  background: #f5f5f5; color: #666;
+}
+
+.pill {
+  display: inline-block; padding: 2px 10px;
+  background: #f5f5f5; border-radius: 8px;
+  font-size: 10px; color: #333; margin: 1px 2px;
+  border: 0.5px solid var(--b);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.pill.active {
+  background: #e3f2fd;
+  border-color: var(--ba);
+  color: var(--t);
+  font-weight: 600;
+}
+
+/* ===== 底部导航 ===== */
+.tab-bar {
+  display: flex; border-top: 0.5px solid var(--b2);
+  background: #ffffff; flex-shrink: 0;
+  padding-bottom: 6px; padding-top: 4px;
+}
+.tab-item {
+  flex: 1; text-align: center; padding: 4px 0 2px;
+  color: var(--tm); font-size: 10px; cursor: pointer;
+  border-top: 2px solid transparent;
+  background: transparent; border: none; border-top: 2px solid transparent;
+  font-family: inherit;
+}
+.tab-item .icon { font-size: 22px; display: block; margin-bottom: 1px; }
+.tab-item.active { color: var(--ba); border-top-color: var(--ba); }
+.tab-item:active { opacity: 0.6; }
+
+/* ===== 通勤 ===== */
+.route-result-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 6px; margin-top: 8px;
+}
+.route-card {
+  padding: 6px; background: #fff; border-radius: 6px;
+  border: 0.5px solid var(--b); text-align: center;
+}
+.route-card.recommend { border-color: var(--ba); background: var(--bg-soft); }
+.route-card .icon { font-size: 20px; }
+.route-card .time { font-weight: 600; font-size: 15px; color: var(--t); }
+.route-card .label { font-size: 9px; color: var(--tm); }
+
+select {
+  padding: 6px 8px; border: 0.5px solid var(--b2);
+  border-radius: 8px; font-size: 12px;
+  background: #fafafa; color: var(--t);
+  font-family: inherit;
+}
+select:focus { outline: none; border-color: var(--ba); }
+
+.foot {
+  font-size: 11px; color: var(--tm); text-align: center;
+  padding: 10px; border-top: 0.5px solid var(--b);
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ===== 顶部导航 ===== -->
+  <div class="topbar">
+    <div class="tl">
+      <h1>🌍 舒心市</h1>
+    </div>
+    <div class="tr">
+      <button class="icon-btn" onclick="reloadData()">🔄</button>
+      <button class="icon-btn" onclick="goBack()">‹</button>
+    </div>
+  </div>
+
+  <!-- ===== 4个功能Tab ===== -->
+  <div class="tab4" id="tab4">
+    <button class="t4 active" data-t="overview" onclick="switchTab('overview')">
+      <span class="em">🗺️</span><span class="nm">概览</span>
+    </button>
+    <button class="t4" data-t="detail" onclick="switchTab('detail')">
+      <span class="em">📋</span><span class="nm">区域</span>
+    </button>
+    <button class="t4" data-t="landmark" onclick="switchTab('landmark')">
+      <span class="em">🏷️</span><span class="nm">地标</span>
+    </button>
+    <button class="t4" data-t="commute" onclick="switchTab('commute')">
+      <span class="em">🚗</span><span class="nm">通勤</span>
+    </button>
+  </div>
+
+  <!-- ===== 内容区 ===== -->
+  <div class="content" id="contentArea"></div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="tab-bar">
+    <button class="tab-item" onclick="location.href='index.html'">
+      <span class="icon">💬</span>朵聊
+    </button>
+    <button class="tab-item" onclick="location.href='show.html'">
+      <span class="icon">👤</span>角色
+    </button>
+    <button class="tab-item active" onclick="location.href='world.html'">
+      <span class="icon">🌍</span>世界
+    </button>
+    <button class="tab-item" onclick="location.href='index.html#me'">
+      <span class="icon">👤</span>我的
+    </button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+//  世界观 · world.html（完整修复版）
+// ================================================================
+
+let cityData = null;
+let currentTab = 'overview';
+let selectedDistrict = null;
+
+// ===== 返回 =====
+function goBack() {
+  if (window.history.length > 1) window.history.back();
+  else location.href = 'index.html';
+}
+
+// ===== 修正图片路径 =====
+function fixImagePath(path) {
+  if (!path) return null;
+  if (path.startsWith('http') || path.startsWith('data:')) return path;
+  if (path.includes('./d/')) return path;
+  return './d/' + path;
+}
+
+// ===== 加载数据 =====
+async function loadData() {
+  try {
+    const resp = await fetch('./d/data.json?t=' + Date.now());
+    if (resp.ok) {
+      cityData = await resp.json();
+      console.log('✅ 世界观数据加载成功');
+    } else {
+      cityData = getFallbackData();
+    }
+  } catch (e) {
+    cityData = getFallbackData();
+  }
+  renderOverview();
+}
+
+// ===== 后备数据 =====
+function getFallbackData() {
+  return {
+    city: '舒心市',
+    citySub: '山东省 · 九宫格棋盘结构',
+    city_bg_image: 'img/city.jpg',
+    districts: [
+      { name: '星湖区', emoji: '🌅', style: '生态·公园', coord: [1,1], description: '城市西北的生态门户', bg_image: 'img/xinghuqu.jpg' },
+      { name: '云澜区', emoji: '🏛️', style: '行政·文化', coord: [1,2], description: '正北方的行政中心', bg_image: 'img/yunlanqu.jpg' },
+      { name: '晴川区', emoji: '🌉', style: '滨河·休闲', coord: [1,3], description: '东北的晴川河畔风光带', bg_image: 'img/qingchuanqu.jpg' },
+      { name: '暖阳区', emoji: '📖', style: '文艺·书店', coord: [2,1], description: '城市正西的文艺聚居区', bg_image: 'img/nuanyangqu.jpg' },
+      { name: '锦华区', emoji: '🏙️', style: '高端·CBD', coord: [2,2], description: '绝对的城市正中心', bg_image: 'img/jinhuaqu.jpg' },
+      { name: '悦城区', emoji: '🌙', style: '商务·酒店', coord: [2,3], description: '正东方的酒店商务高端区', bg_image: 'img/yuechengqu.jpg' },
+      { name: '安澜区', emoji: '🌿', style: '生态·静谧', coord: [3,1], description: '西南的静谧生态区', bg_image: 'img/anlanqu.jpg' },
+      { name: '月华区', emoji: '🌸', style: '商业·繁华', coord: [3,2], description: '城市正南的超级商圈', bg_image: 'img/yuehuaqu.jpg' },
+      { name: '欣荣区', emoji: '⚡', style: '产业·活力', coord: [3,3], description: '东南的新兴产业园', bg_image: 'img/xinrongqu.jpg' }
+    ],
+    landmarks: [
+      { name: '星湖公园', category: '景点', district: '星湖区', coord: [1,1], address: '望湖街与星光街交叉口' },
+      { name: '舒心市图书馆', category: '学校', district: '云澜区', coord: [2,4], address: '望湖街与和风街交叉口' },
+      { name: '新华书店', category: '购物', district: '暖阳区', coord: [4,1], address: '暖阳街与暖阳街交叉口', owner: '小雅' },
+      { name: '天鹅湖酒店', category: '酒店', district: '悦城区', coord: [4,7], address: '悦心街与蓝湾街交叉口', owner: '白洁' },
+      { name: '综合人民医院', category: '医疗', district: '月华区', coord: [8,4], address: '安澜街与逐风街交叉口', owner: '甜小朵' },
+      { name: '万达广场', category: '购物', district: '月华区', coord: [7,5], address: '月华街与阳光街交叉口' }
+    ],
+    personas: [
+      { slot: 'a', name: '甜小朵', emoji: '🌸', district: '月华区', home_coord: [9,4], home_addr: '南丁格尔公寓' },
+      { slot: 'b', name: '白洁', emoji: '🌙', district: '悦城区', home_coord: [6,7], home_addr: '蓝丝绒公寓' },
+      { slot: 'c', name: '小雅', emoji: '📚', district: '暖阳区', home_coord: [6,1], home_addr: '新华公寓' },
+      { slot: 'd', name: '小舒', emoji: '🌆', district: '锦华区', home_coord: [6,5], home_addr: '城市服务中心' }
+    ]
+  };
+}
+
+// ===== Tab切换 =====
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.t4').forEach(el => {
+    el.classList.toggle('active', el.dataset.t === tab);
+  });
+  if (tab === 'overview') renderOverview();
+  else if (tab === 'detail') renderDistricts();
+  else if (tab === 'landmark') renderLandmarks();
+  else if (tab === 'commute') renderCommute();
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+// ===== 概览 =====
+function renderOverview() {
+  const container = document.getElementById('contentArea');
+  const ds = cityData.districts || [];
+  const sorted = [...ds].sort((a,b) => (a.coord[0]-b.coord[0])*10 + (a.coord[1]-b.coord[1]));
+
+  const cityBg = fixImagePath(cityData.city_bg_image);
+  const cityStyle = cityBg
+    ? `background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.85) 100%), url('${cityBg}'); background-size: cover; background-position: center; min-height: 90px;`
+    : 'background: #f5f5f5; min-height: 70px;';
+
+  let gridHtml = '';
+  sorted.forEach(d => {
+    const pers = (cityData.personas || []).filter(p => p.district === d.name);
+    let dots = '';
+    pers.forEach(p => dots += `<span class="gp-dot ${p.slot}">${p.slot.toUpperCase()}</span>`);
+    const bgImg = fixImagePath(d.bg_image);
+    const hasBg = !!bgImg;
+    const bgStyle = hasBg
+      ? `background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%), url('${bgImg}'); background-size: cover; background-position: center;`
+      : '';
+    gridHtml += `
+      <div class="g-cell ${hasBg ? 'has-bg' : ''}" style="${bgStyle}" onclick="selectDistrict('${d.name}')">
+        <div class="gd">${d.coord[0]},${d.coord[1]}</div>
+        <div class="ge">${d.emoji}</div>
+        <div>
+          <div class="gn">${d.name}</div>
+          <div class="gs">${d.style || ''}</div>
+        </div>
+        ${dots ? `<div class="gperson">${dots}</div>` : ''}
+      </div>
+    `;
+  });
+
+  const persons = (cityData.personas || []).map(p => `
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:0.5px solid #f5f5f5;">
+      <span style="font-size:18px;">${p.emoji}</span>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:500;">${p.name}</div>
+        <div style="font-size:10px;color:var(--tm);">🏠 ${p.home_addr || p.district}</div>
+      </div>
+      <span style="font-size:10px;color:var(--tm);">${p.district}</span>
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="card">
+      <div style="border-radius:10px;padding:14px 16px;${cityStyle}display:flex;flex-direction:column;justify-content:center;margin-bottom:10px;">
+        <div style="font-size:18px;font-weight:700;color:var(--t);">🌆 ${cityData.city || '舒心市'}</div>
+        <div style="font-size:12px;color:#666;margin-top:2px;">${cityData.citySub || ''}</div>
+      </div>
+      <div class="card-title">🗺️ 城市全景 <span class="badge">${ds.length} 区 · ${(cityData.landmarks||[]).length} 地标</span></div>
+      <div class="grid33">${gridHtml}</div>
+      <div style="margin-top:10px;font-size:10px;color:var(--tm);">💡 点击区域查看详情</div>
+    </div>
+    <div class="card">
+      <div class="card-title">👥 市民</div>
+      ${persons}
+    </div>
+    <div class="foot">数据：d/data.json</div>
+  `;
+}
+
+// ===== 区域详情 =====
+function selectDistrict(name) {
+  selectedDistrict = name;
+  switchTab('detail');
+}
+
+function renderDistricts() {
+  const container = document.getElementById('contentArea');
+  const ds = cityData.districts || [];
+  const target = selectedDistrict ? ds.find(d => d.name === selectedDistrict) : ds[0];
+  if (!target) {
+    container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--tm);">暂无区域数据</div>';
+    return;
+  }
+
+  const lms = (cityData.landmarks || []).filter(l => l.district === target.name);
+  const pers = (cityData.personas || []).filter(p => p.district === target.name);
+
+  const bgImg = fixImagePath(target.bg_image);
+  const heroStyle = bgImg
+    ? `background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 100%), url('${bgImg}'); background-size: cover; background-position: center; min-height: 100px;`
+    : 'background: #f5f5f5; min-height: 70px;';
+
+  let lmHtml = lms.length ? lms.map(l => `
+    <div class="lm-item" onclick="openLandmark('${l.name.replace(/'/g,"\\'")}')">
+      <span class="icon">📍</span>
+      <div class="info">
+        <div class="name">${l.name}${l.owner ? '（' + l.owner + '）' : ''}</div>
+        <div class="addr">${l.address || '—'}</div>
+      </div>
+      <span class="cat">${l.category || '其他'}</span>
+    </div>
+  `).join('') : '<div style="padding:8px;color:var(--tm);font-size:12px;">本区暂无地标</div>';
+
+  let persHtml = pers.length ? pers.map(p => `
+    <span class="pill">${p.emoji} ${p.name}</span>
+  `).join('') : '—';
+
+  // ✅ 修复：小卡片也带背景图
+  let quickNav = '';
+  ds.sort((a,b) => (a.coord[0]-b.coord[0])*10 + (a.coord[1]-b.coord[1])).forEach(d => {
+    const active = d.name === target.name;
+    const bgImgSmall = fixImagePath(d.bg_image);
+    const hasBgSmall = !!bgImgSmall;
+    const bgStyleSmall = hasBgSmall
+      ? `background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%), url('${bgImgSmall}'); background-size: cover; background-position: center;`
+      : `background: ${active ? '#e3f2fd' : '#f5f5f5'};`;
+    const textColor = hasBgSmall ? 'color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.6);' : 'color:var(--t);';
+    const borderColor = active ? 'var(--ba)' : (hasBgSmall ? 'rgba(255,255,255,0.2)' : 'var(--b)');
+    quickNav += `<button class="g-cell has-bg" style="padding:4px;text-align:center;border-color:${borderColor};${bgStyleSmall}" onclick="selectDistrict('${d.name}')">
+      <div style="font-size:16px;${textColor}">${d.emoji}</div>
+      <div style="font-size:8px;${textColor}">${d.name}</div>
+    </button>`;
+  });
+
+  container.innerHTML = `
+    <div class="card">
+      <div class="card-title">📋 区域详情 <span class="badge">${target.coord[0]},${target.coord[1]}</span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:10px;">${quickNav}</div>
+      <div style="border-radius:10px;padding:14px 16px;${heroStyle}display:flex;flex-direction:column;justify-content:flex-end;">
+        <div style="font-size:18px;font-weight:700;color:var(--t);">${target.emoji} ${target.name}</div>
+        <div style="font-size:12px;color:#666;">${target.style || ''}</div>
+      </div>
+      <div style="font-size:13px;color:var(--t);margin-top:8px;padding:8px;background:#f8f8f8;border-radius:8px;">${target.description || '暂无介绍'}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">👥 本区市民</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">${persHtml}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏷️ 地标 <span class="badge">${lms.length}</span></div>
+      ${lmHtml}
+    </div>
+    <div class="foot">区域：${target.name}</div>
+  `;
+}
+
+// ===== 地标 =====
+function renderLandmarks() {
+  const container = document.getElementById('contentArea');
+  const lms = cityData.landmarks || [];
+  const cats = ['全部', ...new Set(lms.map(l => l.category).filter(Boolean))];
+
+  let filterHtml = '';
+  cats.forEach(c => {
+    const active = c === '全部' ? 'active' : '';
+    filterHtml += `<span class="pill filter-chip ${active}" data-cat="${c}" onclick="filterLandmark('${c}')">${c}</span>`;
+  });
+
+  let listHtml = lms.map(l => `
+    <div class="lm-item" onclick="openLandmark('${l.name.replace(/'/g,"\\'")}')">
+      <span class="icon">📍</span>
+      <div class="info">
+        <div class="name">${l.name}${l.owner ? ' <span style="font-size:10px;color:#666;">（' + l.owner + '）</span>' : ''}</div>
+        <div class="addr">${l.address || l.district || '—'}</div>
+      </div>
+      <span class="cat">${l.category || '其他'}</span>
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="card">
+      <div class="card-title">🏷️ 地标列表 <span class="badge">${lms.length}</span></div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">${filterHtml}</div>
+      <div id="lmList">${listHtml}</div>
+    </div>
+    <div class="foot">地标数据：d/data.json → landmarks</div>
+  `;
+}
+
+// ✅ 修复：分类切换 + 高亮跟随 + 平滑动画
+function filterLandmark(cat) {
+  const lms = cityData.landmarks || [];
+  const filtered = cat === '全部' ? lms : lms.filter(l => l.category === cat);
+  const container = document.getElementById('lmList');
+  if (container) {
+    container.innerHTML = filtered.length ? filtered.map(l => `
+      <div class="lm-item" onclick="openLandmark('${l.name.replace(/'/g,"\\'")}')">
+        <span class="icon">📍</span>
+        <div class="info">
+          <div class="name">${l.name}${l.owner ? ' <span style="font-size:10px;color:#666;">（' + l.owner + '）</span>' : ''}</div>
+          <div class="addr">${l.address || l.district || '—'}</div>
+        </div>
+        <span class="cat">${l.category || '其他'}</span>
+      </div>
+    `).join('') : '<div style="padding:8px;color:var(--tm);font-size:12px;">无此分类地标</div>';
+  }
+
+  // 更新按钮状态（平滑动画）
+  document.querySelectorAll('.filter-chip').forEach(el => {
+    const isActive = el.dataset.cat === cat;
+    el.classList.toggle('active', isActive);
+  });
+}
+
+// ===== 地标详情弹窗 =====
+function openLandmark(name) {
+  const l = (cityData.landmarks || []).find(x => x.name === name);
+  if (!l) return;
+  alert('📍 ' + l.name + '\n' + (l.address || '—') + '\n' + (l.district || ''));
+}
+
+// ===== 通勤 =====
+function renderCommute() {
+  const container = document.getElementById('contentArea');
+  const ds = cityData.districts || [];
+  const ps = cityData.personas || [];
+  const lms = cityData.landmarks || [];
+
+  let fromOpts = '', toOpts = '';
+
+  // 人设家
+  ps.forEach(p => {
+    const label = p.emoji + ' ' + p.name + '家';
+    fromOpts += `<option value="${p.slot}">${label}</option>`;
+    toOpts += `<option value="${p.slot}">${label}</option>`;
+  });
+
+  // 地标
+  lms.forEach(l => {
+    const label = '📍 ' + l.name;
+    fromOpts += `<option value="${l.name}">${label}</option>`;
+    toOpts += `<option value="${l.name}">${label}</option>`;
+  });
+
+  // 区域
+  ds.forEach(d => {
+    const label = d.emoji + ' ' + d.name;
+    fromOpts += `<option value="${d.name}">${label}</option>`;
+    toOpts += `<option value="${d.name}">${label}</option>`;
+  });
+
+  container.innerHTML = `
+    <div class="card">
+      <div class="card-title">🚗 通勤计算 <span class="badge">曼哈顿距离</span></div>
+      <div style="font-size:13px;color:var(--t);margin-bottom:6px;">📍 起点 → 终点</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+        <div style="display:flex;gap:6px;">
+          <select id="fromSelect" style="flex:1;">${fromOpts}</select>
+          <span style="padding:8px 4px;color:var(--tm);">→</span>
+          <select id="toSelect" style="flex:1;">${toOpts}</select>
+        </div>
+        <button onclick="calcRoute()" style="padding:8px;background:var(--ba);color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;font-family:inherit;">🧭 计算通勤</button>
+      </div>
+      <div id="routeResult" style="padding:10px;background:#f8f8f8;border-radius:8px;font-size:13px;color:var(--tm);text-align:center;">选择起点和终点后点击计算</div>
+    </div>
+    <div class="foot">通勤规则：1格 = 500米 · 开车分4档时段</div>
+  `;
+}
+
+// ===== 通勤计算 =====
+function calcRoute() {
+  const from = document.getElementById('fromSelect').value;
+  const to = document.getElementById('toSelect').value;
+
+  // 坐标映射
+  const coords = {
+    'a': [9,4], 'b': [6,7], 'c': [6,1], 'd': [6,5],
+    '星湖区': [1,1], '云澜区': [1,2], '晴川区': [1,3],
+    '暖阳区': [2,1], '锦华区': [2,2], '悦城区': [2,3],
+    '安澜区': [3,1], '月华区': [3,2], '欣荣区': [3,3]
+  };
+  // 地标坐标
+  if (cityData && cityData.landmarks) {
+    cityData.landmarks.forEach(l => {
+      if (l.coord) coords[l.name] = l.coord;
+    });
+  }
+
+  const names = {
+    'a': '甜小朵家', 'b': '白洁家', 'c': '小雅家', 'd': '小舒家'
+  };
+
+  const fromCoord = coords[from] || [0,0];
+  const toCoord = coords[to] || [0,0];
+  const dist = Math.abs(fromCoord[0] - toCoord[0]) + Math.abs(fromCoord[1] - toCoord[1]);
+  const km = (dist * 0.5).toFixed(1);
+
+  const walk = Math.round(dist * 7.5);
+  const ebike = Math.round(dist * 1.2);
+  const bus = Math.round(dist * 1.67);
+
+  const hour = new Date().getHours();
+  let slotLabel = '', slotSpeed = '', driveTime = 0;
+  if (hour >= 7 && hour < 9) {
+    slotLabel = '🌅 早高峰 07:00-09:00'; slotSpeed = '12 km/h'; driveTime = Math.round(dist * 2.50);
+  } else if (hour >= 9 && hour < 17) {
+    slotLabel = '☀️ 白天平峰 09:00-17:00'; slotSpeed = '30 km/h'; driveTime = Math.round(dist * 1.00);
+  } else if (hour >= 17 && hour < 19) {
+    slotLabel = '🌇 晚高峰 17:00-19:00'; slotSpeed = '15 km/h'; driveTime = Math.round(dist * 2.00);
+  } else {
+    slotLabel = '🌙 夜间畅通 19:00-07:00'; slotSpeed = '45 km/h'; driveTime = Math.round(dist * 0.67);
+  }
+
+  const slots = {
+    morning_peak: { label: '🌅 早高峰', time: Math.round(dist * 2.50) },
+    daytime_flat: { label: '☀️ 平峰', time: Math.round(dist * 1.00) },
+    evening_peak: { label: '🌇 晚高峰', time: Math.round(dist * 2.00) },
+    night_clear: { label: '🌙 夜间', time: Math.round(dist * 0.67) }
+  };
+
+  const isPeak = (hour >= 7 && hour < 9) || (hour >= 17 && hour < 19);
+  let recommendMode = 'walk', recommendText = '';
+  if (dist === 0) { recommendText = '🚪 同一个地方'; }
+  else if (dist <= 2) { recommendMode = 'walk'; recommendText = '🚶 步行即可（1km内）'; }
+  else if (dist <= 6) { recommendMode = 'ebike'; recommendText = isPeak ? '🛵 高峰时段电动车比开车快！' : '🛵 电动车最方便'; }
+  else if (dist <= 10) { recommendMode = isPeak ? 'ebike' : 'drive'; recommendText = isPeak ? '🛵 高峰电车更快' : '🚗 开车或电车都行'; }
+  else { recommendMode = (hour >= 19 || hour < 7) ? 'drive' : (isPeak ? 'bus' : 'drive');
+    recommendText = (hour >= 19 || hour < 7) ? '🚗 夜间畅通，开车最快' : (isPeak ? '🚌 太远+高峰，公交或打车' : '🚗 距离远，开车最合适'); }
+
+  const fromName = names[from] || from;
+  const toName = to;
+
+  document.getElementById('routeResult').innerHTML = `
+    <div style="text-align:left;color:var(--t);">
+      <div style="margin-bottom:4px;">🚩 ${fromName} → 🏁 ${toName}</div>
+      <div style="color:var(--tm);font-size:12px;">📐 ${dist} 格 = ${km} km</div>
+      <div style="margin:8px 0;padding:6px 10px;background:var(--bg-soft);border-radius:6px;font-size:12px;">
+        ⭐ 推荐：<b>${recommendText}</b>
+      </div>
+      <div class="route-result-grid">
+        <div class="route-card ${recommendMode === 'walk' ? 'recommend' : ''}">
+          <div class="icon">🚶</div>
+          <div class="time">${walk} min</div>
+          <div class="label">步行</div>
+        </div>
+        <div class="route-card ${recommendMode === 'ebike' ? 'recommend' : ''}">
+          <div class="icon">🛵</div>
+          <div class="time">${ebike} min</div>
+          <div class="label">电动车</div>
+        </div>
+        <div class="route-card ${recommendMode === 'bus' ? 'recommend' : ''}">
+          <div class="icon">🚌</div>
+          <div class="time">${bus} min</div>
+          <div class="label">公交</div>
+        </div>
+        <div class="route-card ${recommendMode === 'drive' ? 'recommend' : ''}">
+          <div class="icon">🚗</div>
+          <div class="time">${driveTime} min</div>
+          <div class="label">开车</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;padding:8px 10px;background:#f8f8f8;border-radius:6px;border:0.5px solid var(--b);">
+        <div style="font-size:11px;font-weight:600;color:var(--tm);margin-bottom:4px;">🚗 开车4档时段</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+          ${Object.entries(slots).map(([key, val]) => `
+            <div style="padding:3px 6px;background:${key === 'morning_peak' || key === 'evening_peak' ? '#fff3e0' : '#f5f5f5'};border-radius:4px;font-size:10px;display:flex;justify-content:space-between;">
+              <span>${val.label}</span>
+              <span style="font-weight:600;">${val.time}min</span>
+            </div>
+          `).join('')}
+        </div>
+        <div style="font-size:9px;color:var(--tm);margin-top:4px;">当前：${slotLabel}（${slotSpeed}）</div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== 刷新 =====
+function reloadData() {
+  loadData();
+}
+
+// ===== 初始化 =====
+window.goBack = goBack;
+window.switchTab = switchTab;
+window.selectDistrict = selectDistrict;
+window.filterLandmark = filterLandmark;
+window.openLandmark = openLandmark;
+window.calcRoute = calcRoute;
+window.reloadData = reloadData;
+
+loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+{
+  "story_id": "crime_01",
+  "title": "毒奶茶事件",
+  "genre": "刑侦",
+  "difficulty": 4,
+  "estimated_sessions": 5,
+  "description": "舒心市人气连锁奶茶品牌「茶语甜心」多家门店发生集体中毒事件，累计23人出现中毒症状，其中1人死亡。经法医鉴定为罕见的生物碱中毒，警方锁定犯罪嫌疑人……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "中央商务区",
+    "crime_scene": {
+      "block_id": "C5",
+      "name": "茶语甜心总店",
+      "global_coord": [3, 5],
+      "description": "位于CBD核心商圈的旗舰奶茶店，日均客流量超2000人次"
+    },
+    "related_locations": [
+      {
+        "block_id": "C4",
+        "name": "茶语甜心中央厨房",
+        "global_coord": [3, 4],
+        "distance_from_scene": 1,
+        "description": "奶茶原料调配中心，所有门店原料从此发出"
+      },
+      {
+        "block_id": "C6",
+        "name": "舒心市食品药品监督管理局",
+        "global_coord": [3, 6],
+        "distance_from_scene": 1,
+        "description": "负责食品药品安全监管的政府机构"
+      },
+      {
+        "block_id": "B5",
+        "name": "甜心对手「奶茶工坊」总部",
+        "global_coord": [2, 5],
+        "distance_from_scene": 1,
+        "description": "竞争品牌总部大楼，与茶语甜心仅一街之隔"
+      },
+      {
+        "block_id": "D5",
+        "name": "中央商务区派出所",
+        "global_coord": [4, 5],
+        "distance_from_scene": 1,
+        "description": "辖区派出所，负责案件初步调查"
+      },
+      {
+        "block_id": "C2",
+        "name": "星湖医学院法医鉴定中心",
+        "global_coord": [3, 2],
+        "distance_from_scene": 3,
+        "description": "法医毒物检测实验室所在地"
+      },
+      {
+        "block_id": "E5",
+        "name": "舒心市第一人民医院",
+        "global_coord": [5, 5],
+        "distance_from_scene": 2,
+        "description": "收治中毒患者的三甲医院"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "林晓晴",
+    "age": 28,
+    "occupation": "茶语甜心市场部经理",
+    "time_of_death": "2026年6月15日 16:00",
+    "cause_of_death": "乌头碱中毒导致的恶性心律失常",
+    "last_seen": "15:30 在总店点了一杯招牌奶茶后返回办公室",
+    "autopsy_findings": {
+      "toxicology": "血液中检出乌头碱成分，浓度为0.3μg/g（致死量约0.05μg/g）",
+      "pathology": "心室颤动，心肌细胞变性坏死，符合生物碱中毒特征",
+      "time_of_death_estimate": "根据胃内容物消化程度，死亡时间约在最后一餐30分钟后"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "集体中毒事件",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "赶赴现场处置",
+        "询问幸存中毒者",
+        "初步勘查奶茶店"
+      ],
+      "available_clues": [
+        {
+          "id": "c_toxic_milk",
+          "name": "毒奶茶样本",
+          "description": "从死者办公桌剩余奶茶中提取的样本，呈淡琥珀色，有微弱苦味",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_same_batch",
+          "name": "同批次中毒",
+          "description": "所有中毒者均饮用了6月15日14:00-15:00时段调配的奶茶",
+          "source": "统计分析"
+        },
+        {
+          "id": "c_ingredient_source",
+          "name": "原料来源",
+          "description": "该时段奶茶使用的是中央厨房C4调配的珍珠原料",
+          "source": "供应链追溯"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "店长王芳",
+          "appearance": "30岁，扎着马尾辫，脸色苍白，双手不停颤抖",
+          "info_to_provide": [
+            "今天下午14点那批奶茶出问题了……",
+            "我们的原料都是中央厨房统一配送的",
+            "我真的不知道怎么回事，我自己也喝了一杯，但是少量所以没事",
+            "监控显示配送员13:50送来原料的"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "茶语甜心总店",
+            "time_range": "13:00-16:00",
+            "distance_to_crime": 0,
+            "commute_time_by_walk": 0,
+            "valid": true,
+            "alibi_note": "店内监控全程记录，但不排除有投毒可能"
+          }
+        },
+        {
+          "npc": "幸存中毒者小李",
+          "appearance": "22岁，面色潮红，捂着肚子蜷缩在地上",
+          "info_to_provide": [
+            "我……我只是买了杯奶茶，为什么会这样……",
+            "那个奶茶味道怪怪的，有股说不出的涩味",
+            "我喝完大概20分钟就开始头晕",
+            "我是外卖员，每天都来这家店买下午茶"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "茶语甜心总店门口",
+            "time_range": "15:00-15:20",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "中毒者，无作案动机"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现奶茶中的毒物来源",
+        "锁定投毒的可能途径"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "竞争对手的阴影",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "调查中央厨房",
+        "调查竞争对手",
+        "分析毒物获取渠道"
+      ],
+      "available_clues": [
+        {
+          "id": "c_competitor_motive",
+          "name": "竞争关系",
+          "description": "茶语甜心去年抢占了奶茶工坊35%的市场份额，双方矛盾公开化",
+          "source": "行业调查"
+        },
+        {
+          "id": "c_poison_access",
+          "name": "毒物获取记录",
+          "description": "奶茶工坊前员工赵磊曾通过网上渠道购买过含乌头碱成分的中药材料",
+          "source": "网络数据追踪"
+        },
+        {
+          "id": "c_kitchen_log",
+          "name": "中央厨房出入记录",
+          "description": "6月15日13:00-14:00期间，一名陌生男子进入中央厨房区域",
+          "source": "中央厨房门禁记录"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "中央厨房主管张彪",
+          "appearance": "42岁，身材魁梧，脸上有一道疤痕",
+          "info_to_provide": [
+            "我今天12点就出去办事了，下午3点才回来",
+            "我们厨房的安保很严的，每个进出的人都要有权限",
+            "那个时段值班的是小李，他是新人",
+            "小李刚来两周，之前在奶茶工坊干过"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "城东建材市场",
+            "time_range": "12:00-15:00",
+            "distance_to_crime": 5,
+            "commute_time_by_drive": 25,
+            "valid": false,
+            "alibi_note": "声称去采购，但没有购物凭证"
+          }
+        },
+        {
+          "npc": "奶茶工坊CEO陈总",
+          "appearance": "55岁，穿着考究的西装，表情冷淡",
+          "info_to_provide": [
+            "这事儿跟我有什么关系？你们有证据吗？",
+            "市场竞争就是这样，输了要从自己身上找原因",
+            "我最近一直在准备新品发布，很忙",
+            "我的助理可以证明我整个下午都在办公室"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "奶茶工坊总部",
+            "time_range": "10:00-18:00",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 5,
+            "valid": false,
+            "alibi_note": "声称在办公室工作，助理作证，但监控显示他14:00-14:30不在办公室"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定毒物投放的具体时间和方式",
+        "找到毒物购买的直接证据"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "毒物溯源",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "法医毒物分析报告出结果",
+        "追查毒物购买途径",
+        "锁定嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_forensic_report",
+          "name": "法医毒物报告",
+          "description": "死者血液中检出的乌头碱为人工合成衍生物，非天然草药来源",
+          "source": "星湖医学院法医鉴定中心"
+        },
+        {
+          "id": "c_surveillance_footage",
+          "name": "中央厨房监控",
+          "description": "一名戴着鸭舌帽的男子在13:52-13:55进入厨房原料区，停留3分钟后离开",
+          "source": "中央厨房监控录像"
+        },
+        {
+          "id": "c_purchase_record",
+          "name": "网络购买记录",
+          "description": "使用虚拟货币在暗网购买了5克合成乌头碱衍生物，收货地址为奶茶工坊附近的快递柜",
+          "source": "网络诈骗调查协作组"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "法医刘主任",
+          "appearance": "52岁，戴着厚厚的眼镜，穿着白大褂",
+          "info_to_provide": [
+            "这是一种罕见的合成生物碱，起效快，隐蔽性强",
+            "天然乌头碱存在于某些中药中，但此案中的是人工合成品",
+            "根据血液浓度判断，投毒量约为50-80毫克",
+            "致死时间与摄入量有关，一般30分钟内发作"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "法医鉴定中心",
+            "time_range": "全天",
+            "distance_to_crime": 3,
+            "valid": true,
+            "alibi_note": "全程在实验室工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定投毒者身份",
+        "完成证据链构建"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "水落石出",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露真凶",
+        "交代作案手法和动机",
+        "结案"
+      ],
+      "ending": {
+        "truth": "凶手是奶茶工坊CEO陈总。他为了在市场竞争中击垮茶语甜心，雇佣前员工赵磊通过暗网购买了合成乌头碱衍生物，并指使赵磊冒充配送人员在13:52进入中央厨房，将毒物投入珍珠原料桶中。陈总本人在14:00-14:30亲自到现场附近监看效果。",
+        "key_evidence": [
+          "中央厨房监控中的可疑男子身影（与赵磊外貌特征匹配）",
+          "暗网购买记录的收货地址指向奶茶工坊附近",
+          "赵磊的银行账户在案发后收到一笔5万元的转账（来自陈总个人账户）",
+          "毒物鉴定结果证明为人工合成品，排除天然中毒可能",
+          "陈总办公室监控缺失的时间段与投毒时间吻合"
+        ],
+        "red_herrings": [
+          "中央厨房主管张彪的可疑不在场证明（他确实在采购，但采购的是厨房设备）",
+          "店长王芳的紧张表现（她只是被吓到了，与案件无关）",
+          "幸存中毒者小李的证词（他只是普通消费者）"
+        ],
+        "resolutions": {
+          "陈总": "因故意杀人罪和故意伤害罪被逮捕，奶茶工坊被勒令停业整顿",
+          "赵磊": "作为共犯被捕，交代了投毒的全部经过",
+          "店长王芳": "被洗脱嫌疑，继续在茶语甜心工作",
+          "幸存中毒者": "陆续康复，茶语甜心推出安全保障计划"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "奶茶工坊CEO陈总",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "55岁，竞争对手老板，与茶语甜心有激烈市场竞争",
+      "alibi": {
+        "location": "奶茶工坊总部",
+        "time_range": "10:00-18:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "commute_time_by_drive": 3,
+        "valid": false,
+        "alibi_note": "声称全天在办公室，但14:00-14:30监控缺失"
+      },
+      "motive_tease": "商业竞争失利，意欲搞垮竞争对手"
+    },
+    {
+      "name": "中央厨房主管张彪",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "42岁，中央厨房负责人，有管理疏漏嫌疑",
+      "alibi": {
+        "location": "城东建材市场",
+        "time_range": "12:00-15:00",
+        "distance_to_crime": 5,
+        "commute_time_by_drive": 25,
+        "valid": false,
+        "alibi_note": "声称采购但无凭证"
+      },
+      "motive_tease": "可能被竞争对手收买，或因管理失职而隐瞒"
+    },
+    {
+      "name": "中央厨房新员工小李",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "20岁，新入职两周，之前在奶茶工坊工作",
+      "alibi": {
+        "location": "中央厨房",
+        "time_range": "13:00-15:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 0,
+        "valid": false,
+        "alibi_note": "声称在岗位上，但13:50-13:55行踪不明"
+      },
+      "motive_tease": "可能是竞争对手安插的内鬼"
+    },
+    {
+      "name": "店长王芳",
+      "role": "证人",
+      "status": "witness",
+      "description": "30岁，茶语甜心总店店长，第一个发现异常的人",
+      "alibi": {
+        "location": "茶语甜心总店",
+        "time_range": "13:00-16:00",
+        "distance_to_crime": 0,
+        "valid": true,
+        "alibi_note": "店内监控全程记录"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "2026年6月15日下午，舒心市CBD的茶语甜心旗舰店里，一场突如其来的中毒事件打破了午后的宁静……",
+    "atmosphere": "繁华的CBD商圈，奶茶店门前依然排着长队，店堂内弥漫着奶茶的甜香。然而，当林晓晴喝下那杯招牌奶茶后，一切都开始失控。短短30分钟内，23人先后出现中毒症状……",
+    "victim_intro": "死者林晓晴，28岁，茶语甜心市场部经理。她喝下的那杯奶茶中被投入了罕见的人工合成生物碱——乌头碱衍生物，导致恶性心律失常死亡。",
+    "task_intro": "作为一名刑侦调查员，你需要：\n1. 第一时间赶赴现场，救治中毒人员\n2. 提取奶茶样本，送法医毒物检测\n3. 追溯原料供应链，锁定投毒途径\n4. 调查竞争对手及相关人员\n5. 构建完整证据链，将罪犯绳之以法"
+  }
+}

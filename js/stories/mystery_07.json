@@ -1,0 +1,344 @@
+{
+  "story_id": "mystery_07",
+  "title": "完美不在场证明",
+  "genre": "推理悬疑",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市著名音乐厅内，国际知名指挥家在演出前被发现死在化妆间。案发时段，所有嫌疑人都有完美的不在场证明——有的在台上演出，有的在后台忙碌，有的被监控拍到。但凶手就在他们中间。一个没有任何破绽的完美不在场证明，恰恰是最大的破绽……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "艺术中心区",
+    "crime_scene": {
+      "block_id": "E8",
+      "name": "舒心市音乐厅·主化妆间",
+      "global_coord": [5, 8],
+      "description": "现代化音乐厅的VIP化妆间，配备独立卫生间和休息室，案发前正准备一场国际音乐会"
+    },
+    "related_locations": [
+      {
+        "block_id": "E9",
+        "name": "音乐厅·主舞台",
+        "global_coord": [5, 9],
+        "distance_from_scene": 1,
+        "description": "正在进行演出的主舞台，1200名观众在座"
+      },
+      {
+        "block_id": "E7",
+        "name": "音乐厅·后台走廊",
+        "global_coord": [5, 7],
+        "distance_from_scene": 1,
+        "description": "通往化妆间的后台走廊，装有多处监控"
+      },
+      {
+        "block_id": "D8",
+        "name": "音乐厅·排练室",
+        "global_coord": [4, 8],
+        "distance_from_scene": 1,
+        "description": "乐队成员的排练和休息区域"
+      },
+      {
+        "block_id": "F8",
+        "name": "音乐厅·观众入口",
+        "global_coord": [6, 8],
+        "distance_from_scene": 1,
+        "description": "观众进出区域，有安检和监控"
+      },
+      {
+        "block_id": "I8",
+        "name": "市中心总医院",
+        "global_coord": [9, 8],
+        "distance_from_scene": 4,
+        "description": "法医鉴定和急救支持"
+      },
+      {
+        "block_id": "A8",
+        "name": "音乐厅管理办公室",
+        "global_coord": [1, 8],
+        "distance_from_scene": 4,
+        "description": "音乐厅行政管理和安保中心"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "李云天",
+    "age": 45,
+    "occupation": "国际知名交响乐团首席指挥",
+    "time_of_death": "2026年11月15日 19:30-19:45",
+    "cause_of_death": "颈部被绳索勒至窒息，随后被伪装成心脏病发作",
+    "last_seen": "19:25 与管弦乐团员在后台交流后，独自返回化妆间"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "演出前的死亡",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查案发现场",
+        "确认案发时间",
+        "接触嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_smother_mark",
+          "name": "勒痕",
+          "description": "死者颈部有轻微的勒痕，但被衣领遮挡，初步法医检查时未发现。详细尸检后确认是绳索勒痕，致死方式为窒息后被伪装成心脏病",
+          "source": "详细尸检"
+        },
+        {
+          "id": "c_backstage_cctv",
+          "name": "后台监控",
+          "description": "19:25-19:45的后台走廊监控显示：这段时间内有4人经过化妆间门口——都是嫌疑人。但监控存在一个盲区：化妆间门口到走廊拐角的15米区域",
+          "source": "查看监控录像"
+        },
+        {
+          "id": "c_performance_schedule",
+          "name": "演出时间表",
+          "description": "演出计划19:30开始，19:25-19:45期间：小提琴手在舞台准备区（距化妆间50米），大提琴手在后台休息室（30米），钢琴手在钢琴旁（40米），乐队指挥在控制间（60米）",
+          "source": "演出日程表"
+        },
+        {
+          "id": "c_schedule_inconsistency",
+          "name": "时间矛盾",
+          "description": "演出原计划19:30准时开始，所有嫌疑人声称自己在19:30-19:45间都在各自的位置。但案发时间正是这段时间——凶手必须在不被任何人察觉的情况下移动到化妆间作案，再返回原位",
+          "source": "时间线分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "舞台经理·王姐",
+          "appearance": "40岁，干练短发，拿着对讲机，表情焦急",
+          "info_to_provide": [
+            "李老师是我们音乐厅的常客，每次来演出都是满座",
+            "演出前大家都很紧张，每个人都在忙自己的准备工作",
+            "19:25我在后台监督舞美，看到李老师一个人往化妆间走",
+            "19:45的时候，钢琴手去叫李老师，才发现他……",
+            "后台的监控盲区是个老问题，我们申请了好几次预算修复都没批"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "舞台侧台",
+            "time_range": "19:00-20:00",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 2,
+            "valid": true,
+            "witness": "多名舞台工作人员可证"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确定案发时间",
+        "获取监控录像"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "无懈可击",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "逐一核实嫌疑人的不在场证明",
+        "分析每个嫌疑人的行动路径",
+        "寻找破绽"
+      ],
+      "available_clues": [
+        {
+          "id": "c_performer_violin",
+          "name": "小提琴手的不在场证明",
+          "description": "小提琴手声称19:20-19:45一直在舞台准备区调琴。监控显示他确实在那里，但19:35-19:37的两分钟他转身背对监控，身体被其他乐器遮挡",
+          "source": "查看监控细节"
+        },
+        {
+          "id": "c_performer_cello",
+          "name": "大提琴手的不在场证明",
+          "description": "大提琴手声称在后台休息室休息，有另一位乐手作证。但那位乐生动称19:30后自己睡着了，实际上没注意到大提琴手是否真的一直在",
+          "source": "核实证词"
+        },
+        {
+          "id": "c_performer_piano",
+          "name": "钢琴手的不在场证明",
+          "description": "钢琴手声称在钢琴旁练习，监控19:25-19:45一直能看到他的背影在弹琴。但通过音频分析，发现19:32-19:40的琴声是录音！",
+          "source": "音频声纹分析"
+        },
+        {
+          "id": "c_performer_conductor",
+          "name": "乐队指挥的不在场证明",
+          "description": "乐队指挥声称在控制间与音响师调试设备。控制间监控显示他在19:20-19:45一直在，且有音响师作证",
+          "source": "核实证词"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "钢琴手·陈月",
+          "appearance": "28岁，优雅气质，手指修长，戴耳环但今天没戴",
+          "info_to_provide": [
+            "我一直在钢琴旁练习，你们可以去听现场录音",
+            "李老师是我的恩师，我不可能做这种事",
+            "19:32我确实停下来接了个电话，只有2分钟",
+            "录音？不可能，我从来不用录音代替现场演奏",
+            "耳环我今天忘戴了，因为太紧张"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "钢琴旁",
+            "time_range": "19:20-19:45",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 2,
+            "valid": false,
+            "alibi_note": "19:32-19:34接电话时背对监控，之后19:34-19:40琴声为录音"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现琴声是录音",
+        "分析钢琴手的行动路径"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "完美的漏洞",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "揭示不在场证明的破绽",
+        "还原作案手法",
+        "锁定凶手"
+      ],
+      "available_clues": [
+        {
+          "id": "c_recording_evidence",
+          "name": "录音时间差",
+          "description": "音频专家确认：19:32-19:40的琴声是之前录制的。钢琴手在这段时间有足够的时间从钢琴旁走到化妆间（约1分钟），完成杀人，再返回（约1分钟），总共约5-8分钟，剩余时间可以继续用录音",
+          "source": "声纹比对"
+        },
+        {
+          "id": "c_earring_clue",
+          "name": "没戴的耳环",
+          "description": "钢琴手平时演出必戴耳环，但案发当天她声称'忘戴了'。调查发现她的耳环掉在了化妆间门口——是她杀人过程中不小心蹭掉的，回去取的时候又没找到",
+          "source": "化妆间门口搜查"
+        },
+        {
+          "id": "c_motive_reveal",
+          "name": "师徒关系的裂痕",
+          "description": "钢琴手陈月是李云天的学生，但李云天最近公开批评陈月的演奏'缺乏情感'，并阻止她参加国际比赛。陈月的演奏生涯面临重大打击，这是她的致命动机",
+          "source": "人际关系调查"
+        },
+        {
+          "id": "c_weapon_trace",
+          "name": "凶器溯源",
+          "description": "凶手使用的绳索被丢弃在化妆间的垃圾桶里，上面有微量皮肤组织，DNA与陈月匹配。陈月在作案时戴了手套，但处理绳索时不小心触碰了内侧",
+          "source": "DNA鉴定"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "确定凶手身份",
+        "还原作案过程"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "完美的破绽",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露完整真相",
+        "分析不在场证明的设计",
+        "结案"
+      ],
+      "ending": {
+        "truth": "凶手是钢琴手陈月。她精心设计了一个完美的不在场证明：在钢琴旁时，用预先录制好的自己的演奏录音代替现场演奏，利用录音播放的5-8分钟间隙，快速走到化妆间用绳索勒死恩师李云天，然后返回继续'演奏'。她的不在场证明之所以看似完美，正是因为她制造了一个看似无懈可击的'被监控证明在场'的假象——但音频分析揭示了琴声是录音的真相，掉落的耳环成了意外的破绽，绳索上的微量DNA成了决定性证据。她的动机源于李云天阻止她参加重要比赛，多年的师徒之情被嫉妒和野心所吞噬。",
+        "key_evidence": [
+          "录音琴声——19:32-19:40的琴声非现场演奏，制造了时间空白",
+          "掉落的耳环——出现在化妆间门口，证明她去过现场",
+          "绳索上的DNA——直接物理证据",
+          "声音分析——揭示不在场证明的核心破绽",
+          "动机链条——比赛受阻+公开批评构成致命动机"
+        ],
+        "red_herrings": [
+          "小提琴手的两分钟背对监控——增加混乱度",
+          "大提琴手的模糊证词——他的'证人'证词实际不可靠",
+          "乐队指挥的完美不在场证明——真的无懈可击但与案件无关",
+          "监控盲区的存在——增加了分析难度"
+        ],
+        "resolutions": {
+          "陈月（钢琴手）": "被捕，以故意杀人罪起诉，判处无期徒刑，终身禁止从事音乐行业",
+          "音乐厅": "因安全管理漏洞被通报批评，全面升级监控系统",
+          "舞台经理王姐": "推动后台监控盲区修复，成为音乐厅安全负责人",
+          "李云天": "追悼音乐会如期举行，由他的学生们共同演出纪念"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "小提琴手·张浩",
+      "role": "乐团成员",
+      "status": "suspect",
+      "description": "32岁，首席小提琴手，李云天多年的合作伙伴，最近因被降职而心怀不满",
+      "alibi": {
+        "location": "舞台准备区",
+        "time_range": "19:20-19:45",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 3,
+        "valid": false,
+        "alibi_note": "19:35-19:37背对监控2分钟，有移动嫌疑"
+      },
+      "motive_tease": "被降职的不满，但缺乏关键证据"
+    },
+    {
+      "name": "大提琴手·林敏",
+      "role": "乐团成员",
+      "status": "suspect",
+      "description": "30岁，大提琴手，与李云天有财务纠纷（借款未还）",
+      "alibi": {
+        "location": "后台休息室",
+        "time_range": "19:20-19:45",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 2,
+        "valid": false,
+        "alibi_note": "同屋乐手的证词不可靠（对方睡着了）"
+      },
+      "motive_tease": "债务纠纷，但动机较弱"
+    },
+    {
+      "name": "钢琴手·陈月",
+      "role": "乐团成员/学生",
+      "status": "suspect",
+      "description": "28岁，钢琴手，李云天的得意门生，最近被公开批评并阻止参赛",
+      "alibi": {
+        "location": "钢琴旁",
+        "time_range": "19:20-19:45",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 2,
+        "valid": false,
+        "alibi_note": "19:32-19:40用录音代替现场演奏，制造8分钟时间空白"
+      },
+      "motive_tease": "艺术前途被恩师亲手断送，由爱生恨"
+    },
+    {
+      "name": "乐队指挥·老赵",
+      "role": "乐团指挥",
+      "status": "suspect",
+      "description": "50岁，副指挥，一直被李云天压制，有竞争关系",
+      "alibi": {
+        "location": "控制间",
+        "time_range": "19:20-19:45",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 5,
+        "valid": true,
+        "alibi_note": "控制间监控和音响师作证，完整无破绽"
+      },
+      "motive_tease": "竞争关系，但不在场证明无懈可击"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "当音乐厅的灯光缓缓亮起，1200名观众屏息以待，等待着那将在今夜响彻云霄的乐章。然而在后台，一个伟大的灵魂已经永远沉入了寂静……",
+    "atmosphere": "艺术与死亡的交织。在华丽的音乐厅里，每一个人都在聚光灯下完美地扮演着自己的角色——演奏家、指挥、舞台工作人员。但在这完美的背后，一场精心设计的谋杀正在上演。凶手用艺术作为伪装，用完美的不在场证明作为盾牌，以为可以永远逃脱法律的制裁。",
+    "victim_intro": "死者李云天，45岁，国际知名交响乐团首席指挥，曾在维也纳金色大厅演出，被誉为'东方的音乐诗人'。",
+    "task_intro": "作为一名调查者，你需要：\n1. 逐一验证每个嫌疑人的不在场证明\n2. 分析时间和空间上的可能性\n3. 利用技术手段（音频分析、DNA鉴定等）找到破绽\n4. 在看似完美的证明中找到隐藏的裂缝"
+  }
+}

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>角色 · 舒心市</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #ededed;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .app {
+            max-width: 430px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            padding-top: env(safe-area-inset-top, 20px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .nav-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 0.5px solid #d9d9d9;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .nav-header .back {
+            font-size: 24px;
+            color: #3a7bd5;
+            cursor: pointer;
+            padding: 0 6px;
+            line-height: 1;
+            border: none;
+            background: none;
+        }
+
+        .nav-header .back:active {
+            opacity: 0.5;
+        }
+
+        .nav-header .title {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .persona-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-bottom: 0.5px solid #e8e8e8;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .p-tab {
+            padding: 10px 4px;
+            border: none;
+            border-right: 0.5px solid #f0f0f0;
+            background: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+
+        .p-tab:last-child {
+            border-right: none;
+        }
+
+        .p-tab:active {
+            background: #f5f5f5;
+        }
+
+        .p-tab.active {
+            background: #f0f7ff;
+            border-bottom: 2px solid #3a7bd5;
+        }
+
+        .p-tab .avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 4px;
+            overflow: hidden;
+            border: 1px solid #d9d9d9;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .p-tab .avatar-sm img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .p-tab .name-sm {
+            font-size: 11px;
+            color: #8e8e93;
+        }
+
+        .p-tab.active .name-sm {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 14px 20px;
+            background: #ffffff;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 0.5px solid #e8e8e8;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .profile-card .hero {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 12px;
+            border-bottom: 0.5px solid #f0f0f0;
+        }
+
+        .profile-card .hero .avatar-lg {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #d9d9d9;
+            background: #e8e8e8;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .profile-card .hero .avatar-lg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card .hero .info .name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .profile-card .hero .info .tag {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 2px;
+        }
+
+        .profile-card .hero .info .status-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .status-tag.online {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-tag.offline {
+            background: #f5f5f5;
+            color: #8e8e93;
+        }
+
+        .status-tag.working {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .field {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 0.5px solid #f5f5f5;
+            font-size: 13px;
+            gap: 12px;
+        }
+
+        .field:last-child {
+            border-bottom: none;
+        }
+
+        .field .label {
+            color: #8e8e93;
+            min-width: 64px;
+            flex-shrink: 0;
+        }
+
+        .field .value {
+            color: #1a1a1a;
+            word-break: break-word;
+            flex: 1;
+        }
+
+        .field .value .pill {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            font-size: 11px;
+            color: #333;
+            margin: 1px 2px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .s-day {
+            text-align: center;
+            padding: 6px 2px;
+            border-radius: 6px;
+            background: #f8f8f8;
+            font-size: 10px;
+            border: 0.5px solid #e8e8e8;
+        }
+
+        .s-day .dow {
+            font-weight: 600;
+            color: #8e8e93;
+            font-size: 9px;
+        }
+
+        .s-day .shift {
+            font-size: 11px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-top: 2px;
+        }
+
+        .s-day .time {
+            font-size: 9px;
+            color: #8e8e93;
+        }
+
+        .s-day.off {
+            background: #f5f5f5;
+        }
+
+        .s-day.off .shift {
+            color: #8e8e93;
+        }
+
+        .s-day.morning {
+            background: #fff8e1;
+        }
+
+        .s-day.morning .shift {
+            color: #f57f17;
+        }
+
+        .s-day.night {
+            background: #e8eaf6;
+        }
+
+        .s-day.night .shift {
+            color: #283593;
+        }
+
+        .s-day.mid {
+            background: #e0f7fa;
+        }
+
+        .s-day.mid .shift {
+            color: #00838f;
+        }
+
+        .tab-bar {
+            display: flex;
+            border-top: 0.5px solid #d9d9d9;
+            background: #ffffff;
+            flex-shrink: 0;
+            padding-bottom: 6px;
+            padding-top: 4px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 4px 0 2px;
+            color: #8e8e93;
+            font-size: 10px;
+            cursor: pointer;
+            border-top: 2px solid transparent;
+            user-select: none;
+            background: transparent;
+            border: none;
+            border-top: 2px solid transparent;
+            font-family: inherit;
+        }
+
+        .tab-item .icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .tab-item.active {
+            color: #3a7bd5;
+            border-top-color: #3a7bd5;
+        }
+
+        .tab-item:active {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="nav-header">
+            <button class="back" onclick="goBack()">‹</button>
+            <div class="title">角色档案</div>
+            <div style="width:36px;"></div>
+        </div>
+        <div class="persona-tabs" id="personaTabs"></div>
+        <div class="content" id="contentArea"></div>
+        <div class="tab-bar">
+            <button class="tab-item" onclick="location.href='index.html'"><span class="icon">💬</span>朵聊</button>
+            <button class="tab-item active" onclick="location.href='show.html'"><span class="icon">👤</span>角色</button>
+            <button class="tab-item" onclick="location.href='world.html'"><span class="icon">🌍</span>世界</button>
+            <button class="tab-item" onclick="location.href='index.html#me'"><span class="icon">👤</span>我的</button>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  角色展示页 · show.html（修复版）
+        //  优先读取 localStorage['dev_profile_a/b/c/d']
+        //  排班正确显示
+        // ================================================================
+
+        const SLOTS = ['a', 'b', 'c', 'd'];
+        const PERSONA_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
+        const PERSONA_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
+        const PERSONA_TAGS = { a: '🏥 护士', b: '🏨 客户总监', c: '📖 店员/驻唱', d: '🏙️ 城市向导' };
+        const PERSONA_STATUS = {
+            a: { text: '在线 · 上班中', cls: 'online' },
+            b: { text: '工作中', cls: 'working' },
+            c: { text: '离线', cls: 'offline' },
+            d: { text: '全天在线', cls: 'online' }
+        };
+
+        let currentSlot = 'a';
+        let profiles = {};
+
+        function getAvatarPath(slot) {
+            return './' + slot + '/img/other/avatar.jpg';
+        }
+
+        function goBack() {
+            if (window.history.length > 1) window.history.back();
+            else location.href = 'index.html';
+        }
+
+        // ===== 默认模板（兜底） =====
+        function getDefaultProfile(slot) {
+            const name = PERSONA_NAMES[slot] || '未知';
+            return {
+                basic: { name: name, gender: '女', birthday: '2000-01-01', height: 160, weight: 50 },
+                personality: { tags: [], style_detail: '', call_user: '宝贝', self_call: '我' },
+                life: { habits: '' },
+                work: {
+                    workplace: '',
+                    position: '',
+                    weekly_schedule: [
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' },
+                        { type: 'off', name: '休息', time: '——' }
+                    ]
+                },
+                systemPrompt: '',
+                voice: 'Cherry'
+            };
+        }
+
+        // ===== 确保排班是数组格式 =====
+        function ensureScheduleArray(data) {
+            if (!data.work) data.work = {};
+            if (!data.work.weekly_schedule) {
+                data.work.weekly_schedule = [
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' }
+                ];
+                return;
+            }
+
+            // 如果是对象格式（{monday: {...}, tuesday: {...}}），转成数组
+            if (!Array.isArray(data.work.weekly_schedule)) {
+                const ws = data.work.weekly_schedule;
+                const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                const newArr = order.map(key => {
+                    if (ws[key]) {
+                        return { type: ws[key].type || 'off', name: ws[key].name || '休息', time: ws[key].time || '——' };
+                    }
+                    return { type: 'off', name: '休息', time: '——' };
+                });
+                data.work.weekly_schedule = newArr;
+                console.log('[show.html] 已转换对象排班为数组');
+            }
+
+            // 确保数组长度是7
+            if (data.work.weekly_schedule.length !== 7) {
+                const old = data.work.weekly_schedule;
+                const newArr = [
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' },
+                    { type: 'off', name: '休息', time: '——' }
+                ];
+                for (let i = 0; i < Math.min(old.length, 7); i++) {
+                    if (old[i]) {
+                        newArr[i] = { type: old[i].type || 'off', name: old[i].name || '休息', time: old[i].time || '——' };
+                    }
+                }
+                data.work.weekly_schedule = newArr;
+            }
+        }
+
+        // ===== 加载所有角色数据 =====
+        async function loadData() {
+            for (const slot of SLOTS) {
+                let data = null;
+                let source = '';
+
+                // 1. 优先从 localStorage 读取用户修改过的人设
+                const saved = localStorage.getItem('dev_profile_' + slot);
+                if (saved) {
+                    try {
+                        data = JSON.parse(saved);
+                        source = 'localStorage';
+                        console.log(`[show.html] ✅ 从 localStorage 加载 ${slot}`);
+                    } catch (e) {
+                        console.warn(`[show.html] localStorage 解析失败 ${slot}`, e);
+                        data = null;
+                    }
+                }
+
+                // 2. 如果没有 localStorage，从 profile.json 读取
+                if (!data) {
+                    try {
+                        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+                        if (resp.ok) {
+                            data = await resp.json();
+                            source = 'profile.json';
+                            console.log(`[show.html] ✅ 从 profile.json 加载 ${slot}`);
+                        } else {
+                            console.warn(`[show.html] fetch ${slot} 失败: HTTP ${resp.status}`);
+                        }
+                    } catch (e) {
+                        console.warn(`[show.html] fetch ${slot} 异常:`, e);
+                    }
+                }
+
+                // 3. 兜底：使用默认模板
+                if (!data) {
+                    data = getDefaultProfile(slot);
+                    source = 'default';
+                    console.log(`[show.html] ⚠️ 使用默认模板 ${slot}`);
+                }
+
+                // 4. 确保排班是数组格式
+                ensureScheduleArray(data);
+
+                // 5. 存储到 profiles
+                profiles[slot] = data;
+                profiles[slot]._source = source;
+            }
+
+            // 打印每个角色的排班，方便调试
+            for (const slot of SLOTS) {
+                const sch = profiles[slot]?.work?.weekly_schedule;
+                if (sch && Array.isArray(sch)) {
+                    console.log(`[show.html] ${slot} 排班:`, sch.map((d, i) => `${['一', '二', '三', '四', '五', '六', '日'][i]}:${d.type}`).join(' '));
+                }
+            }
+
+            renderTabs();
+            renderProfile(currentSlot);
+        }
+
+        // ===== 渲染 Tab =====
+        function renderTabs() {
+            const container = document.getElementById('personaTabs');
+            let html = '';
+            SLOTS.forEach(slot => {
+                const name = PERSONA_NAMES[slot];
+                const emoji = PERSONA_EMOJI[slot];
+                const avatarPath = getAvatarPath(slot);
+                const active = slot === currentSlot ? 'active' : '';
+                html += `
+            <button class="p-tab ${active}" data-slot="${slot}" onclick="switchPersona('${slot}')">
+                <div class="avatar-sm">
+                    <img src="${avatarPath}" alt="${name}" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">
+                </div>
+                <div class="name-sm">${name}</div>
+            </button>
+        `;
+            });
+            container.innerHTML = html;
+        }
+
+        // ===== 切换角色 =====
+        function switchPersona(slot) {
+            currentSlot = slot;
+            renderTabs();
+            renderProfile(slot);
+            document.getElementById('contentArea').scrollTop = 0;
+        }
+
+        // ===== 渲染角色详情 =====
+        function renderProfile(slot) {
+            const container = document.getElementById('contentArea');
+            const p = profiles[slot] || getDefaultProfile(slot);
+            const basic = p.basic || {};
+            const work = p.work || {};
+            const personality = p.personality || {};
+            const life = p.life || {};
+            const name = basic.name || PERSONA_NAMES[slot];
+            const emoji = PERSONA_EMOJI[slot];
+            const tag = PERSONA_TAGS[slot];
+            const status = PERSONA_STATUS[slot];
+            const avatarPath = getAvatarPath(slot);
+
+            let age = '?';
+            if (basic.birthday) {
+                const bd = new Date(basic.birthday);
+                const now = new Date();
+                age = now.getFullYear() - bd.getFullYear();
+                if (now.getMonth() < bd.getMonth() || (now.getMonth() === bd.getMonth() && now.getDate() < bd.getDate())) age--;
+            }
+
+            // 排班：从数组读取
+            const schedule = work.weekly_schedule || [];
+            const dayNames = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+            console.log(`[show.html] 渲染 ${slot} 排班:`, schedule);
+
+            let scheduleHtml = '<div class="schedule-grid">';
+            for (let i = 0; i < 7; i++) {
+                const s = schedule[i] || { type: 'off', name: '休息', time: '——' };
+                let cls = '';
+                if (s.type === 'off') cls = 'off';
+                else if (s.type === 'morning' || s.type === 'book_full') cls = 'morning';
+                else if (s.type === 'night') cls = 'night';
+                else if (s.type === 'mid' || s.type === 'double') cls = 'mid';
+                scheduleHtml += `
+            <div class="s-day ${cls}">
+                <div class="dow">${dayNames[i]}</div>
+                <div class="shift">${s.name || '—'}</div>
+                <div class="time">${s.time || ''}</div>
+            </div>
+        `;
+            }
+            scheduleHtml += '</div>';
+
+            const tags = personality.tags || [];
+            const tagsHtml = tags.length ? tags.map(t => `<span class="pill">${t}</span>`).join('') : '—';
+
+            container.innerHTML = `
+        <div class="profile-card">
+            <div class="hero">
+                <div class="avatar-lg">
+                    <img src="${avatarPath}" alt="${name}" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">
+                </div>
+                <div class="info">
+                    <div class="name">${emoji} ${name}</div>
+                    <div class="tag">${tag}</div>
+                    <span class="status-tag ${status.cls}">● ${status.text}</span>
+                    ${p._source ? `<span style="font-size:10px;color:#8e8e93;margin-left:8px;">📁 ${p._source}</span>` : ''}
+                </div>
+            </div>
+            <div class="field"><span class="label">年龄</span><span class="value">${age} 岁${basic.birthday ? '（' + basic.birthday + '）' : ''}</span></div>
+            ${basic.gender ? `<div class="field"><span class="label">性别</span><span class="value">${basic.gender}</span></div>` : ''}
+            ${basic.height ? `<div class="field"><span class="label">身高</span><span class="value">${basic.height} cm</span></div>` : ''}
+            ${basic.weight ? `<div class="field"><span class="label">体重</span><span class="value">${basic.weight} kg</span></div>` : ''}
+            ${basic.bust ? `<div class="field"><span class="label">三围</span><span class="value">${basic.bust}</span></div>` : ''}
+            ${basic.shoe ? `<div class="field"><span class="label">鞋码</span><span class="value">${basic.shoe}</span></div>` : ''}
+            ${personality.summary ? `<div class="field"><span class="label">性格</span><span class="value">${personality.summary}</span></div>` : ''}
+            ${personality.style_detail ? `<div class="field"><span class="label">穿衣风格</span><span class="value">${personality.style_detail}</span></div>` : ''}
+            ${life.habits ? `<div class="field"><span class="label">习惯</span><span class="value">${life.habits}</span></div>` : ''}
+            ${life.places ? `<div class="field"><span class="label">常去</span><span class="value">${life.places}</span></div>` : ''}
+            ${life.food_preference ? `<div class="field"><span class="label">饮食</span><span class="value">${life.food_preference}</span></div>` : ''}
+        </div>
+
+        <div class="profile-card">
+            <div style="font-weight:600;font-size:14px;color:#1a1a1a;margin-bottom:8px;">💼 工作信息</div>
+            ${work.workplace ? `<div class="field"><span class="label">单位</span><span class="value">${work.workplace}</span></div>` : ''}
+            ${work.position ? `<div class="field"><span class="label">职位</span><span class="value">${work.position}</span></div>` : ''}
+            ${work.work_addr ? `<div class="field"><span class="label">地址</span><span class="value">${work.work_addr}</span></div>` : ''}
+            ${work.district ? `<div class="field"><span class="label">区域</span><span class="value">${work.district}</span></div>` : ''}
+            ${work.address ? `<div class="field"><span class="label">住址</span><span class="value">${work.address}</span></div>` : ''}
+            ${work.commute ? `<div class="field"><span class="label">通勤</span><span class="value">${work.commute}</span></div>` : ''}
+        </div>
+
+        <div class="profile-card">
+            <div style="font-weight:600;font-size:14px;color:#1a1a1a;margin-bottom:8px;">📅 本周排班</div>
+            ${scheduleHtml}
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;font-size:10px;color:#8e8e93;">
+                <span>🟡 早/白班</span>
+                <span>🔵 中班</span>
+                <span>🟣 晚班</span>
+                <span>⚪ 休息</span>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div style="font-weight:600;font-size:14px;color:#1a1a1a;margin-bottom:8px;">🏷️ 性格标签</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">${tagsHtml}</div>
+            ${personality.call_user ? `<div class="field" style="margin-top:6px;"><span class="label">称呼用户</span><span class="value">${personality.call_user}</span></div>` : ''}
+            ${personality.self_call ? `<div class="field"><span class="label">自称</span><span class="value">${personality.self_call}</span></div>` : ''}
+        </div>
+    `;
+        }
+
+        // ===== 暴露函数给 HTML =====
+        window.switchPersona = switchPersona;
+        window.goBack = goBack;
+
+        // ===== 启动 =====
+        loadData();
+    </script>
+</body>
+
+</html>

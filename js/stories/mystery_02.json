@@ -1,0 +1,345 @@
+{
+  "story_id": "mystery_02",
+  "title": "消失的遗嘱",
+  "genre": "推理悬疑",
+  "difficulty": 3,
+  "estimated_sessions": 4,
+  "description": "舒心市首富李老先生因病去世，留下一份价值十亿的遗产。然而当律师打开遗嘱保险箱时，里面的遗嘱却不翼而飞！三个继承人各怀鬼胎，谁能在这场没有硝烟的战争中找到消失的真相？",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "云栖区",
+    "crime_scene": {
+      "block_id": "G7",
+      "name": "李家主宅·书房",
+      "global_coord": [7, 7],
+      "description": "占地两亩的豪华庄园，书房内设有专门的遗嘱保险箱，由银行级加密系统保护"
+    },
+    "related_locations": [
+      {
+        "block_id": "G8",
+        "name": "李家主宅·客厅",
+        "global_coord": [8, 7],
+        "distance_from_scene": 1,
+        "description": "三位继承人等待宣读遗嘱的地方"
+      },
+      {
+        "block_id": "G6",
+        "name": "李家主宅·花园",
+        "global_coord": [6, 7],
+        "distance_from_scene": 1,
+        "description": "案发前有人看到可疑人影"
+      },
+      {
+        "block_id": "F7",
+        "name": "附近的律师事务所",
+        "global_coord": [6, 7],
+        "distance_from_scene": 1,
+        "description": "负责遗嘱保管的张律师办公室"
+      },
+      {
+        "block_id": "H7",
+        "name": "市中心银行",
+        "global_coord": [8, 7],
+        "distance_from_scene": 2,
+        "description": "保险箱使用的是银行托管系统"
+      },
+      {
+        "block_id": "A5",
+        "name": "大哥的公司",
+        "global_coord": [5, 1],
+        "distance_from_scene": 5,
+        "description": "大哥李国强的地产公司"
+      },
+      {
+        "block_id": "I5",
+        "name": "三弟的艺术画廊",
+        "global_coord": [5, 9],
+        "distance_from_scene": 5,
+        "description": "三弟李国强的画廊工作室"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "李老爷子",
+    "age": 78,
+    "occupation": "李氏集团创始人",
+    "time_of_death": "2026年6月10日 06:30",
+    "cause_of_death": "心力衰竭，自然死亡",
+    "last_seen": "6月9日晚间与家人共进晚餐后回房休息"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "不翼而飞的遗嘱",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "确认遗嘱丢失",
+        "了解保险箱机制",
+        "接触三位继承人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_safe_intact",
+          "name": "完好无损的保险箱",
+          "description": "保险箱没有任何被撬痕迹，锁芯完好如初。使用银行级三重加密：密码、指纹和双重钥匙。打开时需要律师和受益人同时在场",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_fingerprint",
+          "name": "可疑指纹",
+          "description": "保险箱面板上除了李老爷子和张律师的指纹外，还发现了一枚陌生人的 partial 指纹，位置在密码输入区边缘",
+          "source": "痕检鉴定"
+        },
+        {
+          "id": "c_safe_log",
+          "name": "保险箱操作记录",
+          "description": "保险箱的电子记录显示：6月9日22:15有一次'测试性输入密码'记录，但密码错误。之后直到10日宣读遗嘱时没有任何操作",
+          "source": "系统日志"
+        },
+        {
+          "id": "c_family_tension",
+          "name": "家庭矛盾",
+          "description": "调查发现李老爷子生前偏心小儿子，打算将大部分遗产留给三弟，引发大哥和二姐的强烈不满",
+          "source": "询问佣人"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "老管家王伯",
+          "appearance": "60多岁，在李家工作了40年，满头银发，眼角有泪",
+          "info_to_provide": [
+            "老爷子走的时候很安详，最后那天晚上还和我聊了很久",
+            "他说要把遗产大部分留给三弟国强，说只有他真心关心自己",
+            "大哥和二姐为此和老爷子吵过好几次",
+            "9号晚上我看到一个穿着深色衣服的人影在花园围墙外闪过，但不确定是谁",
+            "张律师是老爷子多年的好朋友，应该不会有问题"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "李家佣人房",
+            "time_range": "21:00-次日07:00",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 3,
+            "valid": false,
+            "alibi_note": "声称整晚都在看护院监控，但中途22:00-22:20监控盲区"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认保险箱状态",
+        "获取保险箱操作记录"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "三个嫌疑人",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "分别调查三位继承人",
+        "核实各自的动机和机会",
+        "分析可疑指纹"
+      ],
+      "available_clues": [
+        {
+          "id": "c_broker_debt",
+          "name": "大哥的秘密债务",
+          "description": "大哥李国强的地产公司近期资金链断裂，欠下3000万高利贷，如果拿不到遗产将面临破产",
+          "source": "财务调查"
+        },
+        {
+          "id": "c_sister_gamble",
+          "name": "二姐的赌博丑闻",
+          "description": "二姐李秀芳沉迷赌博，在澳门欠下2000万赌债，已被赌场追债多次",
+          "source": "人脉调查"
+        },
+        {
+          "id": "c_youngest_son_secret",
+          "name": "三弟的私生子",
+          "description": "调查发现三弟有一个5岁的私生子，女方是他的前女友，这笔遗产是他抚养孩子的唯一希望",
+          "source": "深度调查"
+        },
+        {
+          "id": "c_fingerprint_match",
+          "name": "指纹比对结果",
+          "description": "保险箱上的陌生人指纹与二姐李秀芳的指纹匹配",
+          "source": "法医鉴定"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "张律师",
+          "appearance": "55岁，戴金丝眼镜，西装革履，说话慢条斯理",
+          "info_to_provide": [
+            "我是李老爷子20年的老朋友了，绝对不会做这种事",
+            "保险箱的操作记录很奇怪，那晚有人测试密码，但密码错误",
+            "密码只有我和老爷子知道，其他人不可能知道",
+            "不过老爷子最近身体不好，他可能把密码告诉过其中一个孩子",
+            "我9号晚上在自己的事务所加班，有监控记录"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "律师事务所",
+            "time_range": "20:00-次日08:00",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 15,
+            "valid": true,
+            "witness": "事务所监控和值班保安"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "比对指纹",
+        "发现继承人的财务问题"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "遗嘱的下落",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "找到遗嘱藏匿地点",
+        "揭示偷取方法",
+        "分析谁最可能"
+      ],
+      "available_clues": [
+        {
+          "id": "c_old_letter",
+          "name": "老爷子的旧信",
+          "description": "在老爷子卧室的日记本夹层中发现一封信，提到'备用副本在花园塑像基座里'，日期是2025年",
+          "source": "搜索卧室"
+        },
+        {
+          "id": "c_statue_search",
+          "name": "花园塑像",
+          "description": "花园中央有一尊老爷子亲手定制的铜鹰塑像，基座有明显被移动过的痕迹",
+          "source": "实地搜查花园"
+        },
+        {
+          "id": "c_garden_monitor",
+          "name": "花园监控死角",
+          "description": "花园围墙的监控存在一个死角，恰好对着塑像位置，老管家说的人影就是从这里进入",
+          "source": "查看监控布局"
+        },
+        {
+          "id": "c_copy_found",
+          "name": "遗嘱副本",
+          "description": "在塑像基座下的暗格中发现了一份密封的文件，正是丢失的遗嘱原件",
+          "source": "搜查塑像基座"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "找到遗嘱副本",
+        "确定偷取手法"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "谁动了遗嘱",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露偷取者",
+        "还原事件经过",
+        "宣读遗嘱"
+      ],
+      "ending": {
+        "truth": "遗嘱并没有被偷走，实际上是被老爷子在生前最后时刻秘密转移到了花园塑像下。真相是：二姐李秀芳在6月9日22:00趁家人不备，用偷配的钥匙进入书房，试图打开保险箱但因密码错误而失败（留下了指纹）。她的行动被老爷子提前察觉，老爷子在晚餐后秘密将遗嘱转移到了自己设定的'备用地点'——花园塑像基座的暗格中。老爷子这样做是为了防止继承人抢夺，确保遗嘱能够被公正执行。",
+        "key_evidence": [
+          "保险箱上的指纹——二姐试图打开但失败",
+          "老爷子日记中的线索——暗示了备用地点",
+          "花园塑像被移动的痕迹——遗嘱被转移的证据",
+          "老管家的证词——看到可疑人影",
+          "保险箱操作记录——密码错误而非成功开启"
+        ],
+        "red_herrings": [
+          "大哥的高利贷债务——动机充分但没有机会",
+          "三弟的私生子秘密——增加嫌疑但他是遗嘱的最大受益者",
+          "张律师的可疑——作为保管人但有完美的不在场证明",
+          "老管家的花园监控证词——可能看错了，增加混淆"
+        ],
+        "resolutions": {
+          "李秀芳（二姐）": "因盗窃罪被起诉，赌场债务加剧了她的困境",
+          "李国强（大哥）": "公司宣布破产，重新开始",
+          "李国强（三弟）": "得到遗嘱继承权，承诺会照顾好私生子",
+          "老管家王伯": "继续留在李家，守护着这个家的秘密",
+          "张律师": "维持名誉，继续为李家提供法律服务"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "李国强（大哥）",
+      "role": "长子",
+      "status": "suspect",
+      "description": "45岁，地产公司老板，父亲生前最不看好的继承人，面临破产危机",
+      "alibi": {
+        "location": "李家客房",
+        "time_range": "21:00-次日08:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "valid": false,
+        "alibi_note": "声称一直在客房睡觉，但没有监控覆盖二楼走廊"
+      },
+      "motive_tease": "3000万高利贷逼迫，急需遗产救公司"
+    },
+    {
+      "name": "李秀芳（二姐）",
+      "role": "长女",
+      "status": "suspect",
+      "description": "42岁，全职太太，沉迷赌博，被赌场追债多次，性格冲动",
+      "alibi": {
+        "location": "李家客房",
+        "time_range": "21:00-次日08:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "valid": false,
+        "alibi_note": "声称和丈夫通电话到深夜，丈夫可以作证但通话记录只有10分钟"
+      },
+      "motive_tease": "2000万赌债，急需遗产还债，性格冲动可能铤而走险"
+    },
+    {
+      "name": "李国强（三弟）",
+      "role": "幼子",
+      "status": "suspect",
+      "description": "35岁，画廊经营者，父亲的宠儿，有一个私生子需要抚养",
+      "alibi": {
+        "location": "李家客房",
+        "time_range": "21:00-次日08:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "valid": false,
+        "alibi_note": "声称在客房看书，但书架上的书从未被翻动"
+      },
+      "motive_tease": "私生子需要抚养，但他是遗嘱最大受益者，动机较弱"
+    },
+    {
+      "name": "老管家王伯",
+      "role": "知情人",
+      "status": "suspect",
+      "description": "60岁，在李家40年，掌握很多秘密，最近因身体不好面临退休",
+      "alibi": {
+        "location": "佣人房",
+        "time_range": "21:00-次日08:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 3,
+        "valid": false,
+        "alibi_note": "声称查看监控记录，但22:00-22:20没有不在场证明"
+      },
+      "motive_tease": "可能被收买，或者有不为人知的秘密"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "舒心市云栖区的李氏庄园，今日格外肃穆。李老爷子——这座商业帝国的缔造者，永远地闭上了眼睛……",
+    "atmosphere": "庄严肃穆中暗藏暗流。家人们围在灵堂，表面悲痛，内心却各有所思。当律师宣布遗嘱丢失的那一刻，所有人的面具都碎了一地。",
+    "victim_intro": "死者李老爷子，78岁，李氏集团创始人，因病自然死亡。生前积累财富超过百亿。",
+    "task_intro": "作为一名调查者，你需要：\n1. 调查遗嘱是如何'消失'的\n2. 分析三位继承人的动机和机会\n3. 破解保险箱完好无损下的谜团\n4. 还原事件真相，找到遗嘱的真正下落"
+  }
+}

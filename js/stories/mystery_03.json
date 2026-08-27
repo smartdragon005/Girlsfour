@@ -1,0 +1,343 @@
+{
+  "story_id": "mystery_03",
+  "title": "时间之谜",
+  "genre": "推理悬疑",
+  "difficulty": 4,
+  "estimated_sessions": 5,
+  "description": "舒心市著名侦探小说家林一被发现死在家中书房。死者腕上的名贵手表指针停在了13:05，但法医鉴定的死亡时间却是15:00-15:30。两个时间之间的矛盾，隐藏着凶手精心设计的时间诡计……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "老城区",
+    "crime_scene": {
+      "block_id": "B3",
+      "name": "林一私人书房",
+      "global_coord": [2, 3],
+      "description": "老城区一栋三层小洋楼的顶层书房，摆满书籍和手稿，窗户朝南对着江景"
+    },
+    "related_locations": [
+      {
+        "block_id": "B4",
+        "name": "林一住宅·客厅",
+        "global_coord": [2, 4],
+        "distance_from_scene": 1,
+        "description": "一楼客厅，访客接待区，设有监控"
+      },
+      {
+        "block_id": "B2",
+        "name": "林一住宅·花园",
+        "global_coord": [2, 2],
+        "distance_from_scene": 1,
+        "description": "小洋楼的后花园，可通往后门小路"
+      },
+      {
+        "block_id": "C3",
+        "name": "附近茶餐厅",
+        "global_coord": [3, 3],
+        "distance_from_scene": 1,
+        "description": "嫌疑人的被目击地点"
+      },
+      {
+        "block_id": "A3",
+        "name": "老城区派出所",
+        "global_coord": [1, 3],
+        "distance_from_scene": 1,
+        "description": "辖区派出所，可查询档案"
+      },
+      {
+        "block_id": "I8",
+        "name": "市中心钟表行",
+        "global_coord": [8, 9],
+        "distance_from_scene": 6,
+        "description": "死者手表的购买和保养地点"
+      },
+      {
+        "block_id": "F3",
+        "name": "出版社办公楼",
+        "global_coord": [3, 6],
+        "distance_from_scene": 3,
+        "description": "死者的出版商所在地"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "林一",
+    "age": 48,
+    "occupation": "著名推理小说作家",
+    "time_of_death": "2026年7月12日 15:00-15:30",
+    "cause_of_death": "头部遭钝器击打致死",
+    "last_seen": "14:30 与秘书讨论新书大纲后，独自在书房写作"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "停摆的时间",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查案发现场",
+        "发现时间矛盾",
+        "初步询问嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_stopped_watch",
+          "name": "停摆的手表",
+          "description": "死者腕上佩戴的百达翡丽手表指针停在13:05，表冠被拔出。法医确认死亡时间为15:00-15:30，存在近2小时的时间差",
+          "source": "法医勘查"
+        },
+        {
+          "id": "c_clock_in_room",
+          "name": "书房挂钟",
+          "description": "书房墙上的挂钟显示时间为16:45，走时正常。书桌旁的电子时钟显示16:45，与挂钟一致",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_draft_paper",
+          "name": "未完成的手稿",
+          "description": "书桌上放着死者正在写作的手稿，最后一行文字写道：'当时间成为诡计，真相便被埋葬。如果有人问起我的不在场证明……'，文字在15:00左右中断（根据墨迹干燥程度判断）",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_weapon_found",
+          "name": "凶器",
+          "description": "书房角落的金属镇纸被确认为凶器，上面有擦拭痕迹，但发现一枚残留的模糊指纹",
+          "source": "痕检鉴定"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "林太太",
+          "appearance": "45岁，穿着黑色连衣裙，眼圈发红，声音颤抖",
+          "info_to_provide": [
+            "我下午去参加了一个读书会，13:00出发的，5:00才回来",
+            "我回家就发现了……他倒在书桌前，手表指针停在13:05",
+            "他经常忘记戴手表或者调时间，那块表是他的成名作大卖后买的，对他意义很大",
+            "他最近正在写一本关于时间诡计的推理小说，已经连载到第12章了",
+            "书房的挂钟和电子钟走时一直很准，他对时间有强迫症"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "老城区读书会",
+            "time_range": "13:00-17:00",
+            "distance_to_crime": 2,
+            "commute_time_by_drive": 15,
+            "valid": true,
+            "witness": "读书会10余名成员可证明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现手表时间与死亡时间的矛盾",
+        "分析手稿线索"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "时间差的秘密",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "调查手表的来历",
+        "分析时间线",
+        "核实嫌疑人行踪"
+      ],
+      "available_clues": [
+        {
+          "id": "c_watch_history",
+          "name": "手表保养记录",
+          "description": "钟表行记录显示，死者的手表在7月10日（案发前两天）刚完成保养，调整了时间。技师回忆当时手表时间比标准时间慢了2小时",
+          "source": "钟表行记录"
+        },
+        {
+          "id": "c_bookstore_visit",
+          "name": "案发前的书店监控",
+          "description": "附近书店监控显示，死者在7月12日11:00左右独自前往书店，购买了一本《钟表工艺原理》，店员注意到他腕上的手表时间明显不对",
+          "source": "书店监控"
+        },
+        {
+          "id": "c_secret_manuscript",
+          "name": "隐藏的手稿",
+          "description": "在书房暗格中发现了一个加密U盘，里面是死者未完成的手稿，第13章详细描述了一个利用手表制造时间不在场证明的诡计",
+          "source": "搜索书房暗格"
+        },
+        {
+          "id": "c_suspect_schedule",
+          "name": "嫌疑人时间线",
+          "description": "逐一核实嫌疑人13:00-16:00的行踪，发现嫌疑人C的不在场证明存在疑点——监控中他的身影在14:55短暂消失了10分钟",
+          "source": "调查监控录像"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "读者·小周",
+          "appearance": "22岁，林一的粉丝，经常在林一的新书签售会出现",
+          "info_to_provide": [
+            "林一老师的手表一直不准，我好几次看到他看手表时皱眉",
+            "上周签售会，他的手表慢了整整两个小时，他还笑着说'就像小说里的情节'",
+            "我14:30左右路过林一老师家楼下，看到三楼书房灯亮着",
+            "我还在想要不要上去要个签名，后来看到一个穿黑衣的人从后门小路离开了"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "附近奶茶店",
+            "time_range": "14:00-15:30",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 5,
+            "valid": false,
+            "alibi_note": "奶茶店监控显示他14:00-14:50在店内，之后14:50-15:30离开没有监控"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确定手表被调整过",
+        "发现手稿中的诡计描述"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "诡计的真相",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "破解时间诡计",
+        "锁定凶手",
+        "还原犯罪过程"
+      ],
+      "available_clues": [
+        {
+          "id": "c_watch_manipulation",
+          "name": "手表被调慢的原因",
+          "description": "凶手利用了死者对手表不准的习惯，在案发前故意将手表调慢2小时，使指针停在13:05而实际死亡时间是15:05，制造凶手在13:05已有不在场证明的假象",
+          "source": "重建推理"
+        },
+        {
+          "id": "c_alibi_gap",
+          "name": "嫌疑人C的不在场证明漏洞",
+          "description": "嫌疑人C声称在茶餐厅，但监控显示14:55-15:05他不在座位上。而这个时间段正是死者真正的死亡时间",
+          "source": "茶餐厅监控"
+        },
+        {
+          "id": "c_motive_trigger",
+          "name": "动机爆发点",
+          "description": "嫌疑人C是死者前妻的弟弟，死者在书稿中以真实人物为原型，揭示了前妻一家的一段不为人知的丑闻，即将在新书发布。C为了阻止该书出版，决定灭口",
+          "source": "手稿内容分析"
+        },
+        {
+          "id": "c_backdoor_access",
+          "name": "后门小路",
+          "description": "后花园的后门小路可以绕过前门监控，嫌疑人C正是利用这条路径进出，全程不被监控拍到",
+          "source": "实地勘查"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "破解时间诡计",
+        "确定嫌疑人身份"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "时间的审判",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露完整真相",
+        "还原时间诡计",
+        "结案"
+      ],
+      "ending": {
+        "truth": "凶手是嫌疑人C。他利用了死者手表慢2小时的习惯，在14:55离开茶餐厅，通过后门小路进入林一的书房，用金属镇纸击打林一致死。案发后，他故意将死者手表调至13:05并拔出表冠，制造死亡时间在13:05的假象。而他在13:05时确实在茶餐厅，有完整的不在场证明。这个时间诡计完全照搬了林一手稿中未完成的第13章内容——讽刺的是，林一自己构思的诡计最终被凶手用来杀害了他自己。",
+        "key_evidence": [
+          "手表停在13:05但死亡时间是15:00-15:30——时间矛盾是核心线索",
+          "手稿第13章的诡计描述——凶手的作案蓝本",
+          "嫌疑人C在14:55-15:05的监控空缺——真正的作案时间",
+          "后门小路的存在——凶手的进出路径",
+          "嫌疑人C与死者前妻的关系——隐藏的动机"
+        ],
+        "red_herrings": [
+          "林太太的读书会不在场证明——确实完美",
+          "读者小周看到的黑衣人——增加混乱，实际可能是路人",
+          "手表保养记录——增加调查复杂度，但最终指向诡计",
+          "书房墙上的挂钟——显示正确时间，让案件更加扑朔迷离"
+        ],
+        "resolutions": {
+          "嫌疑人C": "被捕，以故意杀人罪起诉，法庭上供认不讳",
+          "林太太": "继承丈夫的遗作版权，将未完成的小说以《时间的审判》为名出版",
+          "读者小周": "成为本书的序言作者，记录他对林一的回忆",
+          "钟表行技师": "提供的证词成为关键证据，受到警方表彰"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "林太太",
+      "role": "配偶",
+      "status": "suspect",
+      "description": "45岁，全职太太，参加读书会，案发时段不在家",
+      "alibi": {
+        "location": "老城区读书会",
+        "time_range": "13:00-17:00",
+        "distance_to_crime": 2,
+        "commute_time_by_drive": 15,
+        "valid": true,
+        "alibi_note": "10余名读书会成员可证明，有合影为证"
+      },
+      "motive_tease": "遗产动机，但感情一直很好"
+    },
+    {
+      "name": "嫌疑人A·陈编辑",
+      "role": "出版商编辑",
+      "status": "suspect",
+      "description": "35岁，林一的责任编辑，经常来家里讨论书稿，最近因林一改稿拖延而不满",
+      "alibi": {
+        "location": "出版社办公室",
+        "time_range": "13:00-17:00",
+        "distance_to_crime": 3,
+        "commute_time_by_drive": 20,
+        "valid": false,
+        "alibi_note": "声称一直在出版社，但出版社监控显示14:30-15:30他不在工位"
+      },
+      "motive_tease": "交稿压力，以及得知林一将更换出版社"
+    },
+    {
+      "name": "嫌疑人B·王助理",
+      "role": "私人助理",
+      "status": "suspect",
+      "description": "28岁，林一的生活助理，做事细心，掌握林一的所有行程和习惯",
+      "alibi": {
+        "location": "林一住宅·卧室整理",
+        "time_range": "13:00-16:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 3,
+        "valid": false,
+        "alibi_note": "声称在整理卧室，但卧室没有监控，只有厨房监控显示他14:00和15:30去过厨房"
+      },
+      "motive_tease": "可能因长期加班没有加薪而心怀不满"
+    },
+    {
+      "name": "嫌疑人C·赵访客",
+      "role": "不速之客",
+      "status": "suspect",
+      "description": "42岁，林一前妻的弟弟，与林一关系紧张，曾因财产纠纷起诉过林一",
+      "alibi": {
+        "location": "附近茶餐厅",
+        "time_range": "12:30-16:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "valid": false,
+        "alibi_note": "茶餐厅监控显示12:30-14:55和15:05-16:05在位，14:55-15:05的10分钟不在"
+      },
+      "motive_tease": "前妻一家的丑闻即将被公开，他有强烈的阻止动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "时间是最诚实的证人，但当有人篡改了时间，真相就被永远埋葬了……",
+    "atmosphere": "老城区的午后阳光透过窗帘，在书房的地板上投下斑驳的光影。一位伟大的推理小说家永远闭上了眼睛，而他最后构思的诡计，竟然成为了凶手的杀人工具。",
+    "victim_intro": "死者林一，48岁，著名推理小说作家，代表作《时间的诡计》畅销百万册。正在创作新书《秘密的代价》。",
+    "task_intro": "作为一名调查者，你需要：\n1. 破解手表指针与死亡时间的矛盾\n2. 分析时间差背后的诡计\n3. 追踪每一位嫌疑人在关键时间段的行踪\n4. 利用逻辑推理还原被篡改的时间真相"
+  }
+}

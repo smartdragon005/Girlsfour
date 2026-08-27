@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>朵聊 · 舒心市</title>
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #ededed;
+            color: #1a1a1a;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .app {
+            max-width: 430px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            /* 安全区适配 */
+            padding-top: env(safe-area-inset-top, 20px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ===== 页面标题栏 ===== */
+        .page-header {
+            padding: 10px 16px 10px;
+            border-bottom: 0.5px solid #d9d9d9;
+            flex-shrink: 0;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .page-header .actions {
+            display: flex;
+            gap: 14px;
+            color: #8e8e93;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        /* ===== 主视图 ===== */
+        .main-view {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tab-page {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .tab-page.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ===== 聊天列表 ===== */
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        .chat-list::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.12s;
+            border-bottom: 0.5px solid #f0f0f0;
+        }
+
+        .chat-item:active {
+            background: #f5f5f5;
+        }
+
+        .chat-item .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #e8e8e8;
+            border: 1px solid #d9d9d9;
+            margin-right: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-item .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+
+        .chat-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-item .info .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-item .info .name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .chat-item .info .time {
+            font-size: 11px;
+            color: #8e8e93;
+            flex-shrink: 0;
+        }
+
+        .chat-item .info .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2px;
+        }
+
+        .chat-item .info .last-msg {
+            font-size: 13px;
+            color: #8e8e93;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        .chat-item .badge {
+            background: #ff3b30;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 1px 8px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* ===== 角色列表 ===== */
+        .contact-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 14px;
+            background: #ffffff;
+        }
+
+        .contact-list::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            border: 0.5px solid #e8e8e8;
+            cursor: pointer;
+            transition: background 0.12s;
+        }
+
+        .contact-card:active {
+            background: #f5f5f5;
+        }
+
+        .contact-card .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #e8e8e8;
+            border: 1px solid #d9d9d9;
+            flex-shrink: 0;
+            margin-right: 14px;
+            overflow: hidden;
+        }
+
+        .contact-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-card .info {
+            flex: 1;
+        }
+
+        .contact-card .info .name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .contact-card .info .desc {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 1px;
+        }
+
+        .contact-card .info .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .tag.online {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag.offline {
+            background: #f5f5f5;
+            color: #8e8e93;
+        }
+
+        .tag.working {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag.sleeping {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .contact-card .arrow {
+            color: #c8c8c8;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* ===== 世界 ===== */
+        .world-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 14px;
+            background: #ffffff;
+        }
+
+        .world-container::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        .world-container .subtitle {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #3a7bd5;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 3px;
+        }
+
+        .grid-cell {
+            flex: 1;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            background: #f5f5f5;
+            border: 0.5px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            position: relative;
+            min-height: 28px;
+        }
+
+        .grid-cell .label {
+            font-size: 7px;
+            color: #999;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .grid-cell .dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+
+        .dot.pink {
+            background: #f472b6;
+            color: #fff;
+        }
+
+        .dot.purple {
+            background: #a78bfa;
+            color: #fff;
+        }
+
+        .dot.green {
+            background: #34d399;
+            color: #fff;
+        }
+
+        .dot.gold {
+            background: #fbbf24;
+            color: #1a1a1a;
+            border-color: #fbbf24;
+        }
+
+        .grid-cell.has-dot {
+            border-color: #b0b0b0;
+        }
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            padding: 12px 4px 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-top: 0.5px solid #e8e8e8;
+            margin-top: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .legend-item .swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 0.5px solid #ccc;
+        }
+
+        .world-footer-btn {
+            text-align: center;
+            padding: 10px 0 4px;
+        }
+
+        .world-footer-btn button {
+            padding: 6px 16px;
+            background: #3a7bd5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .world-footer-btn button:active {
+            opacity: 0.7;
+        }
+
+        /* ===== 我的 ===== */
+        .profile-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 16px 20px;
+            background: #ffffff;
+        }
+
+        .profile-container::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 0.5px solid #e8e8e8;
+            margin: 4px 0 16px;
+        }
+
+        .user-card .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-right: 14px;
+            border: 1px solid #d9d9d9;
+            flex-shrink: 0;
+        }
+
+        .user-card .info .name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .user-card .info .sub {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 2px;
+        }
+
+        .settings-section {
+            margin-bottom: 18px;
+        }
+
+        .settings-section .section-title {
+            font-size: 12px;
+            color: #8e8e93;
+            padding-left: 10px;
+            margin-bottom: 6px;
+            border-left: 3px solid #3a7bd5;
+        }
+
+        .setting-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 0.5px solid #e8e8e8;
+            overflow: hidden;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-bottom: 0.5px solid #f0f0f0;
+            gap: 10px;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item .icon {
+            font-size: 18px;
+            width: 30px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .setting-item .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .setting-item .content .label {
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .setting-item .content .desc {
+            font-size: 11px;
+            color: #8e8e93;
+            margin-top: 1px;
+        }
+
+        .setting-item .right {
+            flex-shrink: 0;
+            color: #c8c8c8;
+            font-size: 14px;
+        }
+
+        .setting-item .status-badge {
+            font-size: 10px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .status-badge.ok {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.no {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        .api-input {
+            flex: 1;
+            padding: 4px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 0.5px solid #e0e0e0;
+            font-size: 13px;
+            color: #1a1a1a;
+            font-family: inherit;
+            outline: none;
+            min-width: 0;
+        }
+
+        .api-input:focus {
+            border-bottom-color: #3a7bd5;
+        }
+
+        .api-input::placeholder {
+            color: #b0b0b0;
+        }
+
+        .btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 0.5px solid #d9d9d9;
+            background: #ffffff;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: #f5f5f5;
+        }
+
+        .btn.primary {
+            background: #3a7bd5;
+            border-color: #3a7bd5;
+            color: #fff;
+        }
+
+        .btn.primary:hover {
+            background: #4f8ee8;
+        }
+
+        .btn.danger {
+            border-color: #ff3b30;
+            color: #ff3b30;
+        }
+
+        .btn.danger:hover {
+            background: #fce4ec;
+        }
+
+        .btn.dev-tool {
+            background: #6c5ce7;
+            border-color: #6c5ce7;
+            color: #fff;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn.dev-tool:hover {
+            background: #7c6df0;
+        }
+
+        .about-text {
+            font-size: 12px;
+            color: #8e8e93;
+            padding: 8px 4px;
+            line-height: 1.8;
+        }
+
+        /* ===== 底部导航 ===== */
+        .tab-bar {
+            display: flex;
+            border-top: 0.5px solid #d9d9d9;
+            background: #ffffff;
+            flex-shrink: 0;
+            padding-bottom: 6px;
+            padding-top: 4px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 4px 0 2px;
+            color: #8e8e93;
+            font-size: 10px;
+            cursor: pointer;
+            transition: color 0.15s;
+            border-top: 2px solid transparent;
+            user-select: none;
+            background: transparent;
+            border: none;
+            border-top: 2px solid transparent;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .tab-item .icon {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .tab-item.active {
+            color: #3a7bd5;
+            border-top-color: #3a7bd5;
+        }
+
+        .tab-item:active {
+            opacity: 0.6;
+        }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            font-family: -apple-system, "PingFang SC", sans-serif;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+        <div class="main-view">
+            <!-- 朵聊 Tab -->
+            <div class="tab-page active" id="tabChat">
+                <div class="page-header">
+                    <h1>朵聊</h1>
+                    <div class="actions"><span>🔍</span><span>＋</span></div>
+                </div>
+                <div class="chat-list" id="chatList"></div>
+            </div>
+
+            <!-- 角色 Tab -->
+            <div class="tab-page" id="tabContacts">
+                <div class="page-header">
+                    <h1>角色</h1>
+                    <div class="actions"><span>🔍</span></div>
+                </div>
+                <div class="contact-list" id="contactList"></div>
+            </div>
+
+            <!-- 世界 Tab -->
+            <div class="tab-page" id="tabWorld">
+                <div class="page-header">
+                    <h1>🌍 舒心市</h1>
+                    <div class="actions"><span>📍</span></div>
+                </div>
+                <div class="world-container" id="worldContainer"></div>
+            </div>
+
+            <!-- 我的 Tab -->
+            <div class="tab-page" id="tabMe">
+                <div class="page-header">
+                    <h1>我的</h1>
+                    <div class="actions"><span>⚙</span></div>
+                </div>
+                <div class="profile-container" id="profileContainer"></div>
+            </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="tab-bar">
+            <button class="tab-item active" id="tabBtnChat" onclick="switchToTab('chat')">
+                <span class="icon">💬</span>朵聊
+            </button>
+            <button class="tab-item" onclick="location.href='show.html'">
+                <span class="icon">👤</span>角色
+            </button>
+            <button class="tab-item" onclick="location.href='world.html'">
+                <span class="icon">🌍</span>世界
+            </button>
+            <button class="tab-item" id="tabBtnMe" onclick="location.href='index.html#me'">
+                <span class="icon">👤</span>我的
+            </button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== 角色数据 =====
+        const SLOTS = ['a', 'b', 'c', 'd'];
+        const PERSONA_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
+        const PERSONA_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
+        const PERSONA_TAGS = { a: '🏥 护士', b: '🏨 客户总监', c: '📖 店员/驻唱', d: '🏙️ 城市向导' };
+        const PERSONA_STATUS = {
+            a: { text: '在线 · 上班中', cls: 'online' },
+            b: { text: '工作中', cls: 'working' },
+            c: { text: '离线', cls: 'offline' },
+            d: { text: '全天在线', cls: 'online' }
+        };
+        const PERSONA_LAST_MSG = {
+            a: '宝贝～今天好想你呀😘',
+            b: '亲爱的，晚上一起吃饭？',
+            c: '……老公，我也爱你。🥺🌿',
+            d: '朋友～有新故事要听吗？🔍'
+        };
+        const PERSONA_TIME = { a: '14:23', b: '12:10', c: '昨天', d: '09:05' };
+        const PERSONA_BADGE = { a: 3, b: 0, c: 0, d: 0 };
+
+        function getAvatarPath(slot) {
+            return './' + slot + '/img/other/avatar.jpg';
+        }
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => el.classList.remove('show'), 1500);
+        }
+
+        function switchToTab(tab) {
+            if (tab === 'contacts') { location.href = 'show.html'; return; }
+            if (tab === 'world') { location.href = 'world.html'; return; }
+            const tabPages = {
+                chat: document.getElementById('tabChat'),
+                me: document.getElementById('tabMe')
+            };
+            Object.values(tabPages).forEach(el => el.classList.remove('active'));
+            if (tab === 'chat') {
+                tabPages.chat.classList.add('active');
+                history.replaceState(null, '', window.location.pathname);
+                document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+                document.getElementById('tabBtnChat').classList.add('active');
+            } else if (tab === 'me') {
+                tabPages.me.classList.add('active');
+                history.replaceState(null, '', '#me');
+                document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+                document.getElementById('tabBtnMe').classList.add('active');
+                renderProfile();
+            }
+        }
+
+        function checkHash() {
+            if (window.location.hash === '#me') switchToTab('me');
+            else switchToTab('chat');
+        }
+        window.addEventListener('hashchange', checkHash);
+
+        function renderChatList() {
+            const container = document.getElementById('chatList');
+            let html = '';
+            SLOTS.forEach(slot => {
+                const name = PERSONA_NAMES[slot];
+                const emoji = PERSONA_EMOJI[slot];
+                const status = PERSONA_STATUS[slot];
+                const avatarPath = getAvatarPath(slot);
+                
+                html += `
+                <div class="chat-item" onclick="openChat('${slot}')">
+                    <div class="avatar">
+                        <img src="${avatarPath}" alt="${name}" onerror="...">
+                    </div>
+                    <div class="info">
+                        <div class="top">
+                            <span class="name">${name}</span>
+                            <span class="time">${PERSONA_TIME[slot]}</span>
+                        </div>
+                        <div class="bottom">
+                            <span class="last-msg">${PERSONA_LAST_MSG[slot]}</span>
+                            ${PERSONA_BADGE[slot] > 0 ? `<span class="badge">${PERSONA_BADGE[slot]}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderContactList() {
+            const container = document.getElementById('contactList');
+            let html = '';
+            SLOTS.forEach(slot => {
+                const name = PERSONA_NAMES[slot];
+                const emoji = PERSONA_EMOJI[slot];
+                const tag = PERSONA_TAGS[slot];
+                const status = PERSONA_STATUS[slot];
+                const avatarPath = getAvatarPath(slot);
+                const tagCls = status.cls;
+                html += `
+                <div class="contact-card" onclick="location.href='show.html?slot=${slot}'">
+                    <div class="avatar">
+                        <img src="${avatarPath}" alt="${name}" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">
+                    </div>
+                    <div class="info">
+                        <div class="name">${name}</div>
+                        <div class="desc">${tag}</div>
+                        <span class="tag ${tagCls}">● ${status.text}</span>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+            `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderWorld() {
+            const container = document.getElementById('worldContainer');
+            const positions = {
+                a: { row: 8, col: 3, emoji: '🌸', cls: 'pink' },
+                b: { row: 4, col: 6, emoji: '🌙', cls: 'purple' },
+                c: { row: 5, col: 0, emoji: '📚', cls: 'green' },
+                d: { row: 5, col: 4, emoji: '⭐', cls: 'gold' }
+            };
+            let gridHtml = '';
+            for (let r = 0; r < 9; r++) {
+                gridHtml += '<div class="grid-row">';
+                for (let c = 0; c < 9; c++) {
+                    let dotHtml = '';
+                    let hasDot = false;
+                    for (const [slot, pos] of Object.entries(positions)) {
+                        if (pos.row === r && pos.col === c) {
+                            dotHtml = `<span class="dot ${pos.cls}">${pos.emoji}</span>`;
+                            hasDot = true;
+                            break;
+                        }
+                    }
+                    const cls = hasDot ? 'grid-cell has-dot' : 'grid-cell';
+                    const label = (r === 0 && c < 9) ? ['🌅', '🏛️', '🌉', '📖', '🏙️', '🌙', '🌿', '🌸', '⚡'][c] || '' : '';
+                    gridHtml += `<div class="${cls}">${dotHtml}${label ? `<span class="label">${label}</span>` : ''}</div>`;
+                }
+                gridHtml += '</div>';
+            }
+            container.innerHTML = `
+            <div class="subtitle">9 × 9 · 实时位置</div>
+            <div class="grid">${gridHtml}</div>
+            <div class="legend">
+                <span class="legend-item"><span class="swatch" style="background:#f472b6;"></span>甜小朵</span>
+                <span class="legend-item"><span class="swatch" style="background:#a78bfa;"></span>白洁</span>
+                <span class="legend-item"><span class="swatch" style="background:#34d399;"></span>小雅</span>
+                <span class="legend-item"><span class="swatch" style="background:#fbbf24;"></span>李川</span>
+            </div>
+            <div class="world-footer-btn">
+                <button onclick="location.href='world.html'">🌍 进入完整地图</button>
+            </div>
+        `;
+        }
+
+        function renderProfile() {
+            const container = document.getElementById('profileContainer');
+            const savedApi = localStorage.getItem('ai_api_key') || '';
+            const savedTts = localStorage.getItem('ai_tts_api_key') || '';
+            container.innerHTML = `
+            <div class="user-card">
+                <div class="avatar">🧑‍💻</div>
+                <div class="info">
+                    <div class="name">李川</div>
+                    <div class="sub">👨‍💻 程序员 · 锦华区 · 1996</div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="section-title">🔑 API 配置</div>
+                <div class="setting-card">
+                    <div class="setting-item">
+                        <span class="icon">🧠</span>
+                        <div class="content">
+                            <div class="label">DeepSeek</div>
+                            <input class="api-input" id="apiKeyInput" type="password" placeholder="sk-xxxxxxxx..." value="${savedApi}">
+                        </div>
+                        <span class="status-badge ${savedApi ? 'ok' : 'no'}">${savedApi ? '已配置' : '未配置'}</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="icon">🔊</span>
+                        <div class="content">
+                            <div class="label">TTS (阿里云)</div>
+                            <input class="api-input" id="ttsKeyInput" type="password" placeholder="sk-xxxxxxxx..." value="${savedTts}">
+                        </div>
+                        <span class="status-badge ${savedTts ? 'ok' : 'no'}">${savedTts ? '已配置' : '未配置'}</span>
+                    </div>
+                    <div class="setting-item" style="justify-content:flex-end;gap:8px;">
+                        <button class="btn primary" id="saveApiBtn">💾 保存</button>
+                        <span style="font-size:11px;color:#8e8e93;">保存后自动生效</span>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="section-title">💾 数据管理</div>
+                <div class="setting-card">
+                    <div class="setting-item" onclick="exportData()">
+                        <span class="icon">📤</span>
+                        <div class="content"><div class="label">导出存档</div><div class="desc">导出完整数据（含人设+聊天）</div></div>
+                        <span class="right">›</span>
+                    </div>
+                    <div class="setting-item" onclick="importData()">
+                        <span class="icon">📥</span>
+                        <div class="content"><div class="label">导入存档</div><div class="desc">从备份文件恢复数据</div></div>
+                        <span class="right">›</span>
+                    </div>
+                    <div class="setting-item" onclick="clearChat()">
+                        <span class="icon">🗑️</span>
+                        <div class="content"><div class="label">清空聊天记录</div><div class="desc" style="color:#ff3b30;">⚠️ 不可恢复，谨慎操作</div></div>
+                        <span class="right">›</span>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="section-title">🛠️ 高级</div>
+                <div class="setting-card">
+                    <div class="setting-item" style="padding:4px 14px;">
+                        <button class="btn dev-tool" onclick="location.href='dev.html'">🛠️ 开发者工具</button>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="section-title">ℹ️ 关于</div>
+                <div class="setting-card">
+                    <div class="setting-item" style="flex-direction:column;align-items:flex-start;gap:2px;">
+                        <div class="about-text">🌆 朵聊 · 舒心市 v3.0<br>数据存储在本地浏览器，不会上传</div>
+                    </div>
+                </div>
+            </div>
+        `;
+            document.getElementById('saveApiBtn').addEventListener('click', function () {
+                const apiKey = document.getElementById('apiKeyInput').value.trim();
+                const ttsKey = document.getElementById('ttsKeyInput').value.trim();
+                if (apiKey) localStorage.setItem('ai_api_key', apiKey);
+                else localStorage.removeItem('ai_api_key');
+                if (ttsKey) localStorage.setItem('ai_tts_api_key', ttsKey);
+                else localStorage.removeItem('ai_tts_api_key');
+                renderProfile();
+                showToast('✅ API 配置已保存');
+            });
+        }
+
+        function openChat(slot) {
+            location.href = 'chat.html?slot=' + slot;
+        }
+
+        function exportData() {
+            try {
+                const data = { version: '3.0', exportTime: new Date().toISOString(), profiles: {}, chats: {}, apiKeys: {} };
+                data.apiKeys.deepseek = localStorage.getItem('ai_api_key') || '';
+                data.apiKeys.tts = localStorage.getItem('ai_tts_api_key') || '';
+                SLOTS.forEach(slot => {
+                    const profile = localStorage.getItem('dev_profile_' + slot);
+                    if (profile) data.profiles[slot] = JSON.parse(profile);
+                    const chat = localStorage.getItem('chat_' + slot);
+                    if (chat) data.chats[slot] = JSON.parse(chat);
+                });
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '朵聊_备份_' + new Date().toISOString().slice(0, 10) + '.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('✅ 导出成功');
+            } catch (e) { showToast('❌ 导出失败: ' + e.message); }
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    try {
+                        const data = JSON.parse(ev.target.result);
+                        if (!data.version || !data.profiles) { showToast('❌ 无效的备份文件'); return; }
+                        let count = 0;
+                        SLOTS.forEach(slot => {
+                            if (data.profiles[slot]) { localStorage.setItem('dev_profile_' + slot, JSON.stringify(data.profiles[slot])); count++; }
+                            if (data.chats && data.chats[slot]) { localStorage.setItem('chat_' + slot, JSON.stringify(data.chats[slot])); }
+                        });
+                        if (data.apiKeys) {
+                            if (data.apiKeys.deepseek) localStorage.setItem('ai_api_key', data.apiKeys.deepseek);
+                            if (data.apiKeys.tts) localStorage.setItem('ai_tts_api_key', data.apiKeys.tts);
+                        }
+                        showToast('✅ 导入成功，更新了 ' + count + ' 个人设');
+                        renderProfile();
+                        renderChatList();
+                    } catch (err) { showToast('❌ 导入失败: ' + err.message); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearChat() {
+            if (confirm('确定要清空所有角色的聊天记录吗？此操作不可恢复！')) {
+                if (confirm('再次确认：真的要清空所有聊天记录吗？')) {
+                    SLOTS.forEach(slot => localStorage.removeItem('chat_' + slot));
+                    renderChatList();
+                    showToast('🗑️ 已清空所有聊天记录');
+                }
+            }
+        }
+
+        function init() {
+            renderChatList();
+            renderContactList();
+            renderWorld();
+            renderProfile();
+            checkHash();
+            console.log('💬 朵聊已启动');
+        }
+
+        window.openChat = openChat;
+        window.switchToTab = switchToTab;
+        window.exportData = exportData;
+        window.importData = importData;
+        window.clearChat = clearChat;
+        init();
+    </script>
+</body>
+
+</html>

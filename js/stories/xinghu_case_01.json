@@ -1,0 +1,313 @@
+{
+  "story_id": "xinghu_case_01",
+  "title": "星湖樱花季命案",
+  "genre": "推理",
+  "difficulty": 3,
+  "estimated_sessions": 4,
+  "description": "舒心市星湖湿地公园，樱花盛开的季节，却发生了一起离奇命案。星湖美术馆馆长被发现倒在樱花树下，身中数刀。案发时段监控恰好故障，嫌疑人众多，真相扑朔迷离……",
+  
+  "setting": {
+    "city": "舒心市",
+    "district": "星湖区",
+    "crime_scene": {
+      "block_id": "A1",
+      "name": "星湖湿地公园",
+      "global_coord": [1, 1],
+      "description": "城市西北的生态公园，以樱花闻名，春季游客众多"
+    },
+    "related_locations": [
+      {
+        "block_id": "A3",
+        "name": "星湖美术馆",
+        "global_coord": [1, 3],
+        "distance_from_scene": 2,
+        "description": "死者工作地点，步行5分钟可达"
+      },
+      {
+        "block_id": "A7",
+        "name": "滨湖住宅区",
+        "global_coord": [3, 1],
+        "distance_from_scene": 2,
+        "description": "嫌疑人A的住所"
+      },
+      {
+        "block_id": "A8",
+        "name": "星湖咖啡馆",
+        "global_coord": [3, 2],
+        "distance_from_scene": 3,
+        "description": "嫌疑人B被目击在此"
+      },
+      {
+        "block_id": "H4",
+        "name": "综合人民医院",
+        "global_coord": [8, 4],
+        "distance_from_scene": 6,
+        "description": "甜小朵工作地点"
+      },
+      {
+        "block_id": "D1",
+        "name": "新华书店",
+        "global_coord": [4, 1],
+        "distance_from_scene": 5,
+        "description": "小雅工作地点"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "陈馆长",
+    "age": 50,
+    "occupation": "星湖美术馆馆长",
+    "time_of_death": "2026年4月5日 14:30-15:00",
+    "cause_of_death": "多处刀伤，失血过多",
+    "last_seen": "14:20 从星湖美术馆前往公园"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "樱花树下的尸体",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "发现尸体",
+        "介绍4位主要嫌疑人",
+        "初步勘查现场"
+      ],
+      "available_clues": [
+        {
+          "id": "c_monitor_blind",
+          "name": "监控盲区",
+          "description": "案发时段14:25-15:00监控恰好有故障，无法拍到凶手",
+          "source": "查看公园监控"
+        },
+        {
+          "id": "c_photo_in_pocket",
+          "name": "死者口袋里的照片",
+          "description": "一张女人的背影照片，只拍到了头发的一角",
+          "source": "检查尸体"
+        },
+        {
+          "id": "c_shoe_print",
+          "name": "可疑鞋印",
+          "description": "现场发现一个42码运动鞋的鞋印，但鞋底花纹特殊",
+          "source": "勘查现场"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "甜小朵",
+          "appearance": "路过湿地公园北门，看到很多人围着，没有上前",
+          "info_to_provide": [
+            "我今天来加班，路过公园北门",
+            "看到好多人围着，就没过去凑热闹",
+            "我穿着护士服，身上有点咖啡渍（早上在医院洒的）"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "综合人民医院",
+            "time_range": "13:50-15:30",
+            "distance_to_crime": 6,
+            "commute_time_by_drive": 30,
+            "valid": true
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现至少1条线索",
+        "了解嫌疑人基本信息"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "错综复杂的关系",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "揭露嫌疑人的情感纠葛",
+        "发现财务问题",
+        "核实不在场证明"
+      ],
+      "available_clues": [
+        {
+          "id": "c_finance",
+          "name": "财务异常",
+          "description": "死者最近转出50万到一个匿名账户",
+          "source": "调查银行记录"
+        },
+        {
+          "id": "c_affair",
+          "name": "情感纠纷",
+          "description": "死者与馆长秘书有私情，但最近在闹分手",
+          "source": "询问知情人"
+        },
+        {
+          "id": "c_threat",
+          "name": "匿名威胁信",
+          "description": "死者收到过威胁信，内容是'不要辜负别人'",
+          "source": "检查死者办公室"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "小雅",
+          "appearance": "在新华书店工作，馆长是老顾客",
+          "info_to_provide": [
+            "馆长以前常来买书，特别喜欢侦探小说",
+            "他最近看起来心事重重，买了好几本推理小说",
+            "他说最近有很多烦心事，好像和感情有关"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "新华书店",
+            "time_range": "14:00-18:00",
+            "distance_to_crime": 5,
+            "commute_time_by_ebike": 20,
+            "valid": true,
+            "witness": "书店老板和其他顾客"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现财务或情感线索",
+        "至少核实1个不在场证明"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "真相的边缘",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "所有线索拼合",
+        "锁定真凶",
+        "用户提交第一次推理"
+      ],
+      "available_clues": [
+        {
+          "id": "c_shoe_match",
+          "name": "鞋印比对",
+          "description": "嫌疑人A的运动鞋鞋底花纹与现场鞋印匹配",
+          "source": "技术鉴定"
+        },
+        {
+          "id": "c_photo_owner",
+          "name": "照片主人",
+          "description": "照片上的女人背影，经辨认是嫌疑人A的前女友",
+          "source": "数据库比对"
+        },
+        {
+          "id": "c_motive_reveal",
+          "name": "动机揭露",
+          "description": "嫌疑人A发现馆长移情别恋，而且转移了本该属于他的遗产",
+          "source": "审讯/调查"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "锁定凶手",
+        "提交推理"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "水落石出",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露真凶",
+        "交代每个人的结局",
+        "结案"
+      ],
+      "ending": {
+        "truth": "凶手是馆长秘书（嫌疑人A）。他发现馆长不仅和他分手，还转移了他母亲遗产的50万，心生杀意，在监控盲区时段作案后，利用事先准备好的不在场证明试图脱身。",
+        "key_evidence": [
+          "鞋印匹配",
+          "死者口袋里的前女友照片（馆长秘书的作案动机来源）",
+          "财务记录（50万转账）",
+          "监控盲区的时间差"
+        ],
+        "red_herrings": [
+          "画家B的证词（他确实在咖啡馆，但是他的紧张表现让人误会）",
+          "白洁的偶然出现（她只是来参观美术馆，与案件无关）"
+        ],
+        "resolutions": {
+          "甜小朵": "继续在综合人民医院工作，偶尔会想起这次经历",
+          "小雅": "在新华书店照常上班，偶尔会和客人聊起这桩案件",
+          "白洁": "忙于天鹅湖酒店的工作，对这桩案件只是略有耳闻",
+          "馆长秘书A": "被捕，面临杀人指控"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "馆长秘书A",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "馆长的秘书，与馆长有私情，最近在闹分手",
+      "alibi": {
+        "location": "滨湖住宅区",
+        "time_range": "14:00-16:00",
+        "distance_to_crime": 2,
+        "commute_time_by_ebike": 8,
+        "commute_time_by_drive": 4,
+        "valid": false,
+        "alibi_note": "声称在家看电视，但没有证人"
+      },
+      "motive_tease": "可能因感情纠纷杀人"
+    },
+    {
+      "name": "画家B",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "馆长的朋友，经常来美术馆，最近经济拮据",
+      "alibi": {
+        "location": "星湖咖啡馆",
+        "time_range": "13:30-15:30",
+        "distance_to_crime": 3,
+        "commute_time_by_walk": 45,
+        "commute_time_by_ebike": 12,
+        "valid": false,
+        "alibi_note": "咖啡馆服务员作证他在场，但中途14:20-14:35去了哪里不清楚"
+      },
+      "motive_tease": "可能因借钱被拒绝而怀恨在心"
+    },
+    {
+      "name": "甜小朵",
+      "role": "证人（客串）",
+      "status": "witness",
+      "description": "护士，路过公园北门",
+      "alibi": {
+        "location": "综合人民医院",
+        "time_range": "13:50-15:30",
+        "distance_to_crime": 6,
+        "commute_time_by_drive": 30,
+        "valid": true,
+        "alibi_note": "医院监控和同事都能证明"
+      },
+      "motive_tease": "无明显动机"
+    },
+    {
+      "name": "小雅",
+      "role": "证人（客串）",
+      "status": "witness",
+      "description": "书店店员，馆长的读者",
+      "alibi": {
+        "location": "新华书店",
+        "time_range": "14:00-18:00",
+        "distance_to_crime": 5,
+        "commute_time_by_ebike": 20,
+        "valid": true,
+        "alibi_note": "书店老板和顾客都能证明"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "舒心市的四月，星湖湿地公园的樱花开得正盛……",
+    "atmosphere": "春日暖阳，粉色的樱花铺满枝头，游客们纷纷驻足拍照。然而，一阵尖叫声打破了这份美好——有人在樱花树下发现了一具尸体。",
+    "victim_intro": "死者是星湖美术馆的陈馆长，50岁，身中数刀。案发时间大约在14:30-15:00之间。",
+    "task_intro": "作为一名调查者，你需要：\n1. 勘查现场，收集线索\n2. 询问相关人员，核实不在场证明\n3. 分析线索，锁定真凶\n4. 还原案件真相"
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "story_id": "crime_05",
+  "title": "走私案件",
+  "genre": "刑侦",
+  "difficulty": 4,
+  "estimated_sessions": 5,
+  "description": "舒心市港口海关在例行检查中查获一批价值2.3亿的走私化妆品，进一步追查发现这不是孤立案件，而是牵扯到舒心市商界一位「大老虎」的长期走私网络……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "港口区",
+    "crime_scene": {
+      "block_id": "A9",
+      "name": "舒心市国际集装箱码头",
+      "global_coord": [1, 9],
+      "description": "舒心市最大的集装箱港口，日均吞吐量超10万标准箱"
+    },
+    "related_locations": [
+      {
+        "block_id": "A8",
+        "name": "海关查验区",
+        "global_coord": [1, 8],
+        "distance_from_scene": 1,
+        "description": "海关对进出口货物进行查验的区域"
+      },
+      {
+        "block_id": "A7",
+        "name": "港口仓储区",
+        "global_coord": [1, 7],
+        "distance_from_scene": 2,
+        "description": "海关监管的保税仓库区"
+      },
+      {
+        "block_id": "B9",
+        "name": "港务局办公楼",
+        "global_coord": [2, 9],
+        "distance_from_scene": 1,
+        "description": "港口管理机构办公区"
+      },
+      {
+        "block_id": "C9",
+        "name": "港区派出所",
+        "global_coord": [3, 9],
+        "distance_from_scene": 2,
+        "description": "负责港口区域治安的派出所"
+      },
+      {
+        "block_id": "B6",
+        "name": "商界大老虎办公室",
+        "global_coord": [2, 6],
+        "distance_from_scene": 3,
+        "description": "知名地产集团董事长办公室，疑为走私幕后"
+      },
+      {
+        "block_id": "A5",
+        "name": "进出口贸易公司集群",
+        "global_coord": [1, 5],
+        "distance_from_scene": 4,
+        "description": "与走私有关联的贸易公司聚集地"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "黄晓东",
+    "age": 38,
+    "occupation": "海关缉毒犬训练师",
+    "time_of_death": "2026年7月25日 22:00",
+    "cause_of_death": "在港区巡查时被发现昏迷，疑被人重击后脑致死",
+    "last_seen": "21:30 在查验区巡查",
+    "case_specific_info": {
+      "contraband_value": "2.3亿元人民币",
+      "contraband_type": "走私高档化妆品（约5000箱）",
+      "smuggling_method": "藏匿于合法货物集装箱的夹层中",
+      "time_window": "案发前一周内进入港口"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "港口查获",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查走私现场",
+        "清点查获物品",
+        "调查码头工作人员"
+      ],
+      "available_clues": [
+        {
+          "id": "c_hidden_goods",
+          "name": "夹层货物",
+          "description": "走私化妆品被隐藏在标注为'陶瓷制品'的集装箱底部夹层中",
+          "source": "海关查验"
+        },
+        {
+          "id": "c_shipment_records",
+          "name": "航运记录",
+          "description": "货物起运港为东南亚某国，提单显示收货人为一家本地小型贸易公司",
+          "source": "海运单据审查"
+        },
+        {
+          "id": "c_death_scene",
+          "name": "巡查员死亡现场",
+          "description": "黄晓东的巡查记录仪在案发时段被人为关闭，现场有搏斗痕迹",
+          "source": "现场勘查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "海关关长老李",
+          "appearance": "50岁，穿着海关制服，表情凝重",
+          "info_to_provide": [
+            "这批走私品价值巨大，背后一定有大人物",
+            "最近港口的走私活动越来越猖獗",
+            "黄晓东是个好员工，他的死很可疑",
+            "我怀疑有人在海关内部有内应"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "海关办公楼",
+            "time_range": "案发时段",
+            "distance_to_crime": 2,
+            "valid": true,
+            "alibi_note": "有其他关员可证明"
+          }
+        },
+        {
+          "npc": "码头工人老王",
+          "appearance": "45岁，皮肤黝黑，手上有老茧",
+          "info_to_provide": [
+            "我在码头干了20年，从没见过这么大的走私量",
+            "最近几个月有些集装箱的装卸很奇怪，总是晚上进行",
+            "有领导来打过招呼，说有些箱子'特殊处理'",
+            "黄晓东出事那晚，我看到一辆黑色轿车离开了码头"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "工人休息室",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "有其他工人可证明，但提供了可疑信息"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认走私的规模和网络",
+        "找到海关内部的可疑人员"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "内部调查",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "调查海关内部人员",
+        "追查贸易公司背景",
+        "分析走私网络结构"
+      ],
+      "available_clues": [
+        {
+          "id": "c_trade_company",
+          "name": "贸易公司背景",
+          "description": "收货的贸易公司注册资金仅50万，成立不到半年，但每月经手的集装箱量超过百家大型企业",
+          "source": "工商调查"
+        },
+        {
+          "id": "c_customs_insider",
+          "name": "海关内部线索",
+          "description": "一名海关关员的银行账户在走私期间有多次大额资金入账，来源不明",
+          "source": "内部审计"
+        },
+        {
+          "id": "c_port_logs",
+          "name": "港口通行记录",
+          "description": "案发前一周，有多个集装箱在深夜未经完整查验就被放行",
+          "source": "港口通行系统日志"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "可疑关员张磊",
+          "appearance": "35岁，眼神躲闪，手指不停地敲桌面",
+          "info_to_provide": [
+            "我只是按规定查验货物，没什么好说的",
+            "那些深夜放行的集装箱是因为船期紧张，领导批准的",
+            "我的钱是家里拆迁补偿款，有问题吗？",
+            "黄晓东的死跟我没关系"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "海关查验区",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": false,
+            "alibi_note": "有同事看到他离开过查验区15分钟"
+          }
+        },
+        {
+          "npc": "港口集团董事长马总",
+          "appearance": "55岁，气势不凡，穿着定制西装",
+          "info_to_provide": [
+            "港口是舒心市的门户，我一直在推动合规经营",
+            "黄晓东的不幸去世我深感痛心，会全力配合调查",
+            "那些深夜的集装箱是正常的货运安排",
+            "我相信我们的团队是清白的"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "港务局办公楼",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": false,
+            "alibi_note": "声称在办公室，但保安称21:00看到他离开"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定走私网络的核心人物",
+        "确认海关内部的勾结者"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "牵出大老虎",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "追查走私资金流向",
+        "发现高层关联",
+        "锁定犯罪首脑"
+      ],
+      "available_clues": [
+        {
+          "id": "c_corporate_links",
+          "name": "企业关联网",
+          "description": "收货贸易公司的法人代表是港口集团董事长马总的远房亲戚，而马总是地产大亨的得力干将",
+          "source": "企业关系图谱分析"
+        },
+        {
+          "id": "c_money_flow",
+          "name": "资金追踪",
+          "description": "走私所得资金经过多层转账，最终有相当一部分流向舒心市某知名地产集团的海外账户",
+          "source": "资金流分析"
+        },
+        {
+          "id": "c_death_motive",
+          "name": "杀人动机",
+          "description": "黄晓东生前正在调查港口异常货物，并且已经接近走私网络的核心，被灭口",
+          "source": "黄晓东生前工作记录"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "走私案件知情人",
+          "appearance": "匿名线人，通过律师提供信息",
+          "info_to_provide": [
+            "这个走私网络存在至少5年了，不是一天两天的事",
+            "背后的大人物是地产集团的董事长刘德发，他在舒心市商界的影响力很大",
+            "港口、海关、甚至市里都有人被他收买",
+            "黄晓东的死不是意外，是被杀人灭口"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "不明",
+            "time_range": "不明",
+            "distance_to_crime": "不明",
+            "valid": false,
+            "alibi_note": "匿名提供信息，需要核实"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认走私网络的完整结构",
+        "掌握核心人物的犯罪证据"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "一网打尽",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露走私网络全貌",
+        "说明各方角色",
+        "结案"
+      ],
+      "ending": {
+        "truth": "本案是一个以地产大亨刘德发为首的长期走私犯罪团伙。刘德发通过控制港口集团董事长马总，在海关内部收买关员张磊，建立起完整的走私链条。走私物品包括化妆品、电子产品、奢侈品等，通过集装箱夹层藏匿方式逃避查验。黄晓东因发现走私线索而被灭口。这一走私网络已持续运作5年，累计走私金额超过20亿。",
+        "key_evidence": [
+          "贸易公司法人代表与马总的亲属关系",
+          "关员张磊银行账户的异常资金流入",
+          "走私资金流向刘德发地产集团的海外账户",
+          "黄晓东生前调查记录中的走私线索",
+          "码头工人提供的深夜可疑集装箱通行记录"
+        ],
+        "red_herrings": [
+          "海关关长老李的怀疑（他是正当调查者）",
+          "码头工人的证词（真实但作为传闻证据）",
+          "匿名线人（提供了重要信息但需要其他证据佐证）"
+        ],
+        "resolutions": {
+          "刘德发": "被捕，以走私罪和行贿罪起诉，地产集团被冻结资产",
+          "马总": "被捕，以走私共犯和滥用职权罪起诉",
+          "张磊": "被捕，以放纵走私罪和受贿罪起诉",
+          "黄晓东": "被追认为烈士，海关系统进行全面整顿"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "地产大亨刘德发",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "60岁，舒心市知名地产集团董事长，商界大老虎",
+      "alibi": {
+        "location": "地产集团总部",
+        "time_range": "案发时段",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "声称在开会，但会议记录存在疑点"
+      },
+      "motive_tease": "可能通过走私获取暴利，有行贿嫌疑"
+    },
+    {
+      "name": "港口集团马总",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "55岁，港口集团董事长，刘德发的得力干将",
+      "alibi": {
+        "location": "港务局办公楼",
+        "time_range": "案发时段",
+        "distance_to_crime": 1,
+        "valid": false,
+        "alibi_note": "被看到21:00离开办公楼"
+      },
+      "motive_tease": "可能受刘德发指使参与走私，接受贿赂"
+    },
+    {
+      "name": "海关关员张磊",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "35岁，海关查验关员，银行账户有异常资金",
+      "alibi": {
+        "location": "海关查验区",
+        "time_range": "案发时段",
+        "distance_to_crime": 1,
+        "valid": false,
+        "alibi_note": "有15分钟行踪不明"
+      },
+      "motive_tease": "可能被收买放纵走私，参与杀人"
+    },
+    {
+      "name": "海关关长老李",
+      "role": "证人",
+      "status": "witness",
+      "description": "50岁，资深海关关长，正直且有经验",
+      "alibi": {
+        "location": "海关办公楼",
+        "time_range": "案发时段",
+        "distance_to_crime": 2,
+        "valid": true,
+        "alibi_note": "有其他关员可证明"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "7月25日，舒心市国际集装箱码头的一声枪响，揭开了一个横跨5年的走私黑幕……",
+    "atmosphere": "港口的夜色深沉，集装箱如山堆积。海关缉毒犬训练师黄晓东在巡查中发现了隐藏在货物中的走私品，也因此发现了一个震惊全市的走私网络。然而，他没能活着说出真相……",
+    "victim_intro": "死者黄晓东，38岁，海关缉毒犬训练师。他在例行巡查中发现了走私线索，即将揭开港口走私黑幕时被灭口。此前海关查获的走私化妆品价值2.3亿，只是冰山一角。",
+    "task_intro": "作为一名刑侦调查员，你需要：\n1. 勘查走私现场和死亡现场\n2. 调查海关和港口内部人员\n3. 分析贸易公司的背景和关联\n4. 追踪走私资金的流向\n5. 揭露走私网络的完整结构，将罪犯绳之以法"
+  }
+}

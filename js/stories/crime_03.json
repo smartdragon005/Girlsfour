@@ -1,0 +1,380 @@
+{
+  "story_id": "crime_03",
+  "title": "醉驾肇事逃逸",
+  "genre": "刑侦",
+  "difficulty": 3,
+  "estimated_sessions": 4,
+  "description": "深夜的舒心市滨江路发生一起交通肇事逃逸案，一名夜跑女性被撞身亡。现场只留下车辆碎片和一个神秘U盘，牵出背后的秘密交易……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "滨江区",
+    "crime_scene": {
+      "block_id": "I4",
+      "name": "滨江路东段",
+      "global_coord": [9, 4],
+      "description": "滨江路无人区路段，夜间照明不足，道路宽阔但人车稀少"
+    },
+    "related_locations": [
+      {
+        "block_id": "H4",
+        "name": "滨江路监控卡口",
+        "global_coord": [8, 4],
+        "distance_from_scene": 1,
+        "description": "滨江路东段唯一的治安监控卡口"
+      },
+      {
+        "block_id": "I3",
+        "name": "滨江路酒吧一条街",
+        "global_coord": [9, 3],
+        "distance_from_scene": 1,
+        "description": "滨江路附近的夜生活区域，事发前肇事者可能在此饮酒"
+      },
+      {
+        "block_id": "H5",
+        "name": "滨江路交警队",
+        "global_coord": [8, 5],
+        "distance_from_scene": 1,
+        "description": "负责该区域交通执法的交警队"
+      },
+      {
+        "block_id": "I5",
+        "name": "滨江路停车服务区",
+        "global_coord": [9, 5],
+        "distance_from_scene": 1,
+        "description": "事发后车辆可能停靠的服务区"
+      },
+      {
+        "block_id": "D8",
+        "name": "市中心汽车维修一条街",
+        "global_coord": [4, 8],
+        "distance_from_scene": 5,
+        "description": "肇事者可能前往维修受损车辆"
+      },
+      {
+        "block_id": "I2",
+        "name": "夜跑者集结点",
+        "global_coord": [9, 2],
+        "distance_from_scene": 2,
+        "description": "受害者生前常来的夜跑起点"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "张美玲",
+    "age": 32,
+    "occupation": "市中心医院外科医生",
+    "time_of_death": "2026年7月10日 23:45",
+    "cause_of_death": "严重颅脑损伤合并多发性骨折",
+    "last_seen": "23:00 开始沿滨江路夜跑",
+    "case_specific_info": {
+      "vehicle_type": "疑为SUV车型",
+      "vehicle_damage": "前保险杠左侧受损，大灯碎裂",
+      "evidence_at_scene": ["车辆保险杠碎片", "大灯玻璃碎片", "一个黑色U盘"]
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "深夜的滨江路",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查事故现场",
+        "检查现场遗留物",
+        "调取附近监控"
+      ],
+      "available_clues": [
+        {
+          "id": "c_vehicle_part",
+          "name": "车辆保险杠碎片",
+          "description": "现场发现的黑色塑料保险杠碎片，经比对为某品牌SUV原厂配件",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_usb_drive",
+          "name": "神秘U盘",
+          "description": "死者身旁发现的黑色U盘，表面刻有一个奇怪的符号",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_monitor_gap",
+          "name": "监控盲区",
+          "description": "事发路段的监控卡口在案发时段恰好因电力故障停止工作10分钟",
+          "source": "监控系统检查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "夜跑目击者小陈",
+          "appearance": "28岁，穿着运动服，脸色发白",
+          "info_to_provide": [
+            "我今天跑得特别慢，所以比平时晚出发",
+            "快到滨江路东段的时候，我听到一声刺耳的刹车声",
+            "然后看到一个黑影从路上飞出去……我吓傻了",
+            "那辆车开得特别快，像是酒驾的样子，我没看清车牌"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "滨江路夜跑路线",
+            "time_range": "23:00-00:00",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "其他夜跑者可证明"
+          }
+        },
+        {
+          "npc": "受害者同事王医生",
+          "appearance": "35岁，穿着白大褂，神情悲痛",
+          "info_to_provide": [
+            "美玲是我们医院最好的外科医生，怎么会发生这种事……",
+            "她每天这个时间都会来夜跑，已经坚持了两年",
+            "她最近在忙一个医学研究项目，压力很大",
+            "她没有仇人，是个很善良的人"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "市中心医院",
+            "time_range": "20:00-次日08:00",
+            "distance_to_crime": 4,
+            "valid": true,
+            "alibi_note": "值班医生和护士可证明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认肇事车辆的品牌型号",
+        "找到U盘的内容"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "U盘的秘密",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "分析U盘内容",
+        "追查肇事车辆",
+        "排查饮酒场所"
+      ],
+      "available_clues": [
+        {
+          "id": "c_usb_content",
+          "name": "U盘内容",
+          "description": "U盘内存储了一份非法医疗数据交易清单，涉及多家医院的患者隐私信息",
+          "source": "数据恢复分析"
+        },
+        {
+          "id": "c_suv_match",
+          "name": "肇事车辆锁定",
+          "description": "保险杠碎片比对结果显示为大众途锐车型，全市登记在册共158辆",
+          "source": "车辆信息库比对"
+        },
+        {
+          "id": "c_bar_surveillance",
+          "name": "酒吧监控线索",
+          "description": "滨江路酒吧街一家酒吧监控拍到23:20一辆黑色途锐离开停车场，司机疑似醉酒",
+          "source": "酒吧监控调取"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "酒吧调酒师小林",
+          "appearance": "24岁，穿着时尚的工作服",
+          "info_to_provide": [
+            "那天晚上有个客人喝了很多洋酒",
+            "他开的是辆黑色的大SUV，挺贵的那种",
+            "我给他结账的时候，看到他钱包里有张医院的工作证",
+            "他好像在打电话，说什么'数据拿到了没'"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "酒吧吧台",
+            "time_range": "20:00-次日02:00",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "同事和监控可证明"
+          }
+        },
+        {
+          "npc": "可疑车辆登记人",
+          "appearance": "38岁，身份信息核实中",
+          "info_to_provide": [
+            "我的车一直在家里停着，没开出去",
+            "你们凭什么怀疑我？",
+            "我上周刚把车借给朋友用了几天",
+            "我朋友说他撞了一下马路牙子，已经修好了"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "家中心园小区",
+            "time_range": "22:00-次日06:00",
+            "distance_to_crime": 3,
+            "valid": false,
+            "alibi_note": "声称在家，但妻子证词与他矛盾"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定肇事司机身份",
+        "确认U盘的关联人"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "追踪肇事者",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "分析车辆维修记录",
+        "追踪U盘与案件的关联",
+        "锁定嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_vehicle_repair",
+          "name": "车辆维修记录",
+          "description": "市中心一家维修厂记录显示，一辆黑色途锐在7月11日凌晨3点进厂维修前保险杠，维修人员反映司机身上有浓烈酒气",
+          "source": "维修厂记录"
+        },
+        {
+          "id": "c_medical_deal",
+          "name": "非法医疗交易链",
+          "description": "U盘内的数据涉及受害者张美玲所在医院的患者信息，疑为内部人员盗取",
+          "source": "数据分析"
+        },
+        {
+          "id": "c_medical_record",
+          "name": "医院内部调查",
+          "description": "医院信息科记录显示，案发前一天有人非法下载了大量患者数据，IP地址指向医院内部一台电脑",
+          "source": "医院IT系统日志"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "汽车维修厂老板",
+          "appearance": "48岁，手上有油污，说话直爽",
+          "info_to_provide": [
+            "那辆车的前保险杠裂了，还有大灯碎了",
+            "我一看就知道是撞了人，但是客人给钱爽快，我就没多问",
+            "司机是个穿西装的年轻人，戴眼镜，挺斯文的",
+            "他说自己喝多了撞了栏杆，要我赶紧修好，不能耽误事"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "维修厂",
+            "time_range": "正常营业时间",
+            "distance_to_crime": 5,
+            "valid": true,
+            "alibi_note": "有完整的监控记录"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定肇事司机身份",
+        "确认非法数据交易的完整链条"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "真相大白",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露肇事者身份",
+        "交代肇事动机和经过",
+        "结案"
+      ],
+      "ending": {
+        "truth": "肇事者是市中心医院信息科的IT工程师刘凯。他盗取医院患者数据进行非法交易，当晚与买家在滨江路酒吧碰面，酒后驾车离开时撞死了正在夜跑的张美玲。更巧合的是，张美玲是发现数据泄露并准备上报的外科医生，刘凯为灭口曾有刻意接近但失败。U盘是从张美玲身上掉落的，她在夜跑前正在查看U盘里的医疗数据证据。",
+        "key_evidence": [
+          "维修厂监控拍到的穿西装戴眼镜的司机形象与刘凯特征吻合",
+          "医院IT系统日志显示数据下载IP来自刘凯使用的电脑",
+          "U盘内容是非法交易的数据清单，涉及张美玲所在科室",
+          "酒吧监控显示刘凯在案发前饮了大量白酒",
+          "刘凯的银行账户在案发前后均有异常资金往来"
+        ],
+        "red_herrings": [
+          "车辆登记人（他确实将车借给了刘凯）",
+          "酒吧调酒师的证词（她提供的信息间接但有效）",
+          "夜跑目击者（他只看到了肇事车辆，无法确认司机）"
+        ],
+        "resolutions": {
+          "刘凯": "被捕，以交通肇事罪、危险驾驶罪和侵犯公民个人信息罪起诉",
+          "非法数据买家": "顺藤摸瓜查获，以非法获取公民个人信息罪起诉",
+          "维修厂老板": "以掩饰、隐瞒犯罪所得罪被调查",
+          "受害者家属": "获得民事赔偿，医院加强了数据安全管理"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "医院IT工程师刘凯",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "28岁，市中心医院信息科工程师，有数据访问权限",
+      "alibi": {
+        "location": "声称在家休息",
+        "time_range": "22:00-次日06:00",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "无证人，且维修厂监控拍到他驾驶肇事车辆"
+      },
+      "motive_tease": "可能涉及非法数据交易，酒后驾车肇事逃逸"
+    },
+    {
+      "name": "车辆登记人赵先生",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "38岁，途锐车主，声称车借给了朋友",
+      "alibi": {
+        "location": "家中心园小区",
+        "time_range": "22:00-次日06:00",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "妻子证词前后矛盾"
+      },
+      "motive_tease": "可能知情不报或包庇肇事者"
+    },
+    {
+      "name": "非法数据买家",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "身份不明，与刘凯进行非法数据交易",
+      "alibi": {
+        "location": "不明",
+        "time_range": "不明",
+        "distance_to_crime": 不明,
+        "valid": false,
+        "alibi_note": "需进一步追查"
+      },
+      "motive_tease": "通过非法获取患者信息牟利"
+    },
+    {
+      "name": "酒吧调酒师小林",
+      "role": "证人",
+      "status": "witness",
+      "description": "24岁，目击了可疑客人",
+      "alibi": {
+        "location": "酒吧吧台",
+        "time_range": "20:00-次日02:00",
+        "distance_to_crime": 1,
+        "valid": true,
+        "alibi_note": "同事和监控可证明"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "7月10日深夜，滨江路的路灯在夜风中摇曳，一场悲剧悄然发生……",
+    "atmosphere": "夏末的滨江路凉风习习，是夜跑爱好者的天堂。然而这一夜，一辆失控的SUV将32岁的外科医生张美玲撞飞。肇事车辆没有停下，消失在夜色中……",
+    "victim_intro": "死者张美玲，32岁，市中心医院外科医生。她是发现医院数据泄露并准备上报的正直医生，在夜跑途中不幸被醉酒驾车的刘凯撞死。",
+    "task_intro": "作为一名刑侦调查员，你需要：\n1. 勘查事故现场，提取车辆碎片\n2. 分析现场发现的神秘U盘\n3. 调取周边监控，追踪肇事车辆\n4. 追查车辆来源和维修记录\n5. 揭露肇事逃逸背后的非法交易"
+  }
+}

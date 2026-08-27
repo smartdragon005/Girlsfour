@@ -1,0 +1,386 @@
+{
+  "story_id": "crime_02",
+  "title": "连环盗窃案",
+  "genre": "刑侦",
+  "difficulty": 3,
+  "estimated_sessions": 4,
+  "description": "舒心市顶级富豪小区「云顶花园」连续三个月发生入室盗窃案，被盗金额累计超过800万。窃贼手法极其专业，无暴力入侵痕迹，现场不留指纹，警方怀疑有内鬼协助……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "云顶别墅区",
+    "crime_scene": {
+      "block_id": "G3",
+      "name": "云顶花园3号楼",
+      "global_coord": [7, 3],
+      "description": "舒心市最高档的别墅小区，每户占地超800平米，安保等级极高"
+    },
+    "related_locations": [
+      {
+        "block_id": "G1",
+        "name": "云顶花园物业管理中心",
+        "global_coord": [7, 1],
+        "distance_from_scene": 2,
+        "description": "负责小区安保管理的物业办公区"
+      },
+      {
+        "block_id": "G2",
+        "name": "云顶花园监控中心",
+        "global_coord": [7, 2],
+        "distance_from_scene": 1,
+        "description": "小区24小时监控室，所有摄像头汇聚于此"
+      },
+      {
+        "block_id": "F3",
+        "name": "失窃业主刘总家",
+        "global_coord": [6, 3],
+        "distance_from_scene": 1,
+        "description": "第二起盗窃案现场，知名企业家住宅"
+      },
+      {
+        "block_id": "H3",
+        "name": "失窃业主王董事家",
+        "global_coord": [8, 3],
+        "distance_from_scene": 1,
+        "description": "第三起盗窃案现场，金融行业高管住宅"
+      },
+      {
+        "block_id": "F1",
+        "name": "云顶花园警务室",
+        "global_coord": [6, 1],
+        "distance_from_scene": 2,
+        "description": "驻小区派出所办公点"
+      },
+      {
+        "block_id": "G5",
+        "name": "市中心珠宝回收鉴定中心",
+        "global_coord": [7, 5],
+        "distance_from_scene": 2,
+        "description": "可能是盗窃赃物的变现渠道"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "赵先生",
+    "age": 52,
+    "occupation": "云顶花园3号楼业主，科技公司CEO",
+    "time_of_death": "2026年5月20日 22:00",
+    "cause_of_death": "因心脏病发在书房被发现，疑因发现被盗后受刺激",
+    "last_seen": "19:00 回家后一直在书房工作",
+    "case_specific_info": {
+      "total_stolen_value": "约280万",
+      "stolen_items": ["祖母绿戒指", "劳力士手表", "古董字画", "现金15万"],
+      "entry_method": "无暴力入侵，疑使用门禁卡或技术开锁",
+      "exit_method": "疑使用别墅后门",
+      "time_window": "20:30-21:30之间"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "富豪小区的秘密",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查盗窃现场",
+        "检查安防系统",
+        "询问物业人员"
+      ],
+      "available_clues": [
+        {
+          "id": "c_no_force_entry",
+          "name": "无暴力入侵痕迹",
+          "description": "门窗完好无损，无撬锁痕迹，疑使用合法门禁或技术手段进入",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_security_loophole",
+          "name": "监控盲区",
+          "description": "别墅后院监控在案发时段恰好损坏，且门禁系统记录被人为篡改",
+          "source": "安防系统检查"
+        },
+        {
+          "id": "c_same_pattern",
+          "name": "作案手法一致",
+          "description": "三次盗窃均选择业主不在客厅/主卧时段，目标明确只偷贵重物品",
+          "source": "案件对比分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "物业经理陈经理",
+          "appearance": "45岁，戴着眼镜，看起来精明干练",
+          "info_to_provide": [
+            "我们小区的安保是顶级的，不可能有外人进来",
+            "这三个月连续出事，业主们已经闹到业委会了",
+            "我怀疑是业主家的佣人或者访客干的",
+            "监控坏了？不可能，我们每周都检查的"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "物业管理中心",
+            "time_range": "18:00-22:00",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 15,
+            "valid": false,
+            "alibi_note": "声称在整理文件，但19:30-20:30监控显示他离开了物业中心"
+          }
+        },
+        {
+          "npc": "保安队长老王",
+          "appearance": "58岁，身材壮实，穿着保安制服",
+          "info_to_provide": [
+            "我在这儿干了8年了，从没出过这种事",
+            "最近我们新来的几个保安，我不太熟",
+            "那几天的排班表我能提供",
+            "小区大门的出入记录应该都有"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "小区大门口",
+            "time_range": "17:00-23:00",
+            "distance_to_crime": 3,
+            "valid": true,
+            "alibi_note": "值班保安和监控都能证明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认内鬼的可能性",
+        "调查有机会接触门禁系统的人员"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "内鬼嫌疑",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "调查物业工作人员背景",
+        "分析门禁使用记录",
+        "追查赃物流向"
+      ],
+      "available_clues": [
+        {
+          "id": "c_access_log_tampered",
+          "name": "门禁记录被篡改",
+          "description": "三次案发时段的门禁刷卡记录均被删除，只有管理员权限才能操作",
+          "source": "门禁系统后台数据恢复"
+        },
+        {
+          "id": "c_rookie_background",
+          "name": "新保安背景可疑",
+          "description": "3个月前入职的保安张伟，入职资料信息有多处疑点，身份证号经查证为伪造",
+          "source": "身份信息核实"
+        },
+        {
+          "id": "c_stolen_items",
+          "name": "赃物特征分析",
+          "description": "被盗物品均为体积小、价值高、易于变现的物品，符合专业窃贼的选择逻辑",
+          "source": "物品清单分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "新保安张伟",
+          "appearance": "25岁，身材瘦小，眼神闪烁",
+          "info_to_provide": [
+            "我……我就是个普通保安，什么都不知道",
+            "我入职才3个月，之前的事跟我没关系",
+            "案发那晚我在值班，监控可以证明",
+            "我没有碰过任何门禁系统"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "小区巡逻路线",
+            "time_range": "18:00-22:00",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 10,
+            "valid": false,
+            "alibi_note": "声称在巡逻，但巡逻记录仪在19:30-20:00无记录"
+          }
+        },
+        {
+          "npc": "业主刘总家的管家李姐",
+          "appearance": "40岁，穿着整洁的制服，表情紧张",
+          "info_to_provide": [
+            "刘总出差的时候，我都在家照看房子",
+            "第二次被盗那天，我请假回老家了",
+            "真的很巧，我每次请假就出事",
+            "我认识小区里的几个保安，张伟是新来的"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "老家外地",
+            "time_range": "案发前后3天",
+            "distance_to_crime": 500,
+            "valid": true,
+            "alibi_note": "有高铁票和老家监控为证"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定内鬼身份",
+        "发现赃物流向线索"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "赃物流向",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "追查珠宝回收渠道",
+        "发现关键物证",
+        "锁定盗窃团伙"
+      ],
+      "available_clues": [
+        {
+          "id": "c_ring_trace",
+          "name": "赃物追踪",
+          "description": "祖母绿戒指的切割特征独特，在市中心一家隐秘珠宝店出现过类似特征的货品",
+          "source": "珠宝行业协查通报"
+        },
+        {
+          "id": "c_internal_connection",
+          "name": "内部联系方式",
+          "description": "张伟使用的加密手机中发现与一个未知号码的联系记录，且联系时间与案发时间高度吻合",
+          "source": "手机数据恢复"
+        },
+        {
+          "id": "c_security_gate",
+          "name": "监控管理员权限",
+          "description": "三次案发时段的监控删除操作均使用了物业陈经理的管理员账号",
+          "source": "系统日志分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "珠宝店老板老杨",
+          "appearance": "55岁，戴着老花镜，手有纹身",
+          "info_to_provide": [
+            "我这是正规生意，你们别乱说话",
+            "这枚戒指的切割工艺确实独特，但客户资料我不能透露",
+            "我可以配合你们调查，但你们得有搜查令",
+            "最近是有个年轻人来卖过几样东西"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "珠宝店",
+            "time_range": "正常营业时间",
+            "distance_to_crime": 2,
+            "valid": false,
+            "alibi_note": "可能涉嫌收赃"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认盗窃团伙完整成员",
+        "找到直接证据"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "团伙落网",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露盗窃团伙结构",
+        "说明各自角色分工",
+        "结案"
+      ],
+      "ending": {
+        "truth": "这是一个以物业经理陈经理为首的专业盗窃团伙。陈经理利用职务之便掌握小区安防系统，新保安张伟负责具体实施盗窃，珠宝店老板老杨负责收赃变现。三人勾结，在过去三个月内连续作案3次，累计金额超过800万。",
+        "key_evidence": [
+          "陈经理的管理员账号被用于删除案发时段监控记录",
+          "张伟的加密手机中记录了与老杨的赃物交易时间",
+          "珠宝店出现了与失窃物品特征一致的货品",
+          "张伟伪造的身份证显示他有盗窃前科",
+          "三人分赃的银行转账记录"
+        ],
+        "red_herrings": [
+          "保安队长老王的证词（他的巡逻记录真实有效）",
+          "管家李姐的巧合（她请假确实与案发时间重合，但与案件无关）",
+          "业主家的其他佣人（经调查均无异常）"
+        ],
+        "resolutions": {
+          "陈经理": "被捕，以职务侵占罪和教唆盗窃罪起诉",
+          "张伟": "被捕，因盗窃罪且有前科从重处罚",
+          "老杨": "被捕，以掩饰、隐瞒犯罪所得罪起诉，珠宝店被查封",
+          "业主们": "部分赃物被追回，物业进行全面整改"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "物业经理陈经理",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "45岁，物业最高管理者，掌握所有安防系统权限",
+      "alibi": {
+        "location": "物业管理中心",
+        "time_range": "18:00-22:00",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 15,
+        "valid": false,
+        "alibi_note": "管理员账号被用于删除监控，19:30-20:30行踪不明"
+      },
+      "motive_tease": "可能因经济困难组织盗窃，或被外部势力收买"
+    },
+    {
+      "name": "新保安张伟",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "25岁，入职3个月的新保安，身份证信息可疑",
+      "alibi": {
+        "location": "小区巡逻路线",
+        "time_range": "18:00-22:00",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 10,
+        "valid": false,
+        "alibi_note": "巡逻记录仪有空白时段，使用加密手机联系可疑人员"
+      },
+      "motive_tease": "可能是被安插的内鬼，负责具体盗窃行动"
+    },
+    {
+      "name": "珠宝店老杨",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "55岁，珠宝店老板，疑似收赃",
+      "alibi": {
+        "location": "珠宝店",
+        "time_range": "正常营业时间",
+        "distance_to_crime": 2,
+        "valid": false,
+        "alibi_note": "店内出现与赃物特征一致的货品"
+      },
+      "motive_tease": "可能是盗窃团伙的销赃渠道"
+    },
+    {
+      "name": "保安队长老王",
+      "role": "证人",
+      "status": "witness",
+      "description": "58岁，从业8年的老保安，老实本分",
+      "alibi": {
+        "location": "小区大门口",
+        "time_range": "17:00-23:00",
+        "distance_to_crime": 3,
+        "valid": true,
+        "alibi_note": "值班记录完整，无异常"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "舒心市最高档的云顶花园小区，三个月内连续发生三起入室盗窃案……",
+    "atmosphere": "夜色中的云顶花园，别墅灯火通明，然而在这奢华表象的背后，一个看不见的黑手正在运作。窃贼们手法专业，不留痕迹，仿佛幽灵般穿梭于富人的住所之间。",
+    "victim_intro": "死者赵先生，52岁，科技公司CEO。他在书房发现被盗后心脏病发身亡。此前已有两户业主家遭遇盗窃，累计损失超过800万元。",
+    "task_intro": "作为一名刑侦调查员，你需要：\n1. 勘查现场，分析盗窃手法\n2. 检查小区安防系统漏洞\n3. 调查物业工作人员背景\n4. 追查赃物流向，寻找销赃渠道\n5. 捣毁盗窃团伙，追回损失"
+  }
+}

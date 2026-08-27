@@ -1,0 +1,401 @@
+{
+  "story_id": "crime_06",
+  "title": "连环爆炸案",
+  "genre": "刑侦",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市CBD核心地带接连发生三起爆炸威胁，目标分别是写字楼、商场和政府大楼。每起威胁前，犯罪嫌疑人都会发出精确的预警信息，警方必须在限定时间内找到并拆除炸弹……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "中央商务区",
+    "crime_scene": {
+      "block_id": "C5",
+      "name": "环球贸易中心",
+      "global_coord": [3, 5],
+      "description": "舒心市最高的写字楼，高128层，入驻企业超200家"
+    },
+    "related_locations": [
+      {
+        "block_id": "C4",
+        "name": "万象城购物中心",
+        "global_coord": [3, 4],
+        "distance_from_scene": 1,
+        "description": "CBD核心商场，日均客流量超3万人次，第二起爆炸目标"
+      },
+      {
+        "block_id": "C6",
+        "name": "市政府办公楼",
+        "global_coord": [3, 6],
+        "distance_from_scene": 1,
+        "description": "市政府主要办公区，第三起爆炸目标"
+      },
+      {
+        "block_id": "B5",
+        "name": "CBD派出所",
+        "global_coord": [2, 5],
+        "distance_from_scene": 1,
+        "description": "辖区派出所，设立临时专案组"
+      },
+      {
+        "block_id": "C3",
+        "name": "消防救援支队",
+        "global_coord": [3, 3],
+        "distance_from_scene": 2,
+        "description": "负责爆炸现场救援和排爆工作"
+      },
+      {
+        "block_id": "D5",
+        "name": "公安局指挥中心",
+        "global_coord": [4, 5],
+        "distance_from_scene": 1,
+        "description": "全市公安指挥调度中心"
+      },
+      {
+        "block_id": "D4",
+        "name": "CBD地铁站",
+        "global_coord": [4, 4],
+        "distance_from_scene": 2,
+        "description": "CBD人员疏散的重要通道"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "赵志强",
+    "age": 34,
+    "occupation": "环球贸易中心安保主管",
+    "time_of_death": "2026年8月10日 12:15",
+    "cause_of_death": "在第一起爆炸中不幸遇难",
+    "last_seen": "12:00 收到匿名电话后前往排查可疑包裹",
+    "case_specific_info": {
+      "bomb_threats_count": "3起",
+      "targets": ["环球贸易中心", "万象城购物中心", "市政府办公楼"],
+      "threat_method": "匿名电话，精确告知炸弹位置和引爆时间",
+      "response_time": "每次威胁限定30分钟内完成排查"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "第一声惊雷",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "赶赴爆炸现场",
+        "参与救援和疏散",
+        "勘查爆炸痕迹"
+      ],
+      "available_clues": [
+        {
+          "id": "c_bomb_location",
+          "name": "炸弹位置",
+          "description": "第一枚炸弹被安置在环球贸易中心地下二层的配电箱旁，爆炸造成附近电力中断",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_threat_call",
+          "name": "威胁电话记录",
+          "description": "匿名电话使用变声器拨打，内容精确到楼层和具体位置",
+          "source": "通信记录分析"
+        },
+        {
+          "id": "c_device_type",
+          "name": "爆炸装置类型",
+          "description": "使用自制硝酸铵炸药，定时装置经过精确调校",
+          "source": "排爆专家分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "幸存者白领王小姐",
+          "appearance": "28岁，穿着职业装，惊魂未定",
+          "info_to_provide": [
+            "我在28楼上班，突然听到'砰'的一声巨响",
+            "然后整栋楼开始震动，警报响了起来",
+            "电梯停了，我们只能走楼梯往下跑",
+            "安保主管赵志强还在疏散我们，后来才知道他出事了"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "环球贸易中心28楼",
+            "time_range": "案发时段",
+            "distance_to_crime": 4,
+            "valid": true,
+            "alibi_note": "有同事和监控可证明"
+          }
+        },
+        {
+          "npc": "排爆专家李教授",
+          "appearance": "45岁，穿着防爆服，神情严肃",
+          "info_to_provide": [
+            "这不是普通的爆炸装置，制作水平相当专业",
+            "炸药选择硝酸铵是因为获取相对容易，且威力大",
+            "定时装置经过精确调校，误差不超过1秒",
+            "制造这枚炸弹的人有一定的化学和电子知识"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "排爆现场",
+            "time_range": "案发后",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "全程在现场工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认爆炸装置的类型和来源",
+        "分析威胁电话的技术特征"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "第二第三声预警",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "处置第二、三起威胁",
+        "调查爆炸物来源",
+        "分析嫌疑人目标选择"
+      ],
+      "available_clues": [
+        {
+          "id": "c_target_pattern",
+          "name": "目标选择逻辑",
+          "description": "三个目标分别是商业、消费、政府机构，覆盖面广，目的是制造最大恐慌",
+          "source": "犯罪心理分析"
+        },
+        {
+          "id": "c_explosive_source",
+          "name": "炸药来源追踪",
+          "description": "通过炸弹残留物分析，炸药来自本市一家矿山的爆破器材仓库，近期有一批硝酸铵被盗",
+          "source": "物证检验"
+        },
+        {
+          "id": "c_surveillance",
+          "name": "周边监控线索",
+          "description": "三个目标周边均拍到同一可疑身影，戴着鸭舌帽和口罩，身高约175cm",
+          "source": "监控比对分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "商场保安队长",
+          "appearance": "40岁，身材壮实，满脸疲惫",
+          "info_to_provide": [
+            "我们商场收到的威胁是炸弹在负一楼的储物柜里",
+            "我们疏散了2000多人，幸好没有人员伤亡",
+            "那个可疑人我见过几次，每次都是不同的打扮",
+            "但走路姿势很特别，有点跛"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "万象城购物中心",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "有商场监控和员工可证明"
+          }
+        },
+        {
+          "npc": "市政府安保人员",
+          "appearance": "35岁，精神紧绷",
+          "info_to_provide": [
+            "第三起威胁最紧急，炸弹在市政府食堂的储物柜",
+            "我们已经练过多次应急演练，但真遇到还是很紧张",
+            "感谢排爆团队，他们在最后一刻拆除了炸弹",
+            "我注意到那个威胁电话的声音，虽然变声了，但能听出是男性，年纪不大"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "市政府办公楼",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "有监控记录"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定嫌疑人的外貌特征",
+        "追踪炸药的来源"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "锁定嫌疑人",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "综合所有线索",
+        "确认嫌疑人身份",
+        "准备抓捕行动"
+      ],
+      "available_clues": [
+        {
+          "id": "c_mine_employee",
+          "name": "矿山员工排查",
+          "description": "被盗硝酸铵的矿山进行员工排查，发现一名离职员工有爆破作业资质，且有案底",
+          "source": "矿山人事调查"
+        },
+        {
+          "id": "c_criminal_record",
+          "name": "嫌疑人前科",
+          "description": "嫌疑人周伟，32岁，曾因非法制造爆炸物被判刑2年，2025年出狱",
+          "source": "犯罪数据库查询"
+        },
+        {
+          "id": "c_motive_analysis",
+          "name": "动机分析",
+          "description": "周伟出狱后求职不顺，曾多次到市政府上访未果，怀疑因个人报复制造爆炸事件",
+          "source": "背景调查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "矿山安全主管",
+          "appearance": "50岁，皮肤黝黑，表情懊悔",
+          "info_to_provide": [
+            "周伟在矿山干了5年爆破作业，技术很好",
+            "他离职时跟领导闹得很不愉快",
+            "硝酸铵被盗是上周的事，我们当时报了警",
+            "没想到他真的会用这些东西来做这种事"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "矿山",
+            "time_range": "案发时段",
+            "distance_to_crime": 8,
+            "valid": true,
+            "alibi_note": "有矿山监控和员工可证明"
+          }
+        },
+        {
+          "npc": "犯罪心理分析师",
+          "appearance": "38岁，专业人士打扮",
+          "info_to_provide": [
+            "嫌疑人选择三个目标的顺序有特殊含义",
+            "第一目标是商业中心，表示对'财富'的不满",
+            "第二目标是消费场所，表示对'享乐'的不满",
+            "第三目标是政府机关，表示对'权力'的不满",
+            "这是一个有明确报复动机的个体犯罪"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "公安局",
+            "time_range": "案发后",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "全程在指挥部工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认嫌疑人身份",
+        "制定抓捕计划"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "紧急抓捕",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "实施抓捕行动",
+        "揭露作案经过",
+        "结案"
+      ],
+      "ending": {
+        "truth": "犯罪嫌疑人是32岁的周伟，他曾因非法制造爆炸物服刑，出狱后求职困难，多次上访无果后产生报复社会的念头。他利用之前在矿山工作获取的爆破知识，盗窃硝酸铵制造爆炸装置，选择CBD三个标志性目标进行威胁，试图制造社会恐慌。第一起爆炸中，安保主管赵志强在疏散人员过程中不幸遇难。",
+        "key_evidence": [
+          "三起威胁现场均拍到同一可疑身影（身高175cm，步态异常）",
+          "爆炸物使用的硝酸铵来自周伟前雇主的矿山",
+          "周伟有爆炸物制造前科和爆破作业资质",
+          "周伟有针对政府的报复动机",
+          "威胁电话的变声技术符合周伟的技能水平"
+        ],
+        "red_herrings": [
+          "排爆专家的专业分析（正确但不直接指向嫌疑人）",
+          "市政府安保人员的证词（描述的声音特征与周伟不符，因使用了变声器）",
+          "商场保安的描述（步态异常确实是关键线索）"
+        ],
+        "resolutions": {
+          "周伟": "被捕，以爆炸罪和故意杀人罪起诉，面临死刑指控",
+          "赵志强": "被追认为烈士，市政府向其家属颁发抚恤金",
+          "三起威胁事件": "后续排查未发现更多爆炸物，社会秩序恢复",
+          "安保升级": "CBD所有公共场所加强防爆安检"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "前矿山爆破工周伟",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "32岁，有爆炸物制造前科，有报复社会动机",
+      "alibi": {
+        "location": "声称在家",
+        "time_range": "三起案件案发时段",
+        "distance_to_crime": "不明",
+        "valid": false,
+        "alibi_note": "无证人，且三个目标均拍到类似身影"
+      },
+      "motive_tease": "可能因出狱后求职不顺、上访无果而报复社会"
+    },
+    {
+      "name": "硝酸铵盗窃嫌疑人",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "身份不明，参与矿山硝酸铵盗窃",
+      "alibi": {
+        "location": "不明",
+        "time_range": "硝酸铵被盗当晚",
+        "distance_to_crime": "不明",
+        "valid": false,
+        "alibi_note": "待确认"
+      },
+      "motive_tease": "可能与周伟是同一人或同伙"
+    },
+    {
+      "name": "环球贸易中心安保",
+      "role": "证人",
+      "status": "witness",
+      "description": "32岁，第一时间发现异常并参与处置",
+      "alibi": {
+        "location": "环球贸易中心安保中心",
+        "time_range": "案发时段",
+        "distance_to_crime": 3,
+        "valid": true,
+        "alibi_note": "有监控可证明"
+      },
+      "motive_tease": "无明显动机"
+    },
+    {
+      "name": "排爆专家李教授",
+      "role": "证人（技术支持）",
+      "status": "witness",
+      "description": "45岁，排爆领域权威专家",
+      "alibi": {
+        "location": "排爆现场",
+        "time_range": "案发后",
+        "distance_to_crime": 0,
+        "valid": true,
+        "alibi_note": "全程在现场工作"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "8月10日中午，舒心市CBD的繁华被一连串炸弹威胁打破……",
+    "atmosphere": "盛夏的CBD人流如织，写字楼里白领们敲打着键盘，商场里顾客挑选着商品。然而，一个匿名电话让这一切戛然而止——'环球贸易中心有炸弹，30分钟内撤离！'紧接着，第二通、第三通电话相继打来……",
+    "victim_intro": "死者赵志强，34岁，环球贸易中心安保主管。他在收到第一通威胁电话后，不顾危险前往排查，不幸在爆炸中遇难。此次连环爆炸威胁事件造成1人死亡，3处地标建筑疏散数万人。",
+    "task_intro": "作为一名反恐防爆调查员，你需要：\n1. 赶赴现场，协助疏散和救援\n2. 分析爆炸装置的类型和来源\n3. 调查威胁电话的技术特征\n4. 分析嫌疑人的犯罪动机和目标选择逻辑\n5. 锁定并抓捕犯罪嫌疑人"
+  }
+}

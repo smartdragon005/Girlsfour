@@ -1,0 +1,383 @@
+{
+  "story_id": "crime_04",
+  "title": "网络诈骗案",
+  "genre": "刑侦",
+  "difficulty": 4,
+  "estimated_sessions": 5,
+  "description": "舒心市知名电商平台「优购网」的老板陈建国，被自称投资机构的诈骗分子骗走3800万巨款。警方追查资金流向，发现幕后黑手竟是陈建国身边最信任的人……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "创新产业园",
+    "crime_scene": {
+      "block_id": "D6",
+      "name": "优购网总部大厦",
+      "global_coord": [4, 6],
+      "description": "舒心市电商龙头企业总部，位于创新产业园核心地带"
+    },
+    "related_locations": [
+      {
+        "block_id": "D7",
+        "name": "优购网财务部",
+        "global_coord": [4, 7],
+        "distance_from_scene": 1,
+        "description": "进行资金转账操作的地点"
+      },
+      {
+        "block_id": "C7",
+        "name": "园区网络安全中心",
+        "global_coord": [3, 7],
+        "distance_from_scene": 1,
+        "description": "网络安全监管机构，协助追踪诈骗来源"
+      },
+      {
+        "block_id": "E6",
+        "name": "陈建国私人会所",
+        "global_coord": [5, 6],
+        "distance_from_scene": 1,
+        "description": "陈建国接待合作伙伴的私人会所"
+      },
+      {
+        "block_id": "D5",
+        "name": "创新产业园派出所",
+        "global_coord": [4, 5],
+        "distance_from_scene": 1,
+        "description": "辖区派出所，受理网络诈骗案件"
+      },
+      {
+        "block_id": "C8",
+        "name": "反诈骗中心",
+        "global_coord": [3, 8],
+        "distance_from_scene": 2,
+        "description": "市级反诈骗中心，协助追踪资金流向"
+      },
+      {
+        "block_id": "E7",
+        "name": "优购网子公司办公楼",
+        "global_coord": [5, 7],
+        "distance_from_scene": 1,
+        "description": "陈建国儿子管理的子公司"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "陈建国",
+    "age": 48,
+    "occupation": "优购网创始人兼CEO",
+    "time_of_death": "2026年8月1日 15:00",
+    "cause_of_death": "被发现死于办公室，死亡原因为突发心梗，但疑与诈骗压力有关",
+    "last_seen": "14:30 在办公室与财务总监讨论资金问题",
+    "case_specific_info": {
+      "fraud_amount": "3800万元人民币",
+      "fraud_method": "虚假投资机构APP，高收益诱惑",
+      "time_of_fraud": "2026年7月15日-7月28日",
+      "victim_reaction": "发现被骗后情绪激动，心脏病发身亡"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "CEO的骗局",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查CEO办公室",
+        "调查诈骗经过",
+        "分析资金流向"
+      ],
+      "available_clues": [
+        {
+          "id": "c_fraud_app",
+          "name": "诈骗APP",
+          "description": "陈建国手机中安装的虚假投资APP，界面仿冒知名投资机构，可实时显示虚拟收益",
+          "source": "手机数据勘查"
+        },
+        {
+          "id": "c_transfer_records",
+          "name": "资金转账记录",
+          "description": "2周内共转账12笔，总计3800万，收款账户涉及6家不同的空壳公司",
+          "source": "银行资金流水"
+        },
+        {
+          "id": "c_app_download",
+          "name": "APP来源追踪",
+          "description": "诈骗APP通过一条特殊短信链接下载，发送号码归属地为境外",
+          "source": "网络数据分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "财务总监赵敏",
+          "appearance": "42岁，戴眼镜，神情焦虑",
+          "info_to_provide": [
+            "陈总坚持要做这个投资项目，说收益能达到年化50%",
+            "我一开始也怀疑，但陈总看到'投资经理'的专业分析后就深信不疑了",
+            "最后几笔转账是陈总亲自操作的，用的是公司备用金账户",
+            "我现在非常后悔，当时应该更坚持劝阻的"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "财务部",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 5,
+            "valid": true,
+            "alibi_note": "有财务部门其他员工可证明，但参与了转账操作"
+          }
+        },
+        {
+          "npc": "陈建国的助理小吴",
+          "appearance": "26岁，看起来年轻而紧张",
+          "info_to_provide": [
+            "陈总最近一直很兴奋，说遇到了好的投资机会",
+            "那个'投资经理'是通过行业朋友介绍的",
+            "我见过那个'投资经理'两次，都是在会所见面",
+            "后来我才知道那个'投资经理'的名字和名片都是假的"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "CEO办公室",
+            "time_range": "案发时段",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "有门禁记录"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "找到诈骗APP的来源",
+        "追踪资金流向的第一层"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "资金追踪",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "追查资金去向",
+        "调查空壳公司",
+        "分析诈骗团伙结构"
+      ],
+      "available_clues": [
+        {
+          "id": "c_money_laundering",
+          "name": "资金洗白路径",
+          "description": "资金经过6家空壳公司账户转接后，最终流向境外账户，其中一部分在新加坡被提取",
+          "source": "反诈骗中心资金追踪"
+        },
+        {
+          "id": "c_shell_companies",
+          "name": "空壳公司信息",
+          "description": "6家收款公司均为同一法人注册，注册地址为同一栋写字楼的不同房间号",
+          "source": "工商信息查询"
+        },
+        {
+          "id": "c_insider_info",
+          "name": "内部信息泄露",
+          "description": "诈骗分子对陈建国的资金状况、投资习惯了如指掌，疑有内部人员提供情报",
+          "source": "诈骗内容分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "反诈骗中心联络员",
+          "appearance": "35岁，干练的女警",
+          "info_to_provide": [
+            "这不是普通的电信诈骗，是精心策划的熟人式诈骗",
+            "诈骗分子对受害者的情况了解得太详细了",
+            "我们追查资金时发现，有一部分资金在案发前就已经流向了几个可疑账户",
+            "其中一个账户的持有人与优购网内部人员有关"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "反诈骗中心",
+            "time_range": "工作时间",
+            "distance_to_crime": 2,
+            "valid": true,
+            "alibi_note": "全程在反诈骗中心工作"
+          }
+        },
+        {
+          "npc": "陈建国的儿子陈小雨",
+          "appearance": "25岁，穿着时尚，继承了父亲的子公司",
+          "info_to_provide": [
+            "我爸最近确实在忙一个投资项目，但他不让我过问",
+            "我听说被骗的金额很大，但我真的不知道具体情况",
+            "我爸出事那天，我一直在子公司处理事务",
+            "最近公司财务状况确实不太好，我爸压力很大"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "子公司办公楼",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 5,
+            "valid": false,
+            "alibi_note": "子公司员工证明他在办公室，但14:00-14:30行踪不明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定内部信息泄露者",
+        "追踪到资金的最终去向"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "内鬼现身",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "确认内部泄密者",
+        "找到诈骗团伙核心",
+        "锁定嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_family_finance",
+          "name": "家族财务问题",
+          "description": "陈小雨的子公司经营状况差，且他有大量个人债务，疑因经济压力出卖父亲信息",
+          "source": "财务状况调查"
+        },
+        {
+          "id": "c_contact_record",
+          "name": "可疑联系记录",
+          "description": "陈小雨的手机在案发前半年与一个虚拟号码有密集联系，该号码的通话模式与诈骗团伙使用的通信方式一致",
+          "source": "手机通话记录分析"
+        },
+        {
+          "id": "c_money_paper_trail",
+          "name": "资金关联证据",
+          "description": "诈骗所得资金中有120万在新加坡被转入陈小雨母亲的海外账户",
+          "source": "跨境资金追踪"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "网络安全中心技术人员",
+          "appearance": "30岁，戴眼镜，技术宅男打扮",
+          "info_to_provide": [
+            "我们追踪诈骗APP的服务器，发现主服务器在境外，但有个中转节点在本市",
+            "那个中转节点的使用者信息指向一个与优购网有关联的IP地址",
+            "更具体地说，是陈小雨子公司的网络出口",
+            "这个IP在半年前就开始频繁访问境外服务器"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "网络安全中心",
+            "time_range": "工作时间",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "全程在中心工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定诈骗犯的完整身份",
+        "找到诈骗团伙其他成员"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "父子反目",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露诈骗真相",
+        "说明作案动机和手法",
+        "结案"
+      ],
+      "ending": {
+        "truth": "主犯是陈建国的儿子陈小雨。他经营子公司不善，欠下巨额债务，为了填补窟窿，他将父亲的投资习惯、资金状况等核心信息出售给一个境外诈骗团伙。诈骗团伙据此定制了针对陈建国的诈骗方案，通过虚假APP和高收益承诺诱骗他投入3800万。资金到手后，陈小雨参与了资金转移，其中120万转入了母亲的海外账户。陈建国因发现被骗后心脏病发身亡。",
+        "key_evidence": [
+          "陈小雨的子公司IP地址被用于访问诈骗团伙服务器",
+          "诈骗资金中有120万转入陈小雨母亲的海外账户",
+          "陈小雨与虚拟号码的密集联系记录",
+          "诈骗分子对陈建国的情况了解得过于详细，只能通过内部渠道获取",
+          "陈小雨子公司的财务困难状况"
+        ],
+        "red_herrings": [
+          "财务总监赵敏的参与（她是被陈建国指示转账，非主观故意）",
+          "陈建国助理的证词（他提供的信息真实但间接）",
+          "境外诈骗团伙（他们是执行者，核心策划在内部）"
+        ],
+        "resolutions": {
+          "陈小雨": "被捕，以诈骗罪和非法获取公民信息罪起诉，子公司被清算",
+          "境外诈骗团伙": "通过国际刑警协作部分抓获，冻结部分涉案资金",
+          "陈建国": "因心梗去世，公司由其生前指定的职业经理人接管",
+          "受害人家属": "追回部分损失，网络安全得到加强"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "陈建国之子陈小雨",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "25岁，子公司负责人，经济状况不佳",
+      "alibi": {
+        "location": "子公司办公楼",
+        "time_range": "案发时段",
+        "distance_to_crime": 1,
+        "valid": false,
+        "alibi_note": "14:00-14:30行踪不明，IP地址关联诈骗服务器"
+      },
+      "motive_tease": "可能因经营不善欠债，出卖父亲信息获取资金"
+    },
+    {
+      "name": "财务总监赵敏",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "42岁，参与了资金转账操作",
+      "alibi": {
+        "location": "财务部",
+        "time_range": "案发时段",
+        "distance_to_crime": 1,
+        "valid": false,
+        "alibi_note": "参与转账操作，可能知情"
+      },
+      "motive_tease": "可能被胁迫或收买参与诈骗"
+    },
+    {
+      "name": "境外诈骗团伙",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "身份不明的境外诈骗组织",
+      "alibi": {
+        "location": "境外",
+        "time_range": "不明",
+        "distance_to_crime": "跨境",
+        "valid": false,
+        "alibi_note": "需国际协作追查"
+      },
+      "motive_tease": "通过定制化诈骗获取巨额资金"
+    },
+    {
+      "name": "陈建国助理小吴",
+      "role": "证人",
+      "status": "witness",
+      "description": "26岁，目击了诈骗过程的助理",
+      "alibi": {
+        "location": "CEO办公室",
+        "time_range": "案发时段",
+        "distance_to_crime": 0,
+        "valid": true,
+        "alibi_note": "有门禁记录"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "2026年8月1日，舒心市优购网总部大厦的CEO办公室里，一场网络诈骗案以悲剧收场……",
+    "atmosphere": "作为舒心市最成功的电商企业家，陈建国万万没想到，自己会被网络诈骗分子骗走3800万巨款。更让他没想到的是，这场骗局的幕后推手，竟然是自己最信任的儿子……",
+    "victim_intro": "死者陈建国，48岁，优购网创始人。他被一个精心策划的虚假投资平台诈骗3800万，发现被骗后心脏病发身亡。诈骗分子能精准掌握他的投资习惯和资金状况，必定有内鬼相助。",
+    "task_intro": "作为一名网络犯罪调查员，你需要：\n1. 分析诈骗APP的技术来源\n2. 追踪被骗资金的转移路径\n3. 调查内部泄密的可能性\n4. 锁定诈骗团伙的核心成员\n5. 冻结剩余资金，追回损失"
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "story_id": "crime_07",
+  "title": "绑架案",
+  "genre": "刑侦",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市知名企业家刘天宇的千金刘婷婷在上学途中被绑架，绑匪索要赎金5000万，但提出了一个离奇的要求——必须在指定的三个地点同时交付赎金……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "东城区",
+    "crime_scene": {
+      "block_id": "E2",
+      "name": "阳光高中门口",
+      "global_coord": [5, 2],
+      "description": "舒心市知名私立高中，绑架发生在校门口附近"
+    },
+    "related_locations": [
+      {
+        "block_id": "E1",
+        "name": "阳光高中监控室",
+        "global_coord": [5, 1],
+        "distance_from_scene": 1,
+        "description": "学校安保监控中心"
+      },
+      {
+        "block_id": "F2",
+        "name": "刘家别墅",
+        "global_coord": [6, 2],
+        "distance_from_scene": 1,
+        "description": "刘天宇的私人宅邸"
+      },
+      {
+        "block_id": "D2",
+        "name": "东城区派出所",
+        "global_coord": [4, 2],
+        "distance_from_scene": 1,
+        "description": "受理绑架案的派出所"
+      },
+      {
+        "block_id": "E4",
+        "name": "阳光高中周边监控卡口",
+        "global_coord": [5, 4],
+        "distance_from_scene": 2,
+        "description": "学校周边的治安监控"
+      },
+      {
+        "block_id": "F3",
+        "name": "第一个赎金交付点-星湖公园",
+        "global_coord": [6, 3],
+        "distance_from_scene": 2,
+        "description": "绑匪指定的第一个赎金交付地点"
+      },
+      {
+        "block_id": "D1",
+        "name": "第二个赎金交付点-火车站",
+        "global_coord": [4, 1],
+        "distance_from_scene": 2,
+        "description": "绑匪指定的第二个赎金交付地点"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "刘婷婷",
+    "age": 16,
+    "occupation": "阳光高中高二学生",
+    "time_of_death": "2026年8月20日 08:00",
+    "cause_of_death": "被绑架期间因心脏病发死亡",
+    "last_seen": "07:45 离家前往学校",
+    "case_specific_info": {
+      "ransom_amount": "5000万元人民币",
+      "ransom_method": "三个指定地点同时交付，必须现金",
+      "victim_condition": "有先天性心脏病，需长期服药",
+      "last_contact": "08:30 绑匪发来刘婷婷的一段语音录音"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "女儿失踪",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查绑架现场",
+        "调取周边监控",
+        "询问目击者"
+      ],
+      "available_clues": [
+        {
+          "id": "c_school_monitor",
+          "name": "学校监控记录",
+          "description": "监控显示刘婷婷7:45进入校门，08:00左右独自离开学校，此后失联",
+          "source": "学校监控调取"
+        },
+        {
+          "id": "c_cctv_gap",
+          "name": "监控盲区",
+          "description": "校门口路段在7:50-8:00有一段监控盲区，疑为绑架发生地点",
+          "source": "城市监控分析"
+        },
+        {
+          "id": "c_ransom_call",
+          "name": "勒索电话",
+          "description": "绑匪使用虚拟号码致电刘家，要求5000万赎金，指定三个交付点同时交款",
+          "source": "电话记录追踪"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "刘婷婷的班主任",
+          "appearance": "30岁，戴眼镜，神情焦急",
+          "info_to_provide": [
+            "婷婷今天来上学了，7:45到的教室",
+            "她8点左右说身体不舒服要回家，我同意了",
+            "她是个很乖巧的孩子，从来不会乱跑",
+            "她有先天性心脏病，需要定期服药"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "阳光高中",
+            "time_range": "案发时段",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "有监控和学生可证明"
+          }
+        },
+        {
+          "npc": "刘家司机老陈",
+          "appearance": "45岁，满脸自责",
+          "info_to_provide": [
+            "今天我送婷婷到学校门口，她让我停在门口就好",
+            "她平时都是让我送她到教室楼下的",
+            "我以为她今天有什么事要自己处理",
+            "现在想想我应该坚持送她进去的……"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "刘家别墅",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "有别墅监控可证明，但未完成送达"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认绑架发生的具体地点和时间",
+        "追踪绑匪的通讯来源"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "赎金疑云",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "分析绑匪的赎金要求",
+        "调查刘家的商业纠纷",
+        "部署赎金交付监控"
+      ],
+      "available_clues": [
+        {
+          "id": "c_ransom_pattern",
+          "name": "赎金要求分析",
+          "description": "三个交付点同时交款是为了分散警力监控，但也说明绑匪可能有同伙",
+          "source": "犯罪分析"
+        },
+        {
+          "id": "c_business_feud",
+          "name": "商业纠纷",
+          "description": "刘天宇的公司最近正在与一家企业进行激烈的商业竞争，且有未解决的经济纠纷",
+          "source": "商业调查"
+        },
+        {
+          "id": "c_victim_medicine",
+          "name": "受害者药物",
+          "description": "刘婷婷的心脏病药物在绑架发生后没有被带走，绑匪可能不知道她需要药物",
+          "source": "刘家现场勘查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "受害者父亲刘天宇",
+          "appearance": "52岁，企业家，面容憔悴",
+          "info_to_provide": [
+            "请你们救救我的女儿，多少钱都可以",
+            "我最近确实有商业竞争，但没想到会连累到孩子",
+            "婷婷的心脏病药物是关键，绑匪如果知道应该会准备",
+            "三个交付点我会同时派人去"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "刘家别墅",
+            "time_range": "案发时段",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "全程在家等待绑匪电话"
+          }
+        },
+        {
+          "npc": "刘天宇的竞争对手",
+          "appearance": "50岁，表情冷漠",
+          "info_to_provide": [
+            "我和刘总确实有商业纠纷，但绑架这种事我不会做",
+            "警方没有证据不要随便怀疑我",
+            "我最近一直在处理公司的并购案，非常忙",
+            "我的助理可以证明我整个日程"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "竞争对手公司",
+            "time_range": "案发时段",
+            "distance_to_crime": 3,
+            "valid": false,
+            "alibi_note": "声称在公司，但有2小时行踪不明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认绑匪的动机",
+        "成功追踪绑匪通讯位置"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "追踪绑匪",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "分析绑匪的通讯技术",
+        "调查受害者周围的可疑人员",
+        "锁定绑架地点"
+      ],
+      "available_clues": [
+        {
+          "id": "c_phone_trace",
+          "name": "绑匪通讯追踪",
+          "description": "绑匪使用网络电话，经过多层代理，但追踪到信号源在东郊外的一个废弃厂区",
+          "source": "通讯定位技术"
+        },
+        {
+          "id": "c_suspicious_person",
+          "name": "学校周边可疑人员",
+          "description": "学校门口的监控拍到一名男子连续三天出现在校门口，穿着相同的衣服",
+          "source": "监控排查"
+        },
+        {
+          "id": "c_motive_deep",
+          "name": "深层动机",
+          "description": "刘婷婷的母亲生前是一名记者，曾调查过一起企业污染案件，疑与绑架有关",
+          "source": "背景调查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "通讯技术员",
+          "appearance": "32岁，技术人员打扮",
+          "info_to_provide": [
+            "绑匪的通讯使用了高级加密技术，但我们还是追踪到了大致位置",
+            "信号源在东郊外的一个废弃工业园区",
+            "那里有很多闲置的厂房，很可能是关押人质的地点",
+            "建议立即派人前往调查"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "公安局技术科",
+            "time_range": "工作时间",
+            "distance_to_crime": 2,
+            "valid": true,
+            "alibi_note": "全程在技术科工作"
+          }
+        },
+        {
+          "npc": "刘婷婷母亲的前同事",
+          "appearance": "48岁，女记者打扮",
+          "info_to_provide": [
+            "婷婷的妈妈是个好记者，她调查的那起污染案件涉及一家化工企业",
+            "那家企业就是刘总现在的竞争对手的关联企业",
+            "当年案件因为证据不足没有立案，我们都觉得很遗憾",
+            "现在婷婷出事，我觉得这不是单纯的绑架勒索"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "报社",
+            "time_range": "工作时间",
+            "distance_to_crime": 3,
+            "valid": true,
+            "alibi_note": "全程在报社工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定人质关押地点",
+        "确认绑匪的真实动机"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "生死营救",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "突袭绑匪窝点",
+        "揭露绑架真相",
+        "实施营救"
+      ],
+      "ending": {
+        "truth": "绑架案是由化工企业老板（刘天宇的竞争对手）策划的。他为报复刘婷婷母亲生前的调查，以及在商业竞争中压制刘天宇，雇佣了专业绑架团伙。绑匪不知道刘婷婷有心脏病，在关押过程中未提供药物，导致她心脏病发身亡。赎金要求的三个交付点是为了制造混乱并测试警方反应。",
+        "key_evidence": [
+          "绑匪通讯信号源追踪至竞争对手关联的废弃厂区",
+          "学校门口连续三天出现的可疑男子与竞争对手的司机外貌匹配",
+          "绑架动机源于刘婷婷母亲生前的调查报道",
+          "竞争对手在案发时段有2小时行踪不明",
+          "赎金要求的离奇方式说明绑匪有反侦查经验"
+        ],
+        "red_herrings": [
+          "刘家司机的自责（他只是愧疚，与案件无关）",
+          "刘天宇的商业竞争（表面看是动机，但实际更深层）",
+          "赎金交付点的监控（只是障眼法）"
+        ],
+        "resolutions": {
+          "竞争对手": "被捕，以绑架罪和故意伤害致死罪起诉",
+          "绑架团伙": "全部抓获，人质关押地点被找到",
+          "刘婷婷": "不幸去世，刘家将举办追悼会",
+          "污染旧案": "警方重新启动对旧案的调查"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "刘天宇的竞争对手",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "50岁，化工企业老板，有商业竞争和旧怨动机",
+      "alibi": {
+        "location": "竞争对手公司",
+        "time_range": "案发时段",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "有2小时行踪不明"
+      },
+      "motive_tease": "可能因商业竞争和旧恨（刘婷婷母亲的调查）策划绑架"
+    },
+    {
+      "name": "学校门口可疑男子",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "身份不明，连续三天出现在学校门口",
+      "alibi": {
+        "location": "不明",
+        "time_range": "案发前后",
+        "distance_to_crime": 0,
+        "valid": false,
+        "alibi_note": "待确认身份"
+      },
+      "motive_tease": "可能是绑匪的同伙或眼线"
+    },
+    {
+      "name": "竞争对手的司机",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "30岁，外貌与学校监控中的可疑男子相似",
+      "alibi": {
+        "location": "竞争对手公司车库",
+        "time_range": "案发时段",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "声称在待命，但车库监控有盲区"
+      },
+      "motive_tease": "可能受老板指使执行绑架"
+    },
+    {
+      "name": "刘家司机老陈",
+      "role": "证人",
+      "status": "witness",
+      "description": "45岁，刘家老司机，自责未完成送达",
+      "alibi": {
+        "location": "刘家别墅",
+        "time_range": "案发时段",
+        "distance_to_crime": 1,
+        "valid": true,
+        "alibi_note": "有别墅监控可证明"
+      },
+      "motive_tease": "无明显动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "8月20日的早晨，阳光高中校门口，一名16岁少女的消失震惊了整个舒心市……",
+    "atmosphere": "初秋的晨光柔和，学生们陆续走进校园。然而，刘婷婷在校门口独自下车后，就再也没有人见过她。5000万赎金，三个交付点，一个离奇的要求——这背后隐藏的，不仅是金钱的贪婪，更是一段深埋多年的仇恨……",
+    "victim_intro": "死者刘婷婷，16岁，阳光高中高二学生。她在校门口被绑架，绑匪索要5000万赎金并要求在三个地点同时交付。刘婷婷有先天性心脏病，绑匪未提供药物，导致她在关押期间心脏病发身亡。",
+    "task_intro": "作为一名绑架案调查员，你需要：\n1. 勘查绑架现场，调取周边监控\n2. 追踪绑匪的通讯来源\n3. 分析赎金要求的真实意图\n4. 调查受害者家庭的背景和纠纷\n5. 在人质安全的前提下制定营救计划"
+  }
+}

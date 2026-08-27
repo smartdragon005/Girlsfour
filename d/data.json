@@ -1,0 +1,348 @@
+{
+  "version": "3.0",
+  "city": "舒心市",
+  "citySub": "山东省 · 一张温暖有质感的北方小城 · 九宫格棋盘结构",
+  "city_bg_image": "img/city.jpg",
+  "city_desc": "舒心市由10条横街与10条纵街划分成9×9共81个城市方块，分为9大行政区，每个区包含9个小方块。",
+
+  "grid_spec": {
+    "total_blocks": 81,
+    "districts_count": 9,
+    "blocks_per_district": 9,
+    "block_coord_format": "[district_row, district_col, block_row, block_col]",
+    "global_coord_format": "[global_row, global_col]",
+    "note": "区坐标[1-3,1-3]，块坐标[1-3,1-3]，全局坐标[(dr-1)*3+br, (dc-1)*3+bc]即[1-9,1-9]"
+  },
+
+  "commute_rules": {
+    "_v2": "比例尺定死 · 开车4档时段（B方案）",
+    "block_meters": 500,
+    "block_km": 0.5,
+    "_note_per_grid": "1格曼哈顿距离=500米；每格时间(min) = 0.5km ÷ 时速(km/h) × 60",
+    "per_grid_walk_min": 7.5,
+    "per_grid_ebike_min": 1.2,
+    "per_grid_bus_min": 1.67,
+    "_per_grid_drive_deprecated": "旧值已废弃，开车请用下面 drive_speed_by_time 按小时计算",
+    "per_grid_drive_min": 1.0,
+    "drive_speed_by_time": {
+      "morning_peak": { "speed_kmh": 12, "hours": [7,8],          "label": "早高峰 07:00-09:00",  "per_grid_min": 2.50 },
+      "daytime_flat": { "speed_kmh": 30, "hours": [9,10,11,12,13,14,15,16], "label": "白天平峰 09:00-17:00", "per_grid_min": 1.00 },
+      "evening_peak": { "speed_kmh": 15, "hours": [17,18],        "label": "晚高峰 17:00-19:00",  "per_grid_min": 2.00 },
+      "night_clear":  { "speed_kmh": 45, "hours": [19,20,21,22,23,0,1,2,3,4,5,6], "label": "夜间畅通 19:00-07:00", "per_grid_min": 0.67 }
+    },
+    "transfers": {
+      "walk":  { "label": "步行",   "speed_kmh": 4,  "per_grid_min": 7.5,  "max_blocks": 3,  "_desc": "500米约7.5分钟，最远建议1.5公里内" },
+      "ebike": { "label": "电动车", "speed_kmh": 25, "per_grid_min": 1.2,  "max_blocks": 6,  "_desc": "500米约1分12秒，最远建议3公里内" },
+      "drive": { "label": "开车",   "speed_kmh_ref": 30, "per_grid_min_flat": 1.0, "max_blocks": 15, "_desc": "分4档时段详见drive_speed_by_time；默认按平峰30km/h算" },
+      "bus":   { "label": "公交",   "speed_kmh": 18, "per_grid_min": 1.67, "max_blocks": 20, "_desc": "500米约1分40秒，含停站" }
+    }
+  },
+
+  "streets": {
+    "_note": "南北向=纵街，东西向=横街，构成棋盘格道路网",
+    "northSouth": [
+      "星光街", "晨光街", "阳光街", "和风街", "暖阳街",
+      "花园街", "香樟街", "白桦街", "蓝湾街", "新月街"
+    ],
+    "eastWest": [
+      "望湖街", "听海街", "临江街", "观澜街", "悦心街",
+      "怡景街", "乐居街", "安澜街", "宁和街", "欣悦街"
+    ]
+  },
+
+  "districts": [
+    {
+      "name": "星湖区", "emoji": "🌅", "style": "生态·公园",
+      "coord": [1,1], "bg_image": "img/xinghuqu.jpg",
+      "description": "城市西北的生态门户，有广阔的星湖湿地公园和星湖美术馆，春日樱花盛开时是全市最热门的踏青地点。",
+      "blocks": [
+        { "id": "A1", "name": "星湖湿地", "global_coord": [1,1], "type": "公园" },
+        { "id": "A2", "name": "樱花林", "global_coord": [1,2], "type": "公园" },
+        { "id": "A3", "name": "星湖美术馆", "global_coord": [1,3], "type": "文化" },
+        { "id": "A4", "name": "生态停车场", "global_coord": [2,1], "type": "交通" },
+        { "id": "A5", "name": "星湖大堤", "global_coord": [2,2], "type": "景点" },
+        { "id": "A6", "name": "游客中心", "global_coord": [2,3], "type": "服务" },
+        { "id": "A7", "name": "滨湖住宅区", "global_coord": [3,1], "type": "居住" },
+        { "id": "A8", "name": "星湖咖啡馆", "global_coord": [3,2], "type": "美食" },
+        { "id": "A9", "name": "湿地公园南门", "global_coord": [3,3], "type": "交通" }
+      ]
+    },
+    {
+      "name": "云澜区", "emoji": "🏛️", "style": "行政·文化",
+      "coord": [1,2], "bg_image": "img/yunlanqu.jpg",
+      "description": "正北方的行政中心，市政府、市图书馆、舒心大剧院都在这里。建筑风格庄严肃穆，是城市的大脑。",
+      "blocks": [
+        { "id": "B1", "name": "图书馆广场", "global_coord": [1,4], "type": "文化" },
+        { "id": "B2", "name": "舒心大剧院", "global_coord": [1,5], "type": "文化" },
+        { "id": "B3", "name": "群众艺术馆", "global_coord": [1,6], "type": "文化" },
+        { "id": "B4", "name": "市图书馆", "global_coord": [2,4], "type": "教育" },
+        { "id": "B5", "name": "市政府大楼", "global_coord": [2,5], "type": "政府" },
+        { "id": "B6", "name": "市政府广场", "global_coord": [2,6], "type": "政府" },
+        { "id": "B7", "name": "老干部活动中心", "global_coord": [3,4], "type": "服务" },
+        { "id": "B8", "name": "档案局", "global_coord": [3,5], "type": "政府" },
+        { "id": "B9", "name": "行政审批中心", "global_coord": [3,6], "type": "政府" }
+      ]
+    },
+    {
+      "name": "晴川区", "emoji": "🌉", "style": "滨河·休闲",
+      "coord": [1,3], "bg_image": "img/qingchuanqu.jpg",
+      "description": "东北的晴川河畔风光带，晴川咖啡馆、滨河栈道、老码头，适合情侣散步和看日落。",
+      "blocks": [
+        { "id": "C1", "name": "老码头", "global_coord": [1,7], "type": "景点" },
+        { "id": "C2", "name": "滨河栈道", "global_coord": [1,8], "type": "景点" },
+        { "id": "C3", "name": "晴川大桥", "global_coord": [1,9], "type": "交通" },
+        { "id": "C4", "name": "晴川咖啡馆", "global_coord": [2,7], "type": "美食" },
+        { "id": "C5", "name": "河滨公园", "global_coord": [2,8], "type": "公园" },
+        { "id": "C6", "name": "日落观景点", "global_coord": [2,9], "type": "景点" },
+        { "id": "C7", "name": "河畔住宅区", "global_coord": [3,7], "type": "居住" },
+        { "id": "C8", "name": "河景餐厅", "global_coord": [3,8], "type": "美食" },
+        { "id": "C9", "name": "晴川游船码头", "global_coord": [3,9], "type": "景点" }
+      ]
+    },
+    {
+      "name": "暖阳区", "emoji": "📖", "style": "文艺·书店",
+      "coord": [2,1], "bg_image": "img/nuanyangqu.jpg",
+      "description": "城市正西的文艺聚居区，新华书店、旧时光咖啡馆、黑胶唱片店、寻觅小酒吧一条街，小雅的地盘~",
+      "blocks": [
+        { "id": "D1", "name": "新华书店总店", "global_coord": [4,1], "type": "购物" },
+        { "id": "D2", "name": "寻觅小酒吧", "global_coord": [4,2], "type": "休闲娱乐" },
+        { "id": "D3", "name": "黑胶唱片店", "global_coord": [4,3], "type": "购物" },
+        { "id": "D4", "name": "旧时光咖啡馆", "global_coord": [5,1], "type": "美食" },
+        { "id": "D5", "name": "小雅面馆", "global_coord": [5,2], "type": "美食" },
+        { "id": "D6", "name": "文艺画廊", "global_coord": [5,3], "type": "文化" },
+        { "id": "D7", "name": "新华公寓", "global_coord": [6,1], "type": "居住" },
+        { "id": "D8", "name": "音乐分馆", "global_coord": [6,2], "type": "教育" },
+        { "id": "D9", "name": "幸福河岸绿道", "global_coord": [6,3], "type": "景点" }
+      ]
+    },
+    {
+      "name": "锦华区", "emoji": "🏙️", "style": "高端·CBD",
+      "coord": [2,2], "bg_image": "img/jinhuaqu.jpg",
+      "description": "绝对的城市正中心，市政府分中心、锦华金融中心、购物中心、CBD写字楼，是全市经济最繁华的区域。",
+      "blocks": [
+        { "id": "E1", "name": "锦华购物中心", "global_coord": [4,4], "type": "购物" },
+        { "id": "E2", "name": "锦华金融中心", "global_coord": [4,5], "type": "金融" },
+        { "id": "E3", "name": "建设银行总行", "global_coord": [4,6], "type": "金融" },
+        { "id": "E4", "name": "CBD写字楼A座", "global_coord": [5,4], "type": "商务" },
+        { "id": "E5", "name": "市政府分中心", "global_coord": [5,5], "type": "政府" },
+        { "id": "E6", "name": "锦华广场", "global_coord": [5,6], "type": "景点" },
+        { "id": "E7", "name": "步行街东口", "global_coord": [6,4], "type": "购物" },
+        { "id": "E8", "name": "小舒服务中心", "global_coord": [6,5], "type": "服务" },
+        { "id": "E9", "name": "锦华公寓", "global_coord": [6,6], "type": "居住" }
+      ]
+    },
+    {
+      "name": "悦城区", "emoji": "🌙", "style": "商务·酒店",
+      "coord": [2,3], "bg_image": "img/yuechengqu.jpg",
+      "description": "正东方的酒店商务高端区，天鹅湖酒店、万象城、蓝湾行政酒廊、安缇法餐、夜色大道，夜生活天花板，白洁的地盘~",
+      "blocks": [
+        { "id": "F1", "name": "天鹅湖酒店", "global_coord": [4,7], "type": "酒店" },
+        { "id": "F2", "name": "蓝湾行政酒廊", "global_coord": [4,8], "type": "美食" },
+        { "id": "F3", "name": "安缇法餐厅", "global_coord": [4,9], "type": "美食" },
+        { "id": "F4", "name": "万象城", "global_coord": [5,7], "type": "购物" },
+        { "id": "F5", "name": "夜色大道", "global_coord": [5,8], "type": "休闲娱乐" },
+        { "id": "F6", "name": "曼陀罗SPA", "global_coord": [5,9], "type": "休闲娱乐" },
+        { "id": "F7", "name": "蓝丝绒公寓", "global_coord": [6,7], "type": "居住" },
+        { "id": "F8", "name": "悦城商务楼", "global_coord": [6,8], "type": "商务" },
+        { "id": "F9", "name": "悦城东门", "global_coord": [6,9], "type": "交通" }
+      ]
+    },
+    {
+      "name": "安澜区", "emoji": "🌿", "style": "生态·静谧",
+      "coord": [3,1], "bg_image": "img/anlanqu.jpg",
+      "description": "西南的静谧生态区，安澜公园、竹林茶舍、低密度住宅区，适合周末去泡一壶茶消磨一下午。",
+      "blocks": [
+        { "id": "G1", "name": "安澜公园", "global_coord": [7,1], "type": "公园" },
+        { "id": "G2", "name": "竹林茶舍", "global_coord": [7,2], "type": "美食" },
+        { "id": "G3", "name": "安静花园", "global_coord": [7,3], "type": "公园" },
+        { "id": "G4", "name": "安澜社区", "global_coord": [8,1], "type": "居住" },
+        { "id": "G5", "name": "社区活动中心", "global_coord": [8,2], "type": "服务" },
+        { "id": "G6", "name": "安澜小学", "global_coord": [8,3], "type": "教育" },
+        { "id": "G7", "name": "竹林小径", "global_coord": [9,1], "type": "景点" },
+        { "id": "G8", "name": "安澜街口", "global_coord": [9,2], "type": "交通" },
+        { "id": "G9", "name": "生态停车场", "global_coord": [9,3], "type": "交通" }
+      ]
+    },
+    {
+      "name": "月华区", "emoji": "🌸", "style": "商业·繁华",
+      "coord": [3,2], "bg_image": "img/yuehuaqu.jpg",
+      "description": "城市正南的超级商圈，万达广场、爱琴海广场、月华步行街、小吃一条街、综合人民医院、欢乐时光KTV，甜小朵的地盘~",
+      "blocks": [
+        { "id": "H1", "name": "月华步行街", "global_coord": [7,4], "type": "购物" },
+        { "id": "H2", "name": "万达广场", "global_coord": [7,5], "type": "购物" },
+        { "id": "H3", "name": "爱琴海广场", "global_coord": [7,6], "type": "购物" },
+        { "id": "H4", "name": "综合人民医院", "global_coord": [8,4], "type": "医疗" },
+        { "id": "H5", "name": "小吃一条街", "global_coord": [8,5], "type": "美食" },
+        { "id": "H6", "name": "欢乐时光KTV", "global_coord": [8,6], "type": "休闲娱乐" },
+        { "id": "H7", "name": "南丁格尔公寓", "global_coord": [9,4], "type": "居住" },
+        { "id": "H8", "name": "一点点奶茶", "global_coord": [9,5], "type": "美食" },
+        { "id": "H9", "name": "青苹果水上乐园", "global_coord": [9,6], "type": "休闲娱乐" }
+      ]
+    },
+    {
+      "name": "欣荣区", "emoji": "⚡", "style": "产业·活力",
+      "coord": [3,3], "bg_image": "img/xinrongqu.jpg",
+      "description": "东南的新兴产业园，欣荣科技园、欣荣体育中心，年轻人多，充满活力，是城市未来发展的引擎。",
+      "blocks": [
+        { "id": "I1", "name": "欣荣科技园", "global_coord": [7,7], "type": "产业" },
+        { "id": "I2", "name": "欣荣体育中心", "global_coord": [7,8], "type": "休闲娱乐" },
+        { "id": "I3", "name": "青年公寓A区", "global_coord": [7,9], "type": "居住" },
+        { "id": "I4", "name": "欣荣创业园", "global_coord": [8,7], "type": "产业" },
+        { "id": "I5", "name": "青年广场", "global_coord": [8,8], "type": "景点" },
+        { "id": "I6", "name": "青年公寓B区", "global_coord": [8,9], "type": "居住" },
+        { "id": "I7", "name": "欣荣地铁站", "global_coord": [9,7], "type": "交通" },
+        { "id": "I8", "name": "欣荣美食街", "global_coord": [9,8], "type": "美食" },
+        { "id": "I9", "name": "城市东门", "global_coord": [9,9], "type": "交通" }
+      ]
+    }
+  ],
+
+  "landmarks": [
+    { "name": "星湖公园", "category": "景点", "district": "星湖区", "block_id": "A1", "coord": [1,1], "address": "望湖街与星光街交叉口" },
+    { "name": "星湖美术馆", "category": "景点", "district": "星湖区", "block_id": "A3", "coord": [1,3], "address": "望湖街与晨光街交叉口" },
+    { "name": "樱花林", "category": "景点", "district": "星湖区", "block_id": "A2", "coord": [1,2], "address": "望湖街与晨光街交叉口东侧" },
+    { "name": "星湖大堤", "category": "景点", "district": "星湖区", "block_id": "A5", "coord": [2,2], "address": "望湖街中段" },
+    { "name": "星湖咖啡馆", "category": "美食", "district": "星湖区", "block_id": "A8", "coord": [3,2], "address": "听海街与晨光街交叉口" },
+    
+    { "name": "舒心市图书馆", "category": "学校", "district": "云澜区", "block_id": "B4", "coord": [2,4], "address": "望湖街与和风街交叉口" },
+    { "name": "舒心大剧院", "category": "景点", "district": "云澜区", "block_id": "B2", "coord": [1,5], "address": "望湖街与暖阳街交叉口" },
+    { "name": "市政府", "category": "政府", "district": "云澜区", "block_id": "B5", "coord": [2,5], "address": "悦心街与和风街交叉口" },
+    { "name": "群众艺术馆", "category": "文化", "district": "云澜区", "block_id": "B3", "coord": [1,6], "address": "望湖街与花园街交叉口" },
+    { "name": "行政审批中心", "category": "政府", "district": "云澜区", "block_id": "B9", "coord": [3,6], "address": "悦心街与花园街交叉口" },
+    
+    { "name": "晴川河畔", "category": "景点", "district": "晴川区", "block_id": "C5", "coord": [2,8], "address": "听海街与蓝湾街交叉口" },
+    { "name": "晴川咖啡馆", "category": "美食", "district": "晴川区", "block_id": "C4", "coord": [2,7], "address": "临江街与蓝湾街交叉口" },
+    { "name": "老码头", "category": "景点", "district": "晴川区", "block_id": "C1", "coord": [1,7], "address": "临江街与蓝湾街交叉口" },
+    { "name": "日落观景点", "category": "景点", "district": "晴川区", "block_id": "C6", "coord": [2,9], "address": "观澜街与蓝湾街交叉口" },
+    { "name": "河景餐厅", "category": "美食", "district": "晴川区", "block_id": "C8", "coord": [3,8], "address": "悦心街与蓝湾街交叉口" },
+    
+    { "name": "新华书店", "category": "购物", "district": "暖阳区", "block_id": "D1", "coord": [4,1], "address": "暖阳街与星光街交叉口", "owner": "小雅工作单位" },
+    { "name": "寻觅小酒吧", "category": "休闲娱乐", "district": "暖阳区", "block_id": "D2", "coord": [4,2], "address": "乐居街与和风街交叉口", "owner": "小雅驻唱地点" },
+    { "name": "旧时光咖啡馆", "category": "美食", "district": "暖阳区", "block_id": "D4", "coord": [5,1], "address": "暖阳街与星光街交叉口" },
+    { "name": "黑胶唱片店", "category": "购物", "district": "暖阳区", "block_id": "D3", "coord": [4,3], "address": "乐居街与星光街交叉口" },
+    { "name": "小雅面馆", "category": "美食", "district": "暖阳区", "block_id": "D5", "coord": [5,2], "address": "怡景街与星光街交叉口" },
+    { "name": "幸福河岸绿道", "category": "景点", "district": "暖阳区", "block_id": "D9", "coord": [6,3], "address": "听海街西侧河岸" },
+    
+    { "name": "锦华购物中心", "category": "购物", "district": "锦华区", "block_id": "E1", "coord": [4,4], "address": "悦心街与花园街交叉口" },
+    { "name": "锦华金融中心", "category": "金融", "district": "锦华区", "block_id": "E2", "coord": [4,5], "address": "怡景街与花园街交叉口" },
+    { "name": "建设银行·总行", "category": "金融", "district": "锦华区", "block_id": "E3", "coord": [4,6], "address": "观澜街与花园街交叉口" },
+    { "name": "CBD写字楼", "category": "商务", "district": "锦华区", "block_id": "E4", "coord": [5,4], "address": "悦心街与香樟街交叉口" },
+    { "name": "市政府分中心", "category": "政府", "district": "锦华区", "block_id": "E5", "coord": [5,5], "address": "怡景街与香樟街交叉口" },
+    { "name": "锦华广场", "category": "景点", "district": "锦华区", "block_id": "E6", "coord": [5,6], "address": "观澜街与香樟街交叉口" },
+    { "name": "小舒服务中心", "category": "服务", "district": "锦华区", "block_id": "E8", "coord": [6,5], "address": "乐居街与香樟街交叉口" },
+    
+    { "name": "天鹅湖酒店", "category": "酒店", "district": "悦城区", "block_id": "F1", "coord": [4,7], "address": "悦心街与蓝湾街交叉口", "owner": "白洁工作单位" },
+    { "name": "夜色大道", "category": "休闲娱乐", "district": "悦城区", "block_id": "F5", "coord": [5,8], "address": "乐居街与蓝湾街交叉口" },
+    { "name": "蓝湾行政酒廊", "category": "美食", "district": "悦城区", "block_id": "F2", "coord": [4,8], "address": "乐居街与蓝湾街交叉口" },
+    { "name": "安缇·法式西餐厅", "category": "美食", "district": "悦城区", "block_id": "F3", "coord": [4,9], "address": "悦心街与蓝湾街交叉口" },
+    { "name": "曼陀罗SPA会所", "category": "休闲娱乐", "district": "悦城区", "block_id": "F6", "coord": [5,9], "address": "怡景街与蓝湾街交叉口" },
+    { "name": "万象城", "category": "购物", "district": "悦城区", "block_id": "F4", "coord": [5,7], "address": "悦心街与白桦街交叉口" },
+    
+    { "name": "安澜公园", "category": "景点", "district": "安澜区", "block_id": "G1", "coord": [7,1], "address": "安澜街与星光街交叉口" },
+    { "name": "竹林茶舍", "category": "美食", "district": "安澜区", "block_id": "G2", "coord": [7,2], "address": "安澜街与香樟街交叉口" },
+    { "name": "竹林小径", "category": "景点", "district": "安澜区", "block_id": "G7", "coord": [9,1], "address": "宁和街与星光街交叉口" },
+    { "name": "安澜小学", "category": "教育", "district": "安澜区", "block_id": "G6", "coord": [8,3], "address": "安澜街与白桦街交叉口" },
+    
+    { "name": "舒心市综合人民医院", "category": "医疗", "district": "月华区", "block_id": "H4", "coord": [8,4], "address": "安澜街与逐风街交叉口", "owner": "甜小朵工作单位" },
+    { "name": "万达广场", "category": "购物", "district": "月华区", "block_id": "H2", "coord": [7,5], "address": "月华街与阳光街交叉口" },
+    { "name": "爱琴海广场", "category": "购物", "district": "月华区", "block_id": "H3", "coord": [7,6], "address": "月华街与和风街交叉口" },
+    { "name": "月华步行街", "category": "购物", "district": "月华区", "block_id": "H1", "coord": [7,4], "address": "月华街与暖阳街交叉口" },
+    { "name": "欢乐时光KTV", "category": "休闲娱乐", "district": "月华区", "block_id": "H6", "coord": [8,6], "address": "安澜街与阳光街交叉口" },
+    { "name": "小吃一条街", "category": "美食", "district": "月华区", "block_id": "H5", "coord": [8,5], "address": "安澜街与暖阳街交叉口" },
+    { "name": "一点点奶茶店", "category": "美食", "district": "月华区", "block_id": "H8", "coord": [9,5], "address": "月华街与阳光街交叉口" },
+    { "name": "青苹果水上乐园", "category": "休闲娱乐", "district": "月华区", "block_id": "H9", "coord": [9,6], "address": "欣悦街与阳光街交叉口" },
+    
+    { "name": "欣荣科技园", "category": "产业", "district": "欣荣区", "block_id": "I1", "coord": [7,7], "address": "欣悦街与新月街交叉口" },
+    { "name": "欣荣体育中心", "category": "休闲娱乐", "district": "欣荣区", "block_id": "I2", "coord": [7,8], "address": "欣悦街与白桦街交叉口" },
+    { "name": "欣荣创业园", "category": "产业", "district": "欣荣区", "block_id": "I4", "coord": [8,7], "address": "欣悦街与香樟街交叉口" },
+    { "name": "欣荣美食街", "category": "美食", "district": "欣荣区", "block_id": "I8", "coord": [9,8], "address": "欣悦街与白桦街交叉口" },
+    { "name": "欣荣地铁站", "category": "交通", "district": "欣荣区", "block_id": "I7", "coord": [9,7], "address": "欣悦街与花园街交叉口" }
+  ],
+
+  "personas": [
+    {
+      "slot": "a",
+      "id": "tianxiaoduo",
+      "name": "甜小朵",
+      "emoji": "🌸",
+      "tag": "🏥 护士",
+      "avatar_path": "all/a/img/other/avatar.jpg",
+      "district": "月华区",
+      "block_id": "H7",
+      "home_addr": "南丁格尔公寓 3号楼2单元503",
+      "home_detail": "月华区 H7 块 · 南丁格尔公寓",
+      "home_coord": [9,4],
+      "workplace": "舒心市综合人民医院",
+      "work_addr": "安澜街与逐风街交叉口",
+      "work_detail": "月华区 H4 块 · 综合人民医院",
+      "work_coord": [8,4],
+      "commute": "骑电动车 4分钟",
+      "commute_blocks": 2,
+      "commute_mode": "ebike",
+      "profile_path": "all/a/profile.json"
+    },
+    {
+      "slot": "b",
+      "id": "baijie",
+      "name": "白洁",
+      "emoji": "🌙",
+      "tag": "🏨 客户总监",
+      "avatar_path": "all/b/img/other/avatar.jpg",
+      "district": "悦城区",
+      "block_id": "F7",
+      "home_addr": "蓝丝绒公寓 · 香榭丽舍大街18号 8号楼1601室",
+      "home_detail": "悦城区 F7 块 · 蓝丝绒公寓",
+      "home_coord": [6,7],
+      "workplace": "天鹅湖酒店",
+      "work_addr": "悦心街与蓝湾街交叉口",
+      "work_detail": "悦城区 F1 块 · 天鹅湖酒店",
+      "work_coord": [4,7],
+      "commute": "开车 4分钟",
+      "commute_blocks": 2,
+      "commute_mode": "drive",
+      "profile_path": "all/b/profile.json"
+    },
+    {
+      "slot": "c",
+      "id": "xiaoya",
+      "name": "小雅",
+      "emoji": "📚",
+      "tag": "📖 店员/驻唱",
+      "avatar_path": "all/c/img/other/avatar.jpg",
+      "district": "暖阳区",
+      "block_id": "D7",
+      "home_addr": "新华公寓 5号楼2单元101",
+      "home_detail": "暖阳区 D7 块 · 新华公寓",
+      "home_coord": [6,1],
+      "workplace": "新华书店（+寻觅小酒吧驻唱）",
+      "work_addr": "暖阳街与暖阳街交叉口",
+      "work_detail": "暖阳区 D1 块 · 新华书店",
+      "work_coord": [4,1],
+      "commute": "骑电动车 8分钟 / 步行 12分钟到酒吧",
+      "commute_blocks": 2,
+      "commute_mode": "ebike",
+      "profile_path": "all/c/profile.json"
+    },
+    {
+      "slot": "d",
+      "id": "xiaoshu",
+      "name": "小舒",
+      "emoji": "🌆",
+      "tag": "🏙️ 城市AI向导",
+      "avatar_path": "all/d/img/other/avatar.jpg",
+      "district": "锦华区",
+      "block_id": "E8",
+      "home_addr": "城市服务中心 AI主机房",
+      "home_detail": "锦华区 E8 块 · 城市服务中心",
+      "home_coord": [6,5],
+      "workplace": "全市漫游",
+      "work_addr": "24小时在线，无处不在",
+      "work_detail": "覆盖全市81块 · 秒级响应",
+      "work_coord": [6,5],
+      "commute": "秒级响应，随时为您服务",
+      "commute_blocks": 0,
+      "commute_mode": "instant",
+      "profile_path": "all/d/profile.json"
+    }
+  ]
+}

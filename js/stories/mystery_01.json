@@ -1,0 +1,340 @@
+{
+  "story_id": "mystery_01",
+  "title": "密室杀人案",
+  "genre": "推理悬疑",
+  "difficulty": 4,
+  "estimated_sessions": 5,
+  "description": "舒心市最豪华的舒适酒店，房地产大亨王百万被发现死在总统套房内。房门从内反锁，窗户紧闭，房间内没有任何密道。凶手是如何进出这个完美密室的？一个不可能的犯罪现场，考验你的推理极限……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "新中心区",
+    "crime_scene": {
+      "block_id": "D5",
+      "name": "舒适酒店·总统套房",
+      "global_coord": [4, 5],
+      "description": "舒心市五星级酒店的最高层套房，位于38楼，拥有360度落地窗。房门厚重隔音，配备电子锁和物理反锁双重机制，窗户为固定密封式，无法打开"
+    },
+    "related_locations": [
+      {
+        "block_id": "D3",
+        "name": "酒店大堂",
+        "global_coord": [3, 4],
+        "distance_from_scene": 1,
+        "description": "酒店前台和监控室所在地，可查看电梯和走廊监控"
+      },
+      {
+        "block_id": "D6",
+        "name": "酒店行政酒廊",
+        "global_coord": [5, 5],
+        "distance_from_scene": 2,
+        "description": "与总统套房同层，案发时有人在场"
+      },
+      {
+        "block_id": "E5",
+        "name": "停车场出入口",
+        "global_coord": [5, 5],
+        "distance_from_scene": 1,
+        "description": "地下停车场，可查看进出记录"
+      },
+      {
+        "block_id": "C5",
+        "name": "隔壁总统套房",
+        "global_coord": [3, 5],
+        "distance_from_scene": 1,
+        "description": "与案发现场仅一墙之隔，嫌疑人C入住"
+      },
+      {
+        "block_id": "G5",
+        "name": "舒心市公安局",
+        "global_coord": [7, 5],
+        "distance_from_scene": 3,
+        "description": "调取档案和技术鉴定支持"
+      },
+      {
+        "block_id": "F8",
+        "name": "市中心医院",
+        "global_coord": [6, 8],
+        "distance_from_scene": 5,
+        "description": "死者私人医生的工作地点"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "王百万",
+    "age": 55,
+    "occupation": "百达地产集团董事长",
+    "time_of_death": "2026年5月18日 22:00-22:30",
+    "cause_of_death": "心脏骤停，但体内检测到微量慢性毒药成分",
+    "last_seen": "21:30 与三位嫌疑人在酒店顶层餐厅用餐后，独自返回套房"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "完美的密室",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查案发现场",
+        "确认密室状态",
+        "初步接触嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_locked_door",
+          "name": "反锁的房门",
+          "description": "房门内部的物理插销完全锁死，电子锁显示从内部锁定状态。破门而入后才发现尸体，无任何被撬痕迹",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_fixed_window",
+          "name": "密封的窗户",
+          "description": "落地玻璃窗为固定密封式，无开启可能，窗外是38楼高空，外墙光滑无攀爬痕迹",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_tea_cup",
+          "name": "茶杯残留",
+          "description": "茶几上有一杯喝了一半的普洱茶，杯底残留不明物质，需进一步化验",
+          "source": "现场勘查"
+        },
+        {
+          "id": "c_diary_page",
+          "name": "撕碎的日记",
+          "description": "垃圾桶里发现被撕碎的日记残片，隐约可见'遗嘱'和'秘密'字样",
+          "source": "现场勘查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "酒店经理",
+          "appearance": "40多岁，穿着得体的职业装，神情紧张",
+          "info_to_provide": [
+            "王董是我们酒店的VIP，每年都来住总统套房",
+            "案发当晚22:15，服务员按惯例送晚安茶，敲了门没人应，用房卡开门发现尸体",
+            "套房的门锁是德国进口的双重锁，从外面无法锁上物理插销",
+            "顶层只有总统套房和行政酒廊，走廊监控24小时运作"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "酒店办公室",
+            "time_range": "21:00-23:30",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 5,
+            "valid": true
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认密室状态",
+        "收集至少2条线索"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "不可能的进出",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "查看监控录像",
+        "核实嫌疑人行踪",
+        "调查毒药来源"
+      ],
+      "available_clues": [
+        {
+          "id": "c_corridor_cctv",
+          "name": "走廊监控盲区",
+          "description": "走廊监控显示21:30-23:00期间，只有服务员一人进入过走廊。但监控存在一个被刻意遮挡的3分钟盲区（21:52-21:55），原因是监控角度被调整",
+          "source": "查看酒店监控"
+        },
+        {
+          "id": "c_drug_analysis",
+          "name": "毒药成分",
+          "description": "茶杯中的残留物检测出一种罕见的慢性植物毒素'乌头碱衍生物'，致死量约10毫克，中毒后30分钟发作",
+          "source": "法医鉴定"
+        },
+        {
+          "id": "c_monitor_manip",
+          "name": "监控角度调整记录",
+          "description": "酒店后台系统显示21:50有人远程调整了走廊监控的拍摄角度，操作IP来自酒店内部网络",
+          "source": "IT部门调查"
+        },
+        {
+          "id": "c_secret_lover",
+          "name": "秘密情人",
+          "description": "死者手机中发现与一名神秘女子的暧昧短信，该女子编号为'X'，真实身份未知",
+          "source": "手机数据恢复"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "技术支持·小琳",
+          "appearance": "25岁，IT技术人员，戴着眼镜，黑眼圈明显",
+          "info_to_provide": [
+            "监控角度调整是从酒店工程部的一台电脑发出的",
+            "操作时间恰好是案发前几分钟",
+            "那台电脑平时没人用，放在储物间",
+            "调整操作需要管理员密码，但密码本贴在显示器旁边"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "IT办公室",
+            "time_range": "20:00-次日02:00",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 8,
+            "valid": true,
+            "witness": "值班同事可以证明"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "发现监控被调整",
+        "确定毒药类型"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "密室的真相",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "揭示密室手法",
+        "锁定凶手身份",
+        "发现隐藏的动机"
+      ],
+      "available_clues": [
+        {
+          "id": "c_connecting_room",
+          "name": "连通房线索",
+          "description": "隔壁C5房间与总统套房之间有一扇隐藏的连通门，平时被衣柜遮挡。登记入住人为嫌疑人C",
+          "source": "询问酒店管理层"
+        },
+        {
+          "id": "c_key_log",
+          "name": "房卡使用记录",
+          "description": "嫌疑人C的房卡在21:48有一次'非正常使用'记录，系统显示这张卡尝试打开总统套房的门（但因物理锁未开）",
+          "source": "酒店门锁系统"
+        },
+        {
+          "id": "c_motive_reveal",
+          "name": "动机链条",
+          "description": "嫌疑人C的母亲是死者的前女友，因被抛弃而郁郁而终。C此次回国就是为了复仇，她用半年时间研究了完美的密室杀人手法",
+          "source": "深入调查"
+        },
+        {
+          "id": "c_room_service_trick",
+          "name": "送餐手法",
+          "description": "凶手利用服务员送餐的间隙，通过连通门进入套房，在茶中下毒后原路返回，并从连通门用细线拉动总统套房的物理插销，制造密室假象",
+          "source": "重建犯罪过程"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "找到连通门",
+        "解释密室手法"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "破解密室",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露完整真相",
+        "还原犯罪过程",
+        "结案陈词"
+      ],
+      "ending": {
+        "truth": "凶手是嫌疑人C。她利用酒店连通房的设计，在案发当晚通过连通门进入总统套房，在死者的茶中加入了乌头碱衍生物。待死者毒发后，她用一根钓鱼线通过连通门缝拉动了总统套房的物理插销，制造完美密室。为防止被监控拍到，她事先从工程部的电脑调整了监控角度，制造了3分钟的监控盲区。整个计划精密到每一个步骤，是一起精心策划的复仇杀人案。",
+        "key_evidence": [
+          "连通门的存在——密室的物理突破点",
+          "监控角度调整记录——凶手提前准备",
+          "房卡异常使用记录——嫌疑人C曾试图进入",
+          "钓鱼线残留——在连通门缝隙中发现的微量尼龙纤维",
+          "乌头碱衍生物——毒药来源指向嫌疑人C的植物学背景"
+        ],
+        "red_herrings": [
+          "嫌疑人A的赌博债务（确有其事，但他没有作案时间和机会）",
+          "嫌疑人B的不在场证明看似完美（但他只是巧合的真的在看歌剧）",
+          "死者的秘密情人短信（干扰调查方向，实际与案件无关）"
+        ],
+        "resolutions": {
+          "嫌疑人C": "被捕，以故意杀人罪被起诉，法庭上表示不后悔",
+          "酒店管理层": "因安全隐患被调查，酒店进行全面整改",
+          "技术支持小琳": "获得表彰，她提供的监控线索成为关键证据",
+          "酒店经理": "因管理失职被降职"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "嫌疑人A·刘助理",
+      "role": "秘书",
+      "status": "suspect",
+      "description": "死者的私人助理，跟随多年，最近因挪用公款被死者发现，面临被解雇风险",
+      "alibi": {
+        "location": "酒店走廊休息区",
+        "time_range": "21:30-22:30",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 3,
+        "valid": false,
+        "alibi_note": "声称在休息区打电话，但没有证人，也没有监控拍到休息区"
+      },
+      "motive_tease": "因挪用公款面临解雇，可能铤而走险"
+    },
+    {
+      "name": "嫌疑人B·陈医生",
+      "role": "私人医生",
+      "status": "suspect",
+      "description": "死者的私人医生，定期为死者体检，掌握死者健康状况，最近因医疗纠纷与死者产生矛盾",
+      "alibi": {
+        "location": "市中心歌剧院",
+        "time_range": "20:00-23:00",
+        "distance_to_crime": 5,
+        "commute_time_by_drive": 25,
+        "valid": true,
+        "alibi_note": "歌剧院监控和多名目击者证实他在场"
+      },
+      "motive_tease": "医疗纠纷可能引发报复，但不在场证明牢固"
+    },
+    {
+      "name": "嫌疑人C·林小姐",
+      "role": "神秘客人",
+      "status": "suspect",
+      "description": "入住总统套房隔壁的客人，年轻貌美，持外国护照，自称是来旅游的。但调查发现她与死者有旧怨",
+      "alibi": {
+        "location": "C5房间",
+        "time_range": "21:00-23:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 0,
+        "valid": false,
+        "alibi_note": "声称一直在房间看书，但房间内没有发现任何书籍，也没有进出记录"
+      },
+      "motive_tease": "表面是普通游客，实则有复杂的背景和复仇动机"
+    },
+    {
+      "name": "嫌疑人D·赵厨师",
+      "role": "厨师长",
+      "status": "suspect",
+      "description": "酒店顶层餐厅的厨师长，为死者准备了最后一顿晚餐，最近因被投诉而心怀不满",
+      "alibi": {
+        "location": "酒店厨房",
+        "time_range": "20:00-23:00",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 10,
+        "valid": true,
+        "alibi_note": "厨房监控显示他一直在工作，有多名员工作证"
+      },
+      "motive_tease": "被投诉的愤怒，但缺乏作案机会"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "舒心市的夜色中，舒适酒店的灯光格外璀璨，38层的总统套房里，一个房地产帝国的掌门人正走向他生命的终点……",
+    "atmosphere": "豪华、神秘、窒息感。当警察破门而入时，发现这是一个完美的犯罪现场——门从内反锁，窗户密封，没有任何密道。凶手仿佛凭空消失。",
+    "victim_intro": "死者王百万，55岁，百达地产集团董事长。21:30与三位嫌疑人在顶层餐厅用餐后独自返回套房，22:15被服务员发现身亡。",
+    "task_intro": "作为一名调查者，你需要：\n1. 破解完美的密室手法\n2. 追踪凶手的进出路径\n3. 找出毒药的来源\n4. 在看似不可能的环境中锁定真凶"
+  }
+}

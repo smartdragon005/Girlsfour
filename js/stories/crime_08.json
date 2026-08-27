@@ -1,0 +1,400 @@
+{
+  "story_id": "crime_08",
+  "title": "洗钱大案",
+  "genre": "刑侦",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市警方捣毁一个地下钱庄，发现其洗钱网络已运作10年，累计洗钱金额超过200亿。调查牵出多位政府官员涉嫌受贿，整个案件震惊全市……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "老城区",
+    "crime_scene": {
+      "block_id": "B8",
+      "name": "老城区地下钱庄",
+      "global_coord": [2, 8],
+      "description": "隐藏在老城区茶馆地下的非法金融据点"
+    },
+    "related_locations": [
+      {
+        "block_id": "B7",
+        "name": "老城区派出所",
+        "global_coord": [2, 7],
+        "distance_from_scene": 1,
+        "description": "辖区派出所，配合捣毁地下钱庄"
+      },
+      {
+        "block_id": "C8",
+        "name": "反洗钱监测中心",
+        "global_coord": [3, 8],
+        "distance_from_scene": 1,
+        "description": "负责监测可疑金融交易的机构"
+      },
+      {
+        "block_id": "A8",
+        "name": "市中心银行监管局",
+        "global_coord": [1, 8],
+        "distance_from_scene": 1,
+        "description": "负责银行监管的政府机构"
+      },
+      {
+        "block_id": "D8",
+        "name": "涉案官员办公区",
+        "global_coord": [4, 8],
+        "distance_from_scene": 2,
+        "description": "被调查的政府官员办公地点"
+      },
+      {
+        "block_id": "B6",
+        "name": "地下钱庄资金中转点",
+        "global_coord": [2, 6],
+        "distance_from_scene": 2,
+        "description": "用于资金中转的合法贸易公司"
+      },
+      {
+        "block_id": "A6",
+        "name": "涉案公司总部",
+        "global_coord": [1, 6],
+        "distance_from_scene": 2,
+        "description": "与地下钱庄有业务往来的贸易公司"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "举报人孙启明",
+    "age": 42,
+    "occupation": "原地下钱庄会计",
+    "time_of_death": "2026年9月1日 03:00",
+    "cause_of_death": "被发现死于出租屋内，疑为他杀",
+    "last_seen": "8月31日 22:00 离开茶馆",
+    "case_specific_info": {
+      "money_laundering_scale": "200亿元人民币",
+      "operation_duration": "10年",
+      "involved_entities": ["地下钱庄", "贸易公司", "多位政府官员"],
+      "key_role": "举报人掌握钱庄核心账务，准备向纪检部门举报"
+    }
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "深夜的枪声",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查死亡现场",
+        "调查举报人身份",
+        "分析举报内容"
+      ],
+      "available_clues": [
+        {
+          "id": "c_computer_data",
+          "name": "举报人电脑数据",
+          "description": "孙启明的电脑中存有地下钱庄10年的完整账务数据",
+          "source": "电子数据提取"
+        },
+        {
+          "id": "c_witness_statement",
+          "name": "目击者证词",
+          "description": "孙启明的邻居听到凌晨3点左右有可疑脚步声和车辆声",
+          "source": "走访调查"
+        },
+        {
+          "id": "c_prepared_report",
+          "name": "未寄出的举报信",
+          "description": "孙启明准备了一份详细的举报材料，包含官员受贿的具体证据",
+          "source": "现场勘查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "举报人邻居张阿姨",
+          "appearance": "55岁，穿着睡衣，神情紧张",
+          "info_to_provide": [
+            "启明是个安静的人，他很少跟邻居来往",
+            "最近他看起来很焦虑，经常熬夜",
+            "凌晨3点我听到有人在走廊走动，然后一辆车开走了",
+            "我没看清人的样子，只听到脚步声很快"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "出租屋",
+            "time_range": "案发时段",
+            "distance_to_crime": 0,
+            "valid": true,
+            "alibi_note": "邻居可证明她未出门"
+          }
+        },
+        {
+          "npc": "反洗钱中心负责人",
+          "appearance": "48岁，穿着正装，神情严肃",
+          "info_to_provide": [
+            "孙启明曾多次向我们提交可疑交易线索",
+            "我们早就注意到这个地下钱庄的存在，但证据链不完整",
+            "他掌握的账务数据非常关键，可惜他没能等到这一天",
+            "我们会全力配合警方办案"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "反洗钱中心",
+            "time_range": "工作时间",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "全程在中心工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认举报人被灭口的原因",
+        "分析地下钱庄的运作模式"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "捣毁钱庄",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "突袭地下钱庄",
+        "收集账务证据",
+        "控制主要嫌疑人"
+      ],
+      "available_clues": [
+        {
+          "id": "c_accounting_records",
+          "name": "钱庄完整账务",
+          "description": "查获地下钱庄10年完整账务，涉及账户超过5000个",
+          "source": "现场查获"
+        },
+        {
+          "id": "c_official_bribes",
+          "name": "官员受贿记录",
+          "description": "账务中有多笔标注为'咨询费'、'劳务费'的支出，金额巨大且流向特定个人账户",
+          "source": "账务分析"
+        },
+        {
+          "id": "c_trade_network",
+          "name": "关联贸易网络",
+          "description": "地下钱庄与多家注册地址相同的贸易公司有资金往来，疑为洗钱通道",
+          "source": "企业关系分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "地下钱庄老板老鬼",
+          "appearance": "55岁，被捕时神情镇定",
+          "info_to_provide": [
+            "我只是开个小茶馆，什么地下钱庄我不知道",
+            "那些钱都是正常的贸易往来",
+            "孙启明是自己想不开，跟我没关系",
+            "你们有什么证据指控我？"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "茶馆",
+            "time_range": "案发时段",
+            "distance_to_crime": 0,
+            "valid": false,
+            "alibi_note": "声称在茶馆，但监控有空白时段"
+          }
+        },
+        {
+          "npc": "钱庄财务林姐",
+          "appearance": "38岁，戴眼镜，表情紧绷",
+          "info_to_provide": [
+            "我只是个会计，老板让我怎么做就怎么做",
+            "那些贸易公司都是老板的朋友开的",
+            "钱来钱走的，我没多问过",
+            "孙启明的事我不知道，我那天很早就回家了"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "家",
+            "time_range": "案发时段",
+            "distance_to_crime": 3,
+            "valid": false,
+            "alibi_note": "声称在家，但丈夫证词与她矛盾"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "锁定涉嫌受贿的政府官员",
+        "找到洗黑钱的完整路径"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "涉案官员浮出",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "分析受贿资金流向",
+        "调查涉案官员背景",
+        "锁定关键人物"
+      ],
+      "available_clues": [
+        {
+          "id": "c_bribe_recipients",
+          "name": "受贿人员名单",
+          "description": "通过资金流向分析，锁定3名政府官员有大额资金异常",
+          "source": "资金追踪分析"
+        },
+        {
+          "id": "c_corruption_pattern",
+          "name": "受贿模式",
+          "description": "官员通过控制项目审批权，为地下钱庄的关联企业提供便利，收受'咨询费'作为回报",
+          "source": "账务关联分析"
+        },
+        {
+          "id": "c_bank_records",
+          "name": "银行交易记录",
+          "description": "涉案官员的银行账户每年都有固定时间的大额资金入账，与钱庄的结算周期吻合",
+          "source": "银行协查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "银行反洗钱专员",
+          "appearance": "35岁，专业人士打扮",
+          "info_to_provide": [
+            "我们早就对这些账户标记了异常，但需要司法介入才能进一步调查",
+            "这些资金的来源都被包装成正常的商业收入",
+            "但经过分析，资金流向最终都指向了地下钱庄的关联账户",
+            "涉案官员的个人账户每年有百万级的异常入账"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "银行",
+            "time_range": "工作时间",
+            "distance_to_crime": 1,
+            "valid": true,
+            "alibi_note": "全程在银行工作"
+          }
+        },
+        {
+          "npc": "纪检部门联络员",
+          "appearance": "42岁，表情严肃",
+          "info_to_provide": [
+            "我们已经接到孙启明的举报线索，正在核实",
+            "这次警方的行动提供了关键的实物证据",
+            "涉案的3名官员分别来自住建局、规划局和商务局",
+            "他们利用职权为关联企业提供项目审批便利"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "纪检部门",
+            "time_range": "工作时间",
+            "distance_to_crime": 2,
+            "valid": true,
+            "alibi_note": "全程在单位工作"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "确认涉案官员的完整名单",
+        "收集足够的受贿证据"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "天网恢恢",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露洗钱网络全貌",
+        "说明各嫌疑人角色",
+        "结案"
+      ],
+      "ending": {
+        "truth": "这是一个运作10年的系统性洗钱犯罪网络。地下钱庄老板老鬼通过控制多家空壳贸易公司，为各类黑钱提供'洗白'通道，累计洗钱金额超过200亿。3名政府官员利用手中的项目审批权，为钱庄的关联企业提供便利，收受巨额贿赂。举报人孙启明因准备举报被灭口。整个案件涉及银行、企业、政府多个层面的腐败。",
+        "key_evidence": [
+          "地下钱庄10年完整账务记录，显示200亿资金流转",
+          "3名涉案官员银行账户的异常资金流入",
+          "举报人准备的详细举报材料",
+          "多家空壳贸易公司的注册信息和资金关联",
+          "地下钱庄与涉案贸易公司的资金往来记录"
+        ],
+        "red_herrings": [
+          "钱庄财务的不知情声明（她的证词不可信，但她可能只是从犯）",
+          "涉案官员的'咨询费'说辞（金额和频率明显不合常理）",
+          "举报人邻居的证词（间接但真实）"
+        ],
+        "resolutions": {
+          "老鬼": "被捕，以洗钱罪和故意杀人罪起诉，面临无期徒刑",
+          "3名涉案官员": "被捕，以受贿罪和滥用职权罪起诉，开除公职",
+          "钱庄财务林姐": "作为从犯起诉，因配合调查获得从轻处理",
+          "举报人孙启明": "被追认为烈士，其举报材料成为案件关键证据"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "地下钱庄老板老鬼",
+      "role": "第一嫌疑人",
+      "status": "suspect",
+      "description": "55岁，地下钱庄组织者，控制洗钱网络10年",
+      "alibi": {
+        "location": "茶馆",
+        "time_range": "案发时段",
+        "distance_to_crime": 0,
+        "valid": false,
+        "alibi_note": "监控有空白时段，且可能指使杀人"
+      },
+      "motive_tease": "为保护洗钱网络不被揭露而灭口举报人"
+    },
+    {
+      "name": "涉案官员A（住建局）",
+      "role": "第二嫌疑人",
+      "status": "suspect",
+      "description": "48岁，住建局负责人，有大额资金异常",
+      "alibi": {
+        "location": "住建局",
+        "time_range": "案发时段",
+        "distance_to_crime": 2,
+        "valid": false,
+        "alibi_note": "声称在办公，但银行记录显示异常"
+      },
+      "motive_tease": "利用职权收受钱庄贿赂"
+    },
+    {
+      "name": "涉案官员B（规划局）",
+      "role": "第三嫌疑人",
+      "status": "suspect",
+      "description": "52岁，规划局负责人，大额受贿嫌疑",
+      "alibi": {
+        "location": "规划局",
+        "time_range": "案发时段",
+        "distance_to_crime": 2,
+        "valid": false,
+        "alibi_note": "银行账户有异常资金"
+      },
+      "motive_tease": "利用规划审批权为关联企业提供便利"
+    },
+    {
+      "name": "钱庄财务林姐",
+      "role": "证人/从犯",
+      "status": "witness/suspect",
+      "description": "38岁，钱庄会计，可能知情但被动参与",
+      "alibi": {
+        "location": "家",
+        "time_range": "案发时段",
+        "distance_to_crime": 3,
+        "valid": false,
+        "alibi_note": "丈夫证词矛盾"
+      },
+      "motive_tease": "可能被胁迫参与洗钱，或为获利主动参与"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "9月1日凌晨，老城区的出租屋里，一声枪响打破了宁静，也揭开了一个震惊全市的洗钱黑幕……",
+    "atmosphere": "老城区的茶馆地下，隐藏着一个运作了10年的洗钱网络。200亿黑钱从这里流过，滋养着腐败的温床。然而，当举报人孙启明准备将一切公之于众时，他的生命戛然而止……",
+    "victim_intro": "死者孙启明，42岁，原地下钱庄会计。他掌握钱庄10年完整账务，准备举报时被灭口。此案牵出3名政府官员涉嫌受贿，洗钱金额高达200亿。",
+    "task_intro": "作为一名经侦调查员，你需要：\n1. 勘查举报人死亡现场，分析被灭口原因\n2. 突袭地下钱庄，查获账务证据\n3. 分析资金流向，锁定受贿官员\n4. 构建完整的洗钱证据链\n5. 捣毁整个洗钱网络，将罪犯绳之以法"
+  }
+}

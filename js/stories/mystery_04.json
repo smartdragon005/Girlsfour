@@ -1,0 +1,365 @@
+{
+  "story_id": "mystery_04",
+  "title": "双胞胎谜案",
+  "genre": "推理悬疑",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市繁华的双子大厦顶层，一家知名科技公司CEO被发现身亡。案发时，一对同卵双胞胎兄弟同时出现在大楼里，但他们长得一模一样，DNA检测都无法区分。谁才是真凶？当完美的身体成了完美的伪装，真相该如何寻觅？",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "CBD中央商务区",
+    "crime_scene": {
+      "block_id": "H2",
+      "name": "双子大厦·CEO办公室",
+      "global_coord": [8, 2],
+      "description": "双子大厦东塔42层的CEO专属办公室，落地窗可俯瞰整个CBD。案发时正在举办公司年会筹备会议"
+    },
+    "related_locations": [
+      {
+        "block_id": "H1",
+        "name": "双子大厦·电梯厅",
+        "global_coord": [8, 1],
+        "distance_from_scene": 1,
+        "description": "东塔42层电梯厅，装有监控，记录了人员进出"
+      },
+      {
+        "block_id": "H3",
+        "name": "双子大厦·会议室",
+        "global_coord": [8, 3],
+        "distance_from_scene": 1,
+        "description": "CEO办公室隔壁的会议室，年会筹备现场"
+      },
+      {
+        "block_id": "G2",
+        "name": "双子大厦·西塔",
+        "global_coord": [7, 2],
+        "distance_from_scene": 1,
+        "description": "双子大厦的西塔，与东塔通过空中连廊连接"
+      },
+      {
+        "block_id": "I2",
+        "name": "双子大厦·停车场",
+        "global_coord": [9, 2],
+        "distance_from_scene": 1,
+        "description": "地下停车场，可查看车辆进出记录"
+      },
+      {
+        "block_id": "A2",
+        "name": "星湖区分局",
+        "global_coord": [2, 1],
+        "distance_from_scene": 6,
+        "description": "辖区警方办公地点"
+      },
+      {
+        "block_id": "H5",
+        "name": "附近的DNA鉴定中心",
+        "global_coord": [5, 8],
+        "distance_from_scene": 5,
+        "description": "司法鉴定机构，可进行个体识别"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "张明远",
+    "age": 42,
+    "occupation": "恒远科技CEO",
+    "time_of_death": "2026年8月8日 19:15-19:30",
+    "cause_of_death": "被细小的利针从后颈刺入，导致延髓损伤，瞬间死亡",
+    "last_seen": "19:10 在会议室与员工讨论年会方案后，独自返回CEO办公室"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "完美的伪装",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查案发现场",
+        "了解双胞胎嫌疑人",
+        "收集初步线索"
+      ],
+      "available_clues": [
+        {
+          "id": "c_entry_record",
+          "name": "电梯监控记录",
+          "description": "42层电梯监控显示：19:05双胞胎兄弟同时进入42层，19:20其中一人离开，另一人19:35才离开。但两人长相完全相同，无法区分谁先离开",
+          "source": "查看监控录像"
+        },
+        {
+          "id": "c_exit_monitor",
+          "name": "楼梯间监控",
+          "description": "楼梯间监控显示19:25有一个穿着与双胞胎相同衣服的身影从42层走下41层，但身影模糊，无法确认身份",
+          "source": "查看楼梯监控"
+        },
+        {
+          "id": "c_cctv_gap",
+          "name": "监控盲区",
+          "description": "CEO办公室走廊存在一个2分钟的监控盲区（19:12-19:14），因一盏灯损坏导致监控画面模糊",
+          "source": "IT部门核查"
+        },
+        {
+          "id": "c_body_evidence",
+          "name": "尸体上的痕迹",
+          "description": "死者后颈有极其微小的针孔，现场未找到凶器。针孔周围发现极微量的金属残留，成分待鉴定",
+          "source": "法医初步勘查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "行政经理·小吴",
+          "appearance": "30岁，戴眼镜，神情焦虑，手里攥着笔记本",
+          "info_to_provide": [
+            "张总人很好，对员工特别照顾，不知道谁会害他",
+            "年会筹备期间，每个人都在忙，双胞胎兄弟是公司的技术顾问，今天来帮忙调试年会的VR设备",
+            "他们俩真的一模一样，平时大家都靠他们戴的不同颜色手表来区分——哥哥戴黑色，弟弟戴白色",
+            "案发时会议室有10多个人在场，但没人注意到CEO办公室的情况",
+            "针孔那么小，凶手用的应该是某种特制的工具"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "会议室",
+            "time_range": "18:30-20:00",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 2,
+            "valid": true,
+            "witness": "会议室10余名员工"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "获取双胞胎进出记录",
+        "发现针孔凶器的特征"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁是谁",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "分别询问双胞胎",
+        "寻找区分两人的方法",
+        "核实不在场证明"
+      ],
+      "available_clues": [
+        {
+          "id": "c_watch_color",
+          "name": "手表颜色线索",
+          "description": "哥哥张伟习惯戴黑色手表，弟弟张亮戴白色。查看电梯监控中离开者的手腕颜色，但因为背光无法确认",
+          "source": "仔细分析监控"
+        },
+        {
+          "id": "c_fingerprint_diff",
+          "name": "指纹比对",
+          "description": "虽然DNA相同，但双胞胎的指纹是不同的！现场发现的微量指纹（在文件柜上）与哥哥张伟的指纹匹配，而在咖啡机上的指纹与弟弟张亮匹配",
+          "source": "法医指纹鉴定"
+        },
+        {
+          "id": "c_movement_pattern",
+          "name": "行为模式差异",
+          "description": "调查发现哥哥习惯用右手，弟弟是左撇子。针孔位置在死者后颈左侧，凶手应该用左手施力更自然",
+          "source": "员工证词汇总"
+        },
+        {
+          "id": "c_secret_room",
+          "name": "CEO办公室的密室",
+          "description": "在CEO办公桌后面发现一个隐藏的小型保险箱，里面有公司财务违规的相关文件，涉及弟弟张亮参与的一个灰色项目",
+          "source": "仔细搜索办公室"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "哥哥张伟",
+          "appearance": "30岁，穿深蓝色西装，戴黑色手表，表情沉稳",
+          "info_to_provide": [
+            "我和弟弟今天来调试年会的VR设备，一切正常",
+            "19:05我们一起到了42层，19:20我先离开去楼下买咖啡",
+            "我走的时候还看到张总好好的，他在整理文件",
+            "指纹在文件柜上？可能是我之前帮张总整理文件时留下的",
+            "我右手习惯，这点大家都知道"
+          ],
+          "knowledge_level": "low",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "一楼咖啡吧",
+            "time_range": "19:20-19:40",
+            "distance_to_crime": 2,
+            "commute_time_by_walk": 5,
+            "valid": true,
+            "witness": "咖啡吧员工和监控可证明"
+          }
+        },
+        {
+          "npc": "弟弟张亮",
+          "appearance": "30岁，穿深蓝色西装，戴白色手表，表情紧张",
+          "info_to_provide": [
+            "我和哥哥一起上来，他19:20先走的，我在会议室多待了一会儿",
+            "19:35我才离开，因为我在帮员工调试设备",
+            "左手习惯？是的，我是左撇子，但这不代表什么",
+            "CEO的保险箱我完全不知道，那是公司高层的事",
+            "指纹在咖啡机上？我确实去倒过水"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "会议室",
+            "time_range": "19:20-19:35",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 1,
+            "valid": false,
+            "alibi_note": "声称在会议室调试设备，但监控显示19:25-19:30他不在会议室"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "利用指纹区分双胞胎",
+        "发现弟弟的秘密"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "揭开面具",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "确定谁是真凶",
+        "还原作案过程",
+        "揭示作案动机"
+      ],
+      "available_clues": [
+        {
+          "id": "c_needle_trace",
+          "name": "凶器溯源",
+          "description": "金属残留成分与医疗用注射针的合金成分一致。调查弟弟张亮的医疗背景——他曾是医学院学生，对人体结构和致命穴位了如指掌",
+          "source": "金属成分鉴定"
+        },
+        {
+          "id": "c_financial_scandal",
+          "name": "财务丑闻",
+          "description": "保险箱中的文件显示，弟弟张亮参与了一笔违规的资金挪用，而CEO张明远正准备报警。张亮杀人是为了自保",
+          "source": "分析保险箱文件"
+        },
+        {
+          "id": "c_escape_route",
+          "name": "逃跑路线",
+          "description": "弟弟利用楼梯间监控的模糊盲区，在19:25-19:30之间从42层下到41层，再通过消防通道绕回会议室，制造了完整的不在场证明",
+          "source": "重建行动路线"
+        },
+        {
+          "id": "c_left_hand_kill",
+          "name": "左撇子的痕迹",
+          "description": "针孔的角度和深度符合左撇子使用小型注射器的特征。哥哥是右撇子，不可能以这个角度施力",
+          "source": "法医角度分析"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "锁定凶手身份",
+        "还原作案手法"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "双生之恶",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露真凶",
+        "交代双胞胎的命运",
+        "结案"
+      ],
+      "ending": {
+        "truth": "凶手是弟弟张亮。他利用与哥哥一模一样的外貌作为完美伪装，在19:20哥哥离开后，趁会议室人员忙碌之际，通过走廊盲区潜入CEO办公室。作为医学院前学生，他精准地用一枚医疗注射针刺入死者后颈致命穴位，使其瞬间死亡。之后他通过楼梯间的模糊监控盲区下到41层，绕消防通道返回会议室，完美伪装了自己的行踪。他杀人的动机是为了阻止CEO揭露他参与的财务违规行为。",
+        "key_evidence": [
+          "指纹鉴定——文件柜上是哥哥的指纹，咖啡机上是弟弟的，两人指纹不同",
+          "左撇子特征——针孔角度符合左撇子施力",
+          "监控时间差——弟弟在19:25-19:30有5分钟的不在场证明空缺",
+          "医疗背景——弟弟具备使用注射针杀人的专业知识",
+          "财务动机——保险箱中的文件揭示了他的违规行为"
+        ],
+        "red_herrings": [
+          "电梯监控中无法区分的身影——增加混淆度",
+          "哥哥先离开的事实——他的不在场证明完美但人是弟弟杀的",
+          "兄弟俩的服装完全相同——所有人都无法区分他们",
+          "DNA检测无法区分——误导最初的调查方向"
+        ],
+        "resolutions": {
+          "张亮（弟弟）": "被捕，以故意杀人罪和挪用资金罪起诉，判处死刑缓期执行",
+          "张伟（哥哥）": "证明清白，但因弟弟的行为受到很大打击，离开了科技行业",
+          "恒远科技": "经历丑闻后进行重组，新管理层上任",
+          "行政经理小吴": "继续在公司工作，成为新任CEO的得力助手"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "张伟（哥哥）",
+      "role": "双胞胎之兄",
+      "status": "suspect",
+      "description": "30岁，恒远科技技术顾问，戴黑色手表，右撇子，性格沉稳",
+      "alibi": {
+        "location": "一楼咖啡吧",
+        "time_range": "19:20-19:40",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 5,
+        "valid": true,
+        "alibi_note": "咖啡吧员工和监控可证明，但因和弟弟长得一模一样，无法100%确认"
+      },
+      "motive_tease": "表面无明显动机，但被怀疑是因与弟弟长得太像"
+    },
+    {
+      "name": "张亮（弟弟）",
+      "role": "双胞胎之弟",
+      "status": "suspect",
+      "description": "30岁，恒远科技技术顾问，戴白色手表，左撇子，性格外向但近期显得焦虑",
+      "alibi": {
+        "location": "会议室",
+        "time_range": "19:20-19:35",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 1,
+        "valid": false,
+        "alibi_note": "声称在会议室调试设备，但19:25-19:30的5分钟不在场"
+      },
+      "motive_tease": "财务违规即将被揭露，有强烈灭口动机"
+    },
+    {
+      "name": "副总·李总",
+      "role": "公司高管",
+      "status": "suspect",
+      "description": "45岁，恒远科技副总裁，与CEO在发展战略上有严重分歧",
+      "alibi": {
+        "location": "西塔自己的办公室",
+        "time_range": "18:00-20:00",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 8,
+        "valid": false,
+        "alibi_note": "声称一直在办公室，但西塔的监控恰好那天故障"
+      },
+      "motive_tease": "权力斗争失败者，可能铤而走险"
+    },
+    {
+      "name": "前台·小美",
+      "role": "目击证人",
+      "status": "witness",
+      "description": "22岁，双子大厦前台接待，看到过双胞胎进出",
+      "alibi": {
+        "location": "前台接待处",
+        "time_range": "全天",
+        "distance_to_crime": 2,
+        "commute_time_by_walk": 3,
+        "valid": true,
+        "alibi_note": "前台监控显示她全天在岗"
+      },
+      "motive_tease": "目击者，无犯罪动机"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "在CBD霓虹闪烁的夜晚，双子大厦的灯火依旧通明。然而在42层的CEO办公室里，一个科技帝国的掌门人永远停在了他的办公桌前……",
+    "atmosphere": "繁华都市中的冷血谋杀。一对完美双胞胎的存在，让这场犯罪变得前所未有的棘手——他们有着相同的面容、相同的DNA，甚至相同的穿着。所有人都无法分辨，谁才是真正的毒蛇。",
+    "victim_intro": "死者张明远，42岁，恒远科技CEO，白手起家的科技企业家，公司估值超过百亿。",
+    "task_intro": "作为一名调查者，你需要：\n1. 找到区分双胞胎的关键\n2. 分析针孔杀人的作案手法\n3. 还原凶手的行动路线\n4. 在两个一模一样的人中找出真正的凶手"
+  }
+}

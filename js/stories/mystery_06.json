@@ -1,0 +1,344 @@
+{
+  "story_id": "mystery_06",
+  "title": "密码信",
+  "genre": "推理悬疑",
+  "difficulty": 5,
+  "estimated_sessions": 6,
+  "description": "舒心市知名作家被发现死在工作室中，临死前他在一张纸上写下一串看似混乱的数字和符号。这是死者留给世界的最后秘密，揭示了一个隐藏多年的惊天秘密。破译密码，就是揭开真相的钥匙……",
+
+  "setting": {
+    "city": "舒心市",
+    "district": "文化区",
+    "crime_scene": {
+      "block_id": "F4",
+      "name": "作家工作室",
+      "global_coord": [6, 4],
+      "description": "文化区旧仓库改造的艺术家工作室，面积约200平米，堆满书籍、手稿和艺术品。死者被发现时坐在书桌前"
+    },
+    "related_locations": [
+      {
+        "block_id": "F5",
+        "name": "文化区咖啡馆",
+        "global_coord": [6, 5],
+        "distance_from_scene": 1,
+        "description": "死者生前经常光顾的咖啡馆，与好友会面"
+      },
+      {
+        "block_id": "F3",
+        "name": "附近的邮局旧址",
+        "global_coord": [6, 3],
+        "distance_from_scene": 1,
+        "description": "一座改造的历史邮局，可能与密码有关"
+      },
+      {
+        "block_id": "E4",
+        "name": "作家的出版社",
+        "global_coord": [5, 4],
+        "distance_from_scene": 1,
+        "description": "负责出版死者作品的出版社"
+      },
+      {
+        "block_id": "G4",
+        "name": "旧书市场",
+        "global_coord": [7, 4],
+        "distance_from_scene": 1,
+        "description": "文化区的旧书市场，有经营密码学书籍的摊位"
+      },
+      {
+        "block_id": "I4",
+        "name": "市图书馆密码学专区",
+        "global_coord": [9, 4],
+        "distance_from_scene": 3,
+        "description": "有丰富的密码学和谍报学资料"
+      },
+      {
+        "block_id": "F8",
+        "name": "市中心医院",
+        "global_coord": [6, 8],
+        "distance_from_scene": 4,
+        "description": "法医尸检和DNA鉴定"
+      }
+    ]
+  },
+
+  "victim": {
+    "name": "苏慕白",
+    "age": 52,
+    "occupation": "知名悬疑作家/前密码学研究员",
+    "time_of_death": "2026年10月20日 21:00-21:30",
+    "cause_of_death": "氰化物中毒，致死量在红酒中被发现",
+    "last_seen": "20:30 与编辑讨论新书后独自留在工作室"
+  },
+
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "最后的密码",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "勘查案发现场",
+        "获取密码信内容",
+        "分析作案手法"
+      ],
+      "available_clues": [
+        {
+          "id": "c_code_paper",
+          "name": "密码信",
+          "description": "死者右手紧握着一张便签纸，上面写着：'7-3-5-1 2-8-4 9-6-2-7 10-1-5-3 星/月/东/北'。死者指甲缝里还发现微量纸张纤维",
+          "source": "尸体检查"
+        },
+        {
+          "id": "c_wine_glass",
+          "name": "毒酒",
+          "description": "书桌上有一杯喝了一半的红酒，检测出氰化物。酒杯上只有死者的指纹，但瓶身上有他人的潜在指纹",
+          "source": "痕检鉴定"
+        },
+        {
+          "id": "c_code_books",
+          "name": "工作室的密码书籍",
+          "description": "工作室书架上有数十本密码学和谍报学书籍，其中一本《二战密码史》被翻到了折页处——是关于维吉尼亚密码的章节",
+          "source": "搜查工作室"
+        },
+        {
+          "id": "c_secret_drawer",
+          "name": "工作室暗格",
+          "description": "书桌下方发现一个暗格，里面有死者的旧证件和一本手写日记，日记中提到'X项目'和'守护秘密直到最后'",
+          "source": "仔细搜查"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "编辑·林溪",
+          "appearance": "32岁，长发眼镜，眼神疲惫，手里抱着一摞手稿",
+          "info_to_provide": [
+            "苏老师是我见过最博学的人，他不仅是作家，早年还是密码学研究员",
+            "20:30我离开的时候他还好好的，他说要再整理一下新书的资料",
+            "新书《尘封的密码》是关于二战时期一个间谍组织的故事，他说这个故事有70%是真实的",
+            "他最近很焦虑，总说'有人在找我'，我以为是写作压力",
+            "暗格的事我知道，他说那是他的'保险库'，里面有一些他早年的研究资料"
+          ],
+          "knowledge_level": "medium",
+          "can_exclude_suspect": false,
+          "alibi": {
+            "location": "出版社办公室",
+            "time_range": "20:00-次日08:00",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 8,
+            "valid": true,
+            "witness": "出版社值班人员和监控"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "获取密码信内容",
+        "了解死者的密码学背景"
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "破译的线索",
+      "progress_target": "investigating",
+      "mandatory_events": [
+        "尝试破解密码",
+        "调查死者的过去",
+        "核实嫌疑人身份"
+      ],
+      "available_clues": [
+        {
+          "id": "c_diary_entry",
+          "name": "日记中的密钥",
+          "description": "日记中写着：'如果有一天我不在了，密码的密钥就是我最深的那个秘密——1978年的那个夏天，在邮电局的电报码里藏着答案'",
+          "source": "日记内容"
+        },
+        {
+          "id": "c_old_post_office",
+          "name": "邮电局旧址的线索",
+          "description": "调查发现邮局旧址在1978年曾是谍报机构的秘密据点，使用莫尔斯电码进行通讯。密码信中的数字可能对应电报码",
+          "source": "查阅历史档案"
+        },
+        {
+          "id": "c_morse_code",
+          "name": "莫尔斯电码对应",
+          "description": "密码中的数字对应的是中文电报码。通过查电报码表：7351=苏，284=白，9627=慕，10153=林。名字是'苏白慕林'——这是死者早年的化名",
+          "source": "密码学分析"
+        },
+        {
+          "id": "c_code_key",
+          "name": "第二密码层",
+          "description": "'星/月/东/北'对应的是方向提示。结合密码数字和方向，形成坐标：7,3→星位（左上），5,1→月位（右上），以此类推。最终指向工作室中的一幅画——画的背后藏着东西",
+          "source": "深度密码分析"
+        }
+      ],
+      "npc_cameos": [
+        {
+          "npc": "旧书商·老郑",
+          "appearance": "60岁，戴老花镜，手指上有墨渍，精通各种密码和古老编码",
+          "info_to_provide": [
+            "苏慕白是老主顾了，他最近经常来买密码学的旧书",
+            "他还问过我关于二战时期中国谍报机构的编码方式",
+            '他说他在写一本关于"真实间谍案"的小说，名字和故事都是真的',
+            "1978年的邮电局？那时候确实有很多秘密活动",
+            "这组数字如果用电报码解，能解出一个人名——可能是关键"
+          ],
+          "knowledge_level": "high",
+          "can_exclude_suspect": true,
+          "alibi": {
+            "location": "旧书市场摊位",
+            "time_range": "全天",
+            "distance_to_crime": 1,
+            "commute_time_by_walk": 10,
+            "valid": true,
+            "witness": "市场其他摊主"
+          }
+        }
+      ],
+      "advance_conditions": [
+        "解出密码的第一层",
+        "找到坐标指向的位置"
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "尘封的秘密",
+      "progress_target": "reasoning",
+      "mandatory_events": [
+        "找到密码指向的物品",
+        "揭露隐藏多年的秘密",
+        "锁定凶手"
+      ],
+      "available_clues": [
+        {
+          "id": "c_painting_secret",
+          "name": "画作背后的秘密",
+          "description": "按坐标在工作室的四幅画中找到了对应的画，画的背后藏着一个金属小盒子，里面是一份1978年的谍报档案副本——涉及一个代号'夜莺'的间谍组织",
+          "source": "密码坐标指向"
+        },
+        {
+          "id": "c_organization_info",
+          "name": "'夜莺'组织",
+          "description": "档案显示'夜莺'是1978年由苏慕白（化名苏白慕林）领导的学生谍报小组，收集国家机密情报。该组织在1979年被解散，但有人一直想获取这份档案",
+          "source": "档案内容"
+        },
+        {
+          "id": "c_motive_reveal",
+          "name": "凶手动机",
+          "description": "嫌疑人D是当年'夜莺'组织另一名成员的儿子，他的父亲因该组织被清算，一直怀恨在心。他发现苏慕白就是当年的领导人，潜入工作室下毒，同时为了获取完整档案",
+          "source": "调查嫌疑人背景"
+        },
+        {
+          "id": "c_fingerprint_match",
+          "name": "瓶身指纹匹配",
+          "description": "红酒瓶上的潜在指纹与嫌疑人D的指纹匹配。嫌疑人D在作案时戴了手套但不小心在瓶身留下了指尖的汗渍指纹",
+          "source": "痕检鉴定"
+        }
+      ],
+      "npc_cameos": [],
+      "advance_conditions": [
+        "找到金属盒子",
+        "确认嫌疑人身份"
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "密码的尽头",
+      "progress_target": "concluded",
+      "mandatory_events": [
+        "揭露完整真相",
+        "解释密码的全部含义",
+        "结案"
+      ],
+      "ending": {
+        "truth": "苏慕白（真名苏白慕林）是1978年学生谍报组织'夜莺'的领导人，半个世纪以来一直隐藏身份写作。嫌疑人D是当年组织中另一成员的儿子，他的父亲因该组织被清算，出狱后不久去世，临终前告诉儿子苏慕白就是当年的'夜莺'领导人。D为了复仇，以咨询密码学为名潜入工作室，在红酒中下了氰化物。苏慕白在毒发前用密码写下了自己的真实身份和档案藏匿坐标——他知道这个密码只有懂得他过去的人才能破解，而这个密码既是指认凶手的线索，也是交代自己一生秘密的遗言。",
+        "key_evidence": [
+          "密码信的电报码解码——解出'苏白慕林'的真实身份",
+          "坐标密码解出的画作位置——找到金属盒子和档案",
+          "红酒瓶上的指纹——直接物理证据",
+          "嫌疑人与'夜莺'组织的关联——复仇动机",
+          "日记中的提示——印证密码解密方向"
+        ],
+        "red_herrings": [
+          "编辑林溪的在场嫌疑——完美的不在场证明",
+          "咖啡店主的证词——他提到了苏慕白的焦虑但增加混乱",
+          "出版社会计的财务调查——涉及但无犯罪动机",
+          "密码本身的复杂性——干扰了最初的调查方向"
+        ],
+        "resolutions": {
+          "嫌疑人D": "被捕，以故意杀人罪起诉，法庭上承认了复仇动机",
+          "林溪（编辑）": "继承苏慕白的遗作出版权，将《尘封的密码》完整出版",
+          "旧书商老郑": "继续经营他的旧书摊，将苏慕白的故事讲给来买书的人",
+          "苏慕白的档案": "被国家安全部门接管，作为历史档案保存"
+        }
+      }
+    }
+  ],
+
+  "suspects_initial": [
+    {
+      "name": "嫌疑人A·编辑林溪",
+      "role": "合作伙伴",
+      "status": "suspect",
+      "description": "32岁，苏慕白的责任编辑，最后一个见到死者的人",
+      "alibi": {
+        "location": "出版社办公室",
+        "time_range": "20:30-次日08:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 8,
+        "valid": true,
+        "alibi_note": "出版社监控和值班人员可证"
+      },
+      "motive_tease": "可能因版税分成问题有矛盾"
+    },
+    {
+      "name": "嫌疑人B·咖啡店老板",
+      "role": "朋友",
+      "status": "suspect",
+      "description": "40岁，苏慕白的老朋友，经常一起在咖啡馆讨论创作",
+      "alibi": {
+        "location": "自己的咖啡馆",
+        "time_range": "18:00-次日02:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 10,
+        "valid": true,
+        "alibi_note": "咖啡馆24小时营业，有多段监控和顾客证词"
+      },
+      "motive_tease": "无明显动机，但与死者关系密切"
+    },
+    {
+      "name": "嫌疑人C·旧书商老郑",
+      "role": "相识",
+      "status": "suspect",
+      "description": "60岁，旧书市场的摊主，与死者因密码学书籍相识",
+      "alibi": {
+        "location": "旧书市场",
+        "time_range": "全天",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 10,
+        "valid": true,
+        "alibi_note": "市场其他摊主可证"
+      },
+      "motive_tease": "无直接动机，密码学知识可能提供帮助"
+    },
+    {
+      "name": "嫌疑人D·神秘访客",
+      "role": "不速之客",
+      "status": "suspect",
+      "description": "35岁，自称是密码学爱好者，近期多次拜访苏慕白咨询问题。调查显示他的真实身份是前谍报人员之子",
+      "alibi": {
+        "location": "未知",
+        "time_range": "20:00-22:00",
+        "distance_to_crime": 1,
+        "commute_time_by_walk": 5,
+        "valid": false,
+        "alibi_note": "声称在家看电视，但电视没开，邻居也没看到他在家"
+      },
+      "motive_tease": "为父报仇，获取当年谍报组织的档案"
+    }
+  ],
+
+  "story_intro": {
+    "opening_line": "一个作家的最后一句话，不是用笔墨写的，而是用密码写的。当他在毒发的剧痛中拼尽全力写下那串数字时，他知道，这将是他留给世界的最后一个故事……",
+    "atmosphere": "文化区的夜晚静谧而忧伤。作家工作室的灯光永远地熄灭了，而他桌上那张写满数字的便签纸，成了揭开真相的唯一钥匙。每一个数字、每一个符号，都是一把锁，锁住了一个隐藏了半个世纪的秘密。",
+    "victim_intro": "死者苏慕白，52岁，知名悬疑作家，前密码学研究员。代表作《暗码》《无声的情报》等。",
+    "task_intro": "作为一名调查者，你需要：\n1. 破解死者留下的密码\n2. 理解密码背后的历史真相\n3. 找出杀害苏慕白的凶手\n4. 还原一个隐藏了50年的秘密组织"
+  }
+}

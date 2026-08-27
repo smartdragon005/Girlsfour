@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Girls4 · 角色档案</title>
+<link rel="stylesheet" href="../common.css">
+<style>
+/* ========== 深蓝夜空主题 颜色变量（全局统一） ========== */
+:root {
+  --bg: #141a24;            /* 页面底色 深蓝夜空 */
+  --bg-elev: #1A1F2C;       /* 顶部/底部 抬起层 */
+  --bg-card: #232A3B;       /* 卡片 次抬起层 */
+  --bg-inner: #1E2433;      /* 卡片内嵌面板 */
+  --bg-chip: #2A3144;       /* 标签、小色块 */
+  --bg-soft: rgba(59, 111, 229, 0.16);   /* 蓝色柔光（选中背景） */
+  --b: #2A3144;             /* 普通边框 */
+  --b2: #3A445F;            /* 强调边框 */
+  --ba: #3B6FE5;            /* 主蓝（强调色/选中） */
+  --t: #E8ECF4;             /* 主文字 白 */
+  --t2: #A3ACBE;            /* 次文字 灰蓝 */
+  --tm: #6B7388;            /* 提示文字 灰 */
+  --ok: #34C759;            /* 绿色（成功/休息/达标） */
+  --w: #FF9F0A;             /* 黄色（警告/早班/概率） */
+  --p: #EC4899;             /* 粉色（驻唱/白洁色） */
+  --pu: #8B5CF6;            /* 紫色（晚班） */
+  --danger: #FF453A;        /* 红色（危险/删除） */
+  --r: 0;  --r2: 0;  --r3: 0;  --rf: 50%;
+  --font: "MiSans", "MiSans VF", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --safe-top: env(safe-area-inset-top, 28px);
+  --safe-bottom: env(safe-area-inset-bottom, 32px);
+}
+
+/* ========== 全局滚动条隐藏（手机端无滑块，手指滑动有效） ========== */
+* { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+html, body {
+            display: flex; justify-content: center; align-items: stretch; width: 100%; height: 100%; background: #ffffff; color: var(--t); font-family: var(--font); overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+}
+body {
+            display: flex; justify-content: center; align-items: stretch;
+  
+  overflow: hidden;
+  position: relative;
+}
+/* 全局按钮触摸优化 */
+button, a, .clickable {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+button::before, button::after,
+a::before, a::after,
+.clickable::before, .clickable::after {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+button:focus, a:focus,
+button:active, a:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/* 安全区域白色不透明背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-top);
+  background: #ffffff;
+  z-index: 9999;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-bottom);
+  background: #ffffff;
+  z-index: 9999;
+  pointer-events: none;
+}
+.scroll-hide {
+  overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;     /* iOS 惯性滑动 */
+  scrollbar-width: none;                 /* Firefox */
+  -ms-overflow-style: none;              /* 旧 Edge */
+}
+.scroll-hide::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; }  /* Chrome/Safari/安卓 */
+
+/* ========== 页面容器 ========== */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0 !important;
+}
+
+/* ========== 顶部栏 ========== */
+.topbar {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--b);
+  flex-shrink: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+.tl { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tl h1 {
+  font: 700 20px/28px var(--font);
+  color: var(--t);
+  display: flex; align-items: center; gap: 8px;
+}
+.tl h1 .logo {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #F59E0B, var(--ba));
+  font-size: 16px; color: #fff; flex-shrink: 0;
+}
+.tl .sub { font: 400 12px/18px var(--font); color: var(--tm); }
+.tr { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.icon-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #f0f2f5;
+  border: 1px solid #c8ccd4;
+  color: #333; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: 0.18s;
+  flex-shrink: 0; user-select: none;
+}
+.icon-btn:hover { color: var(--ba); border-color: var(--ba); background: #fff; }
+.icon-btn:active { transform: scale(0.95); }
+
+/* ========== Loading 态 ========== */
+.loading {
+  text-align: center; padding: 60px 20px;
+  color: var(--tm); font: 400 13px/19px var(--font);
+}
+.loading .spinner {
+  display: inline-block;
+  width: 28px; height: 28px;
+  border: 2.5px solid var(--b);
+  border-top-color: var(--ba);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 14px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading .auto-timer {
+  font-size: 12px; color: var(--t3); margin-bottom: 10px;
+}
+.loading .auto-timer b { color: var(--ba); font-weight: 700; }
+.loading .f-bt {
+  margin-top: 14px;
+  padding: 13px 20px;
+  font: 700 14px/20px var(--font);
+  color: #fff;
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+  border: none; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(236,72,153,0.35);
+  cursor: pointer;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 8px 24px rgba(236,72,153,0.35); transform: scale(1); }
+  50%     { box-shadow: 0 10px 30px rgba(236,72,153,0.55); transform: scale(1.03); }
+}
+.loading .tip {
+  margin-top: 6px;
+  font-size: 11px;
+  padding: 8px 12px;
+  background: var(--bg-inner);
+  border: 1px dashed var(--b2);
+  border-radius: var(--r2);
+  display: inline-block;
+  max-width: 90%;
+  word-break: break-all;
+}
+.loading .tip b { color: var(--ba); }
+
+/* ========== 4等分 人设Tab - 直线分隔风格 ========== */
+.tabs {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid var(--b);
+}
+.tab {
+  padding: 12px 4px;
+  border: none;
+  border-right: 1px solid var(--b);
+  border-radius: 0;
+  background: var(--bg-card);
+  text-align: center;
+  cursor: pointer;
+  transition: 0.18s;
+  user-select: none;
+  margin: 0 -1px;
+}
+.tab:last-child { border-right: none; }
+.tab:hover { background: var(--bg-inner); }
+.tab.active {
+  background: var(--bg-soft);
+  border-bottom: 2px solid var(--ba);
+  box-shadow: none;
+}
+.tab .e { font-size: 22px; display: block; margin-bottom: 4px; }
+.tab .n { font: 600 12px/18px var(--font); color: var(--t2); }
+.tab.active .n { color: var(--t); font-weight: 700; }
+
+/* ========== 滚动内容区 ========== */
+.content {
+  padding: 0 0 16px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+
+/* contentState flex布局支持 */
+#contentState > .girls4-banner { flex-shrink: 0; }
+#contentState > .tabs { flex-shrink: 0; box-sizing: border-box; }
+#contentState > .content { flex: 1; min-height: 0; overflow-y: auto; }
+#loadingState { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+/* ========== 资料卡（对应 show.html 的 profile-card） - 直线分隔风格 ========== */
+.card {
+  background: var(--bg-card);
+  border: none;
+  border-top: 1px solid var(--b);
+  border-bottom: 1px solid var(--b);
+  border-radius: 0;
+  padding: 16px;
+}
+.field {
+  display: flex;
+  padding: 9px 0;
+  font: 400 13px/20px var(--font);
+  border-bottom: 1px dashed var(--b);
+  gap: 12px;
+  align-items: flex-start;
+}
+.field:last-child { border-bottom: none; }
+.field .l {
+  color: var(--tm);
+  min-width: 76px;
+  flex-shrink: 0;
+  font-weight: 500;
+  padding-top: 2px;
+}
+.field .v {
+  color: var(--t);
+  font-weight: 500;
+  word-break: break-word;
+  flex: 1;
+  line-height: 1.6;
+}
+.field .v.av {
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap;
+}
+.av-img {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: linear-gradient(135deg, #10B981, var(--ba));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; color: #fff;
+  border: 2px solid var(--b2);
+  flex-shrink: 0;
+}
+.av-img.cA { background: linear-gradient(135deg, #EC4899, #8B5CF6); }
+.av-img.cB { background: linear-gradient(135deg, #6366F1, #06B6D4); }
+.av-img.cC { background: linear-gradient(135deg, #10B981, #3B6FE5); }
+.av-img.cD { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+.tag {
+  display: inline-block;
+  background: var(--bg-chip);
+  color: var(--t2);
+  padding: 3px 12px;
+  border-radius: 10px;
+  font: 500 11px/16px var(--font);
+}
+.tag.work {
+  background: var(--bg-soft);
+  color: var(--ba);
+  border: 1px solid rgba(59, 111, 229, 0.3);
+}
+.pill {
+  display: inline-block;
+  padding: 3px 9px;
+  margin: 0 5px 4px 0;
+  background: var(--bg-chip);
+  border-radius: 10px;
+  font: 500 11px/16px var(--font);
+  color: var(--t2);
+}
+
+/* ========== 排班卡 ========== */
+.s-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font: 700 14px/22px var(--font); color: var(--t);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--b);
+}
+.s-head .week {
+  font: 600 10px/14px var(--font);
+  background: var(--bg-soft);
+  color: var(--ba);
+  padding: 3px 10px;
+  border-radius: var(--rf);
+  border: 1px solid rgba(59, 111, 229, 0.3);
+  flex-shrink: 0;
+}
+.sg { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.sc {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 2px;
+  background: var(--bg-inner);
+  border-radius: 10px;
+  border: 1px solid var(--b);
+}
+.sc.dow {
+  background: transparent; border: none; padding: 0 0 3px;
+  font: 700 10px/14px var(--font); color: var(--tm);
+}
+.sc .p {
+  width: 100%; text-align: center;
+  padding: 3px 0;
+  border-radius: 10px;
+  font: 700 10px/14px var(--font);
+}
+.sc .t { font: 400 8px/12px var(--font); color: var(--tm); text-align: center; line-height: 1.35; }
+.p-m { background: rgba(255, 159, 10, 0.15); color: #FFB547; }
+.p-i { background: rgba(59, 111, 229, 0.15); color: #7FABFF; }
+.p-n { background: rgba(139, 92, 246, 0.15); color: #B794F4; }
+.p-o { background: rgba(52, 199, 89, 0.15); color: #6EE7B7; }
+.p-s { background: rgba(236, 72, 153, 0.15); color: #F9A8D4; }
+.p-d { background: rgba(255, 159, 10, 0.15); color: #FFB547; }
+.p-f { background: rgba(59, 111, 229, 0.15); color: #7FABFF; }
+
+.s-legend {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: var(--bg-inner);
+  border-radius: var(--r);
+  border: 1px solid var(--b);
+}
+.lg {
+  display: flex; align-items: center; gap: 4px;
+  font: 500 10px/14px var(--font); color: var(--t2);
+}
+.lg .dot { width: 10px; height: 10px; border-radius: 50%; }
+.lg .dot.m { background: rgba(255, 159, 10, 0.45); }
+.lg .dot.i { background: rgba(59, 111, 229, 0.45); }
+.lg .dot.n { background: rgba(139, 92, 246, 0.45); }
+.lg .dot.o { background: rgba(52, 199, 89, 0.45); }
+.lg .dot.s { background: rgba(236, 72, 153, 0.45); }
+
+/* ========== 系统参数卡 ========== */
+.sys-title {
+  font: 600 13px/20px var(--font);
+  color: var(--t);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sys-title .ro {
+  margin-left: auto;
+  font: 600 10px/14px var(--font);
+  color: var(--tm);
+  background: var(--bg-chip);
+  padding: 2px 9px;
+  border-radius: 0;
+}
+.sys-title .ro + .ro { margin-left: 5px; }
+.sys-title .ro.realtime {
+  background: rgba(52,199,89,0.18);
+  color: #6EE7B7;
+}
+/* 小组分隔标题 */
+.sys-sec {
+  grid-column: 1 / -1;
+  margin: 12px -16px 4px;
+  padding: 6px 16px 4px;
+  font: 700 11px/16px var(--font);
+  color: var(--ba);
+  letter-spacing: 0.3px;
+  border-top: 1px solid var(--b);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sys-sec:first-of-type {
+  margin-top: 2px;
+  border-top: none;
+}
+.sys-sec .ic { filter: grayscale(20%); }
+.sysg {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+}
+.sysi {
+  display: flex; justify-content: space-between;
+  padding: 5px 0;
+  font: 400 11px/16px var(--font);
+  border-bottom: 1px dashed var(--b);
+  align-items: center;
+}
+.sysi:nth-last-child(-n+2) { border-bottom: none; }
+.sysi .k { color: var(--tm); font-size: 11px; font-weight: 400; }
+.sysi .v { color: var(--ok); font-weight: 600; font-size: 11px; }
+.sysi .v.pct-w { color: var(--w); }
+.sysi .v.pct-b { color: var(--ba); }
+.sysi .v.city { color: var(--ok); }
+
+/* ========== 新增：Girls4 总Banner + 人设Hero大图 ========== */
+.girls4-banner {
+  min-height: 220px;
+  border-radius: var(--r3);
+  margin: 0;
+  padding: 26px 22px;
+  background: linear-gradient(135deg, rgba(236,72,153,0.55) 0%, rgba(139,92,246,0.45) 45%, rgba(20,24,33,0.95) 100%), var(--bg-inner);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--b2);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+.girls4-banner .gb-hd {
+  position: absolute; top: 16px; right: 16px;
+  display: flex; gap: 5px;
+}
+.girls4-banner .gb-hd .ch {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(3px);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: #fff;
+}
+.girls4-banner .gb-t {
+  font: 800 30px/40px var(--font);
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.65);
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.girls4-banner .gb-t .logo {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(5px);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 23px;
+}
+.girls4-banner .gb-s {
+  font: 400 13px/20px var(--font);
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.65);
+  max-width: 90%;
+}
+
+/* 人设专属大图Hero（资料卡顶部） */
+.profile-hero {
+  min-height: 190px;
+  border-radius: 10px;
+  margin: 0;
+  padding: 22px 18px;
+  border: none;
+  border-top: 1px solid var(--b2);
+  border-bottom: 1px solid var(--b2);
+  background: linear-gradient(135deg, rgba(59,111,229,0.45) 0%, rgba(20,24,33,0.94) 100%), var(--bg-inner);
+  background-size: cover;
+  background-position: center;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+.profile-hero.phA { background: linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(139,92,246,0.35) 55%, rgba(20,24,33,0.94) 100%), var(--bg-inner); background-size:cover,cover,auto; background-position:center top; }
+.profile-hero.phB { background: linear-gradient(135deg, rgba(99,102,241,0.5) 0%, rgba(6,182,212,0.3) 55%, rgba(20,24,33,0.94) 100%), var(--bg-inner); background-size:cover,cover,auto; background-position:center top; }
+.profile-hero.phC { background: linear-gradient(135deg, rgba(16,185,129,0.48) 0%, rgba(59,111,229,0.35) 55%, rgba(20,24,33,0.94) 100%), var(--bg-inner); background-size:cover,cover,auto; background-position:center top; }
+.profile-hero.phD { background: linear-gradient(135deg, rgba(245,158,11,0.48) 0%, rgba(239,68,68,0.35) 55%, rgba(20,24,33,0.94) 100%), var(--bg-inner); background-size:cover,cover,auto; background-position:center top; }
+/* Banner图片容器 - 使用img标签实现精准居中 */
+.profile-hero .ph-banner-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(20,24,33,0.3) 0%, rgba(20,24,33,0.7) 50%, rgba(20,24,33,0.92) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+.profile-hero > *:not(.ph-banner-img) {
+  position: relative;
+  z-index: 2;
+}
+
+.profile-hero .ph-top {
+  position: absolute; top: 15px; right: 15px;
+  display: flex; gap: 6px; align-items: center;
+}
+.profile-hero .ph-top .ptg {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  padding: 3px 9px;
+  border-radius: var(--rf);
+  font: 600 10px/14px var(--font);
+}
+.profile-hero .ph-row {
+  display: flex; align-items: flex-end; gap: 12px;
+  width: 100%;
+}
+.profile-hero .ph-av {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255,255,255,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: #fff;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+.profile-hero .ph-tx { flex: 1; min-width: 0; }
+.profile-hero .ph-tx .ph-name {
+  font: 800 24px/34px var(--font);
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 3px;
+}
+.profile-hero .ph-tx .ph-bio {
+  font: 400 12px/18px var(--font);
+  color: rgba(255,255,255,0.88);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  max-width: 92%;
+}
+
+.profile-hero .ph-tx .ph-name .tg {
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 3px 10px;
+  border-radius: var(--rf);
+  font: 600 10px/14px var(--font);
+}
+
+
+/* ========== 底部条 ========== */
+.foot {
+  margin-top: 2px;
+  padding: 12px 16px;
+  background: var(--bg-inner);
+  border-radius: 10px;
+  border: 1px dashed var(--b2);
+  font: 400 11px/16px var(--font);
+  color: var(--tm);
+  text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  flex-wrap: wrap;
+}
+.foot code {
+  background: var(--bg-chip);
+  color: #7FABFF;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font: 600 10px/14px ui-monospace, Consolas, monospace;
+}
+
+/* ========== Toast ========== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--ba);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font: 500 13px/19px var(--font);
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 999;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(59, 111, 229, 0.35);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.ok { background: #1A5A2A; }
+.toast.err { background: #6A1A1A; }
+
+@media (max-width: 480px) {
+  .tabs { gap: 6px; padding: 12px; }
+  .tab { padding: 10px 2px; }
+  .tab .e { font-size: 20px; }
+  .tab .n { font-size: 11px; }
+  .sysg { grid-template-columns: 1fr; }
+  .sysi { padding: 6px 0; }
+}
+
+/* ========== 右下角悬浮返回按钮 ========== */
+.back-floating {
+  position: fixed;
+  right: 18px;
+  bottom: calc(58px + env(safe-area-inset-bottom));
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f0f2f5;
+  border: 1px solid #c8ccd4;
+  color: #333;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: 0.18s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.back-floating:hover {
+  color: var(--ba);
+  border-color: var(--ba);
+  background: #fff;
+}
+.back-floating:active {
+  transform: scale(0.95);
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  outline: none;
+}
+
+        /* ===== 顶部安全区：白底（适配状态栏浅色图标文字） ===== */
+        .app-safe-top { width: 100%; height: var(--safe-top); flex-shrink: 0; background: #ffffff; }
+        .app-safe-bottom { width: 100%; height: var(--safe-bottom); flex-shrink: 0; background: #ffffff; }
+
+        </style>
+</head>
+<body>
+<div class="app">
+        <div class="app-safe-top"></div>
+        <!-- ============== 顶部栏 ============== -->
+  <div class="topbar">
+    <div class="tl">
+      <h1><span class="logo">📖</span> Girls4</h1>
+      <div class="sub">角色档案 · 只读 · 编辑请用开发者工具（🔐 wlaoshi520）</div>
+    </div>
+    <div class="tr">
+      <div class="icon-btn" id="refreshBtn" onclick="reloadData()" title="刷新数据">🔄</div>
+      <div class="icon-btn" onclick="tryClose()" title="返回"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+      <!-- 定位锚点：用于右下角按钮对齐 -->
+      <span id="backBtnAnchor" style="position:fixed;visibility:hidden;pointer-events:none;width:1px;height:1px;"></span>
+    </div>
+  </div>
+
+  <!-- ============== Loading态 ============== -->
+  <div id="loadingState" class="loading" style="flex:1;min-height:0;">
+    <div class="spinner"></div>
+    <div>正在加载 4 位人设 & 世界观数据...</div>
+    <div class="auto-timer" id="autoTimer" style="margin-top:8px;">⏳ <b id="secVal">8</b> 秒后仍卡住 → 自动显示示例数据</div>
+    <button class="f-bt" onclick="FORCE_FALLBACK_G4(true)">🔧 卡住了？点我立即显示示例数据</button>
+    <div class="tip" style="margin-top:14px;">
+      💡 建议启动本地HTTP服务器（PowerShell：<code>python -m http.server 8080</code> 或 <code>npx serve .</code>）即可读取你自己的JSON和真实背景图
+    </div>
+  </div>
+
+  <!-- ============== 内容态 ============== -->
+  <div id="contentState" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
+    <div class="tabs" id="roleTabs"></div>
+
+    <div class="content scroll-hide" id="roleContent">
+      <!-- 动态渲染：资料卡 + 排班卡 + 系统参数卡 -->
+    </div>
+  </div>
+
+  
+  <!-- ============== 右下角悬浮返回按钮 ============== -->
+  <div class="back-floating icon-btn" onclick="tryClose()" title="返回主界面"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+  <div class="app-safe-bottom"></div>
+</div>
+
+<script>
+/* ========================================================
+   Girls4 展示页逻辑
+   同时读取：all/{a,b,c,d}/profile.json + all/d/data.json
+   如果 file:// 协议 CORS 读失败，用 FALLBACK 示例数据渲染
+   ======================================================== */
+
+const PROFILE_PATHS = ['../a/profile.json','../b/profile.json','../c/profile.json','../d/profile.json'];
+const CITY_PATH = '../d/data.json';
+
+let STATE = { profiles: [], city: null, currentId: null, isLoading: false, usingFallback: false };
+
+/* ========== 工具：生成头像DOM（终极稳定方案 v3，与主界面 index.html 一致）
+   兼容 file:// / http:// / Android WebView；失败自动兜底 emoji ========== */
+function getAvatarPathOf(p) {
+  // 当前页面路径：/all/d/show.html
+  // profile.json 里 avatar_path 一般写成 "./a/img/other/avatar.jpg"（相对于all/）
+  // 所以要先剥掉所有前缀，最后统一加上：d卡用 "./img/..."（同目录），其他卡用 "../{slot}/img/..."（退回all/再进去）
+  const slot = p.slot || 'a';
+  const defaultPath = (slot === 'd' ? './img/other/avatar.jpg' : `../${slot}/img/other/avatar.jpg`);
+  let raw = '';
+  try { raw = (p.basic && p.basic.avatar_path ? p.basic.avatar_path : '').toString().trim(); } catch(e) {}
+  if (!raw) return defaultPath;
+  // 剥掉所有前缀变体：all/ ./all/ /all/ ./ / 等
+  raw = raw.replace(/^[/\.]*all\//i, '').replace(/^[.\/]+/, '');
+  // 此时 raw 形如："a/img/other/avatar.jpg"（相对all/根目录）
+  const expectedPrefix = slot + '/';
+  if (!raw.toLowerCase().startsWith(expectedPrefix.toLowerCase())) return defaultPath;
+  // show.html 在 all/d/ 下，要定位到 all/{slot}/...
+  // d卡路径：all/d/img/... → 在 show.html 中用 "./img/..."
+  // 非d卡路径：all/{a,b,c}/img/... → 在 show.html 中需先".."回到all/，再进 {slot}
+  if (slot === 'd') {
+    // 剥掉前缀 "d/"，剩下的就是相对路径
+    const sub = raw.substring(expectedPrefix.length); // "img/other/avatar.jpg"
+    return './' + sub;
+  } else {
+    // 非d卡：raw 已经是 "{slot}/img/other/avatar.jpg"，前面加"../"退回all目录
+    return '../' + raw;
+  }
+}
+function createAvatarEl(p, sizeHint) {
+  // sizeHint: 's'=小(默认36px圆形) / 'm'=中(64px) / 'l'=大(100px+) / 留空就自适应父容器
+  const slot = p.slot || 'a';
+  const emoji = p.emoji || '👤';
+  const avPath = getAvatarPathOf(p);
+  const wrapper = document.createElement('span');
+  wrapper.className = 'av-wrap-g4';
+  wrapper.style.cssText = 'display:inline-flex;width:100%;height:100%;align-items:center;justify-content:center;position:relative;flex:1;';
+  // 1. emoji 兜底（立即显示，永不空白）
+  const emNode = document.createElement('span');
+  emNode.className = 'g4-em';
+  emNode.textContent = emoji;
+  const emSize = (sizeHint === 'l') ? 'font-size:1.8em;' : (sizeHint === 'm' ? 'font-size:1.2em;' : 'font-size:1em;');
+  emNode.style.cssText = `${emSize}display:inline-flex;align-items:center;justify-content:center;width:100%;height:100%;`;
+  wrapper.appendChild(emNode);
+  // 2. 真实图片（异步加载，用 addEventListener 绑定事件，file 协议不被拦截）
+  try {
+    const img = document.createElement('img');
+    img.alt = emoji;
+    img.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;display:none;';
+    img.addEventListener('load', function() {
+      if (img.naturalWidth > 0) {
+        img.style.display = 'block';
+        if (emNode.parentNode) emNode.style.display = 'none';
+      }
+    });
+    img.addEventListener('error', function() {
+      try { wrapper.removeChild(img); } catch(e) {}
+    });
+    wrapper.appendChild(img);
+    img.src = avPath + (avPath.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+  } catch(e) {}
+  return wrapper;
+}
+
+/* ========== 工具：年龄 + 星座 ========== */
+function calcAge(birthday) {
+  if (!birthday) return '?';
+  const t = new Date(), b = new Date(birthday);
+  let a = t.getFullYear() - b.getFullYear();
+  const m = t.getMonth() - b.getMonth();
+  if (m < 0 || (m === 0 && t.getDate() < b.getDate())) a--;
+  return a;
+}
+function calcZodiac(birthday) {
+  if (!birthday) return '';
+  const d = new Date(birthday), m = d.getMonth() + 1, day = d.getDate();
+  const signs = [[1,20,'水瓶座'],[2,19,'双鱼座'],[3,21,'白羊座'],[4,20,'金牛座'],[5,21,'双子座'],[6,22,'巨蟹座'],[7,23,'狮子座'],[8,23,'处女座'],[9,23,'天秤座'],[10,24,'天蝎座'],[11,23,'射手座'],[12,22,'摩羯座']];
+  for (let i = signs.length - 1; i >= 0; i--) {
+    if (m > signs[i][0] || (m === signs[i][0] && day >= signs[i][1])) return signs[i][2];
+  }
+  return '摩羯座';
+}
+function WEEK_CN() { return ['周一','周二','周三','周四','周五','周六','周日']; }
+function WEEK_KEYS() { return ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']; }
+function SHIFT_COLOR(type) {
+  const m = {
+    morning: 'p-m', mid: 'p-i', night: 'p-n', off: 'p-o',
+    sing: 'p-s', double: 'p-d', fixed: 'p-f', custom: 'p-d'
+  };
+  return m[type] || 'p-m';
+}
+
+/* ========== 容错：本地文件读失败时用后备示例数据 ========== */
+function loadFallback() {
+  STATE.usingFallback = true;
+  console.warn('⚠️ 本地JSON读取失败（file:// CORS），使用FALLBACK示例数据渲染。建议启动本地HTTP服务器后刷新。');
+  showToast('ℹ️ 本地文件协议，显示示例数据；启本地服务器可读取真实JSON', 'info');
+  return {
+    profiles: PROFILE_PATHS.map((_, i) => {
+      const demo = [
+        {slot:'a',id:'tianxiaoduo',emoji:'🌸',tag:'🏥 护士',basic:{name:'甜小朵',gender:'女',birthday:'2002-06-01',height:165,weight:52,bust:'84-60-88',shoe:'36'},personality:{summary:'温柔体贴、活泼可爱，说话带着甜甜的笑意'},work:{workplace:'舒心市综合人民医院',position:'儿科护士',address:'南丁格尔公寓 3号楼2单元503',district:'月华区',commute:'骑电动车 8分钟',weekly_schedule:{monday:{type:'morning',name:'早班',time:'07:30-15:30'},tuesday:{type:'mid',name:'中班',time:'15:00-23:00'},wednesday:{type:'off',name:'休息',time:'——'},thursday:{type:'night',name:'晚班',time:'23:00-07:30'},friday:{type:'morning',name:'早班',time:'07:30-15:30'},saturday:{type:'off',name:'休息',time:'——'},sunday:{type:'off',name:'休息',time:'——'}}},keywords_rules:{mediaProb:0.8,nakedProb:0.5},sys_params:{maxTokens:400,maxHistory:60,maxFileNum:30,maxNakedNum:15,maxAudioNum:15}},
+        {slot:'b',id:'baijie',emoji:'🌙',tag:'🏨 客户总监',basic:{name:'白洁',gender:'女',birthday:'1998-02-14',height:170,weight:55,bust:'88-62-90',shoe:'37'},personality:{summary:'成熟优雅、温柔知性，懂得让平凡日子变得不一样'},work:{workplace:'天鹅湖酒店',position:'客户关系总监',address:'蓝丝绒公寓8号楼1601',district:'悦城区',commute:'开车 4分钟',weekly_schedule:{monday:{type:'fixed',name:'朝九晚五',time:'09-18点'},tuesday:{type:'fixed',name:'朝九晚五',time:'09-18点'},wednesday:{type:'off',name:'休息',time:'——'},thursday:{type:'fixed',name:'朝九晚五',time:'09-18点'},friday:{type:'fixed',name:'朝九晚五',time:'09-18点'},saturday:{type:'off',name:'休息',time:'——'},sunday:{type:'fixed',name:'值班',time:'09-18点'}}},keywords_rules:{mediaProb:0.7,nakedProb:0.7},sys_params:{maxTokens:400,maxHistory:60,maxFileNum:30,maxNakedNum:15,maxAudioNum:15}},
+        {slot:'c',id:'xiaoya',emoji:'📚',tag:'📖 店员/驻唱',basic:{name:'小雅',gender:'女',birthday:'2003-04-23',height:160,weight:48,bust:'80-56-86',shoe:'35'},personality:{summary:'安静内向、温柔细腻，内心世界非常丰富'},work:{workplace:'新华书店+寻觅小酒吧驻唱',position:'书店店员/驻唱歌手',address:'新华公寓5号楼2单元101',district:'暖阳区',commute:'骑电动车5分钟 / 步行到酒吧8分钟',weekly_schedule:{monday:{type:'off',name:'休息',time:'——'},tuesday:{type:'double',name:'全天+驻唱',time:'10-20点 / 20-22点'},wednesday:{type:'morning',name:'全天班',time:'10-20点'},thursday:{type:'off',name:'休息',time:'——'},friday:{type:'double',name:'全天+驻唱',time:'10-20点 / 20-22点'},saturday:{type:'sing',name:'驻唱班',time:'仅20-22点'},sunday:{type:'sing',name:'驻唱班',time:'仅20-22点'}}},keywords_rules:{mediaProb:0.5,nakedProb:0.3},sys_params:{maxTokens:400,maxHistory:60,maxFileNum:30,maxNakedNum:15,maxAudioNum:15}},
+        {slot:'d',id:'xiaoshu',emoji:'🌆',tag:'🏙️ AI向导',basic:{name:'小舒',gender:'女',birthday:'2024-01-01',height:'——',weight:'——'},personality:{summary:'热情亲切的本地土著向导，略带山东口音，对城市了如指掌'},work:{workplace:'全市漫游',position:'城市AI向导',address:'锦华区·城市服务中心AI主机',district:'锦华区',commute:'24小时在线，秒级响应',weekly_schedule:{monday:{type:'fixed',name:'全天在线',time:'24h'},tuesday:{type:'fixed',name:'全天在线',time:'24h'},wednesday:{type:'fixed',name:'全天在线',time:'24h'},thursday:{type:'fixed',name:'全天在线',time:'24h'},friday:{type:'fixed',name:'全天在线',time:'24h'},saturday:{type:'fixed',name:'全天在线',time:'24h'},sunday:{type:'fixed',name:'全天在线',time:'24h'}}},keywords_rules:{mediaProb:0.4,nakedProb:0},sys_params:{maxTokens:800,maxHistory:30,maxFileNum:20,maxNakedNum:0,maxAudioNum:10}}
+      ][i];
+      return demo;  // ← 重要：必须 return demo，否则 STATE.profiles 全是 undefined！
+    }),
+    city: { city: '舒心市', citySub: '山东省 · 九宫格棋盘结构（示例数据）' }
+  };
+}
+
+/* ========== 读取JSON（5个并行，每请求5秒超时 + 总超时） ========== */
+async function loadData(showMsg=false) {
+  if (STATE.isLoading) return;
+  STATE.isLoading = true;
+
+  // 总超时 5.5 秒：Promise.race 保证不管 fetch 有多卡，一定能有返回而不是永挂
+  const totalTimeout = new Promise((_, reject) => setTimeout(() => reject(new Error('总超时5.5秒')), 5500));
+
+  try {
+    const results = await Promise.race([
+      Promise.all([
+        ...PROFILE_PATHS.map(p => safeFetch(p)),
+        safeFetch(CITY_PATH)
+      ]),
+      totalTimeout
+    ]);
+    STATE.profiles = results.slice(0, 4);
+    STATE.city = results[4];
+    STATE.usingFallback = false;
+    if (showMsg) showToast('✅ 数据刷新成功 · 4位人设 + 9宫格世界观', 'ok');
+    return STATE;
+  } catch(e) {
+    console.error('[Girls4] 加载失败/超时，切换Fallback:', e);
+    const fb = loadFallback();
+    STATE.profiles = fb.profiles;
+    STATE.city = fb.city;
+    return STATE;
+  } finally {
+    STATE.isLoading = false;
+  }
+}
+async function safeFetch(url) {
+  // 单个 fetch 包 5 秒超时（安卓WebView下fetch(file://)永远不resolve/不reject的问题）
+  const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('单请求超时5秒: '+url)), 5000));
+  try {
+    const fetchUrl = location.protocol === 'file:' ? url : url + '?t=' + Date.now();
+    const r = await Promise.race([fetch(fetchUrl), timeoutPromise]);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch (e) {
+    throw e;
+  }
+}
+
+/* ========== 手点/自动 强制兜底入口（用户能主动触发） ========== */
+let _G4_FORCE_DONE = false;
+function FORCE_FALLBACK_G4(fromUser=false) {
+  if (_G4_FORCE_DONE) return;
+  _G4_FORCE_DONE = true;
+  const fb = loadFallback();
+  STATE.profiles = fb.profiles;
+  STATE.city = fb.city;
+  STATE.usingFallback = true;
+  STATE.isLoading = false;
+  if (fromUser) showToast('🔧 已切换示例数据（建议启本地服务器读取你自己的JSON+背景图）', 'warn');
+  try {
+    clearInterval(window.__G4_COUNTDOWN_TID);
+  } catch(e) {}
+  const at = document.getElementById('autoTimer');
+  if (at) at.style.display = 'none';
+  renderAll();
+}
+
+/* ========== 渲染4个Tab ========== */
+function renderTabs() {
+  const box = document.getElementById('roleTabs');
+  box.innerHTML = '';
+  STATE.profiles.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'tab' + (i === 0 ? ' active' : '');
+    el.dataset.slot = p.slot;
+    // 左侧：头像容器（用 createAvatarEl 生成真实 avatar.jpg，失败兜底 emoji）
+    const icoWrap = document.createElement('span');
+    icoWrap.className = 'e';
+    icoWrap.style.cssText = 'width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);margin-bottom:6px;';
+    icoWrap.appendChild(createAvatarEl(p, 's'));
+    el.appendChild(icoWrap);
+    // 右侧：名字
+    const name = document.createElement('span');
+    name.className = 'n';
+    name.textContent = (p.basic && p.basic.name) || p.name || '未知';
+    el.appendChild(name);
+    el.addEventListener('click', () => switchTo(p.slot));
+    box.appendChild(el);
+  });
+}
+
+/* ========== 渲染资料内容 ========== */
+function renderDetail(slot) {
+  const p = STATE.profiles.find(x => x.slot === slot) || STATE.profiles[0];
+  const b = p.basic || {};
+  const name = b.name || p.name || '未知';
+  const age = calcAge(b.birthday);
+  const zodiac = calcZodiac(b.birthday);
+  const colorClass = {a:'cA',b:'cB',c:'cC',d:'cD'}[p.slot] || '';
+  const sch = (p.work && p.work.weekly_schedule) ? p.work.weekly_schedule : {};
+
+  // 排班HTML
+  const weekKeys = WEEK_KEYS(), weekCn = WEEK_CN();
+  let schedDOW = '', schedCells = '';
+  weekCn.forEach(d => schedDOW += `<div class="sc dow">${d}</div>`);
+  weekKeys.forEach(k => {
+    const s = sch[k] || {type:'off', name:'休', time:'——'};
+    const cls = SHIFT_COLOR(s.type);
+    const timeParts = (s.time || '').split('/').map(t => t.trim()).filter(Boolean);
+    const pLines = s.type === 'double'
+      ? `<div class="p p-d">全天</div><div class="t">${timeParts[0]||''}</div><div class="p p-s" style="margin-top:3px;">驻唱</div><div class="t">${timeParts[1]||''}</div>`
+      : `<div class="p ${cls}">${s.name||'休'}</div><div class="t">${s.time||'——'}</div>`;
+    schedCells += `<div class="sc">${pLines}</div>`;
+  });
+
+  // ========== 系统参数（如实读取profile.json + 兜底值，与index.html运行时保持一致） ==========
+  const DEFAULT_CFG = {
+    mediaProb: 0.8, nakedProb: 0.3,
+    maxHistory: 60, maxFileNum: 30, maxNakedNum: 15, maxAudioNum: 30,
+    maxTokens: 400, sendHistoryCount: 80,
+    petA:'宝贝', petB:'亲爱的', petC:'老公', petD:'市民朋友',
+    ttsModel:'qwen3-tts-flash',
+    ttsEndpoint:'https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation',
+    ttsFallbackToText: true
+  };
+  // 简易版 getPersonaParam（与 index.html 逻辑一致：没配置就用兜底）
+  const readPath = (obj, path) => {
+    try {
+      return path.split('.').reduce((o,k)=> (o==null?null:o[k]), obj);
+    } catch(e){ return null; }
+  };
+  const g = (path, defVal) => {
+    const v = readPath(p, path);
+    return (v !== null && v !== undefined && v !== '') ? v : defVal;
+  };
+
+  const sys       = p.sys_params       || {};
+  const kr        = p.keywords_rules   || {};
+  const personality = p.personality    || {};
+  const work      = p.work             || {};
+  const sleepSch  = p.sleep_schedule   || {};
+  const ttsCfg    = p.tts_config       || {};
+  const cityName  = STATE.city ? (STATE.city.city || '舒心市') : '舒心市';
+
+  // --- 1. 称呼 & 人设 ---
+  const slotPetMap = {a:DEFAULT_CFG.petA, b:DEFAULT_CFG.petB, c:DEFAULT_CFG.petC, d:DEFAULT_CFG.petD};
+  const callUser   = g('personality.call_user', slotPetMap[p.slot] || '宝贝');
+  const selfCall   = g('personality.self_call', '我');
+  const tagList    = (personality.tags && Array.isArray(personality.tags)) ? personality.tags : [];
+
+  // --- 2. LLM & 记忆 ---
+  const maxTokens       = g('sys_params.maxTokens',       DEFAULT_CFG.maxTokens);
+  const sendHistoryCnt  = (function(){
+    const cfg = g('sys_params.sendHistoryCount', null);
+    if (cfg && cfg > 0) return cfg;
+    // 默认：小舒 80/150，其他人 80
+    if (p.slot === 'd') {
+      const storyMode = g('story_config.enabled', false);
+      return storyMode ? 150 : 80;
+    }
+    return 80;
+  })();
+  const maxHistory    = g('sys_params.maxHistory',    DEFAULT_CFG.maxHistory);
+  // 本地存储无限（实际存储容量文字不占内存，直接标注）
+  const storagePolicy = '本地无限 / 仅受磁盘限制';
+
+  // --- 3. 媒体 & 关键词规则 ---
+  const mediaProb    = g('keywords_rules.mediaProb', DEFAULT_CFG.mediaProb);
+  const nakedProb    = g('keywords_rules.nakedProb', DEFAULT_CFG.nakedProb);
+  const maxFileNum   = g('sys_params.maxFileNum',    DEFAULT_CFG.maxFileNum);
+  const maxAudioNum  = g('sys_params.maxAudioNum',   DEFAULT_CFG.maxAudioNum);
+  const maxNakedNum  = g('sys_params.maxNakedNum',   DEFAULT_CFG.maxNakedNum);
+
+  // ⭐ 从 keyword_triggers 下所有分组（普通图/语音/私照/蜜语/告白）统计关键词
+  const ktRaw = p.keyword_triggers || {};
+  const kwGroups = [];     // [{name, count, type}]
+  let kwTotal = 0;
+  const pushGroup = (groupName, list, typeLabel='') => {
+    if (Array.isArray(list) && list.length) {
+      const c = list.length; kwTotal += c;
+      kwGroups.push({name: groupName, count: c, type: typeLabel});
+    } else if (list && Array.isArray(list.keywords)) {
+      const c = list.keywords.length; kwTotal += c;
+      kwGroups.push({name: groupName, count: c, type: typeLabel});
+    }
+  };
+  // normal_photo 是数组（每个元素={id,name,keywords:[]}）
+  if (Array.isArray(ktRaw.normal_photo)) {
+    ktRaw.normal_photo.forEach(g => pushGroup(g.name || g.id || '普通图分组', g, '📷'));
+  }
+  // normal_audio 是对象 {keywords:[]}
+  pushGroup('语音组', ktRaw.normal_audio, '🔊');
+  // hidden_photo 是数组（私照）
+  if (Array.isArray(ktRaw.hidden_photo)) {
+    ktRaw.hidden_photo.forEach(h => pushGroup(h.name || h.id || '私照分组', h, '🔞'));
+  }
+  // hidden_audio（蜜语）数组或对象
+  if (Array.isArray(ktRaw.hidden_audio)) {
+    ktRaw.hidden_audio.forEach(h => pushGroup(h.name || h.id || '蜜语分组', h, '💋'));
+  } else {
+    pushGroup('蜜语组', ktRaw.hidden_audio, '💋');
+  }
+  // confession 告白（可能在 keyword_triggers 下，也可能在 special_rules 下）
+  const confessionRaw = ktRaw.confession || (p.special_rules && p.special_rules.confession);
+  pushGroup('告白组', confessionRaw, '💕');
+  // 关键词明细 pill 展示（不超6个分组，太多就显示3+更多汇总）
+  const maxShowGroups = 6;
+  const shownGroups = kwGroups.slice(0, maxShowGroups);
+  const hideGroupsCount = Math.max(0, kwGroups.length - maxShowGroups);
+  const kwGroupsHTML = shownGroups.map(g =>
+    `<span class="pill" style="margin:1px 2px;font-size:10px;">${g.type}${g.name}·${g.count}</span>`
+  ).join('') + (hideGroupsCount ? `<span class="pill" style="margin:1px 2px;font-size:10px;background:rgba(255,255,255,0.06);">+${hideGroupsCount} 组</span>` : '');
+  const kwSummaryHTML = kwGroups.length
+    ? `<div style="margin-left:6px;">${kwTotal}<span style="font-size:9px;color:var(--tm);margin-left:3px;">(共 ${kwGroups.length} 组)</span><br>${kwGroupsHTML}</div>`
+    : '<span style="color:var(--tm)">未配置</span>';
+
+  // --- 4. 排班 & 通勤 & 今天状态 ---
+  const scheduleType = work.schedule_type || (work.weekly_schedule ? 'template' : 'auto');
+  // 今天是本周第几天
+  const DOW_KEYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+  const todayKey = DOW_KEYS[new Date().getDay()];
+  const todaySch = (work.weekly_schedule && work.weekly_schedule[todayKey]) ? work.weekly_schedule[todayKey] : {type:'off', name:'休', time:'——'};
+  const todayShiftName = todaySch.name || '休';
+  const todayShiftTime = todaySch.time || '——';
+  const workplace    = work.workplace || '—';
+  const position     = work.position  || '—';
+  const homeAddr     = work.address   || '—';
+  const district     = work.district  || '—';
+  const commuteInfo  = work.commute   || '—';
+
+  // --- 5. TTS 配置 ---
+  const ttsModel    = g('tts_config.model',    DEFAULT_CFG.ttsModel);
+  const ttsEp       = (g('tts_config.endpoint', DEFAULT_CFG.ttsEndpoint) || '').replace(/^https?:\/\//, '').slice(0, 40);
+  const ttsFallback = g('tts_config.fallback_to_text', DEFAULT_CFG.ttsFallbackToText);
+  const ttsVoiceId  = g('tts_config.voice_id', null);
+
+  // --- 6. 睡眠 配置 ---
+  const sleepOn     = !!sleepSch.enabled;
+  const sleepNormal = (sleepSch.bedtime && sleepSch.wakeup) ? `${sleepSch.bedtime} → ${sleepSch.wakeup}` : '—';
+  const nightSleep  = sleepSch.night_shift_sleep === true || sleepSch.night_shift_sleep === 'true';
+
+  // --- 小组标题颜色 ---
+  const secHdr = (t, ic='') => `<div class="sys-sec"><span class="ic">${ic}</span>${t}</div>`;
+
+  const sysgHTML = `
+    ${secHdr('称呼 · 人设','💞')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">对用户称呼</span><span class="v ok">${callUser}</span></div>
+      <div class="sysi"><span class="k">自称</span><span class="v ok">${selfCall}</span></div>
+      <div class="sysi"><span class="k">人设标签</span><span class="v">${tagList.length ? tagList.map(x=>`<span class="pill" style="margin:1px;">${x}</span>`).join('') : '<span style="color:var(--tm)">—</span>'}</span></div>
+      <div class="sysi"><span class="k">定位Tag</span><span class="v">${p.tag || '—'}</span></div>
+    </div>
+
+    ${secHdr('LLM · 记忆','🧠')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">最大回复字数</span><span class="v ok">${maxTokens}</span></div>
+      <div class="sysi"><span class="k">发给模型条数</span><span class="v pct-w">${sendHistoryCnt}</span></div>
+      <div class="sysi"><span class="k">本地记忆条数</span><span class="v ok">${maxHistory}</span></div>
+      <div class="sysi"><span class="k">本地存储策略</span><span class="v">${storagePolicy}</span></div>
+    </div>
+
+    ${secHdr('媒体 · 关键词','🎞️')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">普通触发概率</span><span class="v pct-w">${Math.round(mediaProb*100)}%</span></div>
+      <div class="sysi"><span class="k">性感触发概率</span><span class="v pct-w">${Math.round(nakedProb*100)}%</span></div>
+      <div class="sysi"><span class="k">普通图片数量</span><span class="v ok">${maxFileNum}</span></div>
+      <div class="sysi"><span class="k">性感图片数量</span><span class="v ok">${maxNakedNum}</span></div>
+      <div class="sysi"><span class="k">音频文件数量</span><span class="v ok">${maxAudioNum}</span></div>
+      <div class="sysi"><span class="k">关键词数</span><span class="v ok">${kwSummaryHTML}</span></div>
+    </div>
+
+    ${secHdr('排班 · 通勤','💼')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">今日（${todaySch.name||'休'}）</span><span class="v city">${todayShiftName} · ${todayShiftTime}</span></div>
+      <div class="sysi"><span class="k">排班来源</span><span class="v">${scheduleType === 'template' ? '模板排班' : (scheduleType==='auto'?'RHYTHM_ENGINE自动':scheduleType)}</span></div>
+      <div class="sysi"><span class="k">工作单位</span><span class="v">${workplace}${position!=='—'?' / '+position:''}</span></div>
+      <div class="sysi"><span class="k">所在区域</span><span class="v">${district}</span></div>
+      <div class="sysi"><span class="k">家庭住址</span><span class="v">${homeAddr}</span></div>
+      <div class="sysi"><span class="k">通勤方式</span><span class="v">${commuteInfo}</span></div>
+    </div>
+
+    ${secHdr('TTS 语音','🔊')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">TTS模型</span><span class="v ok">${ttsModel}</span></div>
+      <div class="sysi"><span class="k">音色ID</span><span class="v">${ttsVoiceId || '<span style="color:var(--tm)">默认（按人设）</span>'}</span></div>
+      <div class="sysi"><span class="k">Endpoint</span><span class="v" style="font-size:10px;word-break:break-all;">…${ttsEp}</span></div>
+      <div class="sysi"><span class="k">失败回退文字</span><span class="v ${ttsFallback?'ok':'pct-w'}">${ttsFallback?'✅ 开启':'❌ 关闭'}</span></div>
+    </div>
+
+    ${secHdr('睡眠 · 城市','🌙')}
+    <div class="sysg">
+      <div class="sysi"><span class="k">睡眠功能</span><span class="v ${sleepOn?'ok':'pct-w'}">${sleepOn?'✅ 开启':'❌ 关闭'}</span></div>
+      <div class="sysi"><span class="k">作息（平时）</span><span class="v">${sleepNormal}</span></div>
+      <div class="sysi"><span class="k">夜班特别作息</span><span class="v ${nightSleep?'ok':''}">${nightSleep?'✅ 启用（夜班后睡）':'—'}</span></div>
+      <div class="sysi"><span class="k">所在城市</span><span class="v city">🏙️ ${cityName}</span></div>
+    </div>
+  `;
+
+  const html = `
+    <!-- 人设专属Hero大图（背景图路径：all/${p.slot}/img/other/banner.jpg，无图自动退化为专属色渐变） -->
+    <div class="profile-hero ph${p.slot.toUpperCase()}" style="${p.slot ? 'background: var(--bg-inner);' : ''}">
+      ${p.slot ? `<img class="ph-banner-img" src="${p.slot === 'd' ? 'img/other/banner.jpg' : '../' + p.slot + '/img/other/banner.jpg'}" alt="banner" onerror="this.style.display='none'">` : ''}
+      <div class="ph-top">
+        <span class="ptg">${age}岁 · ${zodiac}</span>
+        ${b.height ? `<span class="ptg">📏 ${b.height}cm</span>` : ''}
+      </div>
+      <div class="ph-row">
+        <div class="ph-av" data-g4-hero-av></div>
+        <div class="ph-tx">
+          <div class="ph-name">${name} <span class="tg">${p.tag || '✨'}</span></div>
+          <div class="ph-bio">${p.personality?.summary || p.basic?.personality_summary || '这是一位可爱的人设 · 详情见下方资料卡'}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 资料卡 -->
+    <div class="card">
+      <div class="field">
+        <span class="l">头像</span>
+        <span class="v av">
+          <div class="av-img ${colorClass}" data-g4-info-av></div>
+          <span class="tag work">${p.tag || '✨'}</span>
+          ${STATE.usingFallback ? '<span class="tag" style="background:rgba(255,159,10,0.15);color:#FFB547;">⚠️ 示例数据</span>' : ''}
+        </span>
+      </div>
+      <div class="field">
+        <span class="l">姓名</span>
+        <span class="v">${p.emoji||''} ${name}</span>
+      </div>
+      <div class="field">
+        <span class="l">年龄</span>
+        <span class="v">${age}岁 <span style="color:var(--tm)">（${b.birthday||'—'} · ${zodiac}）</span></span>
+      </div>
+      <div class="field">
+        <span class="l">性别</span>
+        <span class="v">${b.gender || '—'}</span>
+      </div>
+      ${b.height ? `<div class="field"><span class="l">身高</span><span class="v">${b.height}${String(b.height).match(/\d+$/) ? 'cm' : ''}</span></div>` : ''}
+      ${b.weight ? `<div class="field"><span class="l">体重</span><span class="v">${b.weight}${String(b.weight).match(/\d+$/) ? 'kg' : ''}</span></div>` : ''}
+      ${b.bust ? `<div class="field"><span class="l">三围</span><span class="v">${b.bust}</span></div>` : ''}
+      ${b.shoe ? `<div class="field"><span class="l">鞋码</span><span class="v">${b.shoe}</span></div>` : ''}
+      ${p.work && p.work.workplace ? `<div class="field"><span class="l">工作单位</span><span class="v">${p.work.workplace}${p.work.position?'<br><span class="pill">💼 '+p.work.position+'</span>':''}</span></div>` : ''}
+      ${p.work && p.work.address ? `<div class="field"><span class="l">家庭住址</span><span class="v">${p.work.address||'—'}</span></div>` : ''}
+      ${p.work && p.work.district ? `<div class="field"><span class="l">所在区域</span><span class="v">${p.work.district||'—'}</span></div>` : ''}
+      ${p.work && p.work.commute ? `<div class="field"><span class="l">通勤方式</span><span class="v">${p.work.commute||'—'}</span></div>` : ''}
+      ${p.personality && p.personality.style_detail ? `<div class="field"><span class="l">穿着风格</span><span class="v">${p.personality.style_detail}</span></div>` : ''}
+      ${p.personality && p.personality.summary ? `<div class="field"><span class="l">性格特点</span><span class="v">${p.personality.summary}</span></div>` : ''}
+      ${p.life && p.life.habits ? `<div class="field"><span class="l">日常习惯</span><span class="v">${p.life.habits}</span></div>` : ''}
+      ${p.life && p.life.places ? `<div class="field"><span class="l">常去地点</span><span class="v">${p.life.places.split(/[,，、]/).map(x=>x.trim()).filter(Boolean).map(x=>`<span class="pill">${x}</span>`).join('')}</span></div>` : ''}
+    </div>
+
+    <!-- 排班卡 -->
+    <div class="card">
+      <div class="s-head">
+        📅 本周排班表
+        <span class="week">${new Date().getFullYear()} 第${getWeekNumber()}周</span>
+      </div>
+      <div class="sg">${schedDOW}${schedCells}</div>
+      <div class="s-legend">
+        <div class="lg"><span class="dot m"></span>早/白班</div>
+        <div class="lg"><span class="dot i"></span>中班</div>
+        <div class="lg"><span class="dot n"></span>晚班</div>
+        <div class="lg"><span class="dot o"></span>休息</div>
+        <div class="lg"><span class="dot s"></span>驻唱</div>
+      </div>
+    </div>
+
+    <!-- 系统参数卡（6组完整参数 · 实时+兜底与主程序一致） -->
+    <div class="card">
+      <div class="sys-title"><span style="font-size:15px;">⚙️</span> 系统参数 <span class="ro">只读</span><span class="ro realtime">实时</span></div>
+      ${sysgHTML}
+    </div>
+
+    <!-- 底部数据来源 -->
+    <div class="foot">
+      💡 数据来自
+      <code>all/${p.slot}/profile.json</code> + <code>all/d/data.json</code>
+      · 修改后点击 🔄 刷新
+    </div>
+  `;
+
+  document.getElementById('roleContent').innerHTML = html;
+  // ===== 挂载真实头像到占位容器（兼容 file 协议稳定版） =====
+  try {
+    const heroAvBox = document.querySelector('[data-g4-hero-av]');
+    if (heroAvBox) { heroAvBox.innerHTML = ''; heroAvBox.appendChild(createAvatarEl(p, 'l')); }
+    const infoAvBox = document.querySelector('[data-g4-info-av]');
+    if (infoAvBox) { infoAvBox.innerHTML = ''; infoAvBox.appendChild(createAvatarEl(p, 'm')); }
+  } catch(e) {}
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.slot === slot);
+  });
+  STATE.currentId = slot;
+}
+
+function getWeekNumber() {
+  const t = new Date();
+  const f = new Date(t.getFullYear(), 0, 1);
+  return Math.ceil((((t - f) / 86400000) + f.getDay() + 1) / 7);
+}
+
+function switchTo(slot) {
+  if (slot === STATE.currentId) return;
+  renderDetail(slot);
+  document.getElementById('roleContent').scrollTop = 0;
+}
+
+/* ========== 渲染入口 ========== */
+function renderAll() {
+  if (!STATE.profiles.length) return;
+
+  renderTabs();
+  STATE.currentId = STATE.profiles[0].slot;
+  renderDetail(STATE.currentId);
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('contentState').style.display = 'flex';
+  console.log(`✅ Girls4 加载完成：${STATE.profiles.length}位人设${STATE.usingFallback?'（后备示例数据）':''}`);
+}
+
+async function reloadData() {
+  await loadData(true);
+  const cur = STATE.currentId;
+  renderAll();
+  if (cur && STATE.profiles.find(p => p.slot === cur)) switchTo(cur);
+}
+
+/* ========== Toast ========== */
+let _tt = null;
+function showToast(msg, type='info') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + (type==='ok'?'ok':type==='err'?'err':'');
+  void el.offsetWidth;
+  el.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), 2600);
+}
+function tryClose() {
+  // 优先使用历史记录返回（手机返回键也能工作）
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    location.href = '../index.html';
+  }
+}
+
+/* ========== 手势滑动退出功能 ========== */
+(function() {
+  let startX = 0, startY = 0, currentX = 0, currentY = 0;
+  let isSwiping = false;
+  const SWIPE_THRESHOLD = 80;
+  const EDGE_ZONE = 30;
+  
+  document.addEventListener('touchstart', function(e) {
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    currentX = startX;
+    currentY = startY;
+    isSwiping = true;
+    if (startX < EDGE_ZONE) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
+  document.addEventListener('touchmove', function(e) {
+    if (!isSwiping) return;
+    const touch = e.touches[0];
+    currentX = touch.clientX;
+    currentY = touch.clientY;
+    if (startX < EDGE_ZONE && currentX > startX) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
+  document.addEventListener('touchend', function() {
+    if (!isSwiping) return;
+    isSwiping = false;
+    const deltaX = currentX - startX;
+    const deltaY = abs(currentY - startY);
+    if (startX < EDGE_ZONE && deltaX > SWIPE_THRESHOLD && deltaY < 100) {
+      showToast('← 返回主界面', 'info');
+      setTimeout(() => {
+        tryClose();
+      }, 200);
+    }
+  });
+})();
+
+
+/* ========== 对齐右下角返回按钮到右上角按钮 ========== */
+function alignBackButton() {
+  const btn = document.querySelector('.back-floating');
+  const topBtns = document.querySelectorAll('.tr .icon-btn');
+  const topBackBtn = topBtns[1];
+  if (btn && topBackBtn) {
+    const rect = topBackBtn.getBoundingClientRect();
+    const btnWidth = 44;
+    const centerX = rect.left + rect.width / 2;
+    const rightOffset = window.innerWidth - centerX - btnWidth / 2;
+    btn.style.right = rightOffset + 'px';
+  }
+}
+window.addEventListener('load', alignBackButton);
+window.addEventListener('resize', alignBackButton);
+window.addEventListener('orientationchange', alignBackButton);
+/* ========== Init ========== */
+(async function init(){
+  // 1. 启动倒计时显示（8秒）：setInterval 每秒-1
+  let sec = 8;
+  const secEl = document.getElementById('secVal');
+  if (secEl) secEl.textContent = String(sec);
+  window.__G4_COUNTDOWN_TID = setInterval(() => {
+    sec = Math.max(0, sec - 1);
+    if (secEl) secEl.textContent = String(sec);
+  }, 1000);
+
+  // 2. 8秒后：如果还在loading，自动强制 fallback（不管 fetch Promise卡没卡死，必进入内容页）
+  setTimeout(() => {
+    const loadingDiv = document.getElementById('loadingState');
+    if (loadingDiv && loadingDiv.style.display !== 'none') {
+      console.warn('[Girls4] 8秒自动兜底：fetch永远pending卡住，强制切fallback');
+      FORCE_FALLBACK_G4(false);
+    }
+  }, 8000);
+
+  // 3. 正常流程：loadData 已有 5.5 秒总超时兜底
+  await loadData(false);
+  if (!_G4_FORCE_DONE) {
+    try { clearInterval(window.__G4_COUNTDOWN_TID); } catch(e) {}
+    const at = document.getElementById('autoTimer');
+    if (at) at.style.display = 'none';
+    renderAll();
+  }
+})();
+</script>
+</body>
+</html>
+
+
+
+
+

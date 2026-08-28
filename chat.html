@@ -187,6 +187,167 @@
             margin: 4px 12px;
         }
 
+        /* ===== 故事面板 ===== */
+        .story-panel {
+            background: linear-gradient(180deg, #1a2030 0%, #141a24 100%);
+            border-top: 1px solid #2a3344;
+            padding: 6px 12px;
+            flex-shrink: 0;
+            font-size: 11px;
+            display: none;
+        }
+
+        .story-panel.active {
+            display: block;
+        }
+
+        .story-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .story-panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3a7bd5;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .story-panel-progress {
+            font-size: 10px;
+            color: #7a8aa3;
+            padding: 1px 6px;
+            border-radius: 8px;
+            background: #1a2538;
+            flex-shrink: 0;
+        }
+
+        .story-panel-progress.investigating {
+            color: #ffb74d;
+        }
+
+        .story-panel-progress.reasoning {
+            color: #ba68c8;
+        }
+
+        .story-panel-progress.intro {
+            color: #4fc3f7;
+        }
+
+        .story-panel-progress.concluded {
+            color: #81c784;
+        }
+
+        .story-info-inline {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .story-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .story-action-btn {
+            font-size: 10px;
+            color: #a0b3cc;
+            background: #1a2538;
+            border: 1px solid #2a3344;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 2px 8px;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .story-action-btn:hover {
+            background: #2a3548;
+            color: #edf2f7;
+            border-color: #3a4558;
+        }
+
+        .story-action-btn.clue {
+            color: #4fc3f7;
+            border-color: #2b5ca8;
+        }
+
+        .story-action-btn.clue:hover {
+            background: #1a3a4a;
+        }
+
+        .story-action-btn.exit {
+            color: #81c784;
+            border-color: #3f8d5e;
+        }
+
+        .story-action-btn.exit:hover {
+            background: #1a3a28;
+        }
+
+        .story-action-btn.switch {
+            color: #ffb74d;
+            border-color: #8d6e3f;
+        }
+
+        .story-action-btn.switch:hover {
+            background: #3a2a1a;
+        }
+
+        /* ===== 故事引导提示条 ===== */
+        .story-hint-bar {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(90deg, #1a3a4a, #1a2538);
+            border-top: 1px solid #2a3344;
+            border-bottom: 1px solid #2a3344;
+            color: #4fc3f7;
+            font-size: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .story-hint-bar.active {
+            display: flex !important;
+        }
+
+        .story-hint-bar .hint-icon {
+            font-size: 14px;
+        }
+
+        .story-hint-bar .hint-text {
+            flex: 1;
+            color: #a0b3cc;
+        }
+
+        .story-hint-bar .hint-text b {
+            color: #4fc3f7;
+        }
+
+        .story-hint-bar .hint-action {
+            color: #3a7bd5;
+            padding: 2px 8px;
+            border: 1px solid #2b5ca8;
+            border-radius: 10px;
+            background: rgba(58, 123, 213, 0.1);
+            cursor: pointer;
+            font-size: 12px;
+            font-family: inherit;
+        }
+
         .message-area {
             flex: 1;
             overflow-y: auto;
@@ -681,48 +842,6 @@
         .modal .modal-actions .btn-primary:active {
             background: #2b5ca8;
         }
-
-
-        /* ===== 故事引导提示条 ===== */
-        .story-hint-bar {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            background: linear-gradient(90deg, #1a3a4a, #1a2538);
-            border-top: 1px solid #2a3344;
-            border-bottom: 1px solid #2a3344;
-            color: #4fc3f7;
-            font-size: 12px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-
-        .story-hint-bar.active {
-            display: flex !important;
-        }
-
-        .story-hint-bar .hint-icon {
-            font-size: 14px;
-        }
-
-        .story-hint-bar .hint-text {
-            flex: 1;
-            color: #a0b3cc;
-        }
-
-        .story-hint-bar .hint-text b {
-            color: #4fc3f7;
-        }
-
-        .story-hint-bar .hint-action {
-            color: #3a7bd5;
-            padding: 2px 8px;
-            border: 1px solid #2b5ca8;
-            border-radius: 10px;
-            background: rgba(58, 123, 213, 0.1);
-        }
     </style>
 </head>
 
@@ -748,54 +867,35 @@
             </div>
         </div>
 
-
         <!-- ===== 故事引导提示条（小舒专用） ===== -->
-        <div class="story-hint-bar" id="storyHintBar"
-            style="display:none; align-items:center; gap:8px; padding:8px 14px; background:linear-gradient(90deg, #1a3a4a, #1a2538); border-top:1px solid #2a3344; border-bottom:1px solid #2a3344; color:#4fc3f7; font-size:12px; cursor:pointer;">
-            <span style="font-size:14px;">🔔</span>
-            <span style="flex:1; color:#a0b3cc;">朋友～ <b style="color:#4fc3f7;">有个新鲜事你要不要听听？</b> 我手头有些好故事...</span>
-            <span
-                style="color:#3a7bd5; padding:2px 8px; border:1px solid #2b5ca8; border-radius:10px; background:rgba(58,123,213,0.1);">想听</span>
+        <div class="story-hint-bar" id="storyHintBar">
+            <span class="hint-icon">🔔</span>
+            <span class="hint-text">朋友～ <b>有个新鲜事你要不要听听？</b> 我手头有些好故事...</span>
+            <button class="hint-action" id="storyHintBtn">想听</button>
         </div>
+
         <!-- ===== 故事面板（小舒专用） ===== -->
-        <div class="story-panel" id="storyPanel"
-            style="display:none; background:linear-gradient(180deg, #1a2030 0%, #141a24 100%); border-top:1px solid #2a3344; padding:6px 12px; font-size:11px; flex-shrink:0;">
-            <div class="story-panel-header"
-                style="display:flex; align-items:center; gap:8px; white-space:nowrap; overflow-x:auto;">
-                <div class="story-panel-title"
-                    style="font-size:12px; font-weight:600; color:#3a7bd5; display:flex; align-items:center; gap:4px; flex-shrink:0;">
+        <div class="story-panel" id="storyPanel">
+            <div class="story-panel-header">
+                <div class="story-panel-title">
                     <span>🔍</span>
                     <span id="storyPanelTitle">案件调查中</span>
                 </div>
-                <span class="story-panel-progress" id="storyPanelProgress"
-                    style="font-size:10px; color:#7a8aa3; padding:1px 6px; border-radius:8px; background:#1a2538; flex-shrink:0;">开场</span>
-                <div class="story-info-inline" id="storyClueInfo"
-                    style="display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer;">
+                <span class="story-panel-progress intro" id="storyPanelProgress">开场</span>
+                <div class="story-info-inline" id="storyClueInfo" onclick="showCluesModal()">
                     <span>📌</span>
-                    <span id="storyClueCount" style="color:#3a7bd5;">0</span>
+                    <span id="storyClueCount" style="color:#4fc3f7;">0</span>
                 </div>
-                <div class="story-info-inline" id="storySuspectInfo"
-                    style="display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer;">
-                    <span>👥</span>
-                    <div id="storySuspectList" style="display:flex; gap:3px;"></div>
-                </div>
-                <div class="story-actions"
-                    style="display:flex; align-items:center; gap:4px; margin-left:auto; flex-shrink:0;">
-                    <button class="story-action-btn" id="storySwitchBtn"
-                        style="font-size:10px; color:#a0b3cc; background:#1a2538; border:1px solid #2a3344; border-radius:4px; cursor:pointer; padding:2px 6px;">🔄换个</button>
-                    <button class="story-action-btn save" id="storySaveBtn"
-                        style="font-size:10px; color:#81c784; background:#1a2538; border:1px solid #3f8d5e; border-radius:4px; cursor:pointer; padding:2px 6px;">💾存档</button>
-                    <button class="story-action-btn exit" id="storyExitBtn"
-                        style="font-size:10px; color:#ff8a65; background:#1a2538; border:1px solid #8d4e3f; border-radius:4px; cursor:pointer; padding:2px 6px;">🚪退出</button>
+                <div class="story-actions">
+                    <button class="story-action-btn clue" id="storyClueBtn">📌线索</button>
+                    <button class="story-action-btn switch" id="storySwitchBtn">🔄换一个</button>
+                    <button class="story-action-btn exit" id="storyExitBtn">💾存档退出</button>
                 </div>
             </div>
         </div>
 
         <!-- ===== 消息区域 ===== -->
         <div class="message-area" id="messageArea"></div>
-
-
-        <!-- <div class="message-area" id="messageArea"></div> -->
 
         <div class="input-area">
             <textarea id="inputBox" rows="1" placeholder="输入消息…"></textarea>
@@ -811,7 +911,9 @@
 
     <script>
         // ================================================================
-        //  chat.html · 完整版（固定一周排班，废弃手动排班系统）
+        //  chat.html · 完整版
+        //  功能：固定一周排班 · DeepSeek API · 流式输出 · 关键词触发
+        //        小舒故事系统 · 牌堆机制 · 存档退出 · 线索弹窗
         // ================================================================
 
         // ===== 0. 获取 URL 参数 =====
@@ -853,24 +955,16 @@
         let currentAudio = null;
 
         // ================================================================
-        //  第二部分：固定一周排班（废弃手动排班系统）
+        //  第二部分：固定一周排班
         // ================================================================
 
-        // 辅助：将 "HH:MM" 转为分钟数
         function parseTimeToMinutes(timeStr) {
             const parts = timeStr.split(':');
             return parseInt(parts[0]) * 60 + parseInt(parts[1]);
         }
 
-        // 一周排班数据（周日至周六，0=周日，1=周一，2=周二，3=周三，4=周四，5=周五，6=周六）
-        // 每个时段：[开始时间, 结束时间, 挡位, 图标, 描述]
-        // 挡位：1=正常回复，2=回复慢（加前缀，不延迟），3=睡觉（默认回复）
         const WEEKLY_SCHEDULES = {
-            // ==========================================================
-            //  甜小朵
-            // ==========================================================
             tianxiaoduo: {
-                // 周一（1）
                 1: [
                     ['00:00', '06:00', 3, '🌙', '睡觉中'],
                     ['06:00', '06:30', 2, '🪥', '起床洗漱'],
@@ -886,7 +980,6 @@
                     ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周二（2）
                 2: [
                     ['00:00', '06:00', 3, '🌙', '睡觉中'],
                     ['06:00', '06:30', 2, '🪥', '起床洗漱'],
@@ -902,14 +995,12 @@
                     ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周三（3）休息
                 3: [
                     ['00:00', '07:30', 3, '🌙', '睡觉中'],
                     ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
                     ['08:30', '22:00', 1, '☕', '自由活动'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周四（4）
                 4: [
                     ['00:00', '06:00', 3, '🌙', '睡觉中'],
                     ['06:00', '06:30', 2, '🪥', '起床洗漱'],
@@ -925,7 +1016,6 @@
                     ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周五（5）
                 5: [
                     ['00:00', '06:00', 3, '🌙', '睡觉中'],
                     ['06:00', '06:30', 2, '🪥', '起床洗漱'],
@@ -941,14 +1031,12 @@
                     ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周六（6）休息
                 6: [
                     ['00:00', '07:30', 3, '🌙', '睡觉中'],
                     ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
                     ['08:30', '22:00', 1, '☕', '自由活动'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周日（0）
                 0: [
                     ['00:00', '06:00', 3, '🌙', '睡觉中'],
                     ['06:00', '06:30', 2, '🪥', '起床洗漱'],
@@ -964,7 +1052,6 @@
                     ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
                     ['22:00', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 前缀文案（挡2用）
                 prefixTexts: {
                     '🪥': ['刚醒…眼睛睁不开😵', '在刷牙呢~', '洗脸中，脸上都是泡沫'],
                     '🍳': ['在做早饭呢🍳', '给你煮粥先~', '热牛奶呢'],
@@ -974,12 +1061,7 @@
                     '🛁': ['刚在洗澡，头发湿哒哒💦', '在涂身体乳~', '准备睡觉啦，在铺床']
                 }
             },
-
-            // ==========================================================
-            //  白洁
-            // ==========================================================
             baijie: {
-                // 周一（1）夜班 22:00-06:00 跨天
                 1: [
                     ['00:00', '06:00', 1, '🌙', '夜班中'],
                     ['06:00', '11:00', 3, '🌙', '补觉'],
@@ -995,7 +1077,6 @@
                     ['21:00', '22:00', 1, '💼', '夜班准备'],
                     ['22:00', '24:00', 1, '🌙', '夜班中']
                 ],
-                // 周二（2）休息
                 2: [
                     ['00:00', '09:00', 3, '🌙', '睡懒觉'],
                     ['09:00', '09:30', 2, '🪥', '起床洗漱'],
@@ -1008,7 +1089,6 @@
                     ['22:00', '22:30', 2, '🛁', '洗漱'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周三（3）早班 07:00-15:00
                 3: [
                     ['00:00', '06:30', 3, '🌙', '睡觉中'],
                     ['06:30', '07:00', 2, '🪥', '起床洗漱'],
@@ -1025,7 +1105,6 @@
                     ['22:00', '22:30', 2, '🛁', '洗漱'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周四（4）早班 07:00-15:00
                 4: [
                     ['00:00', '06:30', 3, '🌙', '睡觉中'],
                     ['06:30', '07:00', 2, '🪥', '起床洗漱'],
@@ -1042,7 +1121,6 @@
                     ['22:00', '22:30', 2, '🛁', '洗漱'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周五（5）夜班 22:00-06:00 跨天
                 5: [
                     ['00:00', '06:00', 1, '🌙', '夜班中'],
                     ['06:00', '11:00', 3, '🌙', '补觉'],
@@ -1058,7 +1136,6 @@
                     ['21:00', '22:00', 1, '💼', '夜班准备'],
                     ['22:00', '24:00', 1, '🌙', '夜班中']
                 ],
-                // 周六（6）休息
                 6: [
                     ['00:00', '09:00', 3, '🌙', '睡懒觉'],
                     ['09:00', '09:30', 2, '🪥', '起床洗漱'],
@@ -1071,7 +1148,6 @@
                     ['22:00', '22:30', 2, '🛁', '洗漱'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周日（0）早班 07:00-15:00
                 0: [
                     ['00:00', '06:30', 3, '🌙', '睡觉中'],
                     ['06:30', '07:00', 2, '🪥', '起床洗漱'],
@@ -1099,12 +1175,7 @@
                     '🍵': ['在喝下午茶☕', '吃点心~', '休息一下']
                 }
             },
-
-            // ==========================================================
-            //  小雅
-            // ==========================================================
             xiaoya: {
-                // 周一（1）休息
                 1: [
                     ['00:00', '00:30', 2, '🛁', '洗漱'],
                     ['00:30', '09:00', 3, '🌙', '睡懒觉'],
@@ -1117,7 +1188,6 @@
                     ['22:00', '22:30', 1, '📖', '看书/写日记'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周二（2）白班+驻唱
                 2: [
                     ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
                     ['00:30', '08:30', 3, '🌙', '睡觉中'],
@@ -1132,7 +1202,6 @@
                     ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
                     ['23:30', '24:00', 2, '🚲', '回家通勤']
                 ],
-                // 周三（3）仅白班
                 3: [
                     ['00:00', '00:30', 2, '🛁', '洗漱'],
                     ['00:30', '08:30', 3, '🌙', '睡觉中'],
@@ -1147,7 +1216,6 @@
                     ['22:00', '22:30', 1, '📖', '看书'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周四（4）休息
                 4: [
                     ['00:00', '00:30', 2, '🛁', '洗漱'],
                     ['00:30', '09:00', 3, '🌙', '睡懒觉'],
@@ -1160,7 +1228,6 @@
                     ['22:00', '22:30', 1, '📖', '看书/写日记'],
                     ['22:30', '24:00', 3, '🌙', '睡觉中']
                 ],
-                // 周五（5）白班+驻唱
                 5: [
                     ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
                     ['00:30', '08:30', 3, '🌙', '睡觉中'],
@@ -1175,7 +1242,6 @@
                     ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
                     ['23:30', '24:00', 2, '🚲', '回家通勤']
                 ],
-                // 周六（6）仅驻唱
                 6: [
                     ['00:00', '00:30', 2, '🛁', '洗漱'],
                     ['00:30', '09:30', 3, '🌙', '睡懒觉'],
@@ -1190,7 +1256,6 @@
                     ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
                     ['23:30', '24:00', 2, '🚲', '回家通勤']
                 ],
-                // 周日（0）仅驻唱
                 0: [
                     ['00:00', '00:30', 2, '🛁', '洗漱'],
                     ['00:30', '09:30', 3, '🌙', '睡懒觉'],
@@ -1215,30 +1280,17 @@
                     '🎤': ['刚下场，嗓子哑🤧', '在收吉他包🎸', '客人要合照，等下~📸']
                 }
             },
-            // ==========================================================
-            //  小舒（全天在线）
-            // ==========================================================
-            xiaoshu: {
-                // 所有天都一样
-                prefixTexts: {}
-            }
+            xiaoshu: { prefixTexts: {} }
         };
 
-        // ===== 获取当前状态 =====
         function getCurrentStatus(personaId, now) {
             now = now || new Date();
-            const weekday = now.getDay(); // 0=周日, 1=周一...
+            const weekday = now.getDay();
             const total = now.getHours() * 60 + now.getMinutes();
 
-            // 小舒特殊处理
             if (personaId === 'xiaoshu') {
                 const labels = ['在', '我在', '我一直在', '我24小时都在', '在线待命', '随时为您服务'];
-                return {
-                    level: 1,
-                    icon: '🏛️',
-                    label: labels[Math.floor(Math.random() * labels.length)],
-                    prefixKey: null
-                };
+                return { level: 1, icon: '🏛️', label: labels[Math.floor(Math.random() * labels.length)], prefixKey: null };
             }
 
             const schedule = WEEKLY_SCHEDULES[personaId];
@@ -1256,7 +1308,6 @@
                 const endMin = parseTimeToMinutes(endStr);
                 if (total >= startMin && total < endMin) {
                     current = { level, icon, label };
-                    // 判断 prefixKey（用于挡2加前缀）
                     const prefixMap = {
                         '🪥': 'wake', '🍳': 'cook', '🚇': 'commute', '🚗': 'commute', '🚲': 'commute',
                         '🍜': 'lunch', '🍚': 'dinner', '🍷': 'dinner', '🍵': 'free',
@@ -1290,13 +1341,11 @@
             };
         }
 
-        // ===== 获取挡2前缀文案 =====
         function getPrefixText(prefixKey, personaId) {
             if (!prefixKey) return null;
             const schedule = WEEKLY_SCHEDULES[personaId];
             if (!schedule || !schedule.prefixTexts) return null;
 
-            // 根据 prefixKey 找对应的图标
             const iconMap = {
                 'wake': ['🪥'],
                 'cook': ['🍳'],
@@ -1318,7 +1367,6 @@
             return texts[Math.floor(Math.random() * texts.length)];
         }
 
-        // ===== 获取默认回复（挡3睡觉用） =====
         function getDefaultReply(personaId) {
             const now = new Date();
             const hour = now.getHours();
@@ -1352,7 +1400,6 @@
             return list[Math.floor(Math.random() * list.length)];
         }
 
-        // ===== 获取排班描述（供System Prompt注入） =====
         function getScheduleDescription(personaId, date) {
             const targetDate = (date instanceof Date) ? date : new Date();
             const weekday = targetDate.getDay();
@@ -1380,7 +1427,6 @@
             return current ? current.icon + ' ' + current.label : '自由活动';
         }
 
-        // ===== 更新顶栏状态 =====
         function updateHeaderStatus() {
             const now = new Date();
             const status = getCurrentStatus(PERSONA_ID, now);
@@ -1436,7 +1482,10 @@
             const isUserBirthday = !!(holidaysToday && holidaysToday.includes('男朋友生日'));
             if (isUserBirthday) { holidaysToday = ['男朋友生日', ...holidaysToday.filter(n => n !== '男朋友生日')]; }
             const holiday = holidaysToday ? holidaysToday.join('、') : null;
-            return { now, year, month, day, hour, minute, second, weekday: weekdays[weekday], ampm, dateKey, season, term, holiday, holidaysToday, isUserBirthday, isWeekend: weekday === 0 || weekday === 6 };
+            return {
+                now, year, month, day, hour, minute, second, weekday: weekdays[weekday], ampm, dateKey, season, term,
+                holiday, holidaysToday, isUserBirthday, isWeekend: weekday === 0 || weekday === 6
+            };
         }
 
         function buildYearHolidayMap(year) {
@@ -1461,7 +1510,10 @@
 
         async function fetchWeather() {
             try {
-                const resp = await fetch(`https://wttr.in/${encodeURIComponent(WEATHER_CITY)}?format=j1`, { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined });
+                const resp = await fetch(`https://wttr.in/${encodeURIComponent(WEATHER_CITY)}?format=j1`, {
+                    signal: AbortSignal
+                        .timeout ? AbortSignal.timeout(5000) : undefined
+                });
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
                 const json = await resp.json();
                 const cur = json.current_condition[0];
@@ -1473,7 +1525,10 @@
                     'Moderate snow': '中雪', 'Heavy snow': '大雪'
                 };
                 const desc = cnMap[descEn] || descEn;
-                return { condition: desc, temperature: cur.temp_C + '°C', feelsLike: cur.FeelsLikeC, humidity: cur.humidity };
+                return {
+                    condition: desc, temperature: cur.temp_C + '°C', feelsLike: cur.FeelsLikeC, humidity: cur
+                        .humidity
+                };
             } catch (e) {
                 console.warn('天气获取失败:', e);
                 return null;
@@ -1670,14 +1725,12 @@
             prompt += `\n\n你（${current.name}）称呼用户为「${profileData?.personality?.call_user || '宝贝'}」，自称「${profileData?.personality?.self_call || '我'}」。`;
             prompt += `\n回复自然简短，不要超过200字。`;
 
-            // 强制排班铁则
             prompt += `\n\n【⚠️ 最高优先级 · 必须遵守】`;
             prompt += `\n1. 上述「📅 日期信息」中已经注明了你今天的真实排班，你必须严格按照这个信息回答关于排班、上班、下班的问题。`;
             prompt += `\n2. 绝对禁止自己编造排班信息！如果用户问你今天上什么班，你必须直接引用上面「今天」后面的排班描述。`;
             prompt += `\n3. 如果上面的排班信息显示「休息」，你就说今天休息；如果显示「早班」或「中班」或「夜班」，你就如实回答。`;
             prompt += `\n4. 不要用「我记得」「好像」「应该是」这类模糊词。`;
 
-            // ===== 🔥 新增：强制注入今天真实日期（最高优先级） =====
             const todayStr = weekdays[now.getDay()];
             const todayDateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
             prompt += `\n\n【🚨 最高优先级 · 今天真实日期】`;
@@ -1809,24 +1862,31 @@
         }
 
         async function loadProfile() {
-            const saved = localStorage.getItem('dev_profile_' + SLOT);
-            if (saved) {
-                try {
-                    profileData = JSON.parse(saved);
-                    systemPrompt = profileData.systemPrompt || '';
-                    console.log('[chat.html] 从 localStorage 加载人设');
-                    return;
-                } catch (e) { }
-            }
+            // 跳过 localStorage，永远从 profile.json 读取
             try {
                 const resp = await fetch('./' + SLOT + '/profile.json?t=' + Date.now());
                 if (resp.ok) {
                     profileData = await resp.json();
                     systemPrompt = profileData.systemPrompt || '';
+
+                    // 强制固定冷却时间
+                    profileData.global_cool_downs = {
+                        normal_photo_seconds: 20,
+                        normal_audio_seconds: 10,
+                        hidden_photo_seconds: 120,
+                        hidden_audio_seconds: 120,
+                        hidden_photo_hours: 3,
+                        hidden_audio_hours: 3,
+                        cross_slot_shared: true
+                    };
+
                     console.log('[chat.html] 从 profile.json 加载人设');
                     return;
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.warn('[chat.html] profile.json 加载失败:', e);
+            }
+
             systemPrompt = '你是一个友好的AI助手。';
             console.log('[chat.html] 使用默认人设');
         }
@@ -1909,10 +1969,12 @@
                 if (msg.type === 'image') {
                     const src = msg.src || msg.content;
                     if (isUser) {
-                        div.innerHTML = `<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
+                        div.innerHTML =
+                            `<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
                     } else {
                         const text = msg.text || '';
-                        div.innerHTML = `<span class="bav">${current.emoji}</span>${text ? text : ''}<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
+                        div.innerHTML =
+                            `<span class="bav">${current.emoji}</span>${text ? text : ''}<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
                     }
                 } else if (msg.type === 'audio') {
                     const src = msg.src || msg.content;
@@ -2067,7 +2129,83 @@
             if (!text) return;
             if (isWaiting) { showToast('⏳ 正在回复中，请稍候'); return; }
 
-            // 1. 关键词触发
+            // ==========================================================
+            //  0. 故事系统关键词（小舒专用 · 最高优先级）
+            // ==========================================================
+            if (SLOT === 'd' && window.storyEngine) {
+                const lowerText = text.toLowerCase();
+
+                // --- 0a. 退出关键词 → 存档退出 ---
+                if (/退出|不听了|结束|算了|不想听了|停止/.test(lowerText)) {
+                    if (window.storyEngine.isActive()) {
+                        const data = window.storyEngine.storyData;
+                        if (data) {
+                            localStorage.setItem('story_save_' + data.storyId, JSON.stringify(data));
+                            addMessage('bot', { type: 'text', text: '💾 故事已存档，下次再继续听吧～' });
+                        }
+                        window.storyEngine.endStory();
+                        const panel = document.getElementById('storyPanel');
+                        if (panel) {
+                            panel.style.display = 'none';
+                            panel.classList.remove('active');
+                        }
+                        const bar = document.getElementById('storyHintBar');
+                        if (bar) {
+                            bar.style.display = 'flex';
+                            bar.classList.add('active');
+                        }
+                        console.log('✅ 故事已存档退出');
+                    } else {
+                        addMessage('bot', { type: 'text', text: '没有进行中的故事呢～' });
+                    }
+                    input.value = '';
+                    input.style.height = '42px';
+                    return;
+                }
+
+                // --- 0b. 换一个关键词 → 存档并换下一个 ---
+                if (/换一个|下一个|下一本|换个故事|换故事/.test(lowerText)) {
+                    if (window.storyEngine.isActive()) {
+                        const data = window.storyEngine.storyData;
+                        if (data) {
+                            localStorage.setItem('story_save_' + data.storyId, JSON.stringify(data));
+                        }
+                        window.storyEngine.endStory();
+                        const panel = document.getElementById('storyPanel');
+                        if (panel) {
+                            panel.style.display = 'none';
+                            panel.classList.remove('active');
+                        }
+                        addMessage('bot', { type: 'text', text: '📖 好的，换个故事...' });
+                        setTimeout(() => startRandomStory(), 500);
+                    } else {
+                        // 没有故事进行，直接开始一个
+                        addMessage('bot', { type: 'text', text: '📖 好的，找个好故事...' });
+                        setTimeout(() => startRandomStory(), 300);
+                    }
+                    input.value = '';
+                    input.style.height = '42px';
+                    return;
+                }
+
+                // --- 0c. 触发故事关键词（没有故事进行时） ---
+                if (!window.storyEngine.isActive()) {
+                    const triggerWords = /故事|案件|推理|悬疑|恐怖|刑侦|破案|都市传说|新鲜事|有趣的事|可怕的事|离奇的事|讲个故事|说说故事|什么故事/;
+                    if (triggerWords.test(lowerText)) {
+                        addMessage('user', { type: 'text', text: text });
+                        input.value = '';
+                        input.style.height = '42px';
+                        // 先给个反馈，再开始故事
+                        addMessage('bot', { type: 'text', text: '📖 好呀，让我找个故事...' });
+                        setTimeout(() => startRandomStory(), 500);
+                        return;
+                    }
+                }
+            }
+
+            // ==========================================================
+            //  1. 关键词触发（图片/语音）
+            // ==========================================================
             const keywordResult = checkKeywords(text);
             if (keywordResult) {
                 addMessage('user', { type: 'text', text: text });
@@ -2094,7 +2232,9 @@
                 return;
             }
 
-            // 2. 检查是否睡觉（挡3）
+            // ==========================================================
+            //  2. 检查是否睡觉（挡3）
+            // ==========================================================
             const now = new Date();
             const status = getCurrentStatus(PERSONA_ID, now);
             if (status.level === 3) {
@@ -2105,12 +2245,13 @@
                 return;
             }
 
-            // 3. 正常发送
+            // ==========================================================
+            //  3. 正常发送（走 AI）
+            // ==========================================================
             addMessage('user', { type: 'text', text: text });
             input.value = '';
             input.style.height = '42px';
 
-            // 检查挡2
             const isSlow = (status.level === 2);
             const prefixText = isSlow ? getPrefixText(status.prefixKey, PERSONA_ID) : null;
 
@@ -2120,7 +2261,8 @@
             const streamMsg = document.createElement('div');
             streamMsg.className = 'message bot';
             streamMsg.id = 'streamingMessage';
-            streamMsg.innerHTML = `<span class="bav">${current.emoji}</span> <span id="streamContent"></span><span class="cursor-blink"></span>`;
+            streamMsg.innerHTML =
+                `<span class="bav">${current.emoji}</span> <span id="streamContent"></span><span class="cursor-blink"></span>`;
             const area = document.getElementById('messageArea');
             area.appendChild(streamMsg);
             area.scrollTop = area.scrollHeight;
@@ -2207,15 +2349,15 @@
             const overlay = document.getElementById('modalOverlay');
             const content = document.getElementById('modalContent');
             content.innerHTML = `
-        <div class="modal-header">
-            <h3>🔍 搜索聊天记录</h3>
-            <button class="close" onclick="closeModal()">✕</button>
-        </div>
-        <input class="search-input" id="searchInput" placeholder="输入关键词…" autofocus>
-        <div class="search-results" id="searchResults">
-            <div class="no-result">输入关键词开始搜索</div>
-        </div>
-    `;
+                <div class="modal-header">
+                    <h3>🔍 搜索聊天记录</h3>
+                    <button class="close" onclick="closeModal()">✕</button>
+                </div>
+                <input class="search-input" id="searchInput" placeholder="输入关键词…" autofocus>
+                <div class="search-results" id="searchResults">
+                    <div class="no-result">输入关键词开始搜索</div>
+                </div>
+            `;
             overlay.classList.add('show');
             setTimeout(() => document.getElementById('searchInput').focus(), 100);
 
@@ -2236,14 +2378,14 @@
                     return;
                 }
                 results.innerHTML = matches.map((m, idx) => `
-            <div class="result-item" onclick="jumpToMessage(${idx})">
-                <div>
-                    <span class="who">${m.role === 'user' ? '🧑 我' : '👤 ' + current.name}</span>
-                    <span class="when">${formatTime(m.time)}</span>
-                </div>
-                <div class="text">${highlightText((m.text || m.content || '').toString(), keyword)}</div>
-            </div>
-        `).join('');
+                    <div class="result-item" onclick="jumpToMessage(${idx})">
+                        <div>
+                            <span class="who">${m.role === 'user' ? '🧑 我' : '👤 ' + current.name}</span>
+                            <span class="when">${formatTime(m.time)}</span>
+                        </div>
+                        <div class="text">${highlightText((m.text || m.content || '').toString(), keyword)}</div>
+                    </div>
+                `).join('');
             });
         }
 
@@ -2286,17 +2428,17 @@
             const overlay = document.getElementById('modalOverlay');
             const content = document.getElementById('modalContent');
             content.innerHTML = `
-        <div class="modal-header">
-            <h3>${title}</h3>
-            <button class="close" onclick="closeModal()">✕</button>
-        </div>
-        <p style="font-size:13px;color:#666;margin-bottom:12px;">${message}</p>
-        <input class="pwd-input" id="pwdInput" type="password" placeholder="请输入密码" autofocus>
-        <div class="modal-actions">
-            <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button class="btn-confirm" id="pwdConfirm">确定</button>
-        </div>
-    `;
+                <div class="modal-header">
+                    <h3>${title}</h3>
+                    <button class="close" onclick="closeModal()">✕</button>
+                </div>
+                <p style="font-size:13px;color:#666;margin-bottom:12px;">${message}</p>
+                <input class="pwd-input" id="pwdInput" type="password" placeholder="请输入密码" autofocus>
+                <div class="modal-actions">
+                    <button class="btn-cancel" onclick="closeModal()">取消</button>
+                    <button class="btn-confirm" id="pwdConfirm">确定</button>
+                </div>
+            `;
             overlay.classList.add('show');
             setTimeout(() => document.getElementById('pwdInput').focus(), 100);
 
@@ -2349,34 +2491,312 @@
                 const [startStr, endStr, level, icon, label] = slot;
                 const levelLabel = level === 1 ? '正常' : level === 2 ? '回复慢' : '不回复';
                 timelineHtml += `
-            <div style="display:flex;align-items:center;padding:5px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px;">
-                <span style="min-width:85px;color:#8e8e93;">${startStr} - ${endStr}</span>
-                <span style="margin:0 6px;">${icon}</span>
-                <span style="flex:1;">${label}</span>
-                <span style="font-size:10px;color:${level === 1 ? '#4caf50' : level === 2 ? '#ff9800' : '#7c4dff'};">${levelLabel}</span>
-            </div>
-        `;
+                    <div style="display:flex;align-items:center;padding:5px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px;">
+                        <span style="min-width:85px;color:#8e8e93;">${startStr} - ${endStr}</span>
+                        <span style="margin:0 6px;">${icon}</span>
+                        <span style="flex:1;">${label}</span>
+                        <span style="font-size:10px;color:${level === 1 ? '#4caf50' : level === 2 ? '#ff9800' : '#7c4dff'};">${levelLabel}</span>
+                    </div>
+                `;
             }
 
             const overlay = document.getElementById('modalOverlay');
             const content = document.getElementById('modalContent');
             content.innerHTML = `
-        <div class="modal-header">
-            <h3>📅 ${current.name} 今日日程（${timeInfo.month}月${timeInfo.day}日 ${weekdays[weekday]}）</h3>
-            <button class="close" onclick="closeModal()">✕</button>
-        </div>
-        <div style="max-height:400px;overflow-y:auto;">
-            ${timelineHtml}
-        </div>
-        <div style="margin-top:10px;padding:8px 10px;background:#f5f5f5;border-radius:8px;font-size:12px;color:#8e8e93;">
-            💡 当前状态：${status.icon} ${status.label}
-        </div>
-    `;
+                <div class="modal-header">
+                    <h3>📅 ${current.name} 今日日程（${timeInfo.month}月${timeInfo.day}日 ${weekdays[weekday]}）</h3>
+                    <button class="close" onclick="closeModal()">✕</button>
+                </div>
+                <div style="max-height:400px;overflow-y:auto;">
+                    ${timelineHtml}
+                </div>
+                <div style="margin-top:10px;padding:8px 10px;background:#f5f5f5;border-radius:8px;font-size:12px;color:#8e8e93;">
+                    💡 当前状态：${status.icon} ${status.label}
+                </div>
+            `;
             overlay.classList.add('show');
         }
 
         // ================================================================
-        //  第十二部分：初始化
+        //  第十二部分：故事系统完整实现
+        // ================================================================
+
+        // 故事牌堆管理
+        const STORY_PILE_KEY = 'story_pile_state';
+
+        function getStoryPile() {
+            try {
+                const saved = localStorage.getItem(STORY_PILE_KEY);
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.deck.length === 0) {
+                        return resetStoryPile();
+                    }
+                    return data;
+                }
+            } catch (e) { }
+            return resetStoryPile();
+        }
+
+        function resetStoryPile() {
+            const catalog = window.STORY_CATALOG || {};
+            const allStories = [
+                ...(catalog.crime || []),
+                ...(catalog.mystery || []),
+                ...(catalog.horror || []),
+                ...(catalog.urban || [])
+            ];
+            const shuffled = shuffle([...allStories]);
+            const pile = { deck: shuffled, discard: [] };
+            localStorage.setItem(STORY_PILE_KEY, JSON.stringify(pile));
+            return pile;
+        }
+
+        function markStoryPlayed(storyId) {
+            const pile = getStoryPile();
+            pile.deck = pile.deck.filter(id => id !== storyId);
+            pile.discard.push(storyId);
+            localStorage.setItem(STORY_PILE_KEY, JSON.stringify(pile));
+        }
+
+        function getNextStory() {
+            const pile = getStoryPile();
+            if (pile.deck.length === 0) {
+                const newPile = resetStoryPile();
+                return newPile.deck[0] || null;
+            }
+            return pile.deck[0];
+        }
+
+        function startRandomStory() {
+            if (typeof window.storyEngine === 'undefined') {
+                addMessage('bot', { type: 'text', text: '故事引擎还没加载好，稍等再试试～' });
+                return;
+            }
+
+            if (window.storyEngine.isActive()) {
+                addMessage('bot', { type: 'text', text: '现在正在进行一个故事呢，先把这个听完再说吧～' });
+                return;
+            }
+
+            const storyId = getNextStory();
+            if (!storyId) {
+                addMessage('bot', { type: 'text', text: '暂时没有可用的故事～' });
+                return;
+            }
+
+            addMessage('bot', { type: 'text', text: '📖 稍等，让我找个好故事……' });
+
+            fetch('./js/stories/' + storyId + '.json')
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    window.storyEngine.startStory(storyId, data);
+                    // 标记为已玩
+                    markStoryPlayed(storyId);
+                    const intro = data.story_intro?.opening_line || data.description || '故事开始了……';
+                    addMessage('bot', { type: 'text', text: intro });
+                    updateStoryPanelInfo();
+                    console.log('✅ 故事已开始:', data.title);
+                    console.log('📚 剩余故事数:', getStoryPile().deck.length);
+                })
+                .catch(err => {
+                    console.warn('❌ 跳过坏故事:', storyId, err.message);
+                    // 自动从牌堆移除坏故事
+                    const pile = getStoryPile();
+                    pile.deck = pile.deck.filter(id => id !== storyId);
+                    localStorage.setItem('story_pile_state', JSON.stringify(pile));
+                    addMessage('bot', { type: 'text', text: '这个故事暂时讲不了，换一个试试～' });
+                    // 自动尝试下一个
+                    setTimeout(() => startRandomStory(), 500);
+                });
+        }
+
+        function updateStoryPanelInfo() {
+            if (!window.storyEngine || !window.storyEngine.isActive()) return;
+            const data = window.storyEngine.storyData;
+            if (!data) return;
+
+            const titleEl = document.getElementById('storyPanelTitle');
+            if (titleEl) titleEl.textContent = data.title || '案件调查中';
+
+            const progressEl = document.getElementById('storyPanelProgress');
+            if (progressEl) {
+                const progressMap = { intro: '开场', investigating: '调查中', reasoning: '推理中', concluded: '已结案' };
+                progressEl.textContent = progressMap[data.progress] || data.progress;
+                progressEl.className = 'story-panel-progress ' + (data.progress || 'intro');
+            }
+
+            const clueCount = document.getElementById('storyClueCount');
+            if (clueCount) {
+                clueCount.textContent = data.discoveredClues?.length || 0;
+            }
+        }
+
+        function showCluesModal() {
+            if (!window.storyEngine || !window.storyEngine.isActive()) {
+                showToast('当前没有进行中的故事');
+                return;
+            }
+            const data = window.storyEngine.storyData;
+            if (!data) return;
+
+            const clues = data.discoveredClues || [];
+            const overlay = document.getElementById('modalOverlay');
+            const content = document.getElementById('modalContent');
+
+            let cluesHtml = '';
+            if (clues.length === 0) {
+                cluesHtml =
+                    '<div style="padding:20px;text-align:center;color:#8e8e93;font-size:13px;">🔍 还没有发现线索，继续调查吧～</div>';
+            } else {
+                cluesHtml = clues.map((c, i) => `
+                        <div style="padding:10px 12px;border-bottom:0.5px solid #f0f0f0;">
+                            <div style="font-weight:600;font-size:14px;color:#1a1a1a;">${i + 1}. ${c.name || '未知线索'}</div>
+                            <div style="font-size:13px;color:#666;margin-top:4px;">${c.description || ''}</div>
+                            ${c.source ? `<div style="font-size:11px;color:#8e8e93;margin-top:4px;">来源：${c.source}</div>` : ''}
+                        </div>
+                    `).join('');
+            }
+
+            content.innerHTML = `
+                    <div class="modal-header">
+                        <h3>📌 线索汇总（${clues.length}条）</h3>
+                        <button class="close" onclick="closeModal()">✕</button>
+                    </div>
+                    <div style="max-height:400px;overflow-y:auto;">
+                        ${cluesHtml}
+                    </div>
+                `;
+            overlay.classList.add('show');
+        }
+
+        function bindStoryPanelButtons() {
+            // 存档退出按钮
+            const exitBtn = document.getElementById('storyExitBtn');
+            if (exitBtn) {
+                const newExitBtn = exitBtn.cloneNode(true);
+                exitBtn.parentNode.replaceChild(newExitBtn, exitBtn);
+                newExitBtn.addEventListener('click', function () {
+                    if (window.storyEngine && window.storyEngine.isActive()) {
+                        const data = window.storyEngine.storyData;
+                        if (data) {
+                            localStorage.setItem('story_save_' + data.storyId, JSON.stringify(data));
+                            console.log('💾 故事已自动存档');
+                        }
+                        window.storyEngine.endStory();
+                        addMessage('bot', { type: 'text', text: '💾 故事已存档并退出，下次可以继续听～' });
+                        const panel = document.getElementById('storyPanel');
+                        if (panel) {
+                            panel.style.display = 'none';
+                            panel.classList.remove('active');
+                        }
+                        const bar = document.getElementById('storyHintBar');
+                        if (bar) {
+                            bar.style.display = 'flex';
+                            bar.classList.add('active');
+                        }
+                        console.log('✅ 故事已存档退出');
+                    }
+                });
+                console.log('✅ 存档退出按钮已绑定');
+            }
+
+            // 换一个按钮
+            const switchBtn = document.getElementById('storySwitchBtn');
+            if (switchBtn) {
+                const newSwitchBtn = switchBtn.cloneNode(true);
+                switchBtn.parentNode.replaceChild(newSwitchBtn, switchBtn);
+                newSwitchBtn.addEventListener('click', function () {
+                    if (window.storyEngine && window.storyEngine.isActive()) {
+                        const data = window.storyEngine.storyData;
+                        if (data) {
+                            localStorage.setItem('story_save_' + data.storyId, JSON.stringify(data));
+                            console.log('💾 故事已自动存档');
+                        }
+                        window.storyEngine.endStory();
+                        const panel = document.getElementById('storyPanel');
+                        if (panel) {
+                            panel.style.display = 'none';
+                            panel.classList.remove('active');
+                        }
+                        addMessage('bot', { type: 'text', text: '📖 换一个故事...' });
+                        setTimeout(() => {
+                            startRandomStory();
+                        }, 500);
+                    }
+                });
+                console.log('✅ 换一个按钮已绑定');
+            }
+
+            // 线索按钮
+            const clueBtn = document.getElementById('storyClueBtn');
+            if (clueBtn) {
+                const newClueBtn = clueBtn.cloneNode(true);
+                clueBtn.parentNode.replaceChild(newClueBtn, clueBtn);
+                newClueBtn.addEventListener('click', function () {
+                    showCluesModal();
+                });
+                console.log('✅ 线索按钮已绑定');
+            }
+
+            // 点击线索数区域也可触发
+            const clueInfo = document.getElementById('storyClueInfo');
+            if (clueInfo) {
+                const newClueInfo = clueInfo.cloneNode(true);
+                clueInfo.parentNode.replaceChild(newClueInfo, clueInfo);
+                newClueInfo.addEventListener('click', function () {
+                    showCluesModal();
+                });
+                console.log('✅ 线索数区域点击已绑定');
+            }
+        }
+
+        function setupStoryHint() {
+            const bar = document.getElementById('storyHintBar');
+            if (!bar) {
+                console.log('❌ 引导条不存在');
+                return;
+            }
+
+            const oldBtns = bar.querySelectorAll('.hint-action, [id="storyHintBtn"]');
+            oldBtns.forEach(btn => btn.remove());
+
+            const btn = document.createElement('button');
+            btn.className = 'hint-action';
+            btn.id = 'storyHintBtn';
+            btn.textContent = '想听';
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                console.log('✅ 点击「想听」');
+                startRandomStory();
+            });
+
+            bar.appendChild(btn);
+            console.log('✅ 已创建「想听」按钮');
+        }
+
+        function updateStoryHintBar() {
+            const hintBar = document.getElementById('storyHintBar');
+            if (!hintBar) return;
+
+            if (SLOT !== 'd') {
+                hintBar.classList.remove('active');
+                return;
+            }
+
+            const hasActiveStory = window.storyEngine && window.storyEngine.isActive();
+            if (hasActiveStory) {
+                hintBar.classList.remove('active');
+            } else {
+                hintBar.classList.add('active');
+            }
+        }
+
+        // ================================================================
+        //  第十三部分：初始化
         // ================================================================
 
         document.getElementById('menuBtn').addEventListener('click', toggleMenu);
@@ -2408,102 +2828,10 @@
             this.style.height = '42px';
             this.style.height = Math.min(this.scrollHeight, 80) + 'px';
         });
-        // ===== 故事引导条控制 =====
-        function updateStoryHintBar() {
-            const hintBar = document.getElementById('storyHintBar');
-            if (!hintBar) return;
-
-            // 只有小舒才显示
-            if (SLOT !== 'd') {
-                hintBar.classList.remove('active');
-                return;
-            }
-
-            // 检查是否有进行中的故事
-            const hasActiveStory = window.storyEngine && window.storyEngine.isActive();
-            if (hasActiveStory) {
-                hintBar.classList.remove('active');
-            } else {
-                hintBar.classList.add('active');
-            }
-        }
-        function setupStoryHint() {
-            const bar = document.getElementById('storyHintBar');
-            if (!bar) {
-                console.log('❌ 引导条不存在');
-                return;
-            }
-
-            // 移除所有旧的「想听」按钮
-            const oldBtns = bar.querySelectorAll('.story-hint-action, [id="storyHintBtn"]');
-            oldBtns.forEach(btn => btn.remove());
-
-            // 创建一个新的「想听」按钮
-            const btn = document.createElement('span');
-            btn.className = 'story-hint-action';
-            btn.id = 'storyHintBtn';
-            btn.textContent = '想听';
-            btn.style.cssText = 'color:#3a7bd5;padding:2px 8px;border:1px solid #2b5ca8;border-radius:10px;cursor:pointer;font-size:12px;';
-
-            btn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                console.log('✅ 点击「想听」');
-                startRandomStory();
-            });
-
-            bar.appendChild(btn);
-            console.log('✅ 已创建「想听」按钮');
-        }
-        function startRandomStory() {
-            if (typeof window.storyEngine === 'undefined') {
-                addMessage('bot', { type: 'text', text: '故事引擎还没加载好，稍等再试试～' });
-                return;
-            }
-            if (window.storyEngine.isActive()) {
-                addMessage('bot', { type: 'text', text: '现在正在进行一个故事呢，先把这个听完再说吧～' });
-                return;
-            }
-
-            const catalog = window.STORY_CATALOG;
-            if (!catalog) {
-                addMessage('bot', { type: 'text', text: '故事目录还没加载好，稍等再试试～' });
-                return;
-            }
-
-            const allStories = [
-                ...(catalog.crime || []),
-                ...(catalog.mystery || []),
-                ...(catalog.horror || []),
-                ...(catalog.urban || [])
-            ];
-            if (allStories.length === 0) {
-                addMessage('bot', { type: 'text', text: '暂时没有可用的故事～' });
-                return;
-            }
-
-            const storyId = allStories[Math.floor(Math.random() * allStories.length)];
-            addMessage('bot', { type: 'text', text: '📖 稍等，让我找个好故事……' });
-
-            fetch('./js/stories/' + storyId + '.json')
-                .then(r => r.json())
-                .then(data => {
-                    window.storyEngine.startStory(storyId, data);
-                    const intro = data.story_intro?.opening_line || data.description || '故事开始了……';
-                    addMessage('bot', { type: 'text', text: intro });
-                    console.log('✅ 故事已开始:', data.title);
-                })
-                .catch(err => {
-                    console.error('加载故事失败:', err);
-                    addMessage('bot', { type: 'text', text: '故事加载失败了，换一个试试～' });
-                });
-        }
-
 
         async function init() {
             await loadProfile();
             await loadManifest();
-            setupStoryHint(); // ← 加这一行
-            
 
             // 设置头像
             const avatarPath = getAvatarPath();
@@ -2511,9 +2839,8 @@
                 `<img src="${avatarPath}" alt="${current.name}" onerror="this.style.display='none';this.parentElement.textContent='${current.emoji}'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
 
             document.getElementById('chatName').textContent = current.name;
-
-            // 初始化状态
-            updateHeaderStatus();
+            document.getElementById('chatStatus').textContent = current.status;
+            document.getElementById('chatStatus').className = 'status' + (current.cls ? ' ' + current.cls : '');
 
             loadMessages();
             isCleared = getClearedStatus();
@@ -2523,42 +2850,66 @@
             }
 
             renderMessages();
-            // 🔥 初始化故事引擎
+
+            // 初始化故事引擎
             if (typeof window.storyEngine !== 'undefined') {
                 await window.storyEngine.init();
+
                 window.storyEngine.on('story_started', () => {
-                    updateStoryHintBar();
-                    // 🔥 新增：显示故事面板
+                    const bar = document.getElementById('storyHintBar');
+                    if (bar) {
+                        bar.style.display = 'none';
+                        bar.classList.remove('active');
+                    }
+
                     const panel = document.getElementById('storyPanel');
                     if (panel) {
                         panel.style.display = 'block';
                         panel.classList.add('active');
-                        console.log('✅ 故事面板已自动显示');
+                        bindStoryPanelButtons();
+                        updateStoryPanelInfo();
                     }
                 });
+
                 window.storyEngine.on('story_ended', () => {
-                    updateStoryHintBar();
-                    // 隐藏故事面板
                     const panel = document.getElementById('storyPanel');
                     if (panel) {
                         panel.style.display = 'none';
                         panel.classList.remove('active');
-                        console.log('✅ 故事面板已隐藏');
+                    }
+
+                    const bar = document.getElementById('storyHintBar');
+                    if (bar && SLOT === 'd') {
+                        bar.style.display = 'flex';
+                        bar.classList.add('active');
                     }
                 });
+
+                // 检查是否有进行中的故事
+                if (window.storyEngine.isActive()) {
+                    const bar = document.getElementById('storyHintBar');
+                    if (bar) {
+                        bar.style.display = 'none';
+                        bar.classList.remove('active');
+                    }
+                    const panel = document.getElementById('storyPanel');
+                    if (panel) {
+                        panel.style.display = 'block';
+                        panel.classList.add('active');
+                        bindStoryPanelButtons();
+                        updateStoryPanelInfo();
+                    }
+                }
             }
+
+            setupStoryHint();
             updateStoryHintBar();
 
             setInterval(updateHeaderStatus, 60000);
 
-
-
-            // 每分钟更新状态
-            setInterval(updateHeaderStatus, 60000);
-
             console.log('💬 聊天已启动 · ' + current.name);
             console.log('📁 存储 Key: ' + STORAGE_KEY);
-            console.log('✅ 所有功能已集成：DeepSeek API · 流式输出 · 固定一周排班 · 时间/天气 · 关键词触发 · TTS · 牌堆机制');
+            console.log('✅ 所有功能已集成：DeepSeek API · 流式输出 · 固定一周排班 · 时间/天气 · 关键词触发 · TTS · 牌堆机制 · 故事系统');
         }
 
         window.goBack = goBack;
@@ -2568,6 +2919,7 @@
 
         init();
     </script>
+
     <!-- 故事引擎 -->
     <script src="./js/story_engine.js"></script>
     <script src="./js/stories/_catalog.js"></script>

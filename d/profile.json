@@ -164,11 +164,7 @@
         "id": "xinghu",
         "name": "星湖区地标",
         "keywords": [
-          "星湖",
-          "万达",
-          "市中心",
-          "中央公园",
-          "cbd"
+
         ],
         "probability": 0.75,
         "min_count": 1,
@@ -178,12 +174,7 @@
         "id": "any_district",
         "name": "任意区介绍",
         "keywords": [
-          "区",
-          "哪里有好吃",
-          "哪里好玩",
-          "推荐",
-          "逛一逛",
-          "打卡"
+       
         ],
         "probability": 0.55,
         "min_count": 1,

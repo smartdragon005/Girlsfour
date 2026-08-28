@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>人设查看 · 舒心市</title>
     <style>
         * {
@@ -11,7 +13,9 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        html, body {
+
+        html,
+        body {
             height: 100%;
             font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
             background: #ededed;
@@ -43,6 +47,7 @@
             flex-shrink: 0;
             min-height: 50px;
         }
+
         .nav-header .back-btn {
             font-size: 24px;
             color: #3a7bd5;
@@ -53,7 +58,11 @@
             background: none;
             font-family: inherit;
         }
-        .nav-header .back-btn:active { opacity: 0.5; }
+
+        .nav-header .back-btn:active {
+            opacity: 0.5;
+        }
+
         .nav-header .title {
             flex: 1;
             text-align: center;
@@ -61,12 +70,14 @@
             font-weight: 600;
             color: #1a1a1a;
         }
+
         .nav-header .header-right {
             display: flex;
             gap: 6px;
             align-items: center;
             flex-shrink: 0;
         }
+
         .nav-header .refresh-btn {
             padding: 4px 10px;
             background: #3a7bd5;
@@ -78,16 +89,22 @@
             font-family: inherit;
             transition: opacity 0.15s;
         }
-        .nav-header .refresh-btn:active { opacity: 0.7; }
+
+        .nav-header .refresh-btn:active {
+            opacity: 0.7;
+        }
+
         .nav-header .refresh-btn.refreshing {
             opacity: 0.5;
             cursor: not-allowed;
         }
+
         .nav-header .last-refresh {
             font-size: 10px;
             color: #8e8e93;
             white-space: nowrap;
         }
+
         .readonly-badge {
             display: inline-block;
             padding: 2px 10px;
@@ -104,7 +121,11 @@
             padding: 12px 14px 20px;
             background: #ffffff;
         }
-        .main-content::-webkit-scrollbar { width: 0; display: none; }
+
+        .main-content::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
 
         .slot-selector {
             display: flex;
@@ -115,6 +136,7 @@
             padding: 8px 0;
             background: #ffffff;
         }
+
         .slot-card {
             background: none;
             border: none;
@@ -129,7 +151,11 @@
             font-family: inherit;
             transition: transform 0.15s;
         }
-        .slot-card:active { transform: scale(0.92); }
+
+        .slot-card:active {
+            transform: scale(0.92);
+        }
+
         .slot-card .slot-avatar {
             width: 48px;
             height: 48px;
@@ -144,19 +170,23 @@
             position: relative;
             transition: border-color 0.2s;
         }
+
         .slot-card .slot-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .slot-card.active .slot-avatar {
             border-color: #3a7bd5;
             box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
         }
+
         .slot-card .slot-name {
             font-size: 10px;
             color: #8e8e93;
         }
+
         .slot-card.active .slot-name {
             color: #1a1a1a;
             font-weight: 600;
@@ -171,7 +201,11 @@
             flex-shrink: 0;
             overflow-x: auto;
         }
-        .tabs::-webkit-scrollbar { display: none; }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
         .tab-btn {
             flex: 1;
             min-width: 60px;
@@ -187,15 +221,24 @@
             white-space: nowrap;
             transition: all 0.2s;
         }
+
         .tab-btn.active {
             background: #ffffff;
             color: #1a1a1a;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
         }
-        .tab-btn:active { opacity: 0.6; }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-btn:active {
+            opacity: 0.6;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
 
         .section-title {
             font-size: 13px;
@@ -205,15 +248,22 @@
             padding-left: 10px;
             border-left: 3px solid #3a7bd5;
         }
-        .section-title:first-of-type { margin-top: 0; }
 
-        .form-group { margin-bottom: 12px; }
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 12px;
         }
+
         label {
             display: block;
             font-size: 12px;
@@ -221,6 +271,7 @@
             margin-bottom: 4px;
             font-weight: 500;
         }
+
         input[type="text"],
         input[type="number"],
         input[type="date"],
@@ -239,19 +290,31 @@
             transition: border-color 0.2s;
             min-height: 40px;
         }
-        input:focus, select:focus, textarea:focus {
+
+        input:focus,
+        select:focus,
+        textarea:focus {
             border-color: #3a7bd5;
             background: #ffffff;
         }
-        textarea { resize: vertical; min-height: 80px; }
 
-        input:disabled, select:disabled, textarea:disabled {
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
             background: #f5f5f5;
             color: #666;
             cursor: not-allowed;
             opacity: 0.8;
         }
-        input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
+
+        input:disabled:focus,
+        select:disabled:focus,
+        textarea:disabled:focus {
             border-color: #d9d9d9;
             background: #f5f5f5;
         }
@@ -263,6 +326,7 @@
             margin-bottom: 12px;
             border: 0.5px solid #e8e8e8;
         }
+
         .keyword-header {
             display: flex;
             align-items: center;
@@ -271,6 +335,7 @@
             gap: 8px;
             margin-bottom: 8px;
         }
+
         .keyword-title {
             font-size: 13px;
             font-weight: 500;
@@ -278,13 +343,22 @@
             align-items: center;
             gap: 6px;
         }
+
         .keyword-title .badge {
             font-size: 10px;
             padding: 2px 8px;
             border-radius: 10px;
         }
-        .badge.normal { background: #e8f5e9; color: #2e7d32; }
-        .badge.hidden { background: #fce4ec; color: #c62828; }
+
+        .badge.normal {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge.hidden {
+            background: #fce4ec;
+            color: #c62828;
+        }
 
         .keyword-inputs {
             display: flex;
@@ -293,6 +367,7 @@
             margin-bottom: 8px;
             min-height: 32px;
         }
+
         .keyword-chip {
             background: #ffffff;
             border: 0.5px solid #d9d9d9;
@@ -303,6 +378,7 @@
             align-items: center;
             gap: 6px;
         }
+
         .keyword-chip .remove {
             cursor: not-allowed;
             color: #d0d0d0;
@@ -322,9 +398,21 @@
             padding-top: 10px;
             border-top: 0.5px solid #e8e8e8;
         }
-        .stat-item { text-align: center; }
-        .stat-value { font-size: 14px; font-weight: 600; color: #3a7bd5; }
-        .stat-label { font-size: 10px; color: #8e8e93; }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3a7bd5;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #8e8e93;
+        }
 
         .prob-slider-wrap {
             display: flex;
@@ -332,6 +420,7 @@
             gap: 8px;
             min-width: 120px;
         }
+
         .prob-slider {
             flex: 1;
             -webkit-appearance: none;
@@ -343,6 +432,7 @@
             cursor: not-allowed;
             opacity: 0.6;
         }
+
         .prob-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 14px;
@@ -351,6 +441,7 @@
             background: #b0b0b0;
             cursor: not-allowed;
         }
+
         .prob-label {
             font-size: 12px;
             font-weight: 600;
@@ -367,9 +458,22 @@
             border-bottom: 0.5px solid #f0f0f0;
             gap: 12px;
         }
-        .switch-row:last-child { border-bottom: none; }
-        .switch-label { font-size: 13px; color: #1a1a1a; }
-        .switch-desc { font-size: 11px; color: #8e8e93; margin-top: 2px; }
+
+        .switch-row:last-child {
+            border-bottom: none;
+        }
+
+        .switch-label {
+            font-size: 13px;
+            color: #1a1a1a;
+        }
+
+        .switch-desc {
+            font-size: 11px;
+            color: #8e8e93;
+            margin-top: 2px;
+        }
+
         .switch {
             position: relative;
             width: 44px;
@@ -381,7 +485,11 @@
             flex-shrink: 0;
             opacity: 0.6;
         }
-        .switch.on { background: #4ade80; }
+
+        .switch.on {
+            background: #4ade80;
+        }
+
         .switch::after {
             content: '';
             position: absolute;
@@ -392,9 +500,12 @@
             top: 2px;
             left: 2px;
             transition: left 0.25s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
         }
-        .switch.on::after { left: 22px; }
+
+        .switch.on::after {
+            left: 22px;
+        }
 
         .schedule-week {
             display: grid;
@@ -402,6 +513,7 @@
             gap: 4px;
             margin: 8px 0;
         }
+
         .schedule-cell {
             aspect-ratio: 1.1;
             border-radius: 8px;
@@ -418,20 +530,54 @@
             background: #f5f5f5;
             min-height: 52px;
         }
-        .schedule-cell .day-name { font-size: 9px; color: #8e8e93; }
-        .schedule-cell .shift-name { font-size: 11px; font-weight: 600; }
-        .schedule-cell .shift-time { font-size: 8px; opacity: 0.7; }
 
-        .schedule-cell.shift-morning { background: #fff3e0; }
-        .schedule-cell.shift-mid { background: #e3f2fd; }
-        .schedule-cell.shift-night { background: #e8eaf6; }
-        .schedule-cell.shift-off { background: #f5f5f5; color: #b0b0b0; }
-        .schedule-cell.shift-allday { background: #e8f5e9; }
-        .schedule-cell.shift-sing { background: #fce4ec; }
-        .schedule-cell.shift-double { background: #f3e5f5; }
+        .schedule-cell .day-name {
+            font-size: 9px;
+            color: #8e8e93;
+        }
+
+        .schedule-cell .shift-name {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .schedule-cell .shift-time {
+            font-size: 8px;
+            opacity: 0.7;
+        }
+
+        .schedule-cell.shift-morning {
+            background: #fff3e0;
+        }
+
+        .schedule-cell.shift-mid {
+            background: #e3f2fd;
+        }
+
+        .schedule-cell.shift-night {
+            background: #e8eaf6;
+        }
+
+        .schedule-cell.shift-off {
+            background: #f5f5f5;
+            color: #b0b0b0;
+        }
+
+        .schedule-cell.shift-allday {
+            background: #e8f5e9;
+        }
+
+        .schedule-cell.shift-sing {
+            background: #fce4ec;
+        }
+
+        .schedule-cell.shift-double {
+            background: #f3e5f5;
+        }
+
         .schedule-cell.today {
             border-color: #3a7bd5;
-            box-shadow: 0 0 0 2px rgba(58,123,213,0.2);
+            box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
         }
 
         .schedule-toolbar {
@@ -444,6 +590,7 @@
             gap: 8px;
             margin: 8px 0;
         }
+
         .template-item {
             padding: 10px 12px;
             background: #f8f8f8;
@@ -452,12 +599,21 @@
             cursor: default;
             transition: all 0.15s;
         }
+
         .template-item.default {
             background: #e3f2fd;
             border-color: #3a7bd5;
         }
-        .template-item .tpl-name { font-size: 12px; font-weight: 600; }
-        .template-item .tpl-desc { font-size: 10px; color: #8e8e93; }
+
+        .template-item .tpl-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .template-item .tpl-desc {
+            font-size: 10px;
+            color: #8e8e93;
+        }
 
         .preview-bar {
             position: relative;
@@ -468,11 +624,13 @@
             margin: 8px 0 4px;
             background: #f5f5f5;
         }
+
         .preview-bar .segment {
             display: inline-block;
             height: 100%;
-            border-right: 0.5px solid rgba(0,0,0,0.05);
+            border-right: 0.5px solid rgba(0, 0, 0, 0.05);
         }
+
         .preview-ruler {
             display: flex;
             justify-content: space-between;
@@ -480,6 +638,7 @@
             color: #b0b0b0;
             padding: 0 2px;
         }
+
         .preview-legend {
             display: flex;
             gap: 12px;
@@ -488,6 +647,7 @@
             color: #8e8e93;
             margin: 6px 0;
         }
+
         .preview-legend .dot {
             display: inline-block;
             width: 12px;
@@ -496,9 +656,18 @@
             margin-right: 4px;
             vertical-align: middle;
         }
-        .dot-lv1 { background: #4caf50; }
-        .dot-lv2 { background: #ff9800; }
-        .dot-lv3 { background: #7c4dff; }
+
+        .dot-lv1 {
+            background: #4caf50;
+        }
+
+        .dot-lv2 {
+            background: #ff9800;
+        }
+
+        .dot-lv3 {
+            background: #7c4dff;
+        }
 
         .time-slot-list {
             display: flex;
@@ -507,6 +676,7 @@
             max-height: 300px;
             overflow-y: auto;
         }
+
         .time-slot-row {
             display: grid;
             grid-template-columns: 16px 80px 1fr auto;
@@ -518,17 +688,37 @@
             font-size: 11px;
             border: 0.5px solid #f0f0f0;
         }
-        .time-slot-level { width: 12px; height: 12px; border-radius: 3px; }
-        .time-slot-range { color: #8e8e93; }
-        .time-slot-label { color: #1a1a1a; }
-        .lv1-badge { color: #4caf50; }
-        .lv2-badge { color: #ff9800; }
-        .lv3-badge { color: #7c4dff; }
+
+        .time-slot-level {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .time-slot-range {
+            color: #8e8e93;
+        }
+
+        .time-slot-label {
+            color: #1a1a1a;
+        }
+
+        .lv1-badge {
+            color: #4caf50;
+        }
+
+        .lv2-badge {
+            color: #ff9800;
+        }
+
+        .lv3-badge {
+            color: #7c4dff;
+        }
 
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             display: none;
@@ -537,18 +727,38 @@
             z-index: 1000;
             padding: 20px;
         }
-        .modal-overlay.show { display: flex; }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
         .modal {
             background: #ffffff;
             border-radius: 14px;
             padding: 24px;
             width: 90%;
             max-width: 360px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
-        .modal h3 { font-size: 16px; margin-bottom: 8px; color: #1a1a1a; }
-        .modal p { font-size: 13px; color: #8e8e93; margin-bottom: 16px; line-height: 1.5; }
-        .modal-actions { display: flex; gap: 10px; }
+
+        .modal h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .modal p {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
         .modal-actions .btn {
             flex: 1;
             padding: 10px;
@@ -559,17 +769,31 @@
             cursor: pointer;
             font-family: inherit;
         }
-        .btn-cancel { background: #f5f5f5; color: #666; }
-        .btn-cancel:active { background: #e8e8e8; }
-        .btn-primary { background: #3a7bd5; color: #fff; }
-        .btn-primary:active { background: #2b5ca8; }
+
+        .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .btn-cancel:active {
+            background: #e8e8e8;
+        }
+
+        .btn-primary {
+            background: #3a7bd5;
+            color: #fff;
+        }
+
+        .btn-primary:active {
+            background: #2b5ca8;
+        }
 
         .toast {
             position: fixed;
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.75);
+            background: rgba(0, 0, 0, 0.75);
             color: #fff;
             padding: 8px 20px;
             border-radius: 20px;
@@ -580,7 +804,10 @@
             pointer-events: none;
             font-family: -apple-system, "PingFang SC", sans-serif;
         }
-        .toast.show { opacity: 1; }
+
+        .toast.show {
+            opacity: 1;
+        }
 
         .bottom-safe {
             height: 20px;
@@ -589,690 +816,748 @@
         }
 
         @media (max-width: 480px) {
-            .form-row { grid-template-columns: 1fr; }
-            .template-list { grid-template-columns: 1fr; }
-            .schedule-week { gap: 3px; }
-            .schedule-cell { min-height: 44px; font-size: 9px; }
-            .slot-card .slot-avatar { width: 40px; height: 40px; font-size: 18px; }
-            .nav-header .title { font-size: 15px; }
-            .nav-header .last-refresh { display: none; }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .template-list {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-week {
+                gap: 3px;
+            }
+
+            .schedule-cell {
+                min-height: 44px;
+                font-size: 9px;
+            }
+
+            .slot-card .slot-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .nav-header .title {
+                font-size: 15px;
+            }
+
+            .nav-header .last-refresh {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="app">
-    <!-- ===== 顶部导航（只读模式 + 刷新按钮） ===== -->
-    <div class="nav-header">
-        <button class="back-btn" id="backBtn">‹</button>
-        <div class="title">📖 人设查看器</div>
-        <div class="header-right">
-            <span class="last-refresh" id="lastRefreshTime"></span>
-            <button class="refresh-btn" id="refreshBtn" onclick="refreshData()">🔄 刷新</button>
-            <span class="readonly-badge">🔒 只读</span>
-        </div>
-    </div>
-
-    <!-- ===== 卡位选择器 ===== -->
-    <div class="slot-selector" id="slotSelector"></div>
-
-    <!-- ===== 主内容 ===== -->
-    <div class="main-content" id="mainContent">
-        <div class="tabs" id="tabHeaders">
-            <button class="tab-btn active" data-tab="basic">基础</button>
-            <button class="tab-btn" data-tab="schedule">排班</button>
-            <button class="tab-btn" data-tab="keywords">关键词</button>
-            <button class="tab-btn" data-tab="system">系统</button>
-        </div>
-
-        <!-- ===== 基础信息 ===== -->
-        <div class="tab-content active" id="tab-basic">
-            <div class="section-title">基础档案</div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>姓名</label>
-                    <input type="text" id="f-name" placeholder="姓名" disabled>
-                </div>
-                <div class="form-group">
-                    <label>性别</label>
-                    <select id="f-gender" disabled>
-                        <option value="女">女</option>
-                        <option value="男">男</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>生日</label>
-                    <input type="date" id="f-birthday" disabled>
-                </div>
-                <div class="form-group">
-                    <label>身高 (cm)</label>
-                    <input type="number" id="f-height" placeholder="160" disabled>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>体重 (kg)</label>
-                    <input type="number" id="f-weight" placeholder="50" disabled>
-                </div>
-                <div class="form-group">
-                    <label>三围</label>
-                    <input type="text" id="f-bust" placeholder="84-60-88" disabled>
-                </div>
-            </div>
-
-            <div class="section-title">性格与风格</div>
-            <div class="form-group">
-                <label>性格标签</label>
-                <input type="text" id="f-tags" placeholder="温柔,活泼,可爱" disabled>
-            </div>
-            <div class="form-group">
-                <label>穿衣风格</label>
-                <input type="text" id="f-style" placeholder="JK制服,连衣裙" disabled>
-            </div>
-            <div class="form-group">
-                <label>爱好 / 习惯</label>
-                <textarea id="f-habits" rows="2" placeholder="日常习惯、爱好..." disabled></textarea>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>对用户称呼</label>
-                    <input type="text" id="f-call_user" placeholder="宝贝" disabled>
-                </div>
-                <div class="form-group">
-                    <label>自称</label>
-                    <input type="text" id="f-self_call" placeholder="我" disabled>
-                </div>
-            </div>
-
-            <div class="section-title">工作信息</div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>职业</label>
-                    <input type="text" id="f-position" placeholder="儿科护士" disabled>
-                </div>
-                <div class="form-group">
-                    <label>工作地点</label>
-                    <input type="text" id="f-workplace" placeholder="舒心市综合人民医院" disabled>
-                </div>
+    <div class="app">
+        <!-- ===== 顶部导航（只读模式 + 刷新按钮） ===== -->
+        <div class="nav-header">
+            <button class="back-btn" id="backBtn">‹</button>
+            <div class="title">📖 人设查看器</div>
+            <div class="header-right">
+                <span class="last-refresh" id="lastRefreshTime"></span>
+                <button class="refresh-btn" id="refreshBtn" onclick="refreshData()">🔄 刷新</button>
+                <span class="readonly-badge">🔒 只读</span>
             </div>
         </div>
 
-        <!-- ===== 排班设置（只读） ===== -->
-        <div class="tab-content" id="tab-schedule">
-            <div class="section-title">📋 排班模板</div>
-            <div class="template-list" id="templateList"></div>
+        <!-- ===== 卡位选择器 ===== -->
+        <div class="slot-selector" id="slotSelector"></div>
 
-            <div class="section-title">📅 本周排班</div>
-            <div class="schedule-toolbar">
-                <!-- 所有按钮已隐藏 -->
+        <!-- ===== 主内容 ===== -->
+        <div class="main-content" id="mainContent">
+            <div class="tabs" id="tabHeaders">
+                <button class="tab-btn active" data-tab="basic">基础</button>
+                <button class="tab-btn" data-tab="schedule">排班</button>
+                <button class="tab-btn" data-tab="keywords">关键词</button>
+                <button class="tab-btn" data-tab="system">系统</button>
             </div>
-            <div class="schedule-week" id="scheduleWeek"></div>
 
-            <div class="section-title">🧐 排班合理性检查</div>
-            <button onclick="runScheduleValidator()" style="padding:6px 14px;background:#6c5ce7;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:12px;">🔍 开始检查</button>
-            <div id="validatorResult" style="margin-top:8px;"></div>
-
-            <div class="section-title">🗓️ 今日时间预览</div>
-            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;" id="weekdayToggles">
-                <button class="wk-btn active" data-d="0" onclick="selectWeekday(0)">一</button>
-                <button class="wk-btn" data-d="1" onclick="selectWeekday(1)">二</button>
-                <button class="wk-btn" data-d="2" onclick="selectWeekday(2)">三</button>
-                <button class="wk-btn" data-d="3" onclick="selectWeekday(3)">四</button>
-                <button class="wk-btn" data-d="4" onclick="selectWeekday(4)">五</button>
-                <button class="wk-btn" data-d="5" onclick="selectWeekday(5)">六</button>
-                <button class="wk-btn" data-d="6" onclick="selectWeekday(6)">日</button>
-            </div>
-            <div style="display:flex;gap:6px;margin-bottom:6px;">
-                <input type="time" id="previewSimTime" value="09:00" style="flex:1;padding:4px 8px;border:0.5px solid #d9d9d9;border-radius:6px;font-size:12px;">
-                <button onclick="renderRhythmPreview()" style="padding:4px 12px;background:#3a7bd5;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;">查看</button>
-            </div>
-            <div id="previewSimResult" style="margin-bottom:6px;"></div>
-            <div class="preview-bar" id="previewTimeBar"></div>
-            <div class="preview-ruler">
-                <span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>24</span>
-            </div>
-            <div class="preview-legend">
-                <span><span class="dot dot-lv1"></span>挡1 · 正常</span>
-                <span><span class="dot dot-lv2"></span>挡2 · 回复慢</span>
-                <span><span class="dot dot-lv3"></span>挡3 · 不回复</span>
-            </div>
-            <div class="time-slot-list" id="previewTimeSlotList"></div>
-        </div>
-
-        <!-- ===== 关键词触发（只读） ===== -->
-        <div class="tab-content" id="tab-keywords">
-            <!-- 普通照片 -->
-            <div class="keyword-group">
-                <div class="keyword-header">
-                    <div class="keyword-title">📷 普通照片 <span class="badge normal">work</span></div>
-                    <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="normalPhoto" min="0.05" max="1.0" step="0.05" value="0.5" disabled>
-                        <span class="prob-label" id="plabel-normalPhoto">50%</span>
+            <!-- ===== 基础信息 ===== -->
+            <div class="tab-content active" id="tab-basic">
+                <div class="section-title">基础档案</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>姓名</label>
+                        <input type="text" id="f-name" placeholder="姓名" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select id="f-gender" disabled>
+                            <option value="女">女</option>
+                            <option value="男">男</option>
+                        </select>
                     </div>
                 </div>
-                <div class="keyword-inputs" id="kw-normalPhoto"></div>
-                <div class="keyword-input-add">
-                    <!-- 隐藏添加按钮 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>生日</label>
+                        <input type="date" id="f-birthday" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>身高 (cm)</label>
+                        <input type="number" id="f-height" placeholder="160" disabled>
+                    </div>
                 </div>
-                <div class="keyword-stats">
-                    <div class="stat-item"><div class="stat-value" id="count-normalPhoto">0</div><div class="stat-label">关键词数</div></div>
-                    <div class="stat-item"><div class="stat-value" id="prob-normalPhoto">50%</div><div class="stat-label">触发概率</div></div>
-                    <div class="stat-item"><div class="stat-value">120s</div><div class="stat-label">冷却</div></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>体重 (kg)</label>
+                        <input type="number" id="f-weight" placeholder="50" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>三围</label>
+                        <input type="text" id="f-bust" placeholder="84-60-88" disabled>
+                    </div>
+                </div>
+
+                <div class="section-title">性格与风格</div>
+                <div class="form-group">
+                    <label>性格标签</label>
+                    <input type="text" id="f-tags" placeholder="温柔,活泼,可爱" disabled>
+                </div>
+                <div class="form-group">
+                    <label>穿衣风格</label>
+                    <input type="text" id="f-style" placeholder="JK制服,连衣裙" disabled>
+                </div>
+                <div class="form-group">
+                    <label>爱好 / 习惯</label>
+                    <textarea id="f-habits" rows="2" placeholder="日常习惯、爱好..." disabled></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>对用户称呼</label>
+                        <input type="text" id="f-call_user" placeholder="宝贝" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>自称</label>
+                        <input type="text" id="f-self_call" placeholder="我" disabled>
+                    </div>
+                </div>
+
+                <div class="section-title">工作信息</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>职业</label>
+                        <input type="text" id="f-position" placeholder="儿科护士" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>工作地点</label>
+                        <input type="text" id="f-workplace" placeholder="舒心市综合人民医院" disabled>
+                    </div>
                 </div>
             </div>
 
-            <!-- 普通语音 -->
-            <div class="keyword-group">
-                <div class="keyword-header">
-                    <div class="keyword-title">🔊 普通语音 <span class="badge normal">TTS</span></div>
-                    <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="normalAudio" min="0.05" max="1.0" step="0.05" value="0.5" disabled>
-                        <span class="prob-label" id="plabel-normalAudio">50%</span>
-                    </div>
+            <!-- ===== 排班设置（只读） ===== -->
+            <div class="tab-content" id="tab-schedule">
+                <div class="section-title">📋 排班模板</div>
+                <div class="template-list" id="templateList"></div>
+
+                <div class="section-title">📅 本周排班</div>
+                <div class="schedule-toolbar">
+                    <!-- 所有按钮已隐藏 -->
                 </div>
-                <div class="keyword-inputs" id="kw-normalAudio"></div>
-                <div class="keyword-input-add">
-                    <!-- 隐藏添加按钮 -->
+                <div class="schedule-week" id="scheduleWeek"></div>
+
+                <div class="section-title">🧐 排班合理性检查</div>
+                <button onclick="runScheduleValidator()"
+                    style="padding:6px 14px;background:#6c5ce7;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:12px;">🔍
+                    开始检查</button>
+                <div id="validatorResult" style="margin-top:8px;"></div>
+
+                <div class="section-title">🗓️ 今日时间预览</div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;" id="weekdayToggles">
+                    <button class="wk-btn active" data-d="0" onclick="selectWeekday(0)">一</button>
+                    <button class="wk-btn" data-d="1" onclick="selectWeekday(1)">二</button>
+                    <button class="wk-btn" data-d="2" onclick="selectWeekday(2)">三</button>
+                    <button class="wk-btn" data-d="3" onclick="selectWeekday(3)">四</button>
+                    <button class="wk-btn" data-d="4" onclick="selectWeekday(4)">五</button>
+                    <button class="wk-btn" data-d="5" onclick="selectWeekday(5)">六</button>
+                    <button class="wk-btn" data-d="6" onclick="selectWeekday(6)">日</button>
                 </div>
-                <div class="keyword-stats">
-                    <div class="stat-item"><div class="stat-value" id="count-normalAudio">0</div><div class="stat-label">关键词数</div></div>
-                    <div class="stat-item"><div class="stat-value" id="prob-normalAudio">50%</div><div class="stat-label">触发概率</div></div>
-                    <div class="stat-item"><div class="stat-value">30s</div><div class="stat-label">冷却</div></div>
+                <div style="display:flex;gap:6px;margin-bottom:6px;">
+                    <input type="time" id="previewSimTime" value="09:00"
+                        style="flex:1;padding:4px 8px;border:0.5px solid #d9d9d9;border-radius:6px;font-size:12px;">
+                    <button onclick="renderRhythmPreview()"
+                        style="padding:4px 12px;background:#3a7bd5;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;">查看</button>
                 </div>
+                <div id="previewSimResult" style="margin-bottom:6px;"></div>
+                <div class="preview-bar" id="previewTimeBar"></div>
+                <div class="preview-ruler">
+                    <span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>24</span>
+                </div>
+                <div class="preview-legend">
+                    <span><span class="dot dot-lv1"></span>挡1 · 正常</span>
+                    <span><span class="dot dot-lv2"></span>挡2 · 回复慢</span>
+                    <span><span class="dot dot-lv3"></span>挡3 · 不回复</span>
+                </div>
+                <div class="time-slot-list" id="previewTimeSlotList"></div>
             </div>
 
-            <!-- 隐藏照片 -->
-            <div class="keyword-group">
-                <div class="keyword-header">
-                    <div class="keyword-title">🔒 隐藏照片 <span class="badge hidden">private</span></div>
-                    <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="hiddenPhoto" min="0.05" max="1.0" step="0.05" value="0.3" disabled>
-                        <span class="prob-label" id="plabel-hiddenPhoto">30%</span>
-                    </div>
-                </div>
-                <div class="keyword-inputs" id="kw-hiddenPhoto"></div>
-                <div class="keyword-input-add">
-                    <!-- 隐藏添加按钮 -->
-                </div>
-                <div class="keyword-stats">
-                    <div class="stat-item"><div class="stat-value" id="count-hiddenPhoto">0</div><div class="stat-label">关键词数</div></div>
-                    <div class="stat-item"><div class="stat-value" id="prob-hiddenPhoto">30%</div><div class="stat-label">触发概率</div></div>
-                    <div class="stat-item"><div class="stat-value">3h</div><div class="stat-label">冷却</div></div>
-                </div>
-
-                <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid #e8e8e8;">
-                    <div style="font-size:12px;font-weight:600;color:#7c4dff;margin-bottom:6px;">🔑 解锁方式</div>
-                    <div class="switch-row">
-                        <div>
-                            <div class="switch-label">💯 分值解锁</div>
-                            <div class="switch-desc">评分 ≥ 5 自动解锁</div>
+            <!-- ===== 关键词触发（只读） ===== -->
+            <div class="tab-content" id="tab-keywords">
+                <!-- 普通照片 -->
+                <div class="keyword-group">
+                    <div class="keyword-header">
+                        <div class="keyword-title">📷 普通照片 <span class="badge normal">work</span></div>
+                        <div class="prob-slider-wrap">
+                            <input type="range" class="prob-slider" data-key="normalPhoto" min="0.05" max="1.0"
+                                step="0.05" value="0.5" disabled>
+                            <span class="prob-label" id="plabel-normalPhoto">50%</span>
                         </div>
-                        <div class="switch on" id="sw-scoreUnlock" onclick="return false;"></div>
                     </div>
-                    <div class="switch-row">
-                        <div>
-                            <div class="switch-label">🧿 解锁词触发</div>
-                            <div class="switch-desc">发送暗号词触发</div>
-                        </div>
-                        <div class="switch on" id="sw-wordUnlock" onclick="return false;"></div>
-                    </div>
-                    <div class="keyword-inputs" id="kw-unlockWords" style="margin-top:6px;"></div>
+                    <div class="keyword-inputs" id="kw-normalPhoto"></div>
                     <div class="keyword-input-add">
                         <!-- 隐藏添加按钮 -->
                     </div>
+                    <div class="keyword-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="count-normalPhoto">0</div>
+                            <div class="stat-label">关键词数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="prob-normalPhoto">50%</div>
+                            <div class="stat-label">触发概率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">120s</div>
+                            <div class="stat-label">冷却</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 普通语音 -->
+                <div class="keyword-group">
+                    <div class="keyword-header">
+                        <div class="keyword-title">🔊 普通语音 <span class="badge normal">TTS</span></div>
+                        <div class="prob-slider-wrap">
+                            <input type="range" class="prob-slider" data-key="normalAudio" min="0.05" max="1.0"
+                                step="0.05" value="0.5" disabled>
+                            <span class="prob-label" id="plabel-normalAudio">50%</span>
+                        </div>
+                    </div>
+                    <div class="keyword-inputs" id="kw-normalAudio"></div>
+                    <div class="keyword-input-add">
+                        <!-- 隐藏添加按钮 -->
+                    </div>
+                    <div class="keyword-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="count-normalAudio">0</div>
+                            <div class="stat-label">关键词数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="prob-normalAudio">50%</div>
+                            <div class="stat-label">触发概率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">30s</div>
+                            <div class="stat-label">冷却</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 隐藏照片 -->
+                <div class="keyword-group">
+                    <div class="keyword-header">
+                        <div class="keyword-title">🔒 隐藏照片 <span class="badge hidden">private</span></div>
+                        <div class="prob-slider-wrap">
+                            <input type="range" class="prob-slider" data-key="hiddenPhoto" min="0.05" max="1.0"
+                                step="0.05" value="0.3" disabled>
+                            <span class="prob-label" id="plabel-hiddenPhoto">30%</span>
+                        </div>
+                    </div>
+                    <div class="keyword-inputs" id="kw-hiddenPhoto"></div>
+                    <div class="keyword-input-add">
+                        <!-- 隐藏添加按钮 -->
+                    </div>
+                    <div class="keyword-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="count-hiddenPhoto">0</div>
+                            <div class="stat-label">关键词数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="prob-hiddenPhoto">30%</div>
+                            <div class="stat-label">触发概率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">3h</div>
+                            <div class="stat-label">冷却</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid #e8e8e8;">
+                        <div style="font-size:12px;font-weight:600;color:#7c4dff;margin-bottom:6px;">🔑 解锁方式</div>
+                        <div class="switch-row">
+                            <div>
+                                <div class="switch-label">💯 分值解锁</div>
+                                <div class="switch-desc">评分 ≥ 5 自动解锁</div>
+                            </div>
+                            <div class="switch on" id="sw-scoreUnlock" onclick="return false;"></div>
+                        </div>
+                        <div class="switch-row">
+                            <div>
+                                <div class="switch-label">🧿 解锁词触发</div>
+                                <div class="switch-desc">发送暗号词触发</div>
+                            </div>
+                            <div class="switch on" id="sw-wordUnlock" onclick="return false;"></div>
+                        </div>
+                        <div class="keyword-inputs" id="kw-unlockWords" style="margin-top:6px;"></div>
+                        <div class="keyword-input-add">
+                            <!-- 隐藏添加按钮 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== 系统提示（只读） ===== -->
+            <div class="tab-content" id="tab-system">
+                <div class="section-title">System Prompt</div>
+                <div class="form-group">
+                    <textarea id="f-systemPrompt" rows="8" placeholder="编辑 AI 的人设指令..." disabled></textarea>
+                </div>
+
+                <div class="section-title">🎙️ 音色设置</div>
+                <div class="form-group">
+                    <label>TTS 音色</label>
+                    <select id="f-voice" disabled>
+                        <option value="Cherry">Cherry（芊悦·阳光）</option>
+                        <option value="Serena">Serena（苏瑶·温柔）</option>
+                        <option value="Momo">Momo（茉兔·撒娇）</option>
+                        <option value="Vivian">Vivian（十三·酷酷）</option>
+                        <option value="Ethan">Ethan（晨煦·男声）</option>
+                    </select>
+                </div>
+
+                <div class="section-title">💕 告白规则</div>
+                <div class="switch-row">
+                    <div>
+                        <div class="switch-label">启用告白场景</div>
+                        <div class="switch-desc">发送"我爱你"等触发特殊回复</div>
+                    </div>
+                    <div class="switch on" id="sw-confession" onclick="return false;"></div>
+                </div>
+                <div class="form-group" style="margin-top:8px;">
+                    <label>告白触发词</label>
+                    <input type="text" id="f-confessionWords" placeholder="我爱你,好爱你,真的爱你" disabled>
                 </div>
             </div>
         </div>
 
-        <!-- ===== 系统提示（只读） ===== -->
-        <div class="tab-content" id="tab-system">
-            <div class="section-title">System Prompt</div>
-            <div class="form-group">
-                <textarea id="f-systemPrompt" rows="8" placeholder="编辑 AI 的人设指令..." disabled></textarea>
-            </div>
+        <div class="bottom-safe"></div>
+    </div>
 
-            <div class="section-title">🎙️ 音色设置</div>
-            <div class="form-group">
-                <label>TTS 音色</label>
-                <select id="f-voice" disabled>
-                    <option value="Cherry">Cherry（芊悦·阳光）</option>
-                    <option value="Serena">Serena（苏瑶·温柔）</option>
-                    <option value="Momo">Momo（茉兔·撒娇）</option>
-                    <option value="Vivian">Vivian（十三·酷酷）</option>
-                    <option value="Ethan">Ethan（晨煦·男声）</option>
-                </select>
-            </div>
+    <!-- Toast -->
+    <div class="toast" id="toast">只读模式</div>
 
-            <div class="section-title">💕 告白规则</div>
-            <div class="switch-row">
-                <div>
-                    <div class="switch-label">启用告白场景</div>
-                    <div class="switch-desc">发送"我爱你"等触发特殊回复</div>
-                </div>
-                <div class="switch on" id="sw-confession" onclick="return false;"></div>
-            </div>
-            <div class="form-group" style="margin-top:8px;">
-                <label>告白触发词</label>
-                <input type="text" id="f-confessionWords" placeholder="我爱你,好爱你,真的爱你" disabled>
+    <!-- 确认模态框 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h3 id="modalTitle">提示</h3>
+            <p id="modalText">当前为只读模式，不可编辑</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeModal()">确定</button>
             </div>
         </div>
     </div>
 
-    <div class="bottom-safe"></div>
-</div>
+    <script>
+        // ================================================================
+        //  人设查看器 · dev.html（只读模式 + 手动刷新）
+        //  ✅ 只从 profile.json 读取，不用 localStorage
+        //  ❌ 禁止所有编辑功能
+        //  ✅ 点击「刷新」按钮重新加载
+        //  ✅ 快捷键 Ctrl+R 刷新
+        // ================================================================
 
-<!-- Toast -->
-<div class="toast" id="toast">只读模式</div>
-
-<!-- 确认模态框 -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-        <h3 id="modalTitle">提示</h3>
-        <p id="modalText">当前为只读模式，不可编辑</p>
-        <div class="modal-actions">
-            <button class="btn btn-primary" onclick="closeModal()">确定</button>
-        </div>
-    </div>
-</div>
-
-<script>
-// ================================================================
-//  人设查看器 · dev.html（只读模式 + 手动刷新）
-//  ✅ 只从 profile.json 读取，不用 localStorage
-//  ❌ 禁止所有编辑功能
-//  ✅ 点击「刷新」按钮重新加载
-//  ✅ 快捷键 Ctrl+R 刷新
-// ================================================================
-
-// ===== 1. 返回逻辑 =====
-function goBack() {
-    if (window.history.length > 1) {
-        window.history.back();
-    } else {
-        location.href = 'index.html#me';
-    }
-}
-
-// ===== 2. 卡位信息 =====
-const SLOTS = ['a', 'b', 'c', 'd'];
-const SLOT_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
-const SLOT_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
-
-let currentSlot = 'a';
-let currentData = null;
-let isRefreshing = false;
-
-// ===== 3. 获取头像路径 =====
-function getAvatarPath(slot) {
-    return './' + slot + '/img/other/avatar.jpg';
-}
-
-// ===== 4. 默认排班 =====
-function getDefaultSchedule() {
-    return [
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' },
-        { type: 'off', name: '休息', time: '——' }
-    ];
-}
-
-// ===== 5. 默认 Profile =====
-function getDefaultProfile(slot) {
-    const name = SLOT_NAMES[slot] || '未知';
-    return {
-        slot: slot,
-        basic: { name: name, gender: '女', birthday: '2000-01-01', height: 160, weight: 50, bust: '' },
-        personality: { tags: [], style_detail: '', call_user: '宝贝', self_call: '我' },
-        life: { habits: '' },
-        work: { workplace: '', position: '', weekly_schedule: getDefaultSchedule() },
-        keyword_triggers: {
-            normal_photo: [{ keywords: [], probability: 0.5 }],
-            normal_audio: { keywords: [], probability: 0.5 },
-            hidden_photo: [{ keywords: [], probability: 0.3 }]
-        },
-        scoring: { enable: true },
-        unlock_config: { enable: true, words: ['你方便吗', '自己在家', '我好孤独'] },
-        special_rules: { confession: { enable: true, keywords: ['我爱你'] } },
-        systemPrompt: '',
-        voice: 'Cherry'
-    };
-}
-
-// ===== 6. 加载人设（只从 profile.json） =====
-async function loadProfile(slot) {
-    currentSlot = slot;
-
-    try {
-        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
-        if (resp.ok) {
-            currentData = await resp.json();
-            if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
-                const ws = currentData.work.weekly_schedule;
-                const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
+        // ===== 1. 返回逻辑 =====
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                location.href = 'index.html#me';
             }
-            console.log('[dev] ✅ 从 profile.json 加载:', slot);
-            fillForm(currentData);
-            renderAll();
-            updateRefreshTime();
-            return;
-        } else {
-            console.warn('[dev] fetch ' + slot + ' 失败: HTTP ' + resp.status);
         }
-    } catch (e) {
-        console.warn('[dev] fetch ' + slot + ' 异常:', e);
-    }
 
-    currentData = getDefaultProfile(slot);
-    console.log('[dev] ⚠️ 使用默认模板:', slot);
-    fillForm(currentData);
-    renderAll();
-}
+        // ===== 2. 卡位信息 =====
+        const SLOTS = ['a', 'b', 'c', 'd'];
+        const SLOT_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
+        const SLOT_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
 
-// ===== 7. 刷新数据（手动触发） =====
-async function refreshData() {
-    if (isRefreshing) return;
-    isRefreshing = true;
+        let currentSlot = 'a';
+        let currentData = null;
+        let isRefreshing = false;
 
-    const btn = document.getElementById('refreshBtn');
-    btn.textContent = '⏳ 刷新中';
-    btn.classList.add('refreshing');
+        // ===== 3. 获取头像路径 =====
+        function getAvatarPath(slot) {
+            return './' + slot + '/img/other/avatar.jpg';
+        }
 
-    try {
-        const slot = currentSlot;
-        const name = SLOT_NAMES[slot];
-        showToast('🔄 正在刷新 ' + name + '...');
+        // ===== 4. 默认排班 =====
+        function getDefaultSchedule() {
+            return [
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' },
+                { type: 'off', name: '休息', time: '——' }
+            ];
+        }
 
-        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
-        if (resp.ok) {
-            currentData = await resp.json();
+        // ===== 5. 默认 Profile =====
+        function getDefaultProfile(slot) {
+            const name = SLOT_NAMES[slot] || '未知';
+            return {
+                slot: slot,
+                basic: { name: name, gender: '女', birthday: '2000-01-01', height: 160, weight: 50, bust: '' },
+                personality: { tags: [], style_detail: '', call_user: '宝贝', self_call: '我' },
+                life: { habits: '' },
+                work: { workplace: '', position: '', weekly_schedule: getDefaultSchedule() },
+                keyword_triggers: {
+                    normal_photo: [{ keywords: [], probability: 0.5 }],
+                    normal_audio: { keywords: [], probability: 0.5 },
+                    hidden_photo: [{ keywords: [], probability: 0.3 }]
+                },
+                scoring: { enable: true },
+                unlock_config: { enable: true, words: ['你方便吗', '自己在家', '我好孤独'] },
+                special_rules: { confession: { enable: true, keywords: ['我爱你'] } },
+                systemPrompt: '',
+                voice: 'Cherry'
+            };
+        }
 
-            if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
-                const ws = currentData.work.weekly_schedule;
-                const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
+        // ===== 6. 加载人设（只从 profile.json） =====
+        async function loadProfile(slot) {
+            currentSlot = slot;
+
+            try {
+                const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+                if (resp.ok) {
+                    currentData = await resp.json();
+                    if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
+                        const ws = currentData.work.weekly_schedule;
+                        const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                        currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
+                    }
+                    console.log('[dev] ✅ 从 profile.json 加载:', slot);
+                    fillForm(currentData);
+                    renderAll();
+                    updateRefreshTime();
+                    return;
+                } else {
+                    console.warn('[dev] fetch ' + slot + ' 失败: HTTP ' + resp.status);
+                }
+            } catch (e) {
+                console.warn('[dev] fetch ' + slot + ' 异常:', e);
             }
 
+            currentData = getDefaultProfile(slot);
+            console.log('[dev] ⚠️ 使用默认模板:', slot);
             fillForm(currentData);
             renderAll();
-            updateRefreshTime();
-
-            showToast('✅ ' + name + ' 已刷新');
-            console.log('[dev] ✅ 手动刷新成功:', slot);
-        } else {
-            showToast('❌ 刷新失败: HTTP ' + resp.status);
-            console.warn('[dev] 刷新失败:', resp.status);
         }
-    } catch (e) {
-        showToast('❌ 刷新失败: ' + e.message);
-        console.warn('[dev] 刷新异常:', e);
-    }
 
-    isRefreshing = false;
-    btn.textContent = '🔄 刷新';
-    btn.classList.remove('refreshing');
-}
+        // ===== 7. 刷新数据（手动触发） =====
+        async function refreshData() {
+            if (isRefreshing) return;
+            isRefreshing = true;
 
-// ===== 8. 更新刷新时间 =====
-function updateRefreshTime() {
-    const el = document.getElementById('lastRefreshTime');
-    if (el) {
-        const now = new Date();
-        el.textContent = '🕐 ' + now.toLocaleTimeString('zh-CN', { hour12: false });
-    }
-}
+            const btn = document.getElementById('refreshBtn');
+            btn.textContent = '⏳ 刷新中';
+            btn.classList.add('refreshing');
 
-// ===== 9. 填充表单（只读） =====
-function fillForm(data) {
-    if (!data) return;
-    const b = data.basic || {};
-    const p = data.personality || {};
-    const l = data.life || {};
-    const w = data.work || {};
+            try {
+                const slot = currentSlot;
+                const name = SLOT_NAMES[slot];
+                showToast('🔄 正在刷新 ' + name + '...');
 
-    document.getElementById('f-name').value = b.name || '';
-    document.getElementById('f-gender').value = b.gender || '女';
-    document.getElementById('f-birthday').value = b.birthday || '';
-    document.getElementById('f-height').value = b.height || '';
-    document.getElementById('f-weight').value = b.weight || '';
-    document.getElementById('f-bust').value = b.bust || '';
+                const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+                if (resp.ok) {
+                    currentData = await resp.json();
 
-    document.getElementById('f-tags').value = (p.tags || []).join(', ');
-    document.getElementById('f-style').value = p.style_detail || '';
-    document.getElementById('f-call_user').value = p.call_user || '宝贝';
-    document.getElementById('f-self_call').value = p.self_call || '我';
-    document.getElementById('f-habits').value = l.habits || '';
+                    if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
+                        const ws = currentData.work.weekly_schedule;
+                        const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                        currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
+                    }
 
-    document.getElementById('f-position').value = w.position || '';
-    document.getElementById('f-workplace').value = w.workplace || '';
+                    fillForm(currentData);
+                    renderAll();
+                    updateRefreshTime();
 
-    document.getElementById('f-systemPrompt').value = data.systemPrompt || '';
-    document.getElementById('f-voice').value = data.voice || 'Cherry';
+                    showToast('✅ ' + name + ' 已刷新');
+                    console.log('[dev] ✅ 手动刷新成功:', slot);
+                } else {
+                    showToast('❌ 刷新失败: HTTP ' + resp.status);
+                    console.warn('[dev] 刷新失败:', resp.status);
+                }
+            } catch (e) {
+                showToast('❌ 刷新失败: ' + e.message);
+                console.warn('[dev] 刷新异常:', e);
+            }
 
-    const confession = data.special_rules?.confession || {};
-    document.getElementById('f-confessionWords').value = (confession.keywords || []).join(',');
-    document.getElementById('sw-confession').className = 'switch' + (confession.enable !== false ? ' on' : '');
-    document.getElementById('sw-scoreUnlock').className = 'switch' + (data.scoring?.enable !== false ? ' on' : '');
-    document.getElementById('sw-wordUnlock').className = 'switch' + (data.unlock_config?.enable !== false ? ' on' : '');
-}
+            isRefreshing = false;
+            btn.textContent = '🔄 刷新';
+            btn.classList.remove('refreshing');
+        }
 
-// ===== 10. 渲染卡位选择器 =====
-function renderSlotSelector() {
-    const container = document.getElementById('slotSelector');
-    container.innerHTML = '';
-    SLOTS.forEach(slot => {
-        const name = SLOT_NAMES[slot];
-        const emoji = SLOT_EMOJI[slot];
-        const avatarPath = getAvatarPath(slot);
-        const active = slot === currentSlot ? 'active' : '';
-        const div = document.createElement('button');
-        div.className = 'slot-card ' + active;
-        div.dataset.slot = slot;
-        div.innerHTML = `
+        // ===== 8. 更新刷新时间 =====
+        function updateRefreshTime() {
+            const el = document.getElementById('lastRefreshTime');
+            if (el) {
+                const now = new Date();
+                el.textContent = '🕐 ' + now.toLocaleTimeString('zh-CN', { hour12: false });
+            }
+        }
+
+        // ===== 9. 填充表单（只读） =====
+        function fillForm(data) {
+            if (!data) return;
+            const b = data.basic || {};
+            const p = data.personality || {};
+            const l = data.life || {};
+            const w = data.work || {};
+
+            document.getElementById('f-name').value = b.name || '';
+            document.getElementById('f-gender').value = b.gender || '女';
+            document.getElementById('f-birthday').value = b.birthday || '';
+            document.getElementById('f-height').value = b.height || '';
+            document.getElementById('f-weight').value = b.weight || '';
+            document.getElementById('f-bust').value = b.bust || '';
+
+            document.getElementById('f-tags').value = (p.tags || []).join(', ');
+            document.getElementById('f-style').value = p.style_detail || '';
+            document.getElementById('f-call_user').value = p.call_user || '宝贝';
+            document.getElementById('f-self_call').value = p.self_call || '我';
+            document.getElementById('f-habits').value = l.habits || '';
+
+            document.getElementById('f-position').value = w.position || '';
+            document.getElementById('f-workplace').value = w.workplace || '';
+
+            document.getElementById('f-systemPrompt').value = data.systemPrompt || '';
+            document.getElementById('f-voice').value = data.voice || 'Cherry';
+
+            const confession = data.special_rules?.confession || {};
+            document.getElementById('f-confessionWords').value = (confession.keywords || []).join(',');
+            document.getElementById('sw-confession').className = 'switch' + (confession.enable !== false ? ' on' : '');
+            document.getElementById('sw-scoreUnlock').className = 'switch' + (data.scoring?.enable !== false ? ' on' : '');
+            document.getElementById('sw-wordUnlock').className = 'switch' + (data.unlock_config?.enable !== false ? ' on' : '');
+        }
+
+        // ===== 10. 渲染卡位选择器 =====
+        function renderSlotSelector() {
+            const container = document.getElementById('slotSelector');
+            container.innerHTML = '';
+            SLOTS.forEach(slot => {
+                const name = SLOT_NAMES[slot];
+                const emoji = SLOT_EMOJI[slot];
+                const avatarPath = getAvatarPath(slot);
+                const active = slot === currentSlot ? 'active' : '';
+                const div = document.createElement('button');
+                div.className = 'slot-card ' + active;
+                div.dataset.slot = slot;
+                div.innerHTML = `
             <div class="slot-avatar">
                 <img src="${avatarPath}" alt="${name}" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">
             </div>
             <span class="slot-name">${name}</span>
         `;
-        div.onclick = () => loadProfile(slot);
-        container.appendChild(div);
-    });
-}
+                div.onclick = () => loadProfile(slot);
+                container.appendChild(div);
+            });
+        }
 
-// ===== 11. 切换标签 =====
-function switchTab(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.toggle('active', el.dataset.tab === tabId);
-    });
-    document.querySelectorAll('.tab-content').forEach(el => {
-        el.classList.toggle('active', el.id === 'tab-' + tabId);
-    });
-}
+        // ===== 11. 切换标签 =====
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tabId);
+            });
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.toggle('active', el.id === 'tab-' + tabId);
+            });
+        }
 
-// ===== 12. 关键词渲染（只读） =====
-function renderKeywords() {
-    if (!currentData) return;
-    const kt = currentData.keyword_triggers || {};
+        // ===== 12. 关键词渲染（只读） =====
+        function renderKeywords() {
+            if (!currentData) return;
+            const kt = currentData.keyword_triggers || {};
 
-    const np = kt.normal_photo?.[0] || { keywords: [], probability: 0.5 };
-    renderChips('kw-normalPhoto', np.keywords || []);
-    document.getElementById('count-normalPhoto').textContent = (np.keywords || []).length;
-    setProbSlider('normalPhoto', np.probability || 0.5);
+            const np = kt.normal_photo?.[0] || { keywords: [], probability: 0.5 };
+            renderChips('kw-normalPhoto', np.keywords || []);
+            document.getElementById('count-normalPhoto').textContent = (np.keywords || []).length;
+            setProbSlider('normalPhoto', np.probability || 0.5);
 
-    const na = kt.normal_audio || { keywords: [], probability: 0.5 };
-    renderChips('kw-normalAudio', na.keywords || []);
-    document.getElementById('count-normalAudio').textContent = (na.keywords || []).length;
-    setProbSlider('normalAudio', na.probability || 0.5);
+            const na = kt.normal_audio || { keywords: [], probability: 0.5 };
+            renderChips('kw-normalAudio', na.keywords || []);
+            document.getElementById('count-normalAudio').textContent = (na.keywords || []).length;
+            setProbSlider('normalAudio', na.probability || 0.5);
 
-    const hp = kt.hidden_photo?.[0] || { keywords: [], probability: 0.3 };
-    renderChips('kw-hiddenPhoto', hp.keywords || []);
-    document.getElementById('count-hiddenPhoto').textContent = (hp.keywords || []).length;
-    setProbSlider('hiddenPhoto', hp.probability || 0.3);
+            const hp = kt.hidden_photo?.[0] || { keywords: [], probability: 0.3 };
+            renderChips('kw-hiddenPhoto', hp.keywords || []);
+            document.getElementById('count-hiddenPhoto').textContent = (hp.keywords || []).length;
+            setProbSlider('hiddenPhoto', hp.probability || 0.3);
 
-    const uw = currentData.unlock_config?.words || [];
-    renderChips('kw-unlockWords', uw);
-}
+            const uw = currentData.unlock_config?.words || [];
+            renderChips('kw-unlockWords', uw);
+        }
 
-function renderChips(containerId, keywords) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = '';
-    if (!keywords || keywords.length === 0) {
-        container.innerHTML = '<span style="font-size:11px;color:#b0b0b0;">（暂无关键词）</span>';
-        return;
-    }
-    keywords.forEach((word) => {
-        const chip = document.createElement('span');
-        chip.className = 'keyword-chip';
-        chip.innerHTML = word + ' <span class="remove">×</span>';
-        container.appendChild(chip);
-    });
-}
+        function renderChips(containerId, keywords) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            if (!keywords || keywords.length === 0) {
+                container.innerHTML = '<span style="font-size:11px;color:#b0b0b0;">（暂无关键词）</span>';
+                return;
+            }
+            keywords.forEach((word) => {
+                const chip = document.createElement('span');
+                chip.className = 'keyword-chip';
+                chip.innerHTML = word + ' <span class="remove">×</span>';
+                container.appendChild(chip);
+            });
+        }
 
-function setProbSlider(key, value) {
-    const slider = document.querySelector('.prob-slider[data-key="' + key + '"]');
-    const label = document.getElementById('plabel-' + key);
-    const stat = document.getElementById('prob-' + key);
-    if (slider) slider.value = value;
-    const pct = Math.round(value * 100);
-    if (label) label.textContent = pct + '%';
-    if (stat) stat.textContent = pct + '%';
-}
+        function setProbSlider(key, value) {
+            const slider = document.querySelector('.prob-slider[data-key="' + key + '"]');
+            const label = document.getElementById('plabel-' + key);
+            const stat = document.getElementById('prob-' + key);
+            if (slider) slider.value = value;
+            const pct = Math.round(value * 100);
+            if (label) label.textContent = pct + '%';
+            if (stat) stat.textContent = pct + '%';
+        }
 
-// ===== 13. 排班渲染（只读） =====
-const DAY_NAMES = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-const SHIFT_TYPES = {
-    morning: { name: '早班', time: '07:30-15:30', cls: 'shift-morning' },
-    mid: { name: '中班', time: '15:00-23:00', cls: 'shift-mid' },
-    night: { name: '夜班', time: '23:00-07:30', cls: 'shift-night' },
-    off: { name: '休息', time: '——', cls: 'shift-off' },
-    allday: { name: '全天候', time: '全天', cls: 'shift-allday' },
-    sing: { name: '驻唱', time: '20:00-22:00', cls: 'shift-sing' },
-    double: { name: '混合班', time: '10:00-22:00', cls: 'shift-double' }
-};
+        // ===== 13. 排班渲染（只读） =====
+        const DAY_NAMES = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+        const SHIFT_TYPES = {
+            morning: { name: '早班', time: '07:30-15:30', cls: 'shift-morning' },
+            mid: { name: '中班', time: '15:00-23:00', cls: 'shift-mid' },
+            night: { name: '夜班', time: '23:00-07:30', cls: 'shift-night' },
+            off: { name: '休息', time: '——', cls: 'shift-off' },
+            allday: { name: '全天候', time: '全天', cls: 'shift-allday' },
+            sing: { name: '驻唱', time: '20:00-22:00', cls: 'shift-sing' },
+            double: { name: '混合班', time: '10:00-22:00', cls: 'shift-double' }
+        };
 
-function renderSchedule() {
-    const container = document.getElementById('scheduleWeek');
-    if (!container || !currentData) return;
-    const schedule = currentData.work?.weekly_schedule || getDefaultSchedule();
-    const todayIdx = (new Date().getDay() + 6) % 7;
+        function renderSchedule() {
+            const container = document.getElementById('scheduleWeek');
+            if (!container || !currentData) return;
+            const schedule = currentData.work?.weekly_schedule || getDefaultSchedule();
+            const todayIdx = (new Date().getDay() + 6) % 7;
 
-    container.innerHTML = '';
-    DAY_NAMES.forEach((name, idx) => {
-        const day = schedule[idx] || { type: 'off' };
-        const shift = SHIFT_TYPES[day.type] || SHIFT_TYPES.off;
-        const isToday = idx === todayIdx;
-        const el = document.createElement('div');
-        el.className = 'schedule-cell ' + (shift.cls || '') + (isToday ? ' today' : '');
-        el.innerHTML = `
+            container.innerHTML = '';
+            DAY_NAMES.forEach((name, idx) => {
+                const day = schedule[idx] || { type: 'off' };
+                const shift = SHIFT_TYPES[day.type] || SHIFT_TYPES.off;
+                const isToday = idx === todayIdx;
+                const el = document.createElement('div');
+                el.className = 'schedule-cell ' + (shift.cls || '') + (isToday ? ' today' : '');
+                el.innerHTML = `
             <div class="day-name">${name}${isToday ? ' ⭐' : ''}</div>
             <div class="shift-name">${day.name || shift.name}</div>
             <div class="shift-time">${day.time || shift.time}</div>
         `;
-        el.style.cursor = 'default';
-        container.appendChild(el);
-    });
-}
-
-// ===== 14. 排班合理性校验 =====
-function runScheduleValidator() {
-    const container = document.getElementById('validatorResult');
-    const schedule = currentData?.work?.weekly_schedule || getDefaultSchedule();
-    const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-    const issues = [];
-    let nightStreak = 0;
-
-    schedule.forEach((day, i) => {
-        const isNight = day.type === 'night';
-        if (isNight) {
-            nightStreak++;
-            if (nightStreak >= 3) issues.push('❌ ' + days[i] + '：连续' + nightStreak + '天夜班，太伤身');
-        } else {
-            nightStreak = 0;
+                el.style.cursor = 'default';
+                container.appendChild(el);
+            });
         }
-        if (i > 0 && schedule[i-1]?.type === 'night' && day.type === 'morning') {
-            issues.push('⚠️ ' + days[i] + '：昨晚夜班，今天早班，睡眠不足');
+
+        // ===== 14. 排班合理性校验 =====
+        function runScheduleValidator() {
+            const container = document.getElementById('validatorResult');
+            const schedule = currentData?.work?.weekly_schedule || getDefaultSchedule();
+            const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+            const issues = [];
+            let nightStreak = 0;
+
+            schedule.forEach((day, i) => {
+                const isNight = day.type === 'night';
+                if (isNight) {
+                    nightStreak++;
+                    if (nightStreak >= 3) issues.push('❌ ' + days[i] + '：连续' + nightStreak + '天夜班，太伤身');
+                } else {
+                    nightStreak = 0;
+                }
+                if (i > 0 && schedule[i - 1]?.type === 'night' && day.type === 'morning') {
+                    issues.push('⚠️ ' + days[i] + '：昨晚夜班，今天早班，睡眠不足');
+                }
+            });
+
+            if (issues.length === 0) {
+                container.innerHTML = '<div style="padding:8px 12px;background:#e8f5e9;border-radius:8px;color:#2e7d32;">✅ 排班很健康！</div>';
+            } else {
+                container.innerHTML = issues.map(msg =>
+                    '<div style="padding:4px 8px;background:#fce4ec;border-radius:6px;color:#c62828;font-size:12px;margin-bottom:4px;">' + msg + '</div>'
+                ).join('');
+            }
         }
-    });
 
-    if (issues.length === 0) {
-        container.innerHTML = '<div style="padding:8px 12px;background:#e8f5e9;border-radius:8px;color:#2e7d32;">✅ 排班很健康！</div>';
-    } else {
-        container.innerHTML = issues.map(msg =>
-            '<div style="padding:4px 8px;background:#fce4ec;border-radius:6px;color:#c62828;font-size:12px;margin-bottom:4px;">' + msg + '</div>'
-        ).join('');
-    }
-}
+        // ===== 15. 时间预览 =====
+        let previewWeekday = 0;
 
-// ===== 15. 时间预览 =====
-let previewWeekday = 0;
+        function selectWeekday(day) {
+            previewWeekday = day;
+            document.querySelectorAll('.wk-btn').forEach(el => {
+                el.classList.toggle('active', parseInt(el.dataset.d) === day);
+            });
+            renderRhythmPreview();
+        }
 
-function selectWeekday(day) {
-    previewWeekday = day;
-    document.querySelectorAll('.wk-btn').forEach(el => {
-        el.classList.toggle('active', parseInt(el.dataset.d) === day);
-    });
-    renderRhythmPreview();
-}
+        function renderRhythmPreview() {
+            const bar = document.getElementById('previewTimeBar');
+            const list = document.getElementById('previewTimeSlotList');
+            const result = document.getElementById('previewSimResult');
+            if (!bar) return;
 
-function renderRhythmPreview() {
-    const bar = document.getElementById('previewTimeBar');
-    const list = document.getElementById('previewTimeSlotList');
-    const result = document.getElementById('previewSimResult');
-    if (!bar) return;
+            const schedule = currentData?.work?.weekly_schedule || getDefaultSchedule();
+            const dayIdx = previewWeekday;
+            const day = schedule[dayIdx] || { type: 'off' };
 
-    const schedule = currentData?.work?.weekly_schedule || getDefaultSchedule();
-    const dayIdx = previewWeekday;
-    const day = schedule[dayIdx] || { type: 'off' };
+            const type = day.type || 'off';
 
-    const type = day.type || 'off';
+            bar.innerHTML = '';
+            for (let h = 0; h < 24; h++) {
+                const seg = document.createElement('span');
+                seg.className = 'segment';
+                const isWork = (type === 'morning' && h >= 7 && h < 15) ||
+                    (type === 'mid' && h >= 15 && h < 23) ||
+                    (type === 'night' && (h >= 23 || h < 7)) ||
+                    (type === 'allday') ||
+                    (type === 'double' && h >= 10 && h < 22) ||
+                    (type === 'sing' && h >= 20 && h < 22);
+                const isSleep = (type === 'night' && h >= 7 && h < 15) ||
+                    (type === 'off');
+                let bg = '#e8e8e8';
+                if (isWork) bg = '#4caf50';
+                else if (isSleep) bg = '#7c4dff';
+                else if (type === 'off') bg = '#e8e8e8';
+                seg.style.width = (100 / 24) + '%';
+                seg.style.background = bg;
+                seg.title = h + ':00 - ' + (h + 1) + ':00';
+                bar.appendChild(seg);
+            }
 
-    bar.innerHTML = '';
-    for (let h = 0; h < 24; h++) {
-        const seg = document.createElement('span');
-        seg.className = 'segment';
-        const isWork = (type === 'morning' && h >= 7 && h < 15) ||
-                       (type === 'mid' && h >= 15 && h < 23) ||
-                       (type === 'night' && (h >= 23 || h < 7)) ||
-                       (type === 'allday') ||
-                       (type === 'double' && h >= 10 && h < 22) ||
-                       (type === 'sing' && h >= 20 && h < 22);
-        const isSleep = (type === 'night' && h >= 7 && h < 15) ||
-                        (type === 'off');
-        let bg = '#e8e8e8';
-        if (isWork) bg = '#4caf50';
-        else if (isSleep) bg = '#7c4dff';
-        else if (type === 'off') bg = '#e8e8e8';
-        seg.style.width = (100/24) + '%';
-        seg.style.background = bg;
-        seg.title = h + ':00 - ' + (h+1) + ':00';
-        bar.appendChild(seg);
-    }
+            const timeSlots = [
+                { start: '00:00', end: '06:00', label: '🌙 睡眠', level: 3 },
+                { start: '06:00', end: '07:00', label: '🪥 起床洗漱', level: 2 },
+                { start: '07:00', end: '08:30', label: '🚇 通勤/早饭', level: 2 },
+                { start: '08:30', end: '12:00', label: '💼 工作/上午', level: 1 },
+                { start: '12:00', end: '13:00', label: '🍜 午餐', level: 2 },
+                { start: '13:00', end: '17:30', label: '💼 工作/下午', level: 1 },
+                { start: '17:30', end: '18:30', label: '🚇 下班通勤', level: 2 },
+                { start: '18:30', end: '20:00', label: '🍚 晚餐', level: 2 },
+                { start: '20:00', end: '23:00', label: '🏠 自由时间', level: 1 },
+                { start: '23:00', end: '24:00', label: '🌙 准备睡觉', level: 3 }
+            ];
 
-    const timeSlots = [
-        { start: '00:00', end: '06:00', label: '🌙 睡眠', level: 3 },
-        { start: '06:00', end: '07:00', label: '🪥 起床洗漱', level: 2 },
-        { start: '07:00', end: '08:30', label: '🚇 通勤/早饭', level: 2 },
-        { start: '08:30', end: '12:00', label: '💼 工作/上午', level: 1 },
-        { start: '12:00', end: '13:00', label: '🍜 午餐', level: 2 },
-        { start: '13:00', end: '17:30', label: '💼 工作/下午', level: 1 },
-        { start: '17:30', end: '18:30', label: '🚇 下班通勤', level: 2 },
-        { start: '18:30', end: '20:00', label: '🍚 晚餐', level: 2 },
-        { start: '20:00', end: '23:00', label: '🏠 自由时间', level: 1 },
-        { start: '23:00', end: '24:00', label: '🌙 准备睡觉', level: 3 }
-    ];
-
-    list.innerHTML = timeSlots.map(slot => {
-        const lv = slot.level;
-        const badge = lv === 1 ? '挡1·正常' : lv === 2 ? '挡2·回复慢' : '挡3·不回复';
-        const color = lv === 1 ? '#4caf50' : lv === 2 ? '#ff9800' : '#7c4dff';
-        return `
+            list.innerHTML = timeSlots.map(slot => {
+                const lv = slot.level;
+                const badge = lv === 1 ? '挡1·正常' : lv === 2 ? '挡2·回复慢' : '挡3·不回复';
+                const color = lv === 1 ? '#4caf50' : lv === 2 ? '#ff9800' : '#7c4dff';
+                return `
             <div class="time-slot-row">
                 <span class="time-slot-level" style="background:${color}"></span>
                 <span class="time-slot-range">${slot.start}-${slot.end}</span>
@@ -1280,105 +1565,297 @@ function renderRhythmPreview() {
                 <span style="font-size:10px;color:${color};">${badge}</span>
             </div>
         `;
-    }).join('');
+            }).join('');
 
-    const simTime = document.getElementById('previewSimTime').value || '09:00';
-    const [h] = simTime.split(':').map(Number);
-    let status = '🟢 正常回复';
-    let level = 1;
-    if (type === 'night' && (h >= 7 && h < 15)) { status = '🟣 不回复（睡觉）'; level = 3; }
-    else if (type === 'off') { status = '🟡 休息日 · 慢回复'; level = 2; }
-    else if (type === 'morning' && (h < 7 || h > 15)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
-    else if (type === 'mid' && (h < 15 || h > 23)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
+            const simTime = document.getElementById('previewSimTime').value || '09:00';
+            const [h] = simTime.split(':').map(Number);
+            let status = '🟢 正常回复';
+            let level = 1;
+            if (type === 'night' && (h >= 7 && h < 15)) { status = '🟣 不回复（睡觉）'; level = 3; }
+            else if (type === 'off') { status = '🟡 休息日 · 慢回复'; level = 2; }
+            else if (type === 'morning' && (h < 7 || h > 15)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
+            else if (type === 'mid' && (h < 15 || h > 23)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
 
-    result.innerHTML = `
+            result.innerHTML = `
         <div style="padding:8px 12px;background:#f5f5f5;border-radius:8px;font-size:12px;">
             <span style="font-weight:600;">${simTime}</span> 当前状态：<span style="font-weight:600;color:${level === 1 ? '#4caf50' : level === 2 ? '#ff9800' : '#7c4dff'};">${status}</span>
             <span style="color:#8e8e93;margin-left:8px;">（${DAY_NAMES[previewWeekday]}·${day.name || '休息'}）</span>
         </div>
     `;
-}
+        }
 
-// ===== 16. 模板渲染（只读） =====
-function renderTemplates() {
-    const container = document.getElementById('templateList');
-    const templates = [
-        { key: 'default', name: '⭐ 默认排班', desc: '根据人设自动匹配' },
-        { key: 'morning', name: '🌅 早班制', desc: '每天 07:30-15:30' },
-        { key: 'night', name: '🌙 夜班制', desc: '每天 23:00-07:30' },
-        { key: 'off', name: '💤 全休息', desc: '一周全部休息' }
-    ];
-    container.innerHTML = templates.map(t =>
-        `<div class="template-item default">
+        // ===== 16. 模板渲染（只读） =====
+        function renderTemplates() {
+            const container = document.getElementById('templateList');
+            const templates = [
+                { key: 'default', name: '⭐ 默认排班', desc: '根据人设自动匹配' },
+                { key: 'morning', name: '🌅 早班制', desc: '每天 07:30-15:30' },
+                { key: 'night', name: '🌙 夜班制', desc: '每天 23:00-07:30' },
+                { key: 'off', name: '💤 全休息', desc: '一周全部休息' }
+            ];
+            container.innerHTML = templates.map(t =>
+                `<div class="template-item default">
             <div class="tpl-name">${t.name}</div>
             <div class="tpl-desc">${t.desc}</div>
         </div>`
-    ).join('');
-}
+            ).join('');
+        }
 
-// ===== 17. Toast =====
-function showToast(msg) {
-    const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(el._timer);
-    el._timer = setTimeout(() => el.classList.remove('show'), 2000);
-}
+        // ===== 17. Toast =====
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => el.classList.remove('show'), 2000);
+        }
 
-// ===== 18. 关闭模态框 =====
-function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('show');
-}
+        // ===== 18. 关闭模态框 =====
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+        }
 
-// ===== 19. 渲染全部 =====
-function renderAll() {
-    renderSlotSelector();
-    renderKeywords();
-    renderSchedule();
-    renderTemplates();
-    renderRhythmPreview();
-    document.querySelector('.title').textContent = '📖 ' + (SLOT_NAMES[currentSlot] || '人设查看器');
-}
+        // ===== 19. 渲染全部 =====
+        function renderAll() {
+            renderSlotSelector();
+            renderKeywords();
+            renderSchedule();
+            renderTemplates();
+            renderRhythmPreview();
+            document.querySelector('.title').textContent = '📖 ' + (SLOT_NAMES[currentSlot] || '人设查看器');
+        }
 
-// ===== 20. 标签切换 =====
-document.querySelectorAll('.tab-btn').forEach(el => {
-    el.addEventListener('click', function() {
-        switchTab(this.dataset.tab);
-    });
-});
+        // ===== 20. 标签切换 =====
+        document.querySelectorAll('.tab-btn').forEach(el => {
+            el.addEventListener('click', function () {
+                switchTab(this.dataset.tab);
+            });
+        });
 
-// ===== 21. 键盘快捷键 =====
-document.addEventListener('keydown', function(e) {
-    // Ctrl+R 刷新
-    if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
-        e.preventDefault();
-        refreshData();
-    }
-    if (e.key === 'Escape') {
-        closeModal();
-    }
-});
+        // ===== 21. 键盘快捷键 =====
+        document.addEventListener('keydown', function (e) {
+            // Ctrl+R 刷新
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                refreshData();
+            }
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
-// ===== 22. 手机返回键支持 =====
-window.addEventListener('popstate', function() {
-    goBack();
-});
+        // ===== 22. 手机返回键支持 =====
+        window.addEventListener('popstate', function () {
+            goBack();
+        });
 
-// ===== 23. 暴露函数给 HTML =====
-window.goBack = goBack;
-window.closeModal = closeModal;
-window.selectWeekday = selectWeekday;
-window.renderRhythmPreview = renderRhythmPreview;
-window.runScheduleValidator = runScheduleValidator;
-window.showToast = showToast;
-window.loadProfile = loadProfile;
-window.switchTab = switchTab;
-window.refreshData = refreshData;
+        // ===== 23. 暴露函数给 HTML =====
+        window.goBack = goBack;
+        window.closeModal = closeModal;
+        window.selectWeekday = selectWeekday;
+        window.renderRhythmPreview = renderRhythmPreview;
+        window.runScheduleValidator = runScheduleValidator;
+        window.showToast = showToast;
+        window.loadProfile = loadProfile;
+        window.switchTab = switchTab;
+        window.refreshData = refreshData;
 
-// ===== 24. 初始化 =====
-document.getElementById('backBtn').addEventListener('click', goBack);
-loadProfile('a');
-</script>
+        // ===== 24. 初始化 =====
+        document.getElementById('backBtn').addEventListener('click', goBack);
+        loadProfile('a');
+    </script>
+    <script>
+        // ================================================================
+        //  🔧 Android WebView 安全区强制修复
+        //  解决：首次加载时 env(safe-area-inset-*) 返回 0 的问题
+        // ================================================================
+
+        (function fixAndroidSafeArea() {
+            // 只在 Android WebView 中执行
+            if (typeof navigator === 'undefined' || !/android/i.test(navigator.userAgent)) {
+                return;
+            }
+
+            console.log('[安全区修复] Android WebView 检测到，开始修复...');
+
+            // 获取 .app 容器
+            function getAppContainer() {
+                return document.querySelector('.app');
+            }
+
+            // 方法1：通过 JS 获取真实的安全区值
+            function getSafeAreaValues() {
+                // 创建一个临时元素，用它来读取 env() 的实际计算值
+                const temp = document.createElement('div');
+                temp.style.cssText = `
+            position: fixed;
+            top: env(safe-area-inset-top, 0px);
+            bottom: env(safe-area-inset-bottom, 0px);
+            left: env(safe-area-inset-left, 0px);
+            right: env(safe-area-inset-right, 0px);
+            visibility: hidden;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+            z-index: -9999;
+        `;
+                document.body.appendChild(temp);
+
+                // 读取计算后的值
+                const computed = getComputedStyle(temp);
+                const top = computed.top || '0px';
+                const bottom = computed.bottom || '0px';
+                const left = computed.left || '0px';
+                const right = computed.right || '0px';
+
+                document.body.removeChild(temp);
+
+                return {
+                    top: parseFloat(top) || 0,
+                    bottom: parseFloat(bottom) || 0,
+                    left: parseFloat(left) || 0,
+                    right: parseFloat(right) || 0
+                };
+            }
+
+            // 方法2：通过 Viewport 高度计算安全区
+            function getSafeAreaByViewport() {
+                const viewportHeight = window.innerHeight;
+                const screenHeight = window.screen.height;
+
+                // 计算差异：如果 viewport 比屏幕小，说明有安全区（状态栏/导航栏）
+                let top = 0, bottom = 0;
+
+                // 常见的状态栏高度：24-40px，导航栏高度：36-60px
+                // 通过 screen 和 window 的差异来估算
+                if (screenHeight > viewportHeight) {
+                    const diff = screenHeight - viewportHeight;
+                    // 假设状态栏占 1/3，导航栏占 2/3（粗略估算）
+                    top = Math.round(diff * 0.4);
+                    bottom = Math.round(diff * 0.6);
+                }
+
+                // 如果差异太小，使用默认值
+                if (top < 10) top = 28;   // 状态栏默认 28px
+                if (bottom < 10) bottom = 48; // 导航栏默认 48px
+
+                return { top, bottom, left: 0, right: 0 };
+            }
+
+            // 方法3：通过点击/触摸事件触发重绘
+            function triggerRepaint() {
+                const app = getAppContainer();
+                if (!app) return;
+
+                // 强制重排重绘
+                app.style.transform = 'scale(0.999)';
+                requestAnimationFrame(() => {
+                    app.style.transform = 'scale(1)';
+                });
+            }
+
+            // 应用安全区
+            function applySafeArea() {
+                const app = getAppContainer();
+                if (!app) {
+                    console.warn('[安全区修复] .app 容器未找到');
+                    return;
+                }
+
+                // 尝试多种方法获取安全区值
+                let safe = getSafeAreaValues();
+
+                // 如果获取到的值都是 0，使用方法2估算
+                if (safe.top === 0 && safe.bottom === 0) {
+                    console.log('[安全区修复] env() 返回 0，使用估算值');
+                    safe = getSafeAreaByViewport();
+                }
+
+                // 确保至少有一个最小值
+                const top = Math.max(safe.top, 24);
+                const bottom = Math.max(safe.bottom, 16);
+
+                console.log(`[安全区修复] 应用 padding: top=${top}px, bottom=${bottom}px`);
+
+                // 应用 padding
+                app.style.paddingTop = top + 'px';
+                app.style.paddingBottom = bottom + 'px';
+
+                // 触发重绘
+                triggerRepaint();
+
+                // 标记已修复
+                app.dataset.safeAreaFixed = 'true';
+            }
+
+            // 监听所有页面切换（SPA 场景）
+            function observePageChanges() {
+                // 监听 URL hash 变化
+                window.addEventListener('hashchange', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+
+                // 监听 popstate（浏览器前进后退）
+                window.addEventListener('popstate', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+
+                // 监听 MutationObserver（页面内容变化）
+                if (window.MutationObserver) {
+                    const observer = new MutationObserver(() => {
+                        if (!document.querySelector('.app[data-safe-area-fixed="true"]')) {
+                            setTimeout(applySafeArea, 50);
+                        }
+                    });
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+            }
+
+            // ===== 执行修复 =====
+
+            // 1. 页面加载完成后立即执行
+            if (document.readyState === 'complete') {
+                setTimeout(applySafeArea, 100);
+            } else {
+                window.addEventListener('load', () => {
+                    setTimeout(applySafeArea, 100);
+                });
+            }
+
+            // 2. DOM 准备完成后执行
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+            } else {
+                setTimeout(applySafeArea, 50);
+            }
+
+            // 3. 延迟多次执行（确保系统值返回）
+            setTimeout(applySafeArea, 300);
+            setTimeout(applySafeArea, 600);
+            setTimeout(applySafeArea, 1000);
+
+            // 4. 监听页面变化
+            observePageChanges();
+
+            // 5. 监听窗口大小变化（旋转屏幕等）
+            window.addEventListener('resize', () => {
+                setTimeout(applySafeArea, 100);
+            });
+
+            // 6. 监听 orientation change（横竖屏切换）
+            window.addEventListener('orientationchange', () => {
+                setTimeout(applySafeArea, 300);
+            });
+
+            console.log('[安全区修复] 已安装，等待执行...');
+        })();
+    </script>
 
 </body>
+
 </html>

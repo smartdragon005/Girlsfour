@@ -663,6 +663,197 @@
         // ===== 启动 =====
         loadData();
     </script>
+    <script>
+        // ================================================================
+        //  🔧 Android WebView 安全区强制修复
+        //  解决：首次加载时 env(safe-area-inset-*) 返回 0 的问题
+        // ================================================================
+
+        (function fixAndroidSafeArea() {
+            // 只在 Android WebView 中执行
+            if (typeof navigator === 'undefined' || !/android/i.test(navigator.userAgent)) {
+                return;
+            }
+
+            console.log('[安全区修复] Android WebView 检测到，开始修复...');
+
+            // 获取 .app 容器
+            function getAppContainer() {
+                return document.querySelector('.app');
+            }
+
+            // 方法1：通过 JS 获取真实的安全区值
+            function getSafeAreaValues() {
+                // 创建一个临时元素，用它来读取 env() 的实际计算值
+                const temp = document.createElement('div');
+                temp.style.cssText = `
+            position: fixed;
+            top: env(safe-area-inset-top, 0px);
+            bottom: env(safe-area-inset-bottom, 0px);
+            left: env(safe-area-inset-left, 0px);
+            right: env(safe-area-inset-right, 0px);
+            visibility: hidden;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+            z-index: -9999;
+        `;
+                document.body.appendChild(temp);
+
+                // 读取计算后的值
+                const computed = getComputedStyle(temp);
+                const top = computed.top || '0px';
+                const bottom = computed.bottom || '0px';
+                const left = computed.left || '0px';
+                const right = computed.right || '0px';
+
+                document.body.removeChild(temp);
+
+                return {
+                    top: parseFloat(top) || 0,
+                    bottom: parseFloat(bottom) || 0,
+                    left: parseFloat(left) || 0,
+                    right: parseFloat(right) || 0
+                };
+            }
+
+            // 方法2：通过 Viewport 高度计算安全区
+            function getSafeAreaByViewport() {
+                const viewportHeight = window.innerHeight;
+                const screenHeight = window.screen.height;
+
+                // 计算差异：如果 viewport 比屏幕小，说明有安全区（状态栏/导航栏）
+                let top = 0, bottom = 0;
+
+                // 常见的状态栏高度：24-40px，导航栏高度：36-60px
+                // 通过 screen 和 window 的差异来估算
+                if (screenHeight > viewportHeight) {
+                    const diff = screenHeight - viewportHeight;
+                    // 假设状态栏占 1/3，导航栏占 2/3（粗略估算）
+                    top = Math.round(diff * 0.4);
+                    bottom = Math.round(diff * 0.6);
+                }
+
+                // 如果差异太小，使用默认值
+                if (top < 10) top = 28;   // 状态栏默认 28px
+                if (bottom < 10) bottom = 48; // 导航栏默认 48px
+
+                return { top, bottom, left: 0, right: 0 };
+            }
+
+            // 方法3：通过点击/触摸事件触发重绘
+            function triggerRepaint() {
+                const app = getAppContainer();
+                if (!app) return;
+
+                // 强制重排重绘
+                app.style.transform = 'scale(0.999)';
+                requestAnimationFrame(() => {
+                    app.style.transform = 'scale(1)';
+                });
+            }
+
+            // 应用安全区
+            function applySafeArea() {
+                const app = getAppContainer();
+                if (!app) {
+                    console.warn('[安全区修复] .app 容器未找到');
+                    return;
+                }
+
+                // 尝试多种方法获取安全区值
+                let safe = getSafeAreaValues();
+
+                // 如果获取到的值都是 0，使用方法2估算
+                if (safe.top === 0 && safe.bottom === 0) {
+                    console.log('[安全区修复] env() 返回 0，使用估算值');
+                    safe = getSafeAreaByViewport();
+                }
+
+                // 确保至少有一个最小值
+                const top = Math.max(safe.top, 24);
+                const bottom = Math.max(safe.bottom, 16);
+
+                console.log(`[安全区修复] 应用 padding: top=${top}px, bottom=${bottom}px`);
+
+                // 应用 padding
+                app.style.paddingTop = top + 'px';
+                app.style.paddingBottom = bottom + 'px';
+
+                // 触发重绘
+                triggerRepaint();
+
+                // 标记已修复
+                app.dataset.safeAreaFixed = 'true';
+            }
+
+            // 监听所有页面切换（SPA 场景）
+            function observePageChanges() {
+                // 监听 URL hash 变化
+                window.addEventListener('hashchange', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+
+                // 监听 popstate（浏览器前进后退）
+                window.addEventListener('popstate', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+
+                // 监听 MutationObserver（页面内容变化）
+                if (window.MutationObserver) {
+                    const observer = new MutationObserver(() => {
+                        if (!document.querySelector('.app[data-safe-area-fixed="true"]')) {
+                            setTimeout(applySafeArea, 50);
+                        }
+                    });
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+            }
+
+            // ===== 执行修复 =====
+
+            // 1. 页面加载完成后立即执行
+            if (document.readyState === 'complete') {
+                setTimeout(applySafeArea, 100);
+            } else {
+                window.addEventListener('load', () => {
+                    setTimeout(applySafeArea, 100);
+                });
+            }
+
+            // 2. DOM 准备完成后执行
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(applySafeArea, 50);
+                });
+            } else {
+                setTimeout(applySafeArea, 50);
+            }
+
+            // 3. 延迟多次执行（确保系统值返回）
+            setTimeout(applySafeArea, 300);
+            setTimeout(applySafeArea, 600);
+            setTimeout(applySafeArea, 1000);
+
+            // 4. 监听页面变化
+            observePageChanges();
+
+            // 5. 监听窗口大小变化（旋转屏幕等）
+            window.addEventListener('resize', () => {
+                setTimeout(applySafeArea, 100);
+            });
+
+            // 6. 监听 orientation change（横竖屏切换）
+            window.addEventListener('orientationchange', () => {
+                setTimeout(applySafeArea, 300);
+            });
+
+            console.log('[安全区修复] 已安装，等待执行...');
+        })();
+    </script>
 </body>
 
 </html>

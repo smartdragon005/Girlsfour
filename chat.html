@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>聊天 · 舒心市</title>
     <style>
         * {
@@ -11,7 +13,9 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        html, body {
+
+        html,
+        body {
             height: 100%;
             font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
             background: #ededed;
@@ -43,6 +47,7 @@
             flex-shrink: 0;
             min-height: 50px;
         }
+
         .chat-header .back {
             font-size: 24px;
             color: #3a7bd5;
@@ -53,7 +58,11 @@
             background: none;
             font-family: inherit;
         }
-        .chat-header .back:active { opacity: 0.5; }
+
+        .chat-header .back:active {
+            opacity: 0.5;
+        }
+
         .chat-header .avatar {
             width: 40px;
             height: 40px;
@@ -68,28 +77,39 @@
             flex-shrink: 0;
             overflow: hidden;
         }
+
         .chat-header .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
-        .chat-header .info { flex: 1; min-width: 0; }
+
+        .chat-header .info {
+            flex: 1;
+            min-width: 0;
+        }
+
         .chat-header .info .name {
             font-size: 16px;
             font-weight: 500;
             color: #1a1a1a;
         }
+
         .chat-header .info .status {
             font-size: 11px;
             color: #8e8e93;
         }
-        .chat-header .info .status.online { color: #4ade80; }
+
+        .chat-header .info .status.online {
+            color: #4ade80;
+        }
 
         .menu-wrapper {
             position: relative;
             flex-shrink: 0;
         }
+
         .menu-btn {
             width: 36px;
             height: 36px;
@@ -104,7 +124,10 @@
             justify-content: center;
             font-family: inherit;
         }
-        .menu-btn:active { background: #f0f0f0; }
+
+        .menu-btn:active {
+            background: #f0f0f0;
+        }
 
         .menu-dropdown {
             position: absolute;
@@ -115,12 +138,16 @@
             border-radius: 12px;
             padding: 4px 0;
             min-width: 180px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
             display: none;
             z-index: 100;
             overflow: hidden;
         }
-        .menu-dropdown.open { display: block; }
+
+        .menu-dropdown.open {
+            display: block;
+        }
+
         .menu-dropdown .item {
             padding: 10px 16px;
             font-size: 13px;
@@ -135,10 +162,25 @@
             text-align: left;
             font-family: inherit;
         }
-        .menu-dropdown .item:active { background: #f5f5f5; }
-        .menu-dropdown .item .icon { font-size: 16px; width: 24px; text-align: center; }
-        .menu-dropdown .item.danger { color: #ff3b30; }
-        .menu-dropdown .item.danger:active { background: #fce4ec; }
+
+        .menu-dropdown .item:active {
+            background: #f5f5f5;
+        }
+
+        .menu-dropdown .item .icon {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-dropdown .item.danger {
+            color: #ff3b30;
+        }
+
+        .menu-dropdown .item.danger:active {
+            background: #fce4ec;
+        }
+
         .menu-dropdown .divider {
             height: 0.5px;
             background: #f0f0f0;
@@ -154,7 +196,11 @@
             gap: 6px;
             background: #ededed;
         }
-        .message-area::-webkit-scrollbar { width: 0; display: none; }
+
+        .message-area::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
 
         .clear-hint {
             text-align: center;
@@ -162,7 +208,12 @@
             color: #8e8e93;
             font-size: 14px;
         }
-        .clear-hint .icon { font-size: 32px; display: block; margin-bottom: 8px; }
+
+        .clear-hint .icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+        }
 
         .message {
             max-width: 82%;
@@ -174,16 +225,26 @@
             animation: fadeIn 0.2s ease;
             position: relative;
         }
+
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(6px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .message.user {
             align-self: flex-end;
             background: #3a7bd5;
             color: #fff;
             border-bottom-right-radius: 4px;
         }
+
         .message.bot {
             align-self: flex-start;
             background: #ffffff;
@@ -191,11 +252,13 @@
             border-bottom-left-radius: 4px;
             border: 0.5px solid #e8e8e8;
         }
+
         .message.bot .bav {
             display: inline-block;
             margin-right: 4px;
             font-size: 15px;
         }
+
         .message .time {
             font-size: 10px;
             opacity: 0.5;
@@ -203,7 +266,10 @@
             display: block;
             text-align: right;
         }
-        .message.user .time { color: rgba(255,255,255,0.6); }
+
+        .message.user .time {
+            color: rgba(255, 255, 255, 0.6);
+        }
 
         .message .msg-image {
             max-width: 100%;
@@ -212,10 +278,11 @@
             display: block;
             margin-top: 4px;
         }
+
         .message .img-ph {
             padding: 16px 12px;
             border-radius: 8px;
-            background: rgba(0,0,0,0.04);
+            background: rgba(0, 0, 0, 0.04);
             border: 0.5px dashed #d9d9d9;
             font-size: 11px;
             color: #8e8e93;
@@ -235,6 +302,7 @@
             margin-top: 4px;
             min-width: 120px;
         }
+
         .audio-wrapper .disc {
             width: 28px;
             height: 28px;
@@ -246,8 +314,21 @@
             flex-shrink: 0;
             transition: transform 0.3s;
         }
-        .audio-wrapper .disc.playing { animation: spin 2s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .audio-wrapper .disc.playing {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .audio-wrapper .disc::after {
             content: '';
             width: 8px;
@@ -255,19 +336,32 @@
             background: #3a7bd5;
             border-radius: 50%;
         }
-        .audio-wrapper .info { flex: 1; }
-        .audio-wrapper .label { font-size: 12px; font-weight: 500; }
-        .audio-wrapper .duration { font-size: 10px; color: #8e8e93; }
+
+        .audio-wrapper .info {
+            flex: 1;
+        }
+
+        .audio-wrapper .label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .audio-wrapper .duration {
+            font-size: 10px;
+            color: #8e8e93;
+        }
 
         .message.bot.typing {
             min-width: 70px;
             padding: 14px 20px;
         }
+
         .typing-dots {
             display: inline-flex;
             gap: 5px;
             padding: 2px 0;
         }
+
         .typing-dots span {
             width: 7px;
             height: 7px;
@@ -275,11 +369,28 @@
             background: #8e8e93;
             animation: blink 1.4s infinite;
         }
-        .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.36s;
+        }
+
         @keyframes blink {
-            0%, 60%, 100% { opacity: 0.2; transform: scale(0.8); }
-            30% { opacity: 1; transform: scale(1); }
+
+            0%,
+            60%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+
+            30% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .cursor-blink {
@@ -291,9 +402,17 @@
             vertical-align: text-bottom;
             margin-left: 2px;
         }
+
         @keyframes blink-cursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         .input-area {
@@ -305,6 +424,7 @@
             flex-shrink: 0;
             align-items: flex-end;
         }
+
         .input-area textarea {
             flex: 1;
             background: #f5f5f5;
@@ -321,9 +441,21 @@
             outline: none;
             transition: border-color 0.2s;
         }
-        .input-area textarea:focus { border-color: #3a7bd5; background: #ffffff; }
-        .input-area textarea::placeholder { color: #b0b0b0; }
-        .input-area textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .input-area textarea:focus {
+            border-color: #3a7bd5;
+            background: #ffffff;
+        }
+
+        .input-area textarea::placeholder {
+            color: #b0b0b0;
+        }
+
+        .input-area textarea:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .input-area button {
             width: 42px;
             height: 42px;
@@ -339,15 +471,22 @@
             align-items: center;
             justify-content: center;
         }
-        .input-area button:active { transform: scale(0.92); }
-        .input-area button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .input-area button:active {
+            transform: scale(0.92);
+        }
+
+        .input-area button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
 
         .toast {
             position: fixed;
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.75);
+            background: rgba(0, 0, 0, 0.75);
             color: #fff;
             padding: 8px 20px;
             border-radius: 20px;
@@ -358,12 +497,15 @@
             pointer-events: none;
             font-family: -apple-system, "PingFang SC", sans-serif;
         }
-        .toast.show { opacity: 1; }
+
+        .toast.show {
+            opacity: 1;
+        }
 
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             display: none;
@@ -372,7 +514,11 @@
             z-index: 150;
             padding: 60px 20px 20px;
         }
-        .modal-overlay.show { display: flex; }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
         .modal {
             background: #ffffff;
             border-radius: 14px;
@@ -382,15 +528,22 @@
             max-height: 80vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
+
         .modal .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
         }
-        .modal .modal-header h3 { font-size: 16px; font-weight: 600; color: #1a1a1a; }
+
+        .modal .modal-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
         .modal .modal-header .close {
             font-size: 20px;
             color: #8e8e93;
@@ -399,6 +552,7 @@
             background: none;
             font-family: inherit;
         }
+
         .modal .search-input {
             width: 100%;
             padding: 10px 14px;
@@ -409,22 +563,45 @@
             outline: none;
             margin-bottom: 12px;
         }
-        .modal .search-input:focus { border-color: #3a7bd5; }
+
+        .modal .search-input:focus {
+            border-color: #3a7bd5;
+        }
+
         .modal .search-results {
             flex: 1;
             overflow-y: auto;
             max-height: 300px;
         }
-        .modal .search-results::-webkit-scrollbar { width: 0; display: none; }
+
+        .modal .search-results::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+
         .modal .result-item {
             padding: 8px 12px;
             border-bottom: 0.5px solid #f0f0f0;
             cursor: pointer;
             border-radius: 6px;
         }
-        .modal .result-item:active { background: #f5f5f5; }
-        .modal .result-item .who { font-size: 12px; font-weight: 500; color: #1a1a1a; }
-        .modal .result-item .when { font-size: 10px; color: #8e8e93; margin-left: 8px; }
+
+        .modal .result-item:active {
+            background: #f5f5f5;
+        }
+
+        .modal .result-item .who {
+            font-size: 12px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .modal .result-item .when {
+            font-size: 10px;
+            color: #8e8e93;
+            margin-left: 8px;
+        }
+
         .modal .result-item .text {
             font-size: 13px;
             color: #333;
@@ -433,7 +610,11 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .modal .result-item .text b { color: #3a7bd5; }
+
+        .modal .result-item .text b {
+            color: #3a7bd5;
+        }
+
         .modal .no-result {
             padding: 20px;
             text-align: center;
@@ -453,11 +634,16 @@
             outline: none;
             margin-bottom: 12px;
         }
-        .modal .pwd-input:focus { border-color: #3a7bd5; }
+
+        .modal .pwd-input:focus {
+            border-color: #3a7bd5;
+        }
+
         .modal .modal-actions {
             display: flex;
             gap: 10px;
         }
+
         .modal .modal-actions button {
             flex: 1;
             padding: 10px;
@@ -468,1440 +654,1559 @@
             cursor: pointer;
             font-family: inherit;
         }
-        .modal .modal-actions .btn-cancel { background: #f5f5f5; color: #666; }
-        .modal .modal-actions .btn-cancel:active { background: #e8e8e8; }
-        .modal .modal-actions .btn-confirm { background: #ff3b30; color: #fff; }
-        .modal .modal-actions .btn-confirm:active { background: #d63031; }
-        .modal .modal-actions .btn-primary { background: #3a7bd5; color: #fff; }
-        .modal .modal-actions .btn-primary:active { background: #2b5ca8; }
+
+        .modal .modal-actions .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .modal .modal-actions .btn-cancel:active {
+            background: #e8e8e8;
+        }
+
+        .modal .modal-actions .btn-confirm {
+            background: #ff3b30;
+            color: #fff;
+        }
+
+        .modal .modal-actions .btn-confirm:active {
+            background: #d63031;
+        }
+
+        .modal .modal-actions .btn-primary {
+            background: #3a7bd5;
+            color: #fff;
+        }
+
+        .modal .modal-actions .btn-primary:active {
+            background: #2b5ca8;
+        }
+
+
+        /* ===== 故事引导提示条 ===== */
+        .story-hint-bar {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(90deg, #1a3a4a, #1a2538);
+            border-top: 1px solid #2a3344;
+            border-bottom: 1px solid #2a3344;
+            color: #4fc3f7;
+            font-size: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+
+        .story-hint-bar.active {
+            display: flex !important;
+        }
+
+        .story-hint-bar .hint-icon {
+            font-size: 14px;
+        }
+
+        .story-hint-bar .hint-text {
+            flex: 1;
+            color: #a0b3cc;
+        }
+
+        .story-hint-bar .hint-text b {
+            color: #4fc3f7;
+        }
+
+        .story-hint-bar .hint-action {
+            color: #3a7bd5;
+            padding: 2px 8px;
+            border: 1px solid #2b5ca8;
+            border-radius: 10px;
+            background: rgba(58, 123, 213, 0.1);
+        }
     </style>
 </head>
+
 <body>
 
-<div class="app">
-    <div class="chat-header">
-        <button class="back" onclick="goBack()">‹</button>
-        <div class="avatar" id="chatAvatar"></div>
-        <div class="info">
-            <div class="name" id="chatName">甜小朵</div>
-            <div class="status online" id="chatStatus">🟢 在线 · 上班中</div>
-        </div>
-        <div class="menu-wrapper">
-            <button class="menu-btn" id="menuBtn">⋯</button>
-            <div class="menu-dropdown" id="menuDropdown">
-                <button class="item" data-action="search"><span class="icon">🔍</span>搜索聊天记录</button>
-                <button class="item" data-action="clearscreen"><span class="icon">🧹</span>清屏</button>
-                <button class="item" data-action="restorescreen"><span class="icon">↩️</span>恢复清屏</button>
-                <div class="divider"></div>
-                <button class="item danger" data-action="clear"><span class="icon">🗑️</span>清除全部聊天记录</button>
+    <div class="app">
+        <div class="chat-header">
+            <button class="back" onclick="goBack()">‹</button>
+            <div class="avatar" id="chatAvatar"></div>
+            <div class="info">
+                <div class="name" id="chatName">甜小朵</div>
+                <div class="status online" id="chatStatus">🟢 在线 · 上班中</div>
+            </div>
+            <div class="menu-wrapper">
+                <button class="menu-btn" id="menuBtn">⋯</button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <button class="item" data-action="search"><span class="icon">🔍</span>搜索聊天记录</button>
+                    <button class="item" data-action="clearscreen"><span class="icon">🧹</span>清屏</button>
+                    <button class="item" data-action="restorescreen"><span class="icon">↩️</span>恢复清屏</button>
+                    <div class="divider"></div>
+                    <button class="item danger" data-action="clear"><span class="icon">🗑️</span>清除全部聊天记录</button>
+                </div>
             </div>
         </div>
+
+
+        <!-- ===== 故事引导提示条（小舒专用） ===== -->
+        <div class="story-hint-bar" id="storyHintBar"
+            style="display:none; align-items:center; gap:8px; padding:8px 14px; background:linear-gradient(90deg, #1a3a4a, #1a2538); border-top:1px solid #2a3344; border-bottom:1px solid #2a3344; color:#4fc3f7; font-size:12px; cursor:pointer;">
+            <span style="font-size:14px;">🔔</span>
+            <span style="flex:1; color:#a0b3cc;">朋友～ <b style="color:#4fc3f7;">有个新鲜事你要不要听听？</b> 我手头有些好故事...</span>
+            <span
+                style="color:#3a7bd5; padding:2px 8px; border:1px solid #2b5ca8; border-radius:10px; background:rgba(58,123,213,0.1);">想听</span>
+        </div>
+        <!-- ===== 故事面板（小舒专用） ===== -->
+        <div class="story-panel" id="storyPanel"
+            style="display:none; background:linear-gradient(180deg, #1a2030 0%, #141a24 100%); border-top:1px solid #2a3344; padding:6px 12px; font-size:11px; flex-shrink:0;">
+            <div class="story-panel-header"
+                style="display:flex; align-items:center; gap:8px; white-space:nowrap; overflow-x:auto;">
+                <div class="story-panel-title"
+                    style="font-size:12px; font-weight:600; color:#3a7bd5; display:flex; align-items:center; gap:4px; flex-shrink:0;">
+                    <span>🔍</span>
+                    <span id="storyPanelTitle">案件调查中</span>
+                </div>
+                <span class="story-panel-progress" id="storyPanelProgress"
+                    style="font-size:10px; color:#7a8aa3; padding:1px 6px; border-radius:8px; background:#1a2538; flex-shrink:0;">开场</span>
+                <div class="story-info-inline" id="storyClueInfo"
+                    style="display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer;">
+                    <span>📌</span>
+                    <span id="storyClueCount" style="color:#3a7bd5;">0</span>
+                </div>
+                <div class="story-info-inline" id="storySuspectInfo"
+                    style="display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer;">
+                    <span>👥</span>
+                    <div id="storySuspectList" style="display:flex; gap:3px;"></div>
+                </div>
+                <div class="story-actions"
+                    style="display:flex; align-items:center; gap:4px; margin-left:auto; flex-shrink:0;">
+                    <button class="story-action-btn" id="storySwitchBtn"
+                        style="font-size:10px; color:#a0b3cc; background:#1a2538; border:1px solid #2a3344; border-radius:4px; cursor:pointer; padding:2px 6px;">🔄换个</button>
+                    <button class="story-action-btn save" id="storySaveBtn"
+                        style="font-size:10px; color:#81c784; background:#1a2538; border:1px solid #3f8d5e; border-radius:4px; cursor:pointer; padding:2px 6px;">💾存档</button>
+                    <button class="story-action-btn exit" id="storyExitBtn"
+                        style="font-size:10px; color:#ff8a65; background:#1a2538; border:1px solid #8d4e3f; border-radius:4px; cursor:pointer; padding:2px 6px;">🚪退出</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 消息区域 ===== -->
+        <div class="message-area" id="messageArea"></div>
+
+
+        <!-- <div class="message-area" id="messageArea"></div> -->
+
+        <div class="input-area">
+            <textarea id="inputBox" rows="1" placeholder="输入消息…"></textarea>
+            <button id="sendBtn">➤</button>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal" id="modalContent"></div>
+        </div>
     </div>
 
-    <div class="message-area" id="messageArea"></div>
+    <script>
+        // ================================================================
+        //  chat.html · 完整版（固定一周排班，废弃手动排班系统）
+        // ================================================================
 
-    <div class="input-area">
-        <textarea id="inputBox" rows="1" placeholder="输入消息…"></textarea>
-        <button id="sendBtn">➤</button>
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modalContent"></div>
-    </div>
-</div>
-
-<script>
-// ================================================================
-//  chat.html · 完整版（固定一周排班，废弃手动排班系统）
-// ================================================================
-
-// ===== 0. 获取 URL 参数 =====
-function getParam(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name) || 'a';
-}
-const SLOT = getParam('slot') || 'a';
-console.log('🔍 SLOT:', SLOT);
-
-// ===== 获取头像路径 =====
-function getAvatarPath() {
-    const slot = (SLOT && SLOT !== 'undefined') ? SLOT : 'a';
-    return './' + slot + '/img/other/avatar.jpg';
-}
-
-// ================================================================
-//  第一部分：基础数据
-// ================================================================
-
-const PERSONAS = {
-    a: { name: '甜小朵', emoji: '🌸', tag: '🏥 护士', status: '🟢 在线 · 上班中', cls: 'online' },
-    b: { name: '白洁', emoji: '🌙', tag: '🏨 客户总监', status: '🔵 工作中', cls: 'online' },
-    c: { name: '小雅', emoji: '📚', tag: '📖 店员/驻唱', status: '⚪ 离线', cls: '' },
-    d: { name: '小舒', emoji: '🌆', tag: '🏙️ 城市向导', status: '🟢 全天在线', cls: 'online' }
-};
-const current = PERSONAS[SLOT] || PERSONAS.a;
-const PERSONA_ID = { a: 'tianxiaoduo', b: 'baijie', c: 'xiaoya', d: 'xiaoshu' }[SLOT] || 'tianxiaoduo';
-
-const STORAGE_KEY = 'chat_' + SLOT;
-const CLEARED_KEY = 'chat_cleared_' + SLOT;
-
-let messages = [];
-let isCleared = false;
-let clearedBackup = [];
-let isWaiting = false;
-let profileData = null;
-let systemPrompt = '';
-let currentAudio = null;
-
-// ================================================================
-//  第二部分：固定一周排班（废弃手动排班系统）
-// ================================================================
-
-// 辅助：将 "HH:MM" 转为分钟数
-function parseTimeToMinutes(timeStr) {
-    const parts = timeStr.split(':');
-    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-}
-
-// 一周排班数据（周日至周六，0=周日，1=周一，2=周二，3=周三，4=周四，5=周五，6=周六）
-// 每个时段：[开始时间, 结束时间, 挡位, 图标, 描述]
-// 挡位：1=正常回复，2=回复慢（加前缀，不延迟），3=睡觉（默认回复）
-const WEEKLY_SCHEDULES = {
-    // ==========================================================
-    //  甜小朵
-    // ==========================================================
-    tianxiaoduo: {
-        // 周一（1）
-        1: [
-            ['00:00', '06:00', 3, '🌙', '睡觉中'],
-            ['06:00', '06:30', 2, '🪥', '起床洗漱'],
-            ['06:30', '07:00', 2, '🍳', '吃早饭'],
-            ['07:00', '07:30', 1, '🏠', '在家自由活动'],
-            ['07:30', '08:00', 2, '🚇', '上班通勤'],
-            ['08:00', '11:30', 1, '💼', '上午上班'],
-            ['11:30', '14:30', 2, '🍜', '午餐午休'],
-            ['14:30', '17:30', 1, '💼', '下午上班'],
-            ['17:30', '18:00', 2, '🚇', '下班通勤'],
-            ['18:00', '18:30', 2, '🍚', '吃晚饭'],
-            ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
-            ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周二（2）
-        2: [
-            ['00:00', '06:00', 3, '🌙', '睡觉中'],
-            ['06:00', '06:30', 2, '🪥', '起床洗漱'],
-            ['06:30', '07:00', 2, '🍳', '吃早饭'],
-            ['07:00', '07:30', 1, '🏠', '在家自由活动'],
-            ['07:30', '08:00', 2, '🚇', '上班通勤'],
-            ['08:00', '11:30', 1, '💼', '上午上班'],
-            ['11:30', '14:30', 2, '🍜', '午餐午休'],
-            ['14:30', '17:30', 1, '💼', '下午上班'],
-            ['17:30', '18:00', 2, '🚇', '下班通勤'],
-            ['18:00', '18:30', 2, '🍚', '吃晚饭'],
-            ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
-            ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周三（3）休息
-        3: [
-            ['00:00', '07:30', 3, '🌙', '睡觉中'],
-            ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
-            ['08:30', '22:00', 1, '☕', '自由活动'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周四（4）
-        4: [
-            ['00:00', '06:00', 3, '🌙', '睡觉中'],
-            ['06:00', '06:30', 2, '🪥', '起床洗漱'],
-            ['06:30', '07:00', 2, '🍳', '吃早饭'],
-            ['07:00', '07:30', 1, '🏠', '在家自由活动'],
-            ['07:30', '08:00', 2, '🚇', '上班通勤'],
-            ['08:00', '11:30', 1, '💼', '上午上班'],
-            ['11:30', '14:30', 2, '🍜', '午餐午休'],
-            ['14:30', '17:30', 1, '💼', '下午上班'],
-            ['17:30', '18:00', 2, '🚇', '下班通勤'],
-            ['18:00', '18:30', 2, '🍚', '吃晚饭'],
-            ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
-            ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周五（5）
-        5: [
-            ['00:00', '06:00', 3, '🌙', '睡觉中'],
-            ['06:00', '06:30', 2, '🪥', '起床洗漱'],
-            ['06:30', '07:00', 2, '🍳', '吃早饭'],
-            ['07:00', '07:30', 1, '🏠', '在家自由活动'],
-            ['07:30', '08:00', 2, '🚇', '上班通勤'],
-            ['08:00', '11:30', 1, '💼', '上午上班'],
-            ['11:30', '14:30', 2, '🍜', '午餐午休'],
-            ['14:30', '17:30', 1, '💼', '下午上班'],
-            ['17:30', '18:00', 2, '🚇', '下班通勤'],
-            ['18:00', '18:30', 2, '🍚', '吃晚饭'],
-            ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
-            ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周六（6）休息
-        6: [
-            ['00:00', '07:30', 3, '🌙', '睡觉中'],
-            ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
-            ['08:30', '22:00', 1, '☕', '自由活动'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周日（0）
-        0: [
-            ['00:00', '06:00', 3, '🌙', '睡觉中'],
-            ['06:00', '06:30', 2, '🪥', '起床洗漱'],
-            ['06:30', '07:00', 2, '🍳', '吃早饭'],
-            ['07:00', '07:30', 1, '🏠', '在家自由活动'],
-            ['07:30', '08:00', 2, '🚇', '上班通勤'],
-            ['08:00', '11:30', 1, '💼', '上午上班'],
-            ['11:30', '14:30', 2, '🍜', '午餐午休'],
-            ['14:30', '17:30', 1, '💼', '下午上班'],
-            ['17:30', '18:00', 2, '🚇', '下班通勤'],
-            ['18:00', '18:30', 2, '🍚', '吃晚饭'],
-            ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
-            ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
-            ['22:00', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 前缀文案（挡2用）
-        prefixTexts: {
-            '🪥': ['刚醒…眼睛睁不开😵', '在刷牙呢~', '洗脸中，脸上都是泡沫'],
-            '🍳': ['在做早饭呢🍳', '给你煮粥先~', '热牛奶呢'],
-            '🚇': ['骑小电驴在路上呢🛵', '等红灯中', '风好大，打字慢~'],
-            '🍜': ['护士站食堂排队中', '刚刚换班在扒饭', '今天病号饭闻着好香'],
-            '🍚': ['在做晚饭呢~', '吃医院食堂', '顺路买了一点点🥤'],
-            '🛁': ['刚在洗澡，头发湿哒哒💦', '在涂身体乳~', '准备睡觉啦，在铺床']
+        // ===== 0. 获取 URL 参数 =====
+        function getParam(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name) || 'a';
         }
-    },
+        const SLOT = getParam('slot') || 'a';
+        console.log('🔍 SLOT:', SLOT);
 
-    // ==========================================================
-    //  白洁
-    // ==========================================================
-    baijie: {
-        // 周一（1）夜班 22:00-06:00 跨天
-        1: [
-            ['00:00', '06:00', 1, '🌙', '夜班中'],
-            ['06:00', '11:00', 3, '🌙', '补觉'],
-            ['11:00', '11:30', 2, '🪥', '起床洗漱'],
-            ['11:30', '12:00', 2, '🍳', '早午餐'],
-            ['12:00', '13:00', 1, '☕', '自由活动'],
-            ['13:00', '16:00', 3, '🌙', '补觉'],
-            ['16:00', '17:00', 1, '🏠', '自由活动'],
-            ['17:00', '18:00', 2, '🍚', '晚饭'],
-            ['18:00', '19:00', 1, '🏠', '自由活动'],
-            ['19:00', '20:00', 2, '💄', '化妆准备'],
-            ['20:00', '21:00', 2, '🚗', '上班通勤'],
-            ['21:00', '22:00', 1, '💼', '夜班准备'],
-            ['22:00', '24:00', 1, '🌙', '夜班中']
-        ],
-        // 周二（2）休息
-        2: [
-            ['00:00', '09:00', 3, '🌙', '睡懒觉'],
-            ['09:00', '09:30', 2, '🪥', '起床洗漱'],
-            ['09:30', '10:00', 2, '🍳', '早午餐'],
-            ['10:00', '12:00', 1, '☕', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '17:00', 1, '🏠', '自由活动'],
-            ['17:00', '18:00', 2, '🍚', '晚饭'],
-            ['18:00', '22:00', 1, '🏠', '晚间自由活动'],
-            ['22:00', '22:30', 2, '🛁', '洗漱'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周三（3）早班 07:00-15:00
-        3: [
-            ['00:00', '06:30', 3, '🌙', '睡觉中'],
-            ['06:30', '07:00', 2, '🪥', '起床洗漱'],
-            ['07:00', '07:30', 2, '🍳', '早饭'],
-            ['07:30', '08:00', 2, '🚗', '上班通勤'],
-            ['08:00', '12:00', 1, '💼', '上午上班'],
-            ['12:00', '13:00', 2, '🍜', '午餐午休'],
-            ['13:00', '15:00', 1, '💼', '下午上班'],
-            ['15:00', '15:30', 2, '🚗', '下班通勤'],
-            ['15:30', '16:00', 2, '🍵', '下午茶'],
-            ['16:00', '18:00', 1, '🏠', '自由活动'],
-            ['18:00', '19:00', 2, '🍷', '晚餐'],
-            ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
-            ['22:00', '22:30', 2, '🛁', '洗漱'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周四（4）早班 07:00-15:00
-        4: [
-            ['00:00', '06:30', 3, '🌙', '睡觉中'],
-            ['06:30', '07:00', 2, '🪥', '起床洗漱'],
-            ['07:00', '07:30', 2, '🍳', '早饭'],
-            ['07:30', '08:00', 2, '🚗', '上班通勤'],
-            ['08:00', '12:00', 1, '💼', '上午上班'],
-            ['12:00', '13:00', 2, '🍜', '午餐午休'],
-            ['13:00', '15:00', 1, '💼', '下午上班'],
-            ['15:00', '15:30', 2, '🚗', '下班通勤'],
-            ['15:30', '16:00', 2, '🍵', '下午茶'],
-            ['16:00', '18:00', 1, '🏠', '自由活动'],
-            ['18:00', '19:00', 2, '🍷', '晚餐'],
-            ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
-            ['22:00', '22:30', 2, '🛁', '洗漱'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周五（5）夜班 22:00-06:00 跨天
-        5: [
-            ['00:00', '06:00', 1, '🌙', '夜班中'],
-            ['06:00', '11:00', 3, '🌙', '补觉'],
-            ['11:00', '11:30', 2, '🪥', '起床洗漱'],
-            ['11:30', '12:00', 2, '🍳', '早午餐'],
-            ['12:00', '13:00', 1, '☕', '自由活动'],
-            ['13:00', '16:00', 3, '🌙', '补觉'],
-            ['16:00', '17:00', 1, '🏠', '自由活动'],
-            ['17:00', '18:00', 2, '🍚', '晚饭'],
-            ['18:00', '19:00', 1, '🏠', '自由活动'],
-            ['19:00', '20:00', 2, '💄', '化妆准备'],
-            ['20:00', '21:00', 2, '🚗', '上班通勤'],
-            ['21:00', '22:00', 1, '💼', '夜班准备'],
-            ['22:00', '24:00', 1, '🌙', '夜班中']
-        ],
-        // 周六（6）休息
-        6: [
-            ['00:00', '09:00', 3, '🌙', '睡懒觉'],
-            ['09:00', '09:30', 2, '🪥', '起床洗漱'],
-            ['09:30', '10:00', 2, '🍳', '早午餐'],
-            ['10:00', '12:00', 1, '☕', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '17:00', 1, '🏠', '自由活动'],
-            ['17:00', '18:00', 2, '🍚', '晚饭'],
-            ['18:00', '22:00', 1, '🏠', '晚间自由活动'],
-            ['22:00', '22:30', 2, '🛁', '洗漱'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周日（0）早班 07:00-15:00
-        0: [
-            ['00:00', '06:30', 3, '🌙', '睡觉中'],
-            ['06:30', '07:00', 2, '🪥', '起床洗漱'],
-            ['07:00', '07:30', 2, '🍳', '早饭'],
-            ['07:30', '08:00', 2, '🚗', '上班通勤'],
-            ['08:00', '12:00', 1, '💼', '上午上班'],
-            ['12:00', '13:00', 2, '🍜', '午餐午休'],
-            ['13:00', '15:00', 1, '💼', '下午上班'],
-            ['15:00', '15:30', 2, '🚗', '下班通勤'],
-            ['15:30', '16:00', 2, '🍵', '下午茶'],
-            ['16:00', '18:00', 1, '🏠', '自由活动'],
-            ['18:00', '19:00', 2, '🍷', '晚餐'],
-            ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
-            ['22:00', '22:30', 2, '🛁', '洗漱'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        prefixTexts: {
-            '🪥': ['刚醒…眼膜还没撕😑', '在做晨间护肤~', '冲咖啡呢☕'],
-            '🍳': ['煎牛排呢🥂', '在醒酒🍷', '今天想做法式洋葱汤'],
-            '🚗': ['开车中，红灯给你回的', '车里蓝牙回消息~', '刚停好车'],
-            '🍜': ['在和客户吃商务餐🍽️', '行政酒廊扒两口', '酒店自助餐排长队…'],
-            '🍚': ['在喝红酒配晚餐🍷', '私教课后吃轻食沙拉🥗', '点了安缦的客房服务'],
-            '🛁': ['在卸妆💄', '做发膜呢~', '涂身体乳呢'],
-            '💄': ['在化妆呢💄', '试衣服中👗', '喷香水~'],
-            '🍵': ['在喝下午茶☕', '吃点心~', '休息一下']
+        // ===== 获取头像路径 =====
+        function getAvatarPath() {
+            const slot = (SLOT && SLOT !== 'undefined') ? SLOT : 'a';
+            return './' + slot + '/img/other/avatar.jpg';
         }
-    },
 
-    // ==========================================================
-    //  小雅
-    // ==========================================================
-    xiaoya: {
-        // 周一（1）休息
-        1: [
-            ['00:00', '00:30', 2, '🛁', '洗漱'],
-            ['00:30', '09:00', 3, '🌙', '睡懒觉'],
-            ['09:00', '10:00', 2, '🪥', '起床洗漱+早饭'],
-            ['10:00', '12:00', 1, '☕', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '18:00', 1, '🏠', '自由活动/看书'],
-            ['18:00', '19:00', 2, '🍚', '晚饭'],
-            ['19:00', '22:00', 1, '🏠', '自由活动'],
-            ['22:00', '22:30', 1, '📖', '看书/写日记'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周二（2）白班+驻唱
-        2: [
-            ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
-            ['00:30', '08:30', 3, '🌙', '睡觉中'],
-            ['08:30', '09:00', 2, '🍳', '早饭'],
-            ['09:00', '09:30', 2, '🚲', '上班通勤'],
-            ['09:30', '12:30', 1, '📚', '书店上班'],
-            ['12:30', '13:30', 2, '🍜', '午餐'],
-            ['13:30', '18:00', 1, '📚', '书店上班'],
-            ['18:00', '18:30', 2, '🚲', '下班通勤'],
-            ['18:30', '19:00', 2, '🍚', '晚饭'],
-            ['19:00', '20:00', 1, '🏠', '自由活动'],
-            ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
-            ['23:30', '24:00', 2, '🚲', '回家通勤']
-        ],
-        // 周三（3）仅白班
-        3: [
-            ['00:00', '00:30', 2, '🛁', '洗漱'],
-            ['00:30', '08:30', 3, '🌙', '睡觉中'],
-            ['08:30', '09:00', 2, '🍳', '早饭'],
-            ['09:00', '09:30', 2, '🚲', '上班通勤'],
-            ['09:30', '12:30', 1, '📚', '书店上班'],
-            ['12:30', '13:30', 2, '🍜', '午餐'],
-            ['13:30', '18:00', 1, '📚', '书店上班'],
-            ['18:00', '18:30', 2, '🚲', '下班通勤'],
-            ['18:30', '19:00', 2, '🍚', '晚饭'],
-            ['19:00', '22:00', 1, '🏠', '自由活动'],
-            ['22:00', '22:30', 1, '📖', '看书'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周四（4）休息
-        4: [
-            ['00:00', '00:30', 2, '🛁', '洗漱'],
-            ['00:30', '09:00', 3, '🌙', '睡懒觉'],
-            ['09:00', '10:00', 2, '🪥', '起床洗漱+早饭'],
-            ['10:00', '12:00', 1, '☕', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '18:00', 1, '🏠', '自由活动/看书'],
-            ['18:00', '19:00', 2, '🍚', '晚饭'],
-            ['19:00', '22:00', 1, '🏠', '自由活动'],
-            ['22:00', '22:30', 1, '📖', '看书/写日记'],
-            ['22:30', '24:00', 3, '🌙', '睡觉中']
-        ],
-        // 周五（5）白班+驻唱
-        5: [
-            ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
-            ['00:30', '08:30', 3, '🌙', '睡觉中'],
-            ['08:30', '09:00', 2, '🍳', '早饭'],
-            ['09:00', '09:30', 2, '🚲', '上班通勤'],
-            ['09:30', '12:30', 1, '📚', '书店上班'],
-            ['12:30', '13:30', 2, '🍜', '午餐'],
-            ['13:30', '18:00', 1, '📚', '书店上班'],
-            ['18:00', '18:30', 2, '🚲', '下班通勤'],
-            ['18:30', '19:00', 2, '🍚', '晚饭'],
-            ['19:00', '20:00', 1, '🏠', '自由活动'],
-            ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
-            ['23:30', '24:00', 2, '🚲', '回家通勤']
-        ],
-        // 周六（6）仅驻唱
-        6: [
-            ['00:00', '00:30', 2, '🛁', '洗漱'],
-            ['00:30', '09:30', 3, '🌙', '睡懒觉'],
-            ['09:30', '10:00', 2, '🍳', '早午餐'],
-            ['10:00', '12:00', 1, '🏠', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '16:00', 1, '🏠', '自由活动/练歌'],
-            ['16:00', '17:00', 2, '🍚', '晚饭'],
-            ['17:00', '18:00', 1, '🏠', '休息/准备'],
-            ['18:00', '19:00', 2, '🎵', '练歌/开嗓'],
-            ['19:00', '20:00', 2, '🚲', '去酒吧通勤'],
-            ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
-            ['23:30', '24:00', 2, '🚲', '回家通勤']
-        ],
-        // 周日（0）仅驻唱
-        0: [
-            ['00:00', '00:30', 2, '🛁', '洗漱'],
-            ['00:30', '09:30', 3, '🌙', '睡懒觉'],
-            ['09:30', '10:00', 2, '🍳', '早午餐'],
-            ['10:00', '12:00', 1, '🏠', '自由活动'],
-            ['12:00', '13:00', 2, '🍜', '午餐'],
-            ['13:00', '16:00', 1, '🏠', '自由活动/练歌'],
-            ['16:00', '17:00', 2, '🍚', '晚饭'],
-            ['17:00', '18:00', 1, '🏠', '休息/准备'],
-            ['18:00', '19:00', 2, '🎵', '练歌/开嗓'],
-            ['19:00', '20:00', 2, '🚲', '去酒吧通勤'],
-            ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
-            ['23:30', '24:00', 2, '🚲', '回家通勤']
-        ],
-        prefixTexts: {
-            '🛁': ['在写歌词本子📒', '在卸妆，今天画了舞台妆✨', '护嗓喝胖大海~'],
-            '🍳': ['在煮拉面🍜', '热昨晚买的抹茶蛋糕🎂', '点了外卖还没到…'],
-            '🚲': ['走路去书店，顺便看花🌿', '骑共享单车中', '在过斑马线~'],
-            '🍜': ['书店附近的面馆🍜', '在吧台啃三明治', '泡了挂耳咖啡☕'],
-            '🍚': ['在寻觅小酒吧后台吃便当🍱', '驻唱前吃一点点~', '煮了味增汤'],
-            '🎵': ['在开嗓咿~🎤', '换演出服呢👗', '在调音台试麦🎧'],
-            '🎤': ['刚下场，嗓子哑🤧', '在收吉他包🎸', '客人要合照，等下~📸']
-        }
-    },
-    // ==========================================================
-    //  小舒（全天在线）
-    // ==========================================================
-    xiaoshu: {
-        // 所有天都一样
-        prefixTexts: {}
-    }
-};
+        // ================================================================
+        //  第一部分：基础数据
+        // ================================================================
 
-// ===== 获取当前状态 =====
-function getCurrentStatus(personaId, now) {
-    now = now || new Date();
-    const weekday = now.getDay(); // 0=周日, 1=周一...
-    const total = now.getHours() * 60 + now.getMinutes();
-
-    // 小舒特殊处理
-    if (personaId === 'xiaoshu') {
-        const labels = ['在', '我在', '我一直在', '我24小时都在', '在线待命', '随时为您服务'];
-        return {
-            level: 1,
-            icon: '🏛️',
-            label: labels[Math.floor(Math.random() * labels.length)],
-            prefixKey: null
+        const PERSONAS = {
+            a: { name: '甜小朵', emoji: '🌸', tag: '🏥 护士', status: '🟢 在线 · 上班中', cls: 'online' },
+            b: { name: '白洁', emoji: '🌙', tag: '🏨 客户总监', status: '🔵 工作中', cls: 'online' },
+            c: { name: '小雅', emoji: '📚', tag: '📖 店员/驻唱', status: '⚪ 离线', cls: '' },
+            d: { name: '小舒', emoji: '🌆', tag: '🏙️ 城市向导', status: '🟢 全天在线', cls: 'online' }
         };
-    }
+        const current = PERSONAS[SLOT] || PERSONAS.a;
+        const PERSONA_ID = { a: 'tianxiaoduo', b: 'baijie', c: 'xiaoya', d: 'xiaoshu' }[SLOT] || 'tianxiaoduo';
 
-    const schedule = WEEKLY_SCHEDULES[personaId];
-    if (!schedule || !schedule[weekday]) {
-        return { level: 1, icon: '💬', label: '在线', prefixKey: null };
-    }
+        const STORAGE_KEY = 'chat_' + SLOT;
+        const CLEARED_KEY = 'chat_cleared_' + SLOT;
 
-    const daySchedule = schedule[weekday];
-    let current = null;
-    let prefixKey = null;
+        let messages = [];
+        let isCleared = false;
+        let clearedBackup = [];
+        let isWaiting = false;
+        let profileData = null;
+        let systemPrompt = '';
+        let currentAudio = null;
 
-    for (const slot of daySchedule) {
-        const [startStr, endStr, level, icon, label] = slot;
-        const startMin = parseTimeToMinutes(startStr);
-        const endMin = parseTimeToMinutes(endStr);
-        if (total >= startMin && total < endMin) {
-            current = { level, icon, label };
-            // 判断 prefixKey（用于挡2加前缀）
-            const prefixMap = {
-                '🪥': 'wake', '🍳': 'cook', '🚇': 'commute', '🚗': 'commute', '🚲': 'commute',
-                '🍜': 'lunch', '🍚': 'dinner', '🍷': 'dinner', '🍵': 'free',
-                '🛁': 'night', '💄': 'free', '🎵': 'free', '🎤': 'sing'
+        // ================================================================
+        //  第二部分：固定一周排班（废弃手动排班系统）
+        // ================================================================
+
+        // 辅助：将 "HH:MM" 转为分钟数
+        function parseTimeToMinutes(timeStr) {
+            const parts = timeStr.split(':');
+            return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+        }
+
+        // 一周排班数据（周日至周六，0=周日，1=周一，2=周二，3=周三，4=周四，5=周五，6=周六）
+        // 每个时段：[开始时间, 结束时间, 挡位, 图标, 描述]
+        // 挡位：1=正常回复，2=回复慢（加前缀，不延迟），3=睡觉（默认回复）
+        const WEEKLY_SCHEDULES = {
+            // ==========================================================
+            //  甜小朵
+            // ==========================================================
+            tianxiaoduo: {
+                // 周一（1）
+                1: [
+                    ['00:00', '06:00', 3, '🌙', '睡觉中'],
+                    ['06:00', '06:30', 2, '🪥', '起床洗漱'],
+                    ['06:30', '07:00', 2, '🍳', '吃早饭'],
+                    ['07:00', '07:30', 1, '🏠', '在家自由活动'],
+                    ['07:30', '08:00', 2, '🚇', '上班通勤'],
+                    ['08:00', '11:30', 1, '💼', '上午上班'],
+                    ['11:30', '14:30', 2, '🍜', '午餐午休'],
+                    ['14:30', '17:30', 1, '💼', '下午上班'],
+                    ['17:30', '18:00', 2, '🚇', '下班通勤'],
+                    ['18:00', '18:30', 2, '🍚', '吃晚饭'],
+                    ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
+                    ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周二（2）
+                2: [
+                    ['00:00', '06:00', 3, '🌙', '睡觉中'],
+                    ['06:00', '06:30', 2, '🪥', '起床洗漱'],
+                    ['06:30', '07:00', 2, '🍳', '吃早饭'],
+                    ['07:00', '07:30', 1, '🏠', '在家自由活动'],
+                    ['07:30', '08:00', 2, '🚇', '上班通勤'],
+                    ['08:00', '11:30', 1, '💼', '上午上班'],
+                    ['11:30', '14:30', 2, '🍜', '午餐午休'],
+                    ['14:30', '17:30', 1, '💼', '下午上班'],
+                    ['17:30', '18:00', 2, '🚇', '下班通勤'],
+                    ['18:00', '18:30', 2, '🍚', '吃晚饭'],
+                    ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
+                    ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周三（3）休息
+                3: [
+                    ['00:00', '07:30', 3, '🌙', '睡觉中'],
+                    ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
+                    ['08:30', '22:00', 1, '☕', '自由活动'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周四（4）
+                4: [
+                    ['00:00', '06:00', 3, '🌙', '睡觉中'],
+                    ['06:00', '06:30', 2, '🪥', '起床洗漱'],
+                    ['06:30', '07:00', 2, '🍳', '吃早饭'],
+                    ['07:00', '07:30', 1, '🏠', '在家自由活动'],
+                    ['07:30', '08:00', 2, '🚇', '上班通勤'],
+                    ['08:00', '11:30', 1, '💼', '上午上班'],
+                    ['11:30', '14:30', 2, '🍜', '午餐午休'],
+                    ['14:30', '17:30', 1, '💼', '下午上班'],
+                    ['17:30', '18:00', 2, '🚇', '下班通勤'],
+                    ['18:00', '18:30', 2, '🍚', '吃晚饭'],
+                    ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
+                    ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周五（5）
+                5: [
+                    ['00:00', '06:00', 3, '🌙', '睡觉中'],
+                    ['06:00', '06:30', 2, '🪥', '起床洗漱'],
+                    ['06:30', '07:00', 2, '🍳', '吃早饭'],
+                    ['07:00', '07:30', 1, '🏠', '在家自由活动'],
+                    ['07:30', '08:00', 2, '🚇', '上班通勤'],
+                    ['08:00', '11:30', 1, '💼', '上午上班'],
+                    ['11:30', '14:30', 2, '🍜', '午餐午休'],
+                    ['14:30', '17:30', 1, '💼', '下午上班'],
+                    ['17:30', '18:00', 2, '🚇', '下班通勤'],
+                    ['18:00', '18:30', 2, '🍚', '吃晚饭'],
+                    ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
+                    ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周六（6）休息
+                6: [
+                    ['00:00', '07:30', 3, '🌙', '睡觉中'],
+                    ['07:30', '08:30', 2, '🪥', '起床洗漱+早饭'],
+                    ['08:30', '22:00', 1, '☕', '自由活动'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周日（0）
+                0: [
+                    ['00:00', '06:00', 3, '🌙', '睡觉中'],
+                    ['06:00', '06:30', 2, '🪥', '起床洗漱'],
+                    ['06:30', '07:00', 2, '🍳', '吃早饭'],
+                    ['07:00', '07:30', 1, '🏠', '在家自由活动'],
+                    ['07:30', '08:00', 2, '🚇', '上班通勤'],
+                    ['08:00', '11:30', 1, '💼', '上午上班'],
+                    ['11:30', '14:30', 2, '🍜', '午餐午休'],
+                    ['14:30', '17:30', 1, '💼', '下午上班'],
+                    ['17:30', '18:00', 2, '🚇', '下班通勤'],
+                    ['18:00', '18:30', 2, '🍚', '吃晚饭'],
+                    ['18:30', '21:30', 1, '🏠', '晚间自由活动'],
+                    ['21:30', '22:00', 2, '🛁', '晚间洗漱'],
+                    ['22:00', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 前缀文案（挡2用）
+                prefixTexts: {
+                    '🪥': ['刚醒…眼睛睁不开😵', '在刷牙呢~', '洗脸中，脸上都是泡沫'],
+                    '🍳': ['在做早饭呢🍳', '给你煮粥先~', '热牛奶呢'],
+                    '🚇': ['骑小电驴在路上呢🛵', '等红灯中', '风好大，打字慢~'],
+                    '🍜': ['护士站食堂排队中', '刚刚换班在扒饭', '今天病号饭闻着好香'],
+                    '🍚': ['在做晚饭呢~', '吃医院食堂', '顺路买了一点点🥤'],
+                    '🛁': ['刚在洗澡，头发湿哒哒💦', '在涂身体乳~', '准备睡觉啦，在铺床']
+                }
+            },
+
+            // ==========================================================
+            //  白洁
+            // ==========================================================
+            baijie: {
+                // 周一（1）夜班 22:00-06:00 跨天
+                1: [
+                    ['00:00', '06:00', 1, '🌙', '夜班中'],
+                    ['06:00', '11:00', 3, '🌙', '补觉'],
+                    ['11:00', '11:30', 2, '🪥', '起床洗漱'],
+                    ['11:30', '12:00', 2, '🍳', '早午餐'],
+                    ['12:00', '13:00', 1, '☕', '自由活动'],
+                    ['13:00', '16:00', 3, '🌙', '补觉'],
+                    ['16:00', '17:00', 1, '🏠', '自由活动'],
+                    ['17:00', '18:00', 2, '🍚', '晚饭'],
+                    ['18:00', '19:00', 1, '🏠', '自由活动'],
+                    ['19:00', '20:00', 2, '💄', '化妆准备'],
+                    ['20:00', '21:00', 2, '🚗', '上班通勤'],
+                    ['21:00', '22:00', 1, '💼', '夜班准备'],
+                    ['22:00', '24:00', 1, '🌙', '夜班中']
+                ],
+                // 周二（2）休息
+                2: [
+                    ['00:00', '09:00', 3, '🌙', '睡懒觉'],
+                    ['09:00', '09:30', 2, '🪥', '起床洗漱'],
+                    ['09:30', '10:00', 2, '🍳', '早午餐'],
+                    ['10:00', '12:00', 1, '☕', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '17:00', 1, '🏠', '自由活动'],
+                    ['17:00', '18:00', 2, '🍚', '晚饭'],
+                    ['18:00', '22:00', 1, '🏠', '晚间自由活动'],
+                    ['22:00', '22:30', 2, '🛁', '洗漱'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周三（3）早班 07:00-15:00
+                3: [
+                    ['00:00', '06:30', 3, '🌙', '睡觉中'],
+                    ['06:30', '07:00', 2, '🪥', '起床洗漱'],
+                    ['07:00', '07:30', 2, '🍳', '早饭'],
+                    ['07:30', '08:00', 2, '🚗', '上班通勤'],
+                    ['08:00', '12:00', 1, '💼', '上午上班'],
+                    ['12:00', '13:00', 2, '🍜', '午餐午休'],
+                    ['13:00', '15:00', 1, '💼', '下午上班'],
+                    ['15:00', '15:30', 2, '🚗', '下班通勤'],
+                    ['15:30', '16:00', 2, '🍵', '下午茶'],
+                    ['16:00', '18:00', 1, '🏠', '自由活动'],
+                    ['18:00', '19:00', 2, '🍷', '晚餐'],
+                    ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
+                    ['22:00', '22:30', 2, '🛁', '洗漱'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周四（4）早班 07:00-15:00
+                4: [
+                    ['00:00', '06:30', 3, '🌙', '睡觉中'],
+                    ['06:30', '07:00', 2, '🪥', '起床洗漱'],
+                    ['07:00', '07:30', 2, '🍳', '早饭'],
+                    ['07:30', '08:00', 2, '🚗', '上班通勤'],
+                    ['08:00', '12:00', 1, '💼', '上午上班'],
+                    ['12:00', '13:00', 2, '🍜', '午餐午休'],
+                    ['13:00', '15:00', 1, '💼', '下午上班'],
+                    ['15:00', '15:30', 2, '🚗', '下班通勤'],
+                    ['15:30', '16:00', 2, '🍵', '下午茶'],
+                    ['16:00', '18:00', 1, '🏠', '自由活动'],
+                    ['18:00', '19:00', 2, '🍷', '晚餐'],
+                    ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
+                    ['22:00', '22:30', 2, '🛁', '洗漱'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周五（5）夜班 22:00-06:00 跨天
+                5: [
+                    ['00:00', '06:00', 1, '🌙', '夜班中'],
+                    ['06:00', '11:00', 3, '🌙', '补觉'],
+                    ['11:00', '11:30', 2, '🪥', '起床洗漱'],
+                    ['11:30', '12:00', 2, '🍳', '早午餐'],
+                    ['12:00', '13:00', 1, '☕', '自由活动'],
+                    ['13:00', '16:00', 3, '🌙', '补觉'],
+                    ['16:00', '17:00', 1, '🏠', '自由活动'],
+                    ['17:00', '18:00', 2, '🍚', '晚饭'],
+                    ['18:00', '19:00', 1, '🏠', '自由活动'],
+                    ['19:00', '20:00', 2, '💄', '化妆准备'],
+                    ['20:00', '21:00', 2, '🚗', '上班通勤'],
+                    ['21:00', '22:00', 1, '💼', '夜班准备'],
+                    ['22:00', '24:00', 1, '🌙', '夜班中']
+                ],
+                // 周六（6）休息
+                6: [
+                    ['00:00', '09:00', 3, '🌙', '睡懒觉'],
+                    ['09:00', '09:30', 2, '🪥', '起床洗漱'],
+                    ['09:30', '10:00', 2, '🍳', '早午餐'],
+                    ['10:00', '12:00', 1, '☕', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '17:00', 1, '🏠', '自由活动'],
+                    ['17:00', '18:00', 2, '🍚', '晚饭'],
+                    ['18:00', '22:00', 1, '🏠', '晚间自由活动'],
+                    ['22:00', '22:30', 2, '🛁', '洗漱'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周日（0）早班 07:00-15:00
+                0: [
+                    ['00:00', '06:30', 3, '🌙', '睡觉中'],
+                    ['06:30', '07:00', 2, '🪥', '起床洗漱'],
+                    ['07:00', '07:30', 2, '🍳', '早饭'],
+                    ['07:30', '08:00', 2, '🚗', '上班通勤'],
+                    ['08:00', '12:00', 1, '💼', '上午上班'],
+                    ['12:00', '13:00', 2, '🍜', '午餐午休'],
+                    ['13:00', '15:00', 1, '💼', '下午上班'],
+                    ['15:00', '15:30', 2, '🚗', '下班通勤'],
+                    ['15:30', '16:00', 2, '🍵', '下午茶'],
+                    ['16:00', '18:00', 1, '🏠', '自由活动'],
+                    ['18:00', '19:00', 2, '🍷', '晚餐'],
+                    ['19:00', '22:00', 1, '🏠', '晚间自由活动'],
+                    ['22:00', '22:30', 2, '🛁', '洗漱'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                prefixTexts: {
+                    '🪥': ['刚醒…眼膜还没撕😑', '在做晨间护肤~', '冲咖啡呢☕'],
+                    '🍳': ['煎牛排呢🥂', '在醒酒🍷', '今天想做法式洋葱汤'],
+                    '🚗': ['开车中，红灯给你回的', '车里蓝牙回消息~', '刚停好车'],
+                    '🍜': ['在和客户吃商务餐🍽️', '行政酒廊扒两口', '酒店自助餐排长队…'],
+                    '🍚': ['在喝红酒配晚餐🍷', '私教课后吃轻食沙拉🥗', '点了安缦的客房服务'],
+                    '🛁': ['在卸妆💄', '做发膜呢~', '涂身体乳呢'],
+                    '💄': ['在化妆呢💄', '试衣服中👗', '喷香水~'],
+                    '🍵': ['在喝下午茶☕', '吃点心~', '休息一下']
+                }
+            },
+
+            // ==========================================================
+            //  小雅
+            // ==========================================================
+            xiaoya: {
+                // 周一（1）休息
+                1: [
+                    ['00:00', '00:30', 2, '🛁', '洗漱'],
+                    ['00:30', '09:00', 3, '🌙', '睡懒觉'],
+                    ['09:00', '10:00', 2, '🪥', '起床洗漱+早饭'],
+                    ['10:00', '12:00', 1, '☕', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '18:00', 1, '🏠', '自由活动/看书'],
+                    ['18:00', '19:00', 2, '🍚', '晚饭'],
+                    ['19:00', '22:00', 1, '🏠', '自由活动'],
+                    ['22:00', '22:30', 1, '📖', '看书/写日记'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周二（2）白班+驻唱
+                2: [
+                    ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
+                    ['00:30', '08:30', 3, '🌙', '睡觉中'],
+                    ['08:30', '09:00', 2, '🍳', '早饭'],
+                    ['09:00', '09:30', 2, '🚲', '上班通勤'],
+                    ['09:30', '12:30', 1, '📚', '书店上班'],
+                    ['12:30', '13:30', 2, '🍜', '午餐'],
+                    ['13:30', '18:00', 1, '📚', '书店上班'],
+                    ['18:00', '18:30', 2, '🚲', '下班通勤'],
+                    ['18:30', '19:00', 2, '🍚', '晚饭'],
+                    ['19:00', '20:00', 1, '🏠', '自由活动'],
+                    ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
+                    ['23:30', '24:00', 2, '🚲', '回家通勤']
+                ],
+                // 周三（3）仅白班
+                3: [
+                    ['00:00', '00:30', 2, '🛁', '洗漱'],
+                    ['00:30', '08:30', 3, '🌙', '睡觉中'],
+                    ['08:30', '09:00', 2, '🍳', '早饭'],
+                    ['09:00', '09:30', 2, '🚲', '上班通勤'],
+                    ['09:30', '12:30', 1, '📚', '书店上班'],
+                    ['12:30', '13:30', 2, '🍜', '午餐'],
+                    ['13:30', '18:00', 1, '📚', '书店上班'],
+                    ['18:00', '18:30', 2, '🚲', '下班通勤'],
+                    ['18:30', '19:00', 2, '🍚', '晚饭'],
+                    ['19:00', '22:00', 1, '🏠', '自由活动'],
+                    ['22:00', '22:30', 1, '📖', '看书'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周四（4）休息
+                4: [
+                    ['00:00', '00:30', 2, '🛁', '洗漱'],
+                    ['00:30', '09:00', 3, '🌙', '睡懒觉'],
+                    ['09:00', '10:00', 2, '🪥', '起床洗漱+早饭'],
+                    ['10:00', '12:00', 1, '☕', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '18:00', 1, '🏠', '自由活动/看书'],
+                    ['18:00', '19:00', 2, '🍚', '晚饭'],
+                    ['19:00', '22:00', 1, '🏠', '自由活动'],
+                    ['22:00', '22:30', 1, '📖', '看书/写日记'],
+                    ['22:30', '24:00', 3, '🌙', '睡觉中']
+                ],
+                // 周五（5）白班+驻唱
+                5: [
+                    ['00:00', '00:30', 2, '🛁', '晚间洗漱'],
+                    ['00:30', '08:30', 3, '🌙', '睡觉中'],
+                    ['08:30', '09:00', 2, '🍳', '早饭'],
+                    ['09:00', '09:30', 2, '🚲', '上班通勤'],
+                    ['09:30', '12:30', 1, '📚', '书店上班'],
+                    ['12:30', '13:30', 2, '🍜', '午餐'],
+                    ['13:30', '18:00', 1, '📚', '书店上班'],
+                    ['18:00', '18:30', 2, '🚲', '下班通勤'],
+                    ['18:30', '19:00', 2, '🍚', '晚饭'],
+                    ['19:00', '20:00', 1, '🏠', '自由活动'],
+                    ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
+                    ['23:30', '24:00', 2, '🚲', '回家通勤']
+                ],
+                // 周六（6）仅驻唱
+                6: [
+                    ['00:00', '00:30', 2, '🛁', '洗漱'],
+                    ['00:30', '09:30', 3, '🌙', '睡懒觉'],
+                    ['09:30', '10:00', 2, '🍳', '早午餐'],
+                    ['10:00', '12:00', 1, '🏠', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '16:00', 1, '🏠', '自由活动/练歌'],
+                    ['16:00', '17:00', 2, '🍚', '晚饭'],
+                    ['17:00', '18:00', 1, '🏠', '休息/准备'],
+                    ['18:00', '19:00', 2, '🎵', '练歌/开嗓'],
+                    ['19:00', '20:00', 2, '🚲', '去酒吧通勤'],
+                    ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
+                    ['23:30', '24:00', 2, '🚲', '回家通勤']
+                ],
+                // 周日（0）仅驻唱
+                0: [
+                    ['00:00', '00:30', 2, '🛁', '洗漱'],
+                    ['00:30', '09:30', 3, '🌙', '睡懒觉'],
+                    ['09:30', '10:00', 2, '🍳', '早午餐'],
+                    ['10:00', '12:00', 1, '🏠', '自由活动'],
+                    ['12:00', '13:00', 2, '🍜', '午餐'],
+                    ['13:00', '16:00', 1, '🏠', '自由活动/练歌'],
+                    ['16:00', '17:00', 2, '🍚', '晚饭'],
+                    ['17:00', '18:00', 1, '🏠', '休息/准备'],
+                    ['18:00', '19:00', 2, '🎵', '练歌/开嗓'],
+                    ['19:00', '20:00', 2, '🚲', '去酒吧通勤'],
+                    ['20:00', '23:30', 1, '🎤', '酒吧驻唱'],
+                    ['23:30', '24:00', 2, '🚲', '回家通勤']
+                ],
+                prefixTexts: {
+                    '🛁': ['在写歌词本子📒', '在卸妆，今天画了舞台妆✨', '护嗓喝胖大海~'],
+                    '🍳': ['在煮拉面🍜', '热昨晚买的抹茶蛋糕🎂', '点了外卖还没到…'],
+                    '🚲': ['走路去书店，顺便看花🌿', '骑共享单车中', '在过斑马线~'],
+                    '🍜': ['书店附近的面馆🍜', '在吧台啃三明治', '泡了挂耳咖啡☕'],
+                    '🍚': ['在寻觅小酒吧后台吃便当🍱', '驻唱前吃一点点~', '煮了味增汤'],
+                    '🎵': ['在开嗓咿~🎤', '换演出服呢👗', '在调音台试麦🎧'],
+                    '🎤': ['刚下场，嗓子哑🤧', '在收吉他包🎸', '客人要合照，等下~📸']
+                }
+            },
+            // ==========================================================
+            //  小舒（全天在线）
+            // ==========================================================
+            xiaoshu: {
+                // 所有天都一样
+                prefixTexts: {}
+            }
+        };
+
+        // ===== 获取当前状态 =====
+        function getCurrentStatus(personaId, now) {
+            now = now || new Date();
+            const weekday = now.getDay(); // 0=周日, 1=周一...
+            const total = now.getHours() * 60 + now.getMinutes();
+
+            // 小舒特殊处理
+            if (personaId === 'xiaoshu') {
+                const labels = ['在', '我在', '我一直在', '我24小时都在', '在线待命', '随时为您服务'];
+                return {
+                    level: 1,
+                    icon: '🏛️',
+                    label: labels[Math.floor(Math.random() * labels.length)],
+                    prefixKey: null
+                };
+            }
+
+            const schedule = WEEKLY_SCHEDULES[personaId];
+            if (!schedule || !schedule[weekday]) {
+                return { level: 1, icon: '💬', label: '在线', prefixKey: null };
+            }
+
+            const daySchedule = schedule[weekday];
+            let current = null;
+            let prefixKey = null;
+
+            for (const slot of daySchedule) {
+                const [startStr, endStr, level, icon, label] = slot;
+                const startMin = parseTimeToMinutes(startStr);
+                const endMin = parseTimeToMinutes(endStr);
+                if (total >= startMin && total < endMin) {
+                    current = { level, icon, label };
+                    // 判断 prefixKey（用于挡2加前缀）
+                    const prefixMap = {
+                        '🪥': 'wake', '🍳': 'cook', '🚇': 'commute', '🚗': 'commute', '🚲': 'commute',
+                        '🍜': 'lunch', '🍚': 'dinner', '🍷': 'dinner', '🍵': 'free',
+                        '🛁': 'night', '💄': 'free', '🎵': 'free', '🎤': 'sing'
+                    };
+                    prefixKey = prefixMap[icon] || 'free';
+                    break;
+                }
+            }
+
+            if (!current && daySchedule.length > 0) {
+                const last = daySchedule[daySchedule.length - 1];
+                current = { level: last[2], icon: last[3], label: last[4] };
+                const prefixMap = {
+                    '🪥': 'wake', '🍳': 'cook', '🚇': 'commute', '🚗': 'commute', '🚲': 'commute',
+                    '🍜': 'lunch', '🍚': 'dinner', '🍷': 'dinner', '🍵': 'free',
+                    '🛁': 'night', '💄': 'free', '🎵': 'free', '🎤': 'sing'
+                };
+                prefixKey = prefixMap[current.icon] || 'free';
+            }
+
+            if (!current) {
+                return { level: 1, icon: '💬', label: '在线', prefixKey: null };
+            }
+
+            return {
+                level: current.level,
+                icon: current.icon,
+                label: current.label,
+                prefixKey: prefixKey
             };
-            prefixKey = prefixMap[icon] || 'free';
-            break;
         }
-    }
 
-    if (!current && daySchedule.length > 0) {
-        const last = daySchedule[daySchedule.length - 1];
-        current = { level: last[2], icon: last[3], label: last[4] };
-        const prefixMap = {
-            '🪥': 'wake', '🍳': 'cook', '🚇': 'commute', '🚗': 'commute', '🚲': 'commute',
-            '🍜': 'lunch', '🍚': 'dinner', '🍷': 'dinner', '🍵': 'free',
-            '🛁': 'night', '💄': 'free', '🎵': 'free', '🎤': 'sing'
-        };
-        prefixKey = prefixMap[current.icon] || 'free';
-    }
+        // ===== 获取挡2前缀文案 =====
+        function getPrefixText(prefixKey, personaId) {
+            if (!prefixKey) return null;
+            const schedule = WEEKLY_SCHEDULES[personaId];
+            if (!schedule || !schedule.prefixTexts) return null;
 
-    if (!current) {
-        return { level: 1, icon: '💬', label: '在线', prefixKey: null };
-    }
-
-    return {
-        level: current.level,
-        icon: current.icon,
-        label: current.label,
-        prefixKey: prefixKey
-    };
-}
-
-// ===== 获取挡2前缀文案 =====
-function getPrefixText(prefixKey, personaId) {
-    if (!prefixKey) return null;
-    const schedule = WEEKLY_SCHEDULES[personaId];
-    if (!schedule || !schedule.prefixTexts) return null;
-
-    // 根据 prefixKey 找对应的图标
-    const iconMap = {
-        'wake': ['🪥'],
-        'cook': ['🍳'],
-        'commute': ['🚇', '🚗', '🚲'],
-        'lunch': ['🍜'],
-        'dinner': ['🍚', '🍷'],
-        'night': ['🛁'],
-        'free': ['💄', '🍵', '🎵'],
-        'sing': ['🎤']
-    };
-    const icons = iconMap[prefixKey] || [];
-    const texts = [];
-    for (const icon of icons) {
-        if (schedule.prefixTexts[icon]) {
-            texts.push(...schedule.prefixTexts[icon]);
+            // 根据 prefixKey 找对应的图标
+            const iconMap = {
+                'wake': ['🪥'],
+                'cook': ['🍳'],
+                'commute': ['🚇', '🚗', '🚲'],
+                'lunch': ['🍜'],
+                'dinner': ['🍚', '🍷'],
+                'night': ['🛁'],
+                'free': ['💄', '🍵', '🎵'],
+                'sing': ['🎤']
+            };
+            const icons = iconMap[prefixKey] || [];
+            const texts = [];
+            for (const icon of icons) {
+                if (schedule.prefixTexts[icon]) {
+                    texts.push(...schedule.prefixTexts[icon]);
+                }
+            }
+            if (texts.length === 0) return null;
+            return texts[Math.floor(Math.random() * texts.length)];
         }
-    }
-    if (texts.length === 0) return null;
-    return texts[Math.floor(Math.random() * texts.length)];
-}
 
-// ===== 获取默认回复（挡3睡觉用） =====
-function getDefaultReply(personaId) {
-    const now = new Date();
-    const hour = now.getHours();
-    let timeText = '休息';
-    if (hour >= 22 || hour < 6) timeText = '睡觉';
-    else if (hour >= 6 && hour < 7) timeText = '刚醒';
-    else if (hour >= 7 && hour < 8) timeText = '通勤';
+        // ===== 获取默认回复（挡3睡觉用） =====
+        function getDefaultReply(personaId) {
+            const now = new Date();
+            const hour = now.getHours();
+            let timeText = '休息';
+            if (hour >= 22 || hour < 6) timeText = '睡觉';
+            else if (hour >= 6 && hour < 7) timeText = '刚醒';
+            else if (hour >= 7 && hour < 8) timeText = '通勤';
 
-    const replies = {
-        'tianxiaoduo': [
-            `小朵正在${timeText}呢，不方便看手机～ 睡醒/忙完马上找你哦 😴`,
-            `现在是小朵的${timeText}时间，晚点再聊叭～ 🌙`,
-            `zzZ...小朵在梦里等你呢... 💤`
-        ],
-        'baijie': [
-            `白洁正在${timeText}呢，晚点回复你哦～ 💤`,
-            `亲爱的，我现在${timeText}，忙完找你～ 😘`,
-            `zzZ...太累了，让我睡会儿... 🌙`
-        ],
-        'xiaoya': [
-            `小雅正在${timeText}呢，不方便看手机～ 晚点找你哦 🌙`,
-            `现在是小雅的${timeText}时间，明天聊吧～ 💤`,
-            `zzZ...小雅在梦里唱歌给你听... 🎤`
-        ],
-        'xiaoshu': [
-            `小舒下班啦，明天7点后再来舒心市逛逛吧~ 🌙`,
-            `请明天工作时间再来咨询哦~ 💤`
-        ]
-    };
-    const list = replies[personaId] || replies['tianxiaoduo'];
-    return list[Math.floor(Math.random() * list.length)];
-}
-
-// ===== 获取排班描述（供System Prompt注入） =====
-function getScheduleDescription(personaId, date) {
-    const targetDate = (date instanceof Date) ? date : new Date();
-    const weekday = targetDate.getDay();
-    const total = targetDate.getHours() * 60 + targetDate.getMinutes();
-    const schedule = WEEKLY_SCHEDULES[personaId];
-
-    if (personaId === 'xiaoshu') return '🏛️ 全天在线';
-    if (!schedule || !schedule[weekday]) return '自由活动';
-
-    const daySchedule = schedule[weekday];
-    let current = null;
-    for (const slot of daySchedule) {
-        const [startStr, endStr, level, icon, label] = slot;
-        const startMin = parseTimeToMinutes(startStr);
-        const endMin = parseTimeToMinutes(endStr);
-        if (total >= startMin && total < endMin) {
-            current = { icon, label };
-            break;
+            const replies = {
+                'tianxiaoduo': [
+                    `小朵正在${timeText}呢，不方便看手机～ 睡醒/忙完马上找你哦 😴`,
+                    `现在是小朵的${timeText}时间，晚点再聊叭～ 🌙`,
+                    `zzZ...小朵在梦里等你呢... 💤`
+                ],
+                'baijie': [
+                    `白洁正在${timeText}呢，晚点回复你哦～ 💤`,
+                    `亲爱的，我现在${timeText}，忙完找你～ 😘`,
+                    `zzZ...太累了，让我睡会儿... 🌙`
+                ],
+                'xiaoya': [
+                    `小雅正在${timeText}呢，不方便看手机～ 晚点找你哦 🌙`,
+                    `现在是小雅的${timeText}时间，明天聊吧～ 💤`,
+                    `zzZ...小雅在梦里唱歌给你听... 🎤`
+                ],
+                'xiaoshu': [
+                    `小舒下班啦，明天7点后再来舒心市逛逛吧~ 🌙`,
+                    `请明天工作时间再来咨询哦~ 💤`
+                ]
+            };
+            const list = replies[personaId] || replies['tianxiaoduo'];
+            return list[Math.floor(Math.random() * list.length)];
         }
-    }
-    if (!current && daySchedule.length > 0) {
-        const last = daySchedule[daySchedule.length - 1];
-        current = { icon: last[3], label: last[4] };
-    }
-    return current ? current.icon + ' ' + current.label : '自由活动';
-}
 
-// ===== 更新顶栏状态 =====
-function updateHeaderStatus() {
-    const now = new Date();
-    const status = getCurrentStatus(PERSONA_ID, now);
-    const statusEl = document.getElementById('chatStatus');
-    const statusText = status.icon + ' ' + status.label;
-    if (statusEl.textContent !== statusText) {
-        statusEl.textContent = statusText;
-        statusEl.className = 'status' + (status.level === 3 ? '' : ' online');
-    }
-}
+        // ===== 获取排班描述（供System Prompt注入） =====
+        function getScheduleDescription(personaId, date) {
+            const targetDate = (date instanceof Date) ? date : new Date();
+            const weekday = targetDate.getDay();
+            const total = targetDate.getHours() * 60 + targetDate.getMinutes();
+            const schedule = WEEKLY_SCHEDULES[personaId];
 
-// ================================================================
-//  第三部分：时间/天气/节日
-// ================================================================
+            if (personaId === 'xiaoshu') return '🏛️ 全天在线';
+            if (!schedule || !schedule[weekday]) return '自由活动';
 
-const SOLAR_TERMS = {
-    '01-05': '小寒', '01-20': '大寒', '02-04': '立春', '02-19': '雨水',
-    '03-05': '惊蛰', '03-20': '春分', '04-04': '清明', '04-20': '谷雨',
-    '05-05': '立夏', '05-21': '小满', '06-05': '芒种', '06-21': '夏至',
-    '07-07': '小暑', '07-22': '大暑', '08-07': '立秋', '08-23': '处暑',
-    '09-07': '白露', '09-23': '秋分', '10-08': '寒露', '10-23': '霜降',
-    '11-07': '立冬', '11-22': '小雪', '12-07': '大雪', '12-21': '冬至'
-};
-const HOLIDAYS_FIXED = {
-    '01-01': '元旦', '02-14': '情人节', '03-08': '妇女节', '03-12': '植树节',
-    '04-01': '愚人节', '05-01': '劳动节', '05-04': '青年节', '06-01': '儿童节',
-    '07-01': '建党节', '08-01': '建军节', '09-10': '教师节', '10-01': '国庆节',
-    '10-31': '万圣节', '12-24': '平安夜', '12-25': '圣诞节'
-};
-const LUNAR_HOLIDAYS = {
-    2024: { '春节': '02-10', '元宵节': '02-24', '端午节': '06-10', '七夕节': '08-10', '中秋节': '09-17', '重阳节': '10-11' },
-    2025: { '春节': '01-29', '元宵节': '02-12', '端午节': '05-31', '七夕节': '08-29', '中秋节': '10-06', '重阳节': '10-29' },
-    2026: { '春节': '02-17', '元宵节': '03-03', '端午节': '06-19', '七夕节': '08-19', '中秋节': '09-25', '重阳节': '10-18' }
-};
-
-function getTimeInfo() {
-    const now = new Date();
-    const year = now.getFullYear(),
-        month = now.getMonth() + 1,
-        day = now.getDate();
-    const hour = now.getHours(),
-        minute = now.getMinutes(),
-        second = now.getSeconds();
-    const weekday = now.getDay();
-    const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-    const dateKey = String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
-    const seasons = [{ name: '春', months: [3, 4, 5] }, { name: '夏', months: [6, 7, 8] }, { name: '秋', months: [9, 10, 11] }, { name: '冬', months: [12, 1, 2] }];
-    const season = (seasons.find(s => s.months.includes(month)) || {}).name || '冬';
-    const ampm = hour < 12 ? '上午' : '下午';
-    const term = SOLAR_TERMS[dateKey] || null;
-    const yearMap = buildYearHolidayMap(year);
-    let holidaysToday = (yearMap[dateKey] && yearMap[dateKey].length) ? [...yearMap[dateKey]] : null;
-    const isUserBirthday = !!(holidaysToday && holidaysToday.includes('男朋友生日'));
-    if (isUserBirthday) { holidaysToday = ['男朋友生日', ...holidaysToday.filter(n => n !== '男朋友生日')]; }
-    const holiday = holidaysToday ? holidaysToday.join('、') : null;
-    return { now, year, month, day, hour, minute, second, weekday: weekdays[weekday], ampm, dateKey, season, term, holiday, holidaysToday, isUserBirthday, isWeekend: weekday === 0 || weekday === 6 };
-}
-
-function buildYearHolidayMap(year) {
-    const map = {};
-    const addHoliday = (k, n) => { if (!map[k]) map[k] = [];
-        if (!map[k].includes(n)) map[k].push(n); };
-    for (const [k, v] of Object.entries(HOLIDAYS_FIXED)) addHoliday(k, v);
-    const lunar = LUNAR_HOLIDAYS[year] || LUNAR_HOLIDAYS[2026];
-    for (const [n, k] of Object.entries(lunar)) addHoliday(k, n);
-    for (const [k, n] of Object.entries(SOLAR_TERMS)) {
-        if (['清明', '冬至', '立春', '立夏', '立秋', '立冬'].includes(n)) addHoliday(k, n + '节气');
-    }
-    const userBDMap = { 2024: '11-26', 2025: '12-16', 2026: '12-05' };
-    const bd = userBDMap[year];
-    if (bd) addHoliday(bd, '男朋友生日');
-    return map;
-}
-
-const WEATHER_CITY = '滨州市';
-
-async function fetchWeather() {
-    try {
-        const resp = await fetch(`https://wttr.in/${encodeURIComponent(WEATHER_CITY)}?format=j1`, { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined });
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        const json = await resp.json();
-        const cur = json.current_condition[0];
-        const descEn = cur.weatherDesc[0].value;
-        const cnMap = {
-            'Sunny': '晴', 'Clear': '晴', 'Partly cloudy': '多云', 'Cloudy': '多云',
-            'Overcast': '阴', 'Mist': '薄雾', 'Fog': '雾', 'Light rain': '小雨',
-            'Moderate rain': '中雨', 'Heavy rain': '大雨', 'Light snow': '小雪',
-            'Moderate snow': '中雪', 'Heavy snow': '大雪'
-        };
-        const desc = cnMap[descEn] || descEn;
-        return { condition: desc, temperature: cur.temp_C + '°C', feelsLike: cur.FeelsLikeC, humidity: cur.humidity };
-    } catch (e) {
-        console.warn('天气获取失败:', e);
-        return null;
-    }
-}
-
-// ================================================================
-//  第四部分：加载资源清单 + 牌堆管理
-// ================================================================
-
-window.assetManifest = null;
-
-async function loadManifest() {
-    try {
-        const resp = await fetch('./_asset_manifest.json?t=' + Date.now());
-        if (resp.ok) {
-            window.assetManifest = await resp.json();
-            console.log('✅ 资源清单加载成功');
+            const daySchedule = schedule[weekday];
+            let current = null;
+            for (const slot of daySchedule) {
+                const [startStr, endStr, level, icon, label] = slot;
+                const startMin = parseTimeToMinutes(startStr);
+                const endMin = parseTimeToMinutes(endStr);
+                if (total >= startMin && total < endMin) {
+                    current = { icon, label };
+                    break;
+                }
+            }
+            if (!current && daySchedule.length > 0) {
+                const last = daySchedule[daySchedule.length - 1];
+                current = { icon: last[3], label: last[4] };
+            }
+            return current ? current.icon + ' ' + current.label : '自由活动';
         }
-    } catch (e) {
-        console.warn('⚠️ 资源清单加载失败');
-    }
-}
 
-const cardPiles = {};
-
-function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-
-function getCardPile(slot, type) {
-    const key = slot + '_' + type;
-    if (!cardPiles[key]) {
-        let files = [];
-        const manifest = window.assetManifest;
-        if (manifest && manifest.slots && manifest.slots[slot]) {
-            if (type === 'work') {
-                files = manifest.slots[slot].img.work || [];
-            } else if (type === 'private') {
-                files = manifest.slots[slot].img.private || [];
+        // ===== 更新顶栏状态 =====
+        function updateHeaderStatus() {
+            const now = new Date();
+            const status = getCurrentStatus(PERSONA_ID, now);
+            const statusEl = document.getElementById('chatStatus');
+            const statusText = status.icon + ' ' + status.label;
+            if (statusEl.textContent !== statusText) {
+                statusEl.textContent = statusText;
+                statusEl.className = 'status' + (status.level === 3 ? '' : ' online');
             }
         }
-        if (files.length === 0) {
-            const fallbackCount = { a: 30, b: 30, c: 33, d: 0 };
-            const count = fallbackCount[slot] || 5;
-            for (let i = 1; i <= count; i++) {
-                files.push(i + '.jpg');
+
+        // ================================================================
+        //  第三部分：时间/天气/节日
+        // ================================================================
+
+        const SOLAR_TERMS = {
+            '01-05': '小寒', '01-20': '大寒', '02-04': '立春', '02-19': '雨水',
+            '03-05': '惊蛰', '03-20': '春分', '04-04': '清明', '04-20': '谷雨',
+            '05-05': '立夏', '05-21': '小满', '06-05': '芒种', '06-21': '夏至',
+            '07-07': '小暑', '07-22': '大暑', '08-07': '立秋', '08-23': '处暑',
+            '09-07': '白露', '09-23': '秋分', '10-08': '寒露', '10-23': '霜降',
+            '11-07': '立冬', '11-22': '小雪', '12-07': '大雪', '12-21': '冬至'
+        };
+        const HOLIDAYS_FIXED = {
+            '01-01': '元旦', '02-14': '情人节', '03-08': '妇女节', '03-12': '植树节',
+            '04-01': '愚人节', '05-01': '劳动节', '05-04': '青年节', '06-01': '儿童节',
+            '07-01': '建党节', '08-01': '建军节', '09-10': '教师节', '10-01': '国庆节',
+            '10-31': '万圣节', '12-24': '平安夜', '12-25': '圣诞节'
+        };
+        const LUNAR_HOLIDAYS = {
+            2024: { '春节': '02-10', '元宵节': '02-24', '端午节': '06-10', '七夕节': '08-10', '中秋节': '09-17', '重阳节': '10-11' },
+            2025: { '春节': '01-29', '元宵节': '02-12', '端午节': '05-31', '七夕节': '08-29', '中秋节': '10-06', '重阳节': '10-29' },
+            2026: { '春节': '02-17', '元宵节': '03-03', '端午节': '06-19', '七夕节': '08-19', '中秋节': '09-25', '重阳节': '10-18' }
+        };
+
+        function getTimeInfo() {
+            const now = new Date();
+            const year = now.getFullYear(),
+                month = now.getMonth() + 1,
+                day = now.getDate();
+            const hour = now.getHours(),
+                minute = now.getMinutes(),
+                second = now.getSeconds();
+            const weekday = now.getDay();
+            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const dateKey = String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            const seasons = [{ name: '春', months: [3, 4, 5] }, { name: '夏', months: [6, 7, 8] }, { name: '秋', months: [9, 10, 11] }, { name: '冬', months: [12, 1, 2] }];
+            const season = (seasons.find(s => s.months.includes(month)) || {}).name || '冬';
+            const ampm = hour < 12 ? '上午' : '下午';
+            const term = SOLAR_TERMS[dateKey] || null;
+            const yearMap = buildYearHolidayMap(year);
+            let holidaysToday = (yearMap[dateKey] && yearMap[dateKey].length) ? [...yearMap[dateKey]] : null;
+            const isUserBirthday = !!(holidaysToday && holidaysToday.includes('男朋友生日'));
+            if (isUserBirthday) { holidaysToday = ['男朋友生日', ...holidaysToday.filter(n => n !== '男朋友生日')]; }
+            const holiday = holidaysToday ? holidaysToday.join('、') : null;
+            return { now, year, month, day, hour, minute, second, weekday: weekdays[weekday], ampm, dateKey, season, term, holiday, holidaysToday, isUserBirthday, isWeekend: weekday === 0 || weekday === 6 };
+        }
+
+        function buildYearHolidayMap(year) {
+            const map = {};
+            const addHoliday = (k, n) => {
+                if (!map[k]) map[k] = [];
+                if (!map[k].includes(n)) map[k].push(n);
+            };
+            for (const [k, v] of Object.entries(HOLIDAYS_FIXED)) addHoliday(k, v);
+            const lunar = LUNAR_HOLIDAYS[year] || LUNAR_HOLIDAYS[2026];
+            for (const [n, k] of Object.entries(lunar)) addHoliday(k, n);
+            for (const [k, n] of Object.entries(SOLAR_TERMS)) {
+                if (['清明', '冬至', '立春', '立夏', '立秋', '立冬'].includes(n)) addHoliday(k, n + '节气');
+            }
+            const userBDMap = { 2024: '11-26', 2025: '12-16', 2026: '12-05' };
+            const bd = userBDMap[year];
+            if (bd) addHoliday(bd, '男朋友生日');
+            return map;
+        }
+
+        const WEATHER_CITY = '滨州市';
+
+        async function fetchWeather() {
+            try {
+                const resp = await fetch(`https://wttr.in/${encodeURIComponent(WEATHER_CITY)}?format=j1`, { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined });
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const json = await resp.json();
+                const cur = json.current_condition[0];
+                const descEn = cur.weatherDesc[0].value;
+                const cnMap = {
+                    'Sunny': '晴', 'Clear': '晴', 'Partly cloudy': '多云', 'Cloudy': '多云',
+                    'Overcast': '阴', 'Mist': '薄雾', 'Fog': '雾', 'Light rain': '小雨',
+                    'Moderate rain': '中雨', 'Heavy rain': '大雨', 'Light snow': '小雪',
+                    'Moderate snow': '中雪', 'Heavy snow': '大雪'
+                };
+                const desc = cnMap[descEn] || descEn;
+                return { condition: desc, temperature: cur.temp_C + '°C', feelsLike: cur.FeelsLikeC, humidity: cur.humidity };
+            } catch (e) {
+                console.warn('天气获取失败:', e);
+                return null;
             }
         }
-        cardPiles[key] = {
-            deck: shuffle(files),
-            discard: []
-        };
-        console.log('🃏 创建牌堆:', key, '共', files.length, '张');
-    }
-    return cardPiles[key];
-}
 
-function drawImage(slot, type) {
-    const pile = getCardPile(slot, type);
-    if (pile.deck.length === 0) {
-        if (pile.discard.length === 0) {
-            console.warn('⚠️ 没有图片可抽');
+        // ================================================================
+        //  第四部分：加载资源清单 + 牌堆管理
+        // ================================================================
+
+        window.assetManifest = null;
+
+        async function loadManifest() {
+            try {
+                const resp = await fetch('./_asset_manifest.json?t=' + Date.now());
+                if (resp.ok) {
+                    window.assetManifest = await resp.json();
+                    console.log('✅ 资源清单加载成功');
+                }
+            } catch (e) {
+                console.warn('⚠️ 资源清单加载失败');
+            }
+        }
+
+        const cardPiles = {};
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function getCardPile(slot, type) {
+            const key = slot + '_' + type;
+            if (!cardPiles[key]) {
+                let files = [];
+                const manifest = window.assetManifest;
+                if (manifest && manifest.slots && manifest.slots[slot]) {
+                    if (type === 'work') {
+                        files = manifest.slots[slot].img.work || [];
+                    } else if (type === 'private') {
+                        files = manifest.slots[slot].img.private || [];
+                    }
+                }
+                if (files.length === 0) {
+                    const fallbackCount = { a: 30, b: 30, c: 33, d: 0 };
+                    const count = fallbackCount[slot] || 5;
+                    for (let i = 1; i <= count; i++) {
+                        files.push(i + '.jpg');
+                    }
+                }
+                cardPiles[key] = {
+                    deck: shuffle(files),
+                    discard: []
+                };
+                console.log('🃏 创建牌堆:', key, '共', files.length, '张');
+            }
+            return cardPiles[key];
+        }
+
+        function drawImage(slot, type) {
+            const pile = getCardPile(slot, type);
+            if (pile.deck.length === 0) {
+                if (pile.discard.length === 0) {
+                    console.warn('⚠️ 没有图片可抽');
+                    return null;
+                }
+                pile.deck = shuffle(pile.discard);
+                pile.discard = [];
+                console.log('🔄 牌堆已重置（所有图片已发完）');
+            }
+            const file = pile.deck.pop();
+            pile.discard.push(file);
+            return './' + slot + '/img/' + type + '/' + file;
+        }
+
+        // ================================================================
+        //  第五部分：关键词触发
+        // ================================================================
+
+        function checkKeywords(text) {
+            if (!profileData || !profileData.keyword_triggers) return null;
+            const kt = profileData.keyword_triggers;
+
+            if (kt.normal_photo && Array.isArray(kt.normal_photo)) {
+                for (const group of kt.normal_photo) {
+                    if (!group.keywords) continue;
+                    for (const kw of group.keywords) {
+                        if (text.includes(kw) && Math.random() < (group.probability || 0.5)) {
+                            const path = drawImage(SLOT, 'work');
+                            if (path) {
+                                console.log('📷 触发图片:', path);
+                                return { type: 'image', content: path };
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (kt.normal_audio && kt.normal_audio.keywords) {
+                const na = kt.normal_audio;
+                for (const kw of na.keywords) {
+                    if (text.includes(kw) && Math.random() < (na.probability || 0.5)) {
+                        return { type: 'audio', content: '__tts__' };
+                    }
+                }
+            }
+
+            if (kt.hidden_photo && Array.isArray(kt.hidden_photo)) {
+                for (const group of kt.hidden_photo) {
+                    if (!group.keywords) continue;
+                    for (const kw of group.keywords) {
+                        if (text.includes(kw) && Math.random() < (group.probability || 0.3)) {
+                            const path = drawImage(SLOT, 'private');
+                            if (path) {
+                                console.log('🔒 触发私密图片:', path);
+                                return { type: 'image', content: path };
+                            }
+                        }
+                    }
+                }
+            }
+
             return null;
         }
-        pile.deck = shuffle(pile.discard);
-        pile.discard = [];
-        console.log('🔄 牌堆已重置（所有图片已发完）');
-    }
-    const file = pile.deck.pop();
-    pile.discard.push(file);
-    return './' + slot + '/img/' + type + '/' + file;
-}
 
-// ================================================================
-//  第五部分：关键词触发
-// ================================================================
+        // ================================================================
+        //  第六部分：TTS 合成
+        // ================================================================
 
-function checkKeywords(text) {
-    if (!profileData || !profileData.keyword_triggers) return null;
-    const kt = profileData.keyword_triggers;
-
-    if (kt.normal_photo && Array.isArray(kt.normal_photo)) {
-        for (const group of kt.normal_photo) {
-            if (!group.keywords) continue;
-            for (const kw of group.keywords) {
-                if (text.includes(kw) && Math.random() < (group.probability || 0.5)) {
-                    const path = drawImage(SLOT, 'work');
-                    if (path) {
-                        console.log('📷 触发图片:', path);
-                        return { type: 'image', content: path };
-                    }
+        async function callTTS(text) {
+            const ttsKey = localStorage.getItem('ai_tts_api_key');
+            if (!ttsKey) return null;
+            try {
+                const resp = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + ttsKey
+                    },
+                    body: JSON.stringify({
+                        model: 'qwen3-tts-flash',
+                        input: { text: text, voice: 'Cherry', language_type: 'Chinese' },
+                        parameters: { response_format: 'mp3' }
+                    })
+                });
+                if (!resp.ok) return null;
+                const data = await resp.json();
+                if (data.output && data.output.audio && data.output.audio.url) {
+                    return data.output.audio.url;
                 }
+                return null;
+            } catch (e) {
+                console.warn('TTS失败:', e);
+                return null;
             }
         }
-    }
 
-    if (kt.normal_audio && kt.normal_audio.keywords) {
-        const na = kt.normal_audio;
-        for (const kw of na.keywords) {
-            if (text.includes(kw) && Math.random() < (na.probability || 0.5)) {
-                return { type: 'audio', content: '__tts__' };
+        // ================================================================
+        //  第七部分：DeepSeek API + 流式输出
+        // ================================================================
+
+        function buildSystemPrompt(userText, weather) {
+            if (!systemPrompt) return '你是一个友好的AI助手。';
+            const timeInfo = getTimeInfo();
+            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const now = new Date();
+
+            let prompt = systemPrompt;
+            prompt += `\n\n📅 日期信息：\n今天（${timeInfo.month}月${timeInfo.day}日 ${weekdays[timeInfo.weekday]}）：${getScheduleDescription(PERSONA_ID, now)}`;
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dayAfter = new Date(now);
+            dayAfter.setDate(dayAfter.getDate() + 2);
+            prompt += `\n明天（${tomorrow.getMonth() + 1}月${tomorrow.getDate()}日 ${weekdays[tomorrow.getDay()]}）：${getScheduleDescription(PERSONA_ID, tomorrow)}`;
+            prompt += `\n后天（${dayAfter.getMonth() + 1}月${dayAfter.getDate()}日 ${weekdays[dayAfter.getDay()]}）：${getScheduleDescription(PERSONA_ID, dayAfter)}`;
+            prompt += `\n当用户问到「明天」「后天」「几号」「星期几」时，请根据上面提供的日期信息准确回答。`;
+
+            if (timeInfo.term) prompt += `\n今日节气：${timeInfo.term}`;
+            if (timeInfo.holiday) prompt += `\n今日节日：${timeInfo.holiday}`;
+
+            const status = getCurrentStatus(PERSONA_ID, now);
+            prompt += `\n${current.name}当前状态：${status.icon} ${status.label}`;
+            prompt += `\n虚构城市：舒心市；真实天气查询城市：${WEATHER_CITY}`;
+
+            if (weather) {
+                if (weather.fallback) prompt += `\n天气：${weather.fallback}`;
+                else prompt += `\n当前${WEATHER_CITY}的天气：${weather.condition}，${weather.temperature}`;
             }
-        }
-    }
 
-    if (kt.hidden_photo && Array.isArray(kt.hidden_photo)) {
-        for (const group of kt.hidden_photo) {
-            if (!group.keywords) continue;
-            for (const kw of group.keywords) {
-                if (text.includes(kw) && Math.random() < (group.probability || 0.3)) {
-                    const path = drawImage(SLOT, 'private');
-                    if (path) {
-                        console.log('🔒 触发私密图片:', path);
-                        return { type: 'image', content: path };
-                    }
+            prompt += `\n\n你（${current.name}）称呼用户为「${profileData?.personality?.call_user || '宝贝'}」，自称「${profileData?.personality?.self_call || '我'}」。`;
+            prompt += `\n回复自然简短，不要超过200字。`;
+
+            // 强制排班铁则
+            prompt += `\n\n【⚠️ 最高优先级 · 必须遵守】`;
+            prompt += `\n1. 上述「📅 日期信息」中已经注明了你今天的真实排班，你必须严格按照这个信息回答关于排班、上班、下班的问题。`;
+            prompt += `\n2. 绝对禁止自己编造排班信息！如果用户问你今天上什么班，你必须直接引用上面「今天」后面的排班描述。`;
+            prompt += `\n3. 如果上面的排班信息显示「休息」，你就说今天休息；如果显示「早班」或「中班」或「夜班」，你就如实回答。`;
+            prompt += `\n4. 不要用「我记得」「好像」「应该是」这类模糊词。`;
+
+            // ===== 🔥 新增：强制注入今天真实日期（最高优先级） =====
+            const todayStr = weekdays[now.getDay()];
+            const todayDateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
+            prompt += `\n\n【🚨 最高优先级 · 今天真实日期】`;
+            prompt += `\n今天是 ${todayStr}（${todayDateStr}），绝对不要回答成其他日子！`;
+            prompt += `\n当用户问「今天周几」「今天几号」时，必须回答「${todayStr}」！`;
+            prompt += `\n这是系统注入的准确日期，不是你记忆中的！`;
+
+            return prompt;
+        }
+
+        function getContextMessages() {
+            const MAX_CONTEXT = 60;
+            const recent = messages.slice(-MAX_CONTEXT);
+            return recent.filter(msg => msg.type === 'text' || msg.type === undefined);
+        }
+
+        async function callDeepSeekStream(userText, onChunk, onComplete, onError) {
+            const apiKey = localStorage.getItem('ai_api_key');
+            if (!apiKey) {
+                onError('请先配置 DeepSeek API Key（在「我的」→ API 配置中设置）');
+                return;
+            }
+
+            let weather = null;
+            if (/天气|温度|热|冷|下雨|雨|雪|风|出门|穿衣|预报|晴|阴/.test(userText)) {
+                try { weather = await fetchWeather(); } catch (e) { }
+            }
+
+            const prompt = buildSystemPrompt(userText, weather);
+            const context = getContextMessages();
+
+            const messagesArr = [
+                { role: 'system', content: prompt },
+                ...context.map(msg => ({
+                    role: msg.role === 'user' ? 'user' : 'assistant',
+                    content: msg.text || msg.content || ''
+                })),
+                { role: 'user', content: userText }
+            ];
+
+            try {
+                const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + apiKey
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: messagesArr,
+                        max_tokens: 400,
+                        temperature: 0.85,
+                        stream: true
+                    })
+                });
+
+                if (!resp.ok) {
+                    const errText = await resp.text();
+                    onError('API 错误：' + resp.status + ' ' + errText);
+                    return;
                 }
-            }
-        }
-    }
 
-    return null;
-}
+                const reader = resp.body.getReader();
+                const decoder = new TextDecoder();
+                let fullText = '';
 
-// ================================================================
-//  第六部分：TTS 合成
-// ================================================================
-
-async function callTTS(text) {
-    const ttsKey = localStorage.getItem('ai_tts_api_key');
-    if (!ttsKey) return null;
-    try {
-        const resp = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + ttsKey
-            },
-            body: JSON.stringify({
-                model: 'qwen3-tts-flash',
-                input: { text: text, voice: 'Cherry', language_type: 'Chinese' },
-                parameters: { response_format: 'mp3' }
-            })
-        });
-        if (!resp.ok) return null;
-        const data = await resp.json();
-        if (data.output && data.output.audio && data.output.audio.url) {
-            return data.output.audio.url;
-        }
-        return null;
-    } catch (e) {
-        console.warn('TTS失败:', e);
-        return null;
-    }
-}
-
-// ================================================================
-//  第七部分：DeepSeek API + 流式输出
-// ================================================================
-
-function buildSystemPrompt(userText, weather) {
-    if (!systemPrompt) return '你是一个友好的AI助手。';
-    const timeInfo = getTimeInfo();
-    const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-    const now = new Date();
-
-    let prompt = systemPrompt;
-    prompt += `\n\n📅 日期信息：\n今天（${timeInfo.month}月${timeInfo.day}日 ${weekdays[timeInfo.weekday]}）：${getScheduleDescription(PERSONA_ID, now)}`;
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dayAfter = new Date(now);
-    dayAfter.setDate(dayAfter.getDate() + 2);
-    prompt += `\n明天（${tomorrow.getMonth()+1}月${tomorrow.getDate()}日 ${weekdays[tomorrow.getDay()]}）：${getScheduleDescription(PERSONA_ID, tomorrow)}`;
-    prompt += `\n后天（${dayAfter.getMonth()+1}月${dayAfter.getDate()}日 ${weekdays[dayAfter.getDay()]}）：${getScheduleDescription(PERSONA_ID, dayAfter)}`;
-    prompt += `\n当用户问到「明天」「后天」「几号」「星期几」时，请根据上面提供的日期信息准确回答。`;
-
-    if (timeInfo.term) prompt += `\n今日节气：${timeInfo.term}`;
-    if (timeInfo.holiday) prompt += `\n今日节日：${timeInfo.holiday}`;
-
-    const status = getCurrentStatus(PERSONA_ID, now);
-    prompt += `\n${current.name}当前状态：${status.icon} ${status.label}`;
-    prompt += `\n虚构城市：舒心市；真实天气查询城市：${WEATHER_CITY}`;
-
-    if (weather) {
-        if (weather.fallback) prompt += `\n天气：${weather.fallback}`;
-        else prompt += `\n当前${WEATHER_CITY}的天气：${weather.condition}，${weather.temperature}`;
-    }
-
-    prompt += `\n\n你（${current.name}）称呼用户为「${profileData?.personality?.call_user || '宝贝'}」，自称「${profileData?.personality?.self_call || '我'}」。`;
-    prompt += `\n回复自然简短，不要超过200字。`;
-
-    // 强制排班铁则
-    prompt += `\n\n【⚠️ 最高优先级 · 必须遵守】`;
-    prompt += `\n1. 上述「📅 日期信息」中已经注明了你今天的真实排班，你必须严格按照这个信息回答关于排班、上班、下班的问题。`;
-    prompt += `\n2. 绝对禁止自己编造排班信息！如果用户问你今天上什么班，你必须直接引用上面「今天」后面的排班描述。`;
-    prompt += `\n3. 如果上面的排班信息显示「休息」，你就说今天休息；如果显示「早班」或「中班」或「夜班」，你就如实回答。`;
-    prompt += `\n4. 不要用「我记得」「好像」「应该是」这类模糊词。`;
-
-    // ===== 🔥 新增：强制注入今天真实日期（最高优先级） =====
-    const todayStr = weekdays[now.getDay()];
-    const todayDateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
-    prompt += `\n\n【🚨 最高优先级 · 今天真实日期】`;
-    prompt += `\n今天是 ${todayStr}（${todayDateStr}），绝对不要回答成其他日子！`;
-    prompt += `\n当用户问「今天周几」「今天几号」时，必须回答「${todayStr}」！`;
-    prompt += `\n这是系统注入的准确日期，不是你记忆中的！`;
-
-    return prompt;
-}
-
-function getContextMessages() {
-    const MAX_CONTEXT = 60;
-    const recent = messages.slice(-MAX_CONTEXT);
-    return recent.filter(msg => msg.type === 'text' || msg.type === undefined);
-}
-
-async function callDeepSeekStream(userText, onChunk, onComplete, onError) {
-    const apiKey = localStorage.getItem('ai_api_key');
-    if (!apiKey) {
-        onError('请先配置 DeepSeek API Key（在「我的」→ API 配置中设置）');
-        return;
-    }
-
-    let weather = null;
-    if (/天气|温度|热|冷|下雨|雨|雪|风|出门|穿衣|预报|晴|阴/.test(userText)) {
-        try { weather = await fetchWeather(); } catch (e) {}
-    }
-
-    const prompt = buildSystemPrompt(userText, weather);
-    const context = getContextMessages();
-
-    const messagesArr = [
-        { role: 'system', content: prompt },
-        ...context.map(msg => ({
-            role: msg.role === 'user' ? 'user' : 'assistant',
-            content: msg.text || msg.content || ''
-        })),
-        { role: 'user', content: userText }
-    ];
-
-    try {
-        const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + apiKey
-            },
-            body: JSON.stringify({
-                model: 'deepseek-chat',
-                messages: messagesArr,
-                max_tokens: 400,
-                temperature: 0.85,
-                stream: true
-            })
-        });
-
-        if (!resp.ok) {
-            const errText = await resp.text();
-            onError('API 错误：' + resp.status + ' ' + errText);
-            return;
-        }
-
-        const reader = resp.body.getReader();
-        const decoder = new TextDecoder();
-        let fullText = '';
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n').filter(line => line.trim() !== '');
-            for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    const data = line.slice(6);
-                    if (data === '[DONE]') continue;
-                    try {
-                        const parsed = JSON.parse(data);
-                        const delta = parsed.choices?.[0]?.delta?.content;
-                        if (delta) {
-                            fullText += delta;
-                            onChunk(delta);
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n').filter(line => line.trim() !== '');
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                const delta = parsed.choices?.[0]?.delta?.content;
+                                if (delta) {
+                                    fullText += delta;
+                                    onChunk(delta);
+                                }
+                            } catch (e) { }
                         }
-                    } catch (e) {}
+                    }
+                }
+
+                onComplete(fullText);
+            } catch (e) {
+                onError('网络错误：' + e.message);
+            }
+        }
+
+        // ================================================================
+        //  第八部分：UI 操作
+        // ================================================================
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => el.classList.remove('show'), 1500);
+        }
+
+        function getTime() {
+            return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return getTime();
+            const d = new Date(timestamp);
+            if (isNaN(d.getTime())) return getTime();
+            const now = new Date();
+            const sameDay = d.getFullYear() === now.getFullYear() &&
+                d.getMonth() === now.getMonth() &&
+                d.getDate() === now.getDate();
+            if (sameDay) {
+                return d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            }
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const isYesterday = d.getFullYear() === yesterday.getFullYear() &&
+                d.getMonth() === yesterday.getMonth() &&
+                d.getDate() === yesterday.getDate();
+            const hhmm = d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            if (isYesterday) return '昨天 ' + hhmm;
+            return d.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }) + ' ' + hhmm;
+        }
+
+        async function loadProfile() {
+            const saved = localStorage.getItem('dev_profile_' + SLOT);
+            if (saved) {
+                try {
+                    profileData = JSON.parse(saved);
+                    systemPrompt = profileData.systemPrompt || '';
+                    console.log('[chat.html] 从 localStorage 加载人设');
+                    return;
+                } catch (e) { }
+            }
+            try {
+                const resp = await fetch('./' + SLOT + '/profile.json?t=' + Date.now());
+                if (resp.ok) {
+                    profileData = await resp.json();
+                    systemPrompt = profileData.systemPrompt || '';
+                    console.log('[chat.html] 从 profile.json 加载人设');
+                    return;
+                }
+            } catch (e) { }
+            systemPrompt = '你是一个友好的AI助手。';
+            console.log('[chat.html] 使用默认人设');
+        }
+
+        function saveMessages() {
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages)); } catch (e) { }
+        }
+
+        function loadMessages() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    messages = JSON.parse(saved);
+                    return;
+                }
+            } catch (e) { }
+            messages = [
+                { role: 'bot', text: '你好呀～我是' + current.name + '，想聊点什么呢？😊', time: Date.now() }
+            ];
+            saveMessages();
+        }
+
+        function getClearedStatus() {
+            try { return localStorage.getItem(CLEARED_KEY) === 'true'; } catch (e) { return false; }
+        }
+
+        function setClearedStatus(cleared) {
+            try { localStorage.setItem(CLEARED_KEY, cleared ? 'true' : 'false'); } catch (e) { }
+            isCleared = cleared;
+        }
+
+        function clearScreen() {
+            if (isCleared) { showToast('⚠️ 已经清屏了'); return; }
+            clearedBackup = JSON.parse(JSON.stringify(messages));
+            setClearedStatus(true);
+            renderMessages();
+            showToast('🧹 已清屏');
+        }
+
+        function restoreScreen() {
+            if (!isCleared) { showToast('⚠️ 没有需要恢复的清屏'); return; }
+            if (clearedBackup.length === 0) {
+                const backup = localStorage.getItem('chat_backup_' + SLOT);
+                if (backup) {
+                    try { clearedBackup = JSON.parse(backup); } catch (e) { }
                 }
             }
-        }
-
-        onComplete(fullText);
-    } catch (e) {
-        onError('网络错误：' + e.message);
-    }
-}
-
-// ================================================================
-//  第八部分：UI 操作
-// ================================================================
-
-function showToast(msg) {
-    const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(el._timer);
-    el._timer = setTimeout(() => el.classList.remove('show'), 1500);
-}
-
-function getTime() {
-    return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-}
-
-function formatTime(timestamp) {
-    if (!timestamp) return getTime();
-    const d = new Date(timestamp);
-    if (isNaN(d.getTime())) return getTime();
-    const now = new Date();
-    const sameDay = d.getFullYear() === now.getFullYear() &&
-        d.getMonth() === now.getMonth() &&
-        d.getDate() === now.getDate();
-    if (sameDay) {
-        return d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-    }
-    const yesterday = new Date(now);
-    yesterday.setDate(yesterday.getDate() - 1);
-    const isYesterday = d.getFullYear() === yesterday.getFullYear() &&
-        d.getMonth() === yesterday.getMonth() &&
-        d.getDate() === yesterday.getDate();
-    const hhmm = d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-    if (isYesterday) return '昨天 ' + hhmm;
-    return d.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }) + ' ' + hhmm;
-}
-
-async function loadProfile() {
-    const saved = localStorage.getItem('dev_profile_' + SLOT);
-    if (saved) {
-        try {
-            profileData = JSON.parse(saved);
-            systemPrompt = profileData.systemPrompt || '';
-            console.log('[chat.html] 从 localStorage 加载人设');
-            return;
-        } catch (e) {}
-    }
-    try {
-        const resp = await fetch('./' + SLOT + '/profile.json?t=' + Date.now());
-        if (resp.ok) {
-            profileData = await resp.json();
-            systemPrompt = profileData.systemPrompt || '';
-            console.log('[chat.html] 从 profile.json 加载人设');
-            return;
-        }
-    } catch (e) {}
-    systemPrompt = '你是一个友好的AI助手。';
-    console.log('[chat.html] 使用默认人设');
-}
-
-function saveMessages() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages)); } catch (e) {}
-}
-
-function loadMessages() {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-            messages = JSON.parse(saved);
-            return;
-        }
-    } catch (e) {}
-    messages = [
-        { role: 'bot', text: '你好呀～我是' + current.name + '，想聊点什么呢？😊', time: Date.now() }
-    ];
-    saveMessages();
-}
-
-function getClearedStatus() {
-    try { return localStorage.getItem(CLEARED_KEY) === 'true'; } catch (e) { return false; }
-}
-
-function setClearedStatus(cleared) {
-    try { localStorage.setItem(CLEARED_KEY, cleared ? 'true' : 'false'); } catch (e) {}
-    isCleared = cleared;
-}
-
-function clearScreen() {
-    if (isCleared) { showToast('⚠️ 已经清屏了'); return; }
-    clearedBackup = JSON.parse(JSON.stringify(messages));
-    setClearedStatus(true);
-    renderMessages();
-    showToast('🧹 已清屏');
-}
-
-function restoreScreen() {
-    if (!isCleared) { showToast('⚠️ 没有需要恢复的清屏'); return; }
-    if (clearedBackup.length === 0) {
-        const backup = localStorage.getItem('chat_backup_' + SLOT);
-        if (backup) {
-            try { clearedBackup = JSON.parse(backup); } catch (e) {}
-        }
-    }
-    if (clearedBackup.length === 0) {
-        showToast('⚠️ 没有可恢复的内容');
-        return;
-    }
-    messages = JSON.parse(JSON.stringify(clearedBackup));
-    setClearedStatus(false);
-    saveMessages();
-    renderMessages();
-    showToast('↩️ 已恢复');
-}
-
-function renderMessages() {
-    const area = document.getElementById('messageArea');
-    area.innerHTML = '';
-
-    if (getClearedStatus()) {
-        area.innerHTML =
-            `<div class="clear-hint"><div class="icon">🧹</div>已清屏 · 点击右上角「恢复清屏」可恢复</div>`;
-        return;
-    }
-
-    if (!messages || messages.length === 0) {
-        area.innerHTML =
-            `<div class="clear-hint"><div class="icon">💬</div>还没有聊天记录<br>发送一条消息开始吧</div>`;
-        return;
-    }
-
-    messages.forEach((msg) => {
-        const div = document.createElement('div');
-        const isUser = msg.role === 'user' || msg.role === 'me';
-        div.className = 'message ' + (isUser ? 'user' : 'bot');
-
-        if (msg.type === 'image') {
-            const src = msg.src || msg.content;
-            if (isUser) {
-                div.innerHTML = `<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
-            } else {
-                const text = msg.text || '';
-                div.innerHTML = `<span class="bav">${current.emoji}</span>${text ? text : ''}<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
+            if (clearedBackup.length === 0) {
+                showToast('⚠️ 没有可恢复的内容');
+                return;
             }
-        } else if (msg.type === 'audio') {
-            const src = msg.src || msg.content;
-            const audioHTML = createAudioUI(src, msg.duration);
-            if (isUser) {
-                div.innerHTML = audioHTML;
-            } else {
-                const text = msg.text || '';
-                div.innerHTML = `<span class="bav">${current.emoji}</span>${text ? text : ''}${audioHTML}`;
+            messages = JSON.parse(JSON.stringify(clearedBackup));
+            setClearedStatus(false);
+            saveMessages();
+            renderMessages();
+            showToast('↩️ 已恢复');
+        }
+
+        function renderMessages() {
+            const area = document.getElementById('messageArea');
+            area.innerHTML = '';
+
+            if (getClearedStatus()) {
+                area.innerHTML =
+                    `<div class="clear-hint"><div class="icon">🧹</div>已清屏 · 点击右上角「恢复清屏」可恢复</div>`;
+                return;
             }
-        } else {
-            const text = msg.text || msg.content || '';
-            if (isUser) {
-                div.textContent = text;
-            } else {
-                div.innerHTML = `<span class="bav">${current.emoji}</span> ${text}`;
+
+            if (!messages || messages.length === 0) {
+                area.innerHTML =
+                    `<div class="clear-hint"><div class="icon">💬</div>还没有聊天记录<br>发送一条消息开始吧</div>`;
+                return;
             }
-        }
 
-        const timeSpan = document.createElement('span');
-        timeSpan.className = 'time';
-        timeSpan.textContent = formatTime(msg.time);
-        div.appendChild(timeSpan);
-        area.appendChild(div);
-    });
+            messages.forEach((msg) => {
+                const div = document.createElement('div');
+                const isUser = msg.role === 'user' || msg.role === 'me';
+                div.className = 'message ' + (isUser ? 'user' : 'bot');
 
-    area.scrollTop = area.scrollHeight;
-}
+                if (msg.type === 'image') {
+                    const src = msg.src || msg.content;
+                    if (isUser) {
+                        div.innerHTML = `<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
+                    } else {
+                        const text = msg.text || '';
+                        div.innerHTML = `<span class="bav">${current.emoji}</span>${text ? text : ''}<img src="${src}" class="msg-image" onerror="this.outerHTML='<div class=\\'img-ph\\'>🖼️ 图片加载失败</div>'">`;
+                    }
+                } else if (msg.type === 'audio') {
+                    const src = msg.src || msg.content;
+                    const audioHTML = createAudioUI(src, msg.duration);
+                    if (isUser) {
+                        div.innerHTML = audioHTML;
+                    } else {
+                        const text = msg.text || '';
+                        div.innerHTML = `<span class="bav">${current.emoji}</span>${text ? text : ''}${audioHTML}`;
+                    }
+                } else {
+                    const text = msg.text || msg.content || '';
+                    if (isUser) {
+                        div.textContent = text;
+                    } else {
+                        div.innerHTML = `<span class="bav">${current.emoji}</span> ${text}`;
+                    }
+                }
 
-function createAudioUI(src, duration) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'audio-wrapper';
-    const disc = document.createElement('div');
-    disc.className = 'disc';
-    const info = document.createElement('div');
-    info.className = 'info';
-    const label = document.createElement('div');
-    label.className = 'label';
-    label.textContent = '语音消息';
-    const durSpan = document.createElement('div');
-    durSpan.className = 'duration';
-    durSpan.textContent = duration ? Math.round(duration) + '"' : '…';
-    info.appendChild(label);
-    info.appendChild(durSpan);
-    wrapper.appendChild(disc);
-    wrapper.appendChild(info);
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'time';
+                timeSpan.textContent = formatTime(msg.time);
+                div.appendChild(timeSpan);
+                area.appendChild(div);
+            });
 
-    if (src === '__audio_placeholder__' || src === '__tts__') {
-        wrapper.style.opacity = '0.5';
-        wrapper.style.cursor = 'not-allowed';
-        durSpan.textContent = '需配置TTS';
-        wrapper.onclick = () => showToast('请先配置 TTS API Key');
-        return wrapper.outerHTML;
-    }
-
-    const audio = new Audio();
-    audio.src = src;
-    audio.preload = 'metadata';
-    let isPlaying = false;
-
-    audio.addEventListener('loadedmetadata', () => {
-        if (audio.duration && audio.duration > 0) {
-            durSpan.textContent = Math.round(audio.duration) + '"';
-        }
-    });
-
-    wrapper.onclick = function(e) {
-        e.stopPropagation();
-        if (currentAudio && currentAudio !== audio) {
-            currentAudio.pause();
-            const oldDisc = currentAudio._wrapper?.querySelector('.disc');
-            if (oldDisc) oldDisc.classList.remove('playing');
-        }
-        if (isPlaying) {
-            audio.pause();
-        } else {
-            audio.currentTime = 0;
-            audio.play().catch(() => {});
-            disc.classList.add('playing');
-            label.textContent = '播放中...';
-        }
-    };
-
-    audio.addEventListener('play', () => { isPlaying = true;
-        currentAudio = audio;
-        audio._wrapper = wrapper; });
-    audio.addEventListener('pause', () => {
-        isPlaying = false;
-        disc.classList.remove('playing');
-        label.textContent = '语音消息';
-        if (currentAudio === audio) currentAudio = null;
-    });
-    audio.addEventListener('ended', () => {
-        isPlaying = false;
-        disc.classList.remove('playing');
-        label.textContent = '语音消息';
-        if (currentAudio === audio) currentAudio = null;
-    });
-
-    return wrapper.outerHTML;
-}
-
-function addMessage(role, opts) {
-    const msg = {
-        role: role,
-        type: opts.type || 'text',
-        text: opts.text || '',
-        content: opts.content || opts.text || '',
-        time: Date.now()
-    };
-    if (opts.image) { msg.image = opts.image;
-        msg.src = opts.image;
-        msg.type = 'image'; }
-    if (opts.audio) { msg.audio = opts.audio;
-        msg.src = opts.audio;
-        msg.type = 'audio'; }
-    if (opts.duration) { msg.duration = opts.duration; }
-    messages.push(msg);
-    saveMessages();
-    renderMessages();
-}
-
-function showTyping() {
-    const area = document.getElementById('messageArea');
-    const div = document.createElement('div');
-    div.className = 'message bot typing';
-    div.id = 'typingIndicator';
-    div.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
-    area.appendChild(div);
-    area.scrollTop = area.scrollHeight;
-}
-
-function removeTyping() {
-    const el = document.getElementById('typingIndicator');
-    if (el) el.remove();
-}
-
-// ================================================================
-//  第九部分：发送消息（核心）
-// ================================================================
-
-async function sendMessage() {
-    updateHeaderStatus();
-    const input = document.getElementById('inputBox');
-    const text = input.value.trim();
-    if (!text) return;
-    if (isWaiting) { showToast('⏳ 正在回复中，请稍候'); return; }
-
-    // 1. 关键词触发
-    const keywordResult = checkKeywords(text);
-    if (keywordResult) {
-        addMessage('user', { type: 'text', text: text });
-        input.value = '';
-        input.style.height = '42px';
-        if (keywordResult.type === 'image') {
-            const imgPath = keywordResult.content;
-            if (imgPath) {
-                addMessage('bot', { type: 'image', image: imgPath, text: '给你看～' });
-            } else {
-                addMessage('bot', { type: 'text', text: '我翻遍了相册，没找到合适的照片～下次再给你看吧 😊' });
-            }
-        } else if (keywordResult.type === 'audio') {
-            showTyping();
-            const ttsText = '你好呀～我是' + current.name + '，很高兴和你聊天～';
-            const audioUrl = await callTTS(ttsText);
-            removeTyping();
-            if (audioUrl) {
-                addMessage('bot', { type: 'audio', src: audioUrl, text: '' });
-            } else {
-                addMessage('bot', { type: 'text', text: '我突然嗓子不舒服…下次再说给你听好不好～ 😣' });
-            }
-        }
-        return;
-    }
-
-    // 2. 检查是否睡觉（挡3）
-    const now = new Date();
-    const status = getCurrentStatus(PERSONA_ID, now);
-    if (status.level === 3) {
-        addMessage('user', { type: 'text', text: text });
-        input.value = '';
-        input.style.height = '42px';
-        addMessage('bot', { type: 'text', text: getDefaultReply(PERSONA_ID) });
-        return;
-    }
-
-    // 3. 正常发送
-    addMessage('user', { type: 'text', text: text });
-    input.value = '';
-    input.style.height = '42px';
-
-    // 检查挡2
-    const isSlow = (status.level === 2);
-    const prefixText = isSlow ? getPrefixText(status.prefixKey, PERSONA_ID) : null;
-
-    isWaiting = true;
-    document.getElementById('sendBtn').disabled = true;
-
-    const streamMsg = document.createElement('div');
-    streamMsg.className = 'message bot';
-    streamMsg.id = 'streamingMessage';
-    streamMsg.innerHTML = `<span class="bav">${current.emoji}</span> <span id="streamContent"></span><span class="cursor-blink"></span>`;
-    const area = document.getElementById('messageArea');
-    area.appendChild(streamMsg);
-    area.scrollTop = area.scrollHeight;
-
-    let fullReply = '';
-
-    if (isSlow && prefixText) {
-        const prefixSpan = document.createElement('span');
-        prefixSpan.style.color = '#ff9800';
-        prefixSpan.textContent = prefixText + ' ';
-        document.getElementById('streamContent').appendChild(prefixSpan);
-        fullReply = prefixText + ' ';
-    }
-
-    await callDeepSeekStream(
-        text,
-        (chunk) => {
-            const content = document.getElementById('streamContent');
-            const textNode = document.createTextNode(chunk);
-            content.appendChild(textNode);
-            fullReply += chunk;
             area.scrollTop = area.scrollHeight;
-        },
-        (finalText) => {
-            const streamEl = document.getElementById('streamingMessage');
-            if (streamEl) {
-                streamEl.querySelector('.cursor-blink')?.remove();
-                const content = streamEl.querySelector('#streamContent');
-                if (content) {
-                    content.textContent = fullReply;
-                }
-                const timeSpan = document.createElement('span');
-                timeSpan.className = 'time';
-                timeSpan.textContent = formatTime(Date.now());
-                streamEl.appendChild(timeSpan);
-                streamEl.id = '';
-                const replyText = fullReply.trim();
-                messages.push({ role: 'bot', text: replyText, time: Date.now() });
-                saveMessages();
-                isWaiting = false;
-                document.getElementById('sendBtn').disabled = false;
-                area.scrollTop = area.scrollHeight;
-            }
-        },
-        (errorMsg) => {
-            const streamEl = document.getElementById('streamingMessage');
-            if (streamEl) {
-                const content = streamEl.querySelector('#streamContent');
-                if (content) {
-                    content.textContent = '⚠️ ' + errorMsg;
-                }
-                streamEl.querySelector('.cursor-blink')?.remove();
-                const timeSpan = document.createElement('span');
-                timeSpan.className = 'time';
-                timeSpan.textContent = formatTime(Date.now());
-                streamEl.appendChild(timeSpan);
-                streamEl.id = '';
-            }
-            isWaiting = false;
-            document.getElementById('sendBtn').disabled = false;
-            showToast('⚠️ ' + errorMsg);
         }
-    );
-}
 
-// ================================================================
-//  第十部分：菜单功能
-// ================================================================
+        function createAudioUI(src, duration) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'audio-wrapper';
+            const disc = document.createElement('div');
+            disc.className = 'disc';
+            const info = document.createElement('div');
+            info.className = 'info';
+            const label = document.createElement('div');
+            label.className = 'label';
+            label.textContent = '语音消息';
+            const durSpan = document.createElement('div');
+            durSpan.className = 'duration';
+            durSpan.textContent = duration ? Math.round(duration) + '"' : '…';
+            info.appendChild(label);
+            info.appendChild(durSpan);
+            wrapper.appendChild(disc);
+            wrapper.appendChild(info);
 
-let menuOpen = false;
+            if (src === '__audio_placeholder__' || src === '__tts__') {
+                wrapper.style.opacity = '0.5';
+                wrapper.style.cursor = 'not-allowed';
+                durSpan.textContent = '需配置TTS';
+                wrapper.onclick = () => showToast('请先配置 TTS API Key');
+                return wrapper.outerHTML;
+            }
 
-function toggleMenu(e) {
-    e.stopPropagation();
-    menuOpen = !menuOpen;
-    document.getElementById('menuDropdown').classList.toggle('open', menuOpen);
-}
+            const audio = new Audio();
+            audio.src = src;
+            audio.preload = 'metadata';
+            let isPlaying = false;
 
-function closeMenu() {
-    menuOpen = false;
-    document.getElementById('menuDropdown').classList.remove('open');
-}
+            audio.addEventListener('loadedmetadata', () => {
+                if (audio.duration && audio.duration > 0) {
+                    durSpan.textContent = Math.round(audio.duration) + '"';
+                }
+            });
 
-function showSearchModal() {
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
-    content.innerHTML = `
+            wrapper.onclick = function (e) {
+                e.stopPropagation();
+                if (currentAudio && currentAudio !== audio) {
+                    currentAudio.pause();
+                    const oldDisc = currentAudio._wrapper?.querySelector('.disc');
+                    if (oldDisc) oldDisc.classList.remove('playing');
+                }
+                if (isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => { });
+                    disc.classList.add('playing');
+                    label.textContent = '播放中...';
+                }
+            };
+
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                currentAudio = audio;
+                audio._wrapper = wrapper;
+            });
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                disc.classList.remove('playing');
+                label.textContent = '语音消息';
+                if (currentAudio === audio) currentAudio = null;
+            });
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                disc.classList.remove('playing');
+                label.textContent = '语音消息';
+                if (currentAudio === audio) currentAudio = null;
+            });
+
+            return wrapper.outerHTML;
+        }
+
+        function addMessage(role, opts) {
+            const msg = {
+                role: role,
+                type: opts.type || 'text',
+                text: opts.text || '',
+                content: opts.content || opts.text || '',
+                time: Date.now()
+            };
+            if (opts.image) {
+                msg.image = opts.image;
+                msg.src = opts.image;
+                msg.type = 'image';
+            }
+            if (opts.audio) {
+                msg.audio = opts.audio;
+                msg.src = opts.audio;
+                msg.type = 'audio';
+            }
+            if (opts.duration) { msg.duration = opts.duration; }
+            messages.push(msg);
+            saveMessages();
+            renderMessages();
+        }
+
+        function showTyping() {
+            const area = document.getElementById('messageArea');
+            const div = document.createElement('div');
+            div.className = 'message bot typing';
+            div.id = 'typingIndicator';
+            div.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        function removeTyping() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        // ================================================================
+        //  第九部分：发送消息（核心）
+        // ================================================================
+
+        async function sendMessage() {
+            updateHeaderStatus();
+            const input = document.getElementById('inputBox');
+            const text = input.value.trim();
+            if (!text) return;
+            if (isWaiting) { showToast('⏳ 正在回复中，请稍候'); return; }
+
+            // 1. 关键词触发
+            const keywordResult = checkKeywords(text);
+            if (keywordResult) {
+                addMessage('user', { type: 'text', text: text });
+                input.value = '';
+                input.style.height = '42px';
+                if (keywordResult.type === 'image') {
+                    const imgPath = keywordResult.content;
+                    if (imgPath) {
+                        addMessage('bot', { type: 'image', image: imgPath, text: '给你看～' });
+                    } else {
+                        addMessage('bot', { type: 'text', text: '我翻遍了相册，没找到合适的照片～下次再给你看吧 😊' });
+                    }
+                } else if (keywordResult.type === 'audio') {
+                    showTyping();
+                    const ttsText = '你好呀～我是' + current.name + '，很高兴和你聊天～';
+                    const audioUrl = await callTTS(ttsText);
+                    removeTyping();
+                    if (audioUrl) {
+                        addMessage('bot', { type: 'audio', src: audioUrl, text: '' });
+                    } else {
+                        addMessage('bot', { type: 'text', text: '我突然嗓子不舒服…下次再说给你听好不好～ 😣' });
+                    }
+                }
+                return;
+            }
+
+            // 2. 检查是否睡觉（挡3）
+            const now = new Date();
+            const status = getCurrentStatus(PERSONA_ID, now);
+            if (status.level === 3) {
+                addMessage('user', { type: 'text', text: text });
+                input.value = '';
+                input.style.height = '42px';
+                addMessage('bot', { type: 'text', text: getDefaultReply(PERSONA_ID) });
+                return;
+            }
+
+            // 3. 正常发送
+            addMessage('user', { type: 'text', text: text });
+            input.value = '';
+            input.style.height = '42px';
+
+            // 检查挡2
+            const isSlow = (status.level === 2);
+            const prefixText = isSlow ? getPrefixText(status.prefixKey, PERSONA_ID) : null;
+
+            isWaiting = true;
+            document.getElementById('sendBtn').disabled = true;
+
+            const streamMsg = document.createElement('div');
+            streamMsg.className = 'message bot';
+            streamMsg.id = 'streamingMessage';
+            streamMsg.innerHTML = `<span class="bav">${current.emoji}</span> <span id="streamContent"></span><span class="cursor-blink"></span>`;
+            const area = document.getElementById('messageArea');
+            area.appendChild(streamMsg);
+            area.scrollTop = area.scrollHeight;
+
+            let fullReply = '';
+
+            if (isSlow && prefixText) {
+                const prefixSpan = document.createElement('span');
+                prefixSpan.style.color = '#ff9800';
+                prefixSpan.textContent = prefixText + ' ';
+                document.getElementById('streamContent').appendChild(prefixSpan);
+                fullReply = prefixText + ' ';
+            }
+
+            await callDeepSeekStream(
+                text,
+                (chunk) => {
+                    const content = document.getElementById('streamContent');
+                    const textNode = document.createTextNode(chunk);
+                    content.appendChild(textNode);
+                    fullReply += chunk;
+                    area.scrollTop = area.scrollHeight;
+                },
+                (finalText) => {
+                    const streamEl = document.getElementById('streamingMessage');
+                    if (streamEl) {
+                        streamEl.querySelector('.cursor-blink')?.remove();
+                        const content = streamEl.querySelector('#streamContent');
+                        if (content) {
+                            content.textContent = fullReply;
+                        }
+                        const timeSpan = document.createElement('span');
+                        timeSpan.className = 'time';
+                        timeSpan.textContent = formatTime(Date.now());
+                        streamEl.appendChild(timeSpan);
+                        streamEl.id = '';
+                        const replyText = fullReply.trim();
+                        messages.push({ role: 'bot', text: replyText, time: Date.now() });
+                        saveMessages();
+                        isWaiting = false;
+                        document.getElementById('sendBtn').disabled = false;
+                        area.scrollTop = area.scrollHeight;
+                    }
+                },
+                (errorMsg) => {
+                    const streamEl = document.getElementById('streamingMessage');
+                    if (streamEl) {
+                        const content = streamEl.querySelector('#streamContent');
+                        if (content) {
+                            content.textContent = '⚠️ ' + errorMsg;
+                        }
+                        streamEl.querySelector('.cursor-blink')?.remove();
+                        const timeSpan = document.createElement('span');
+                        timeSpan.className = 'time';
+                        timeSpan.textContent = formatTime(Date.now());
+                        streamEl.appendChild(timeSpan);
+                        streamEl.id = '';
+                    }
+                    isWaiting = false;
+                    document.getElementById('sendBtn').disabled = false;
+                    showToast('⚠️ ' + errorMsg);
+                }
+            );
+        }
+
+        // ================================================================
+        //  第十部分：菜单功能
+        // ================================================================
+
+        let menuOpen = false;
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            menuOpen = !menuOpen;
+            document.getElementById('menuDropdown').classList.toggle('open', menuOpen);
+        }
+
+        function closeMenu() {
+            menuOpen = false;
+            document.getElementById('menuDropdown').classList.remove('open');
+        }
+
+        function showSearchModal() {
+            const overlay = document.getElementById('modalOverlay');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
         <div class="modal-header">
             <h3>🔍 搜索聊天记录</h3>
             <button class="close" onclick="closeModal()">✕</button>
@@ -1911,26 +2216,26 @@ function showSearchModal() {
             <div class="no-result">输入关键词开始搜索</div>
         </div>
     `;
-    overlay.classList.add('show');
-    setTimeout(() => document.getElementById('searchInput').focus(), 100);
+            overlay.classList.add('show');
+            setTimeout(() => document.getElementById('searchInput').focus(), 100);
 
-    document.getElementById('searchInput').addEventListener('input', function() {
-        const keyword = this.value.trim().toLowerCase();
-        const results = document.getElementById('searchResults');
-        if (!keyword) {
-            results.innerHTML = '<div class="no-result">输入关键词开始搜索</div>';
-            return;
-        }
-        const allMsgs = getClearedStatus() ? clearedBackup : messages;
-        const matches = allMsgs.filter(msg => {
-            const text = (msg.text || msg.content || '').toString().toLowerCase();
-            return text.includes(keyword);
-        });
-        if (matches.length === 0) {
-            results.innerHTML = '<div class="no-result">未找到匹配记录</div>';
-            return;
-        }
-        results.innerHTML = matches.map((m, idx) => `
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const keyword = this.value.trim().toLowerCase();
+                const results = document.getElementById('searchResults');
+                if (!keyword) {
+                    results.innerHTML = '<div class="no-result">输入关键词开始搜索</div>';
+                    return;
+                }
+                const allMsgs = getClearedStatus() ? clearedBackup : messages;
+                const matches = allMsgs.filter(msg => {
+                    const text = (msg.text || msg.content || '').toString().toLowerCase();
+                    return text.includes(keyword);
+                });
+                if (matches.length === 0) {
+                    results.innerHTML = '<div class="no-result">未找到匹配记录</div>';
+                    return;
+                }
+                results.innerHTML = matches.map((m, idx) => `
             <div class="result-item" onclick="jumpToMessage(${idx})">
                 <div>
                     <span class="who">${m.role === 'user' ? '🧑 我' : '👤 ' + current.name}</span>
@@ -1939,48 +2244,48 @@ function showSearchModal() {
                 <div class="text">${highlightText((m.text || m.content || '').toString(), keyword)}</div>
             </div>
         `).join('');
-    });
-}
-
-function highlightText(text, keyword) {
-    const regex = new RegExp('(' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-    return text.replace(regex, '<b>$1</b>');
-}
-
-function jumpToMessage(idx) {
-    closeModal();
-    if (getClearedStatus()) restoreScreen();
-    setTimeout(() => {
-        const area = document.getElementById('messageArea');
-        const items = area.querySelectorAll('.message');
-        if (items[idx]) {
-            items[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            items[idx].style.transition = 'background 0.3s';
-            items[idx].style.background = 'rgba(58, 123, 213, 0.15)';
-            setTimeout(() => { items[idx].style.background = ''; }, 1500);
+            });
         }
-    }, 100);
-}
 
-function clearAllChat() {
-    showPasswordModal('🗑️ 清除聊天记录', '确定要永久删除与「' + current.name + '」的所有聊天记录吗？此操作不可恢复！', function(password) {
-        if (password === 'wlaoshi520') {
-            messages = [];
-            saveMessages();
-            setClearedStatus(false);
-            clearedBackup = [];
-            renderMessages();
-            showToast('🗑️ 已清除所有聊天记录');
-        } else {
-            showToast('❌ 密码错误');
+        function highlightText(text, keyword) {
+            const regex = new RegExp('(' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+            return text.replace(regex, '<b>$1</b>');
         }
-    });
-}
 
-function showPasswordModal(title, message, callback) {
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
-    content.innerHTML = `
+        function jumpToMessage(idx) {
+            closeModal();
+            if (getClearedStatus()) restoreScreen();
+            setTimeout(() => {
+                const area = document.getElementById('messageArea');
+                const items = area.querySelectorAll('.message');
+                if (items[idx]) {
+                    items[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    items[idx].style.transition = 'background 0.3s';
+                    items[idx].style.background = 'rgba(58, 123, 213, 0.15)';
+                    setTimeout(() => { items[idx].style.background = ''; }, 1500);
+                }
+            }, 100);
+        }
+
+        function clearAllChat() {
+            showPasswordModal('🗑️ 清除聊天记录', '确定要永久删除与「' + current.name + '」的所有聊天记录吗？此操作不可恢复！', function (password) {
+                if (password === 'wlaoshi520') {
+                    messages = [];
+                    saveMessages();
+                    setClearedStatus(false);
+                    clearedBackup = [];
+                    renderMessages();
+                    showToast('🗑️ 已清除所有聊天记录');
+                } else {
+                    showToast('❌ 密码错误');
+                }
+            });
+        }
+
+        function showPasswordModal(title, message, callback) {
+            const overlay = document.getElementById('modalOverlay');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
         <div class="modal-header">
             <h3>${title}</h3>
             <button class="close" onclick="closeModal()">✕</button>
@@ -1992,58 +2297,58 @@ function showPasswordModal(title, message, callback) {
             <button class="btn-confirm" id="pwdConfirm">确定</button>
         </div>
     `;
-    overlay.classList.add('show');
-    setTimeout(() => document.getElementById('pwdInput').focus(), 100);
+            overlay.classList.add('show');
+            setTimeout(() => document.getElementById('pwdInput').focus(), 100);
 
-    document.getElementById('pwdConfirm').onclick = function() {
-        const pwd = document.getElementById('pwdInput').value;
-        closeModal();
-        callback(pwd);
-    };
-    document.getElementById('pwdInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') document.getElementById('pwdConfirm').click();
-    });
-}
+            document.getElementById('pwdConfirm').onclick = function () {
+                const pwd = document.getElementById('pwdInput').value;
+                closeModal();
+                callback(pwd);
+            };
+            document.getElementById('pwdInput').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') document.getElementById('pwdConfirm').click();
+            });
+        }
 
-function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('show');
-}
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-});
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+        }
+        document.getElementById('modalOverlay').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
 
-function goBack() {
-    if (window.history.length > 1) window.history.back();
-    else location.href = 'index.html';
-}
+        function goBack() {
+            if (window.history.length > 1) window.history.back();
+            else location.href = 'index.html';
+        }
 
-// ================================================================
-//  第十一部分：今日日程
-// ================================================================
+        // ================================================================
+        //  第十一部分：今日日程
+        // ================================================================
 
-function showTodaySchedule() {
-    const now = new Date();
-    const status = getCurrentStatus(PERSONA_ID, now);
-    const timeInfo = getTimeInfo();
-    const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-    const schedule = WEEKLY_SCHEDULES[PERSONA_ID];
-    const weekday = now.getDay();
+        function showTodaySchedule() {
+            const now = new Date();
+            const status = getCurrentStatus(PERSONA_ID, now);
+            const timeInfo = getTimeInfo();
+            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const schedule = WEEKLY_SCHEDULES[PERSONA_ID];
+            const weekday = now.getDay();
 
-    if (PERSONA_ID === 'xiaoshu') {
-        showToast('小舒24小时全天在线');
-        return;
-    }
+            if (PERSONA_ID === 'xiaoshu') {
+                showToast('小舒24小时全天在线');
+                return;
+            }
 
-    if (!schedule || !schedule[weekday]) {
-        showToast('暂无日程数据');
-        return;
-    }
+            if (!schedule || !schedule[weekday]) {
+                showToast('暂无日程数据');
+                return;
+            }
 
-    let timelineHtml = '';
-    for (const slot of schedule[weekday]) {
-        const [startStr, endStr, level, icon, label] = slot;
-        const levelLabel = level === 1 ? '正常' : level === 2 ? '回复慢' : '不回复';
-        timelineHtml += `
+            let timelineHtml = '';
+            for (const slot of schedule[weekday]) {
+                const [startStr, endStr, level, icon, label] = slot;
+                const levelLabel = level === 1 ? '正常' : level === 2 ? '回复慢' : '不回复';
+                timelineHtml += `
             <div style="display:flex;align-items:center;padding:5px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px;">
                 <span style="min-width:85px;color:#8e8e93;">${startStr} - ${endStr}</span>
                 <span style="margin:0 6px;">${icon}</span>
@@ -2051,11 +2356,11 @@ function showTodaySchedule() {
                 <span style="font-size:10px;color:${level === 1 ? '#4caf50' : level === 2 ? '#ff9800' : '#7c4dff'};">${levelLabel}</span>
             </div>
         `;
-    }
+            }
 
-    const overlay = document.getElementById('modalOverlay');
-    const content = document.getElementById('modalContent');
-    content.innerHTML = `
+            const overlay = document.getElementById('modalOverlay');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
         <div class="modal-header">
             <h3>📅 ${current.name} 今日日程（${timeInfo.month}月${timeInfo.day}日 ${weekdays[weekday]}）</h3>
             <button class="close" onclick="closeModal()">✕</button>
@@ -2067,80 +2372,205 @@ function showTodaySchedule() {
             💡 当前状态：${status.icon} ${status.label}
         </div>
     `;
-    overlay.classList.add('show');
-}
+            overlay.classList.add('show');
+        }
 
-// ================================================================
-//  第十二部分：初始化
-// ================================================================
+        // ================================================================
+        //  第十二部分：初始化
+        // ================================================================
 
-document.getElementById('menuBtn').addEventListener('click', toggleMenu);
-document.addEventListener('click', function(e) {
-    if (menuOpen && !e.target.closest('.menu-wrapper')) closeMenu();
-});
+        document.getElementById('menuBtn').addEventListener('click', toggleMenu);
+        document.addEventListener('click', function (e) {
+            if (menuOpen && !e.target.closest('.menu-wrapper')) closeMenu();
+        });
 
-document.querySelectorAll('.menu-dropdown .item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeMenu();
-        const action = this.dataset.action;
-        if (action === 'search') showSearchModal();
-        else if (action === 'clearscreen') clearScreen();
-        else if (action === 'restorescreen') restoreScreen();
-        else if (action === 'schedule') showTodaySchedule();
-        else if (action === 'clear') clearAllChat();
-    });
-});
+        document.querySelectorAll('.menu-dropdown .item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.stopPropagation();
+                closeMenu();
+                const action = this.dataset.action;
+                if (action === 'search') showSearchModal();
+                else if (action === 'clearscreen') clearScreen();
+                else if (action === 'restorescreen') restoreScreen();
+                else if (action === 'schedule') showTodaySchedule();
+                else if (action === 'clear') clearAllChat();
+            });
+        });
 
-document.getElementById('sendBtn').addEventListener('click', sendMessage);
-document.getElementById('inputBox').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-    }
-});
-document.getElementById('inputBox').addEventListener('input', function() {
-    this.style.height = '42px';
-    this.style.height = Math.min(this.scrollHeight, 80) + 'px';
-});
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('inputBox').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        document.getElementById('inputBox').addEventListener('input', function () {
+            this.style.height = '42px';
+            this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+        });
+        // ===== 故事引导条控制 =====
+        function updateStoryHintBar() {
+            const hintBar = document.getElementById('storyHintBar');
+            if (!hintBar) return;
 
-async function init() {
-    await loadProfile();
-    await loadManifest();
+            // 只有小舒才显示
+            if (SLOT !== 'd') {
+                hintBar.classList.remove('active');
+                return;
+            }
 
-    // 设置头像
-    const avatarPath = getAvatarPath();
-    document.getElementById('chatAvatar').innerHTML =
-        `<img src="${avatarPath}" alt="${current.name}" onerror="this.style.display='none';this.parentElement.textContent='${current.emoji}'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+            // 检查是否有进行中的故事
+            const hasActiveStory = window.storyEngine && window.storyEngine.isActive();
+            if (hasActiveStory) {
+                hintBar.classList.remove('active');
+            } else {
+                hintBar.classList.add('active');
+            }
+        }
+        function setupStoryHint() {
+            const bar = document.getElementById('storyHintBar');
+            if (!bar) {
+                console.log('❌ 引导条不存在');
+                return;
+            }
 
-    document.getElementById('chatName').textContent = current.name;
+            // 移除所有旧的「想听」按钮
+            const oldBtns = bar.querySelectorAll('.story-hint-action, [id="storyHintBtn"]');
+            oldBtns.forEach(btn => btn.remove());
 
-    // 初始化状态
-    updateHeaderStatus();
+            // 创建一个新的「想听」按钮
+            const btn = document.createElement('span');
+            btn.className = 'story-hint-action';
+            btn.id = 'storyHintBtn';
+            btn.textContent = '想听';
+            btn.style.cssText = 'color:#3a7bd5;padding:2px 8px;border:1px solid #2b5ca8;border-radius:10px;cursor:pointer;font-size:12px;';
 
-    loadMessages();
-    isCleared = getClearedStatus();
-    if (isCleared) {
-        clearedBackup = JSON.parse(JSON.stringify(messages));
-        localStorage.setItem('chat_backup_' + SLOT, JSON.stringify(clearedBackup));
-    }
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                console.log('✅ 点击「想听」');
+                startRandomStory();
+            });
 
-    renderMessages();
+            bar.appendChild(btn);
+            console.log('✅ 已创建「想听」按钮');
+        }
+        function startRandomStory() {
+            if (typeof window.storyEngine === 'undefined') {
+                addMessage('bot', { type: 'text', text: '故事引擎还没加载好，稍等再试试～' });
+                return;
+            }
+            if (window.storyEngine.isActive()) {
+                addMessage('bot', { type: 'text', text: '现在正在进行一个故事呢，先把这个听完再说吧～' });
+                return;
+            }
 
-    // 每分钟更新状态
-    setInterval(updateHeaderStatus, 60000);
+            const catalog = window.STORY_CATALOG;
+            if (!catalog) {
+                addMessage('bot', { type: 'text', text: '故事目录还没加载好，稍等再试试～' });
+                return;
+            }
 
-    console.log('💬 聊天已启动 · ' + current.name);
-    console.log('📁 存储 Key: ' + STORAGE_KEY);
-    console.log('✅ 所有功能已集成：DeepSeek API · 流式输出 · 固定一周排班 · 时间/天气 · 关键词触发 · TTS · 牌堆机制');
-}
+            const allStories = [
+                ...(catalog.crime || []),
+                ...(catalog.mystery || []),
+                ...(catalog.horror || []),
+                ...(catalog.urban || [])
+            ];
+            if (allStories.length === 0) {
+                addMessage('bot', { type: 'text', text: '暂时没有可用的故事～' });
+                return;
+            }
 
-window.goBack = goBack;
-window.closeModal = closeModal;
-window.jumpToMessage = jumpToMessage;
-window.restoreScreen = restoreScreen;
+            const storyId = allStories[Math.floor(Math.random() * allStories.length)];
+            addMessage('bot', { type: 'text', text: '📖 稍等，让我找个好故事……' });
 
-init();
-</script>
+            fetch('./js/stories/' + storyId + '.json')
+                .then(r => r.json())
+                .then(data => {
+                    window.storyEngine.startStory(storyId, data);
+                    const intro = data.story_intro?.opening_line || data.description || '故事开始了……';
+                    addMessage('bot', { type: 'text', text: intro });
+                    console.log('✅ 故事已开始:', data.title);
+                })
+                .catch(err => {
+                    console.error('加载故事失败:', err);
+                    addMessage('bot', { type: 'text', text: '故事加载失败了，换一个试试～' });
+                });
+        }
+
+
+        async function init() {
+            await loadProfile();
+            await loadManifest();
+            setupStoryHint(); // ← 加这一行
+            
+
+            // 设置头像
+            const avatarPath = getAvatarPath();
+            document.getElementById('chatAvatar').innerHTML =
+                `<img src="${avatarPath}" alt="${current.name}" onerror="this.style.display='none';this.parentElement.textContent='${current.emoji}'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+
+            document.getElementById('chatName').textContent = current.name;
+
+            // 初始化状态
+            updateHeaderStatus();
+
+            loadMessages();
+            isCleared = getClearedStatus();
+            if (isCleared) {
+                clearedBackup = JSON.parse(JSON.stringify(messages));
+                localStorage.setItem('chat_backup_' + SLOT, JSON.stringify(clearedBackup));
+            }
+
+            renderMessages();
+            // 🔥 初始化故事引擎
+            if (typeof window.storyEngine !== 'undefined') {
+                await window.storyEngine.init();
+                window.storyEngine.on('story_started', () => {
+                    updateStoryHintBar();
+                    // 🔥 新增：显示故事面板
+                    const panel = document.getElementById('storyPanel');
+                    if (panel) {
+                        panel.style.display = 'block';
+                        panel.classList.add('active');
+                        console.log('✅ 故事面板已自动显示');
+                    }
+                });
+                window.storyEngine.on('story_ended', () => {
+                    updateStoryHintBar();
+                    // 隐藏故事面板
+                    const panel = document.getElementById('storyPanel');
+                    if (panel) {
+                        panel.style.display = 'none';
+                        panel.classList.remove('active');
+                        console.log('✅ 故事面板已隐藏');
+                    }
+                });
+            }
+            updateStoryHintBar();
+
+            setInterval(updateHeaderStatus, 60000);
+
+
+
+            // 每分钟更新状态
+            setInterval(updateHeaderStatus, 60000);
+
+            console.log('💬 聊天已启动 · ' + current.name);
+            console.log('📁 存储 Key: ' + STORAGE_KEY);
+            console.log('✅ 所有功能已集成：DeepSeek API · 流式输出 · 固定一周排班 · 时间/天气 · 关键词触发 · TTS · 牌堆机制');
+        }
+
+        window.goBack = goBack;
+        window.closeModal = closeModal;
+        window.jumpToMessage = jumpToMessage;
+        window.restoreScreen = restoreScreen;
+
+        init();
+    </script>
+    <!-- 故事引擎 -->
+    <script src="./js/story_engine.js"></script>
+    <script src="./js/stories/_catalog.js"></script>
 </body>
+
 </html>

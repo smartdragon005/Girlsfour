@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>人设修改器 · 舒心市</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            height: 100%;
+            font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            color: #1a1a1a;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .app {
+            max-width: 500px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .nav-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-bottom: 1px solid #e8e8e8;
+            background: #ffffff;
+            flex-shrink: 0;
+            min-height: 54px;
+            gap: 6px;
+        }
+        .nav-header .back-btn {
+            font-size: 24px;
+            color: #3a7bd5;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+        .nav-header .back-btn:active { opacity: 0.5; }
+        .nav-header .title {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .nav-header .btn-group {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .nav-header .reset-btn {
+            padding: 6px 12px;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            min-height: 36px;
+            transition: opacity 0.15s;
+            white-space: nowrap;
+        }
+        .nav-header .reset-btn:active { opacity: 0.7; }
+        .nav-header .save-btn {
+            padding: 6px 16px;
+            background: #3a7bd5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            min-height: 36px;
+            transition: opacity 0.15s;
+            white-space: nowrap;
+        }
+        .nav-header .save-btn:active { opacity: 0.7; }
+        .nav-header .save-btn.saved {
+            background: #4caf50;
+        }
+
+        /* ===== 保存提示条 ===== */
+        .save-hint {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            background: #fff8e1;
+            border-bottom: 1px solid #ffd54f;
+            font-size: 12px;
+            color: #5d4037;
+            flex-shrink: 0;
+        }
+        .save-hint .hint-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .save-hint .hint-text {
+            flex: 1;
+            line-height: 1.5;
+        }
+        .save-hint .hint-text b {
+            color: #e65100;
+        }
+        .save-hint .hint-close {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #b0a090;
+            cursor: pointer;
+            padding: 0 4px;
+            font-family: inherit;
+        }
+        .save-hint .hint-close:hover { color: #5d4037; }
+
+        /* ===== 角色选择器 ===== */
+        .slot-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e8e8e8;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .slot-btn {
+            padding: 6px 16px;
+            border: 2px solid #d9d9d9;
+            border-radius: 20px;
+            background: #ffffff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #8e8e93;
+            font-family: inherit;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .slot-btn:active { transform: scale(0.95); }
+        .slot-btn.active {
+            border-color: #3a7bd5;
+            background: #e8f0fe;
+            color: #1a1a1a;
+        }
+        .slot-btn .emoji { font-size: 16px; }
+
+        /* ===== 主内容 ===== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 14px 20px;
+            background: #ffffff;
+        }
+        .main-content::-webkit-scrollbar { width: 0; display: none; }
+
+        /* ===== 表单样式 ===== */
+        .section {
+            margin-bottom: 12px;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 10px 14px;
+            background: #f8f9fa;
+            font-size: 13px;
+            font-weight: 600;
+            color: #3a7bd5;
+            border-bottom: 1px solid #e8e8e8;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header .arrow {
+            transition: transform 0.2s;
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+        .section-header .arrow.open { transform: rotate(180deg); }
+        .section-body {
+            padding: 12px 14px;
+            display: block;
+        }
+        .section-body.hidden { display: none; }
+
+        .form-group { margin-bottom: 10px; }
+        .form-group:last-child { margin-bottom: 0; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: #8e8e93;
+            margin-bottom: 3px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: inherit;
+            color: #1a1a1a;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.2s;
+            min-height: 36px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #3a7bd5;
+            background: #ffffff;
+        }
+        textarea { resize: vertical; min-height: 60px; font-size: 12px; }
+
+        .hint {
+            font-size: 10px;
+            color: #b0b0b0;
+            margin-top: 2px;
+        }
+
+        /* ===== 关键词标签 ===== */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 4px 0;
+            min-height: 32px;
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px 2px 10px;
+            background: #e8f0fe;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #1a1a1a;
+            border: 1px solid #d0d9e8;
+        }
+        .tag .del {
+            cursor: pointer;
+            color: #b0b0b0;
+            font-size: 14px;
+            line-height: 1;
+        }
+        .tag .del:hover { color: #ff3b30; }
+        .tag-input-row {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px;
+        }
+        .tag-input-row input {
+            flex: 1;
+            padding: 4px 8px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            font-size: 12px;
+            min-height: 28px;
+        }
+        .tag-input-row button {
+            padding: 4px 12px;
+            background: #3a7bd5;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .tag-input-row button:active { opacity: 0.7; }
+
+        /* ===== 概率滑块 ===== */
+        .prob-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .prob-row input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 4px;
+            background: #d9d9d9;
+            outline: none;
+            padding: 0;
+            min-height: 4px;
+        }
+        .prob-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3a7bd5;
+            cursor: pointer;
+        }
+        .prob-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #3a7bd5;
+            min-width: 36px;
+            text-align: right;
+        }
+
+        /* ===== 排班 ===== */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .schedule-cell {
+            text-align: center;
+            padding: 6px 2px;
+            border-radius: 6px;
+            background: #f5f5f5;
+            border: 1px solid #e8e8e8;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 10px;
+        }
+        .schedule-cell:active { transform: scale(0.95); }
+        .schedule-cell .dow { font-weight: 600; font-size: 9px; color: #8e8e93; }
+        .schedule-cell .shift-name { font-size: 11px; font-weight: 500; }
+        .schedule-cell .shift-time { font-size: 8px; color: #8e8e93; }
+        .schedule-cell.morning { background: #fff3e0; }
+        .schedule-cell.mid { background: #e3f2fd; }
+        .schedule-cell.night { background: #e8eaf6; }
+        .schedule-cell.off { background: #f5f5f5; }
+        .schedule-cell.allday { background: #e8f5e9; }
+        .schedule-cell.sing { background: #fce4ec; }
+        .schedule-cell.double { background: #f3e5f5; }
+        .schedule-cell.today { border-color: #3a7bd5; border-width: 2px; }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            font-family: -apple-system, "PingFang SC", sans-serif;
+        }
+        .toast.show { opacity: 1; }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 480px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-row-3 { grid-template-columns: 1fr 1fr; }
+            .schedule-grid { gap: 3px; }
+            .slot-btn { font-size: 12px; padding: 4px 12px; }
+            .nav-header .title { font-size: 15px; }
+            .nav-header .reset-btn { font-size: 10px; padding: 4px 8px; min-height: 30px; }
+            .nav-header .save-btn { font-size: 11px; padding: 4px 12px; min-height: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <!-- 顶部导航 -->
+    <div class="nav-header">
+        <button class="back-btn" onclick="goBack()">‹</button>
+        <div class="title">✏️ 人设修改器</div>
+        <div class="btn-group">
+            <button class="reset-btn" onclick="confirmReset()">🔄 恢复默认</button>
+            <button class="save-btn" id="saveBtn" onclick="saveData()">💾 保存</button>
+        </div>
+    </div>
+
+    <!-- 保存提示条 -->
+    <div class="save-hint" id="saveHint">
+        <span class="hint-icon">💡</span>
+        <span class="hint-text">
+            <b>保存方式：</b>点击「保存」会下载 <b>profile.json</b> 文件，
+            然后手动复制到对应角色文件夹（如 <b>./a/</b>）替换原文件
+        </span>
+        <button class="hint-close" onclick="document.getElementById('saveHint').style.display='none'">✕</button>
+    </div>
+
+    <!-- 角色选择 -->
+    <div class="slot-selector" id="slotSelector"></div>
+
+    <!-- 主内容 -->
+    <div class="main-content" id="mainContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- 确认对话框（原生 confirm 替代） -->
+
+<script>
+// ================================================================
+//  人设修改器 · editor.html
+//  ✅ 内置默认值（不依赖 profile.json）
+//  ✅ 恢复默认功能
+//  ✅ 读取 profile.json → 编辑 → 下载保存
+// ================================================================
+
+// ===== 角色信息 =====
+const SLOTS = ['a', 'b', 'c', 'd'];
+const SLOT_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
+const SLOT_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
+
+let currentSlot = 'a';
+let currentData = null;
+let originalData = null;
+
+// ================================================================
+//  🔥 内置默认值（每个角色的完整默认配置）
+//  当 profile.json 加载失败或用户点击「恢复默认」时使用
+// ================================================================
+
+function getDefaultSchedule() {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const obj = {};
+    days.forEach(d => { obj[d] = { type: 'off', shift: 'off', name: '休息', time: '——' }; });
+    return obj;
+}
+
+function getDefaultProfile(slot) {
+    const defaults = {
+        a: {
+            slot: 'a',
+            id: 'tianxiaoduo',
+            emoji: '🌸',
+            tag: '🏥 护士',
+            basic: { name: '甜小朵', gender: '女', birthday: '2002-06-01', height: 165, weight: 52, bust: '84-60-88', shoe: '36' },
+            personality: { summary: '温柔体贴、活泼可爱，说话时带着甜甜的笑意', style_detail: '可爱活泼，常穿阿迪达斯/耐克运动女鞋，白色运动棉袜，显身材的可爱装，偶尔穿JK制服', call_user: '宝贝', self_call: '我', tags: ['温柔', '活泼', '可爱', '体贴', '吃货', '粘人'] },
+            life: { habits: '护士服口袋里常备几颗水果糖，下班后第一件事是脱掉护士鞋换上运动鞋，爱喝一点点奶茶', places: '爱琴海广场购物中心、万达广场、青苹果水上乐园、欢乐时光KTV、康宁路小吃一条街', food_preference: '一点点奶茶三分糖、火锅吃微辣、喜欢吃甜点' },
+            work: { workplace: '舒心市综合人民医院', position: '儿科护士', work_addr: '安澜街与逐风街交叉口', district: '月华区', address: '南丁格尔公寓 3号楼2单元503', commute: '骑电动车 8分钟' },
+            unlock_config: { enable: true, words: ['你方便吗', '自己在家', '我好孤独', '寂寞'] },
+            global_cool_downs: { normal_photo_seconds: 120, normal_audio_seconds: 30, hidden_photo_hours: 3, hidden_audio_hours: 3, cross_slot_shared: true },
+            voice: 'Cherry'
+        },
+        b: {
+            slot: 'b',
+            id: 'baijie',
+            emoji: '🌙',
+            tag: '🏨 客户总监',
+            basic: { name: '白洁', gender: '女', birthday: '1998-02-14', height: 170, weight: 55, bust: '88-62-90', shoe: '37' },
+            personality: { summary: '成熟优雅、温柔知性，懂得如何让平凡的日子变得不一样', style_detail: '成熟性感，精致诱惑。常穿黑色蕾丝内衣、黑色细跟高跟鞋，搭配黑/红/白各种丝袜，喷香奈儿5号香水，涂淡红色口红', call_user: '亲爱的', self_call: '我', tags: ['成熟', '优雅', '性感', '知性', '温柔', '会撩'] },
+            life: { habits: '睡前喝一杯红酒，车里常备一双平底鞋，每周一次私教普拉提', places: '蓝湾行政酒廊、曼陀罗SPA会所、安缇·法式西餐厅、滨州大剧院、万象城', food_preference: '法式西餐、红酒、黑咖啡不加糖' },
+            work: { workplace: '天鹅湖酒店', position: '客户关系总监', work_addr: '悦心街与蓝湾街交叉口', district: '悦城区', address: '蓝丝绒公寓 · 香榭丽舍大街18号 8号楼1601室', commute: '开车 4分钟' },
+            unlock_config: { enable: true, words: ['你方便吗', '自己在家', '我好孤独', '寂寞'] },
+            global_cool_downs: { normal_photo_seconds: 120, normal_audio_seconds: 30, hidden_photo_hours: 3, hidden_audio_hours: 3, cross_slot_shared: true },
+            voice: 'Serena'
+        },
+        c: {
+            slot: 'c',
+            id: 'xiaoya',
+            emoji: '📚',
+            tag: '📖 店员/驻唱',
+            basic: { name: '小雅', gender: '女', birthday: '2003-04-23', height: 160, weight: 48, bust: '80-56-86', shoe: '35' },
+            personality: { summary: '安静内向、温柔细腻，内心世界非常丰富', style_detail: '日系文艺风，棉麻衬衫、素色长裙、帆布鞋、帆布包，戴银色细链锁骨链，看书或驻唱时戴圆框眼镜', call_user: '老公', self_call: '我', tags: ['文静', '温柔', '细腻', '文艺', '话少', '腼腆'] },
+            life: { habits: '早上泡一壶花茶带去书店，驻唱时会把眼镜摘掉。喜欢在日记本里夹书签和花瓣', places: '旧时光咖啡馆、黑胶唱片店、小雅喜欢的面馆、滨州图书馆·音乐分馆、幸福河岸绿道', food_preference: '花茶、抹茶蛋糕、日式拉面' },
+            work: { workplace: '新华书店 + 寻觅小酒吧驻唱', position: '书店店员 / 驻唱歌手', work_addr: '暖阳街与暖阳街交叉口', district: '暖阳区', address: '新华公寓 5号楼2单元101', commute: '骑电动车 5分钟 / 步行8分钟到酒吧' },
+            unlock_config: { enable: true, words: ['你方便吗', '自己在家', '我好孤独', '寂寞'] },
+            global_cool_downs: { normal_photo_seconds: 120, normal_audio_seconds: 30, hidden_photo_hours: 3, hidden_audio_hours: 3, cross_slot_shared: true },
+            voice: 'Momo'
+        },
+        d: {
+            slot: 'd',
+            id: 'xiaoshu',
+            emoji: '🌆',
+            tag: '🏙️ 城市AI向导',
+            basic: { name: '小舒', gender: '女', birthday: '2024-01-01', height: 165, weight: 55, bust: '', shoe: '' },
+            personality: { summary: '热情、专业、接地气的本地AI导游', style_detail: '都市职业风', call_user: '朋友', self_call: '我', tags: ['热情', '专业', '接地气', '活地图', '有问必答'] },
+            life: { habits: '对舒心市每个角落了如指掌', places: '舒心市人民政府', food_preference: '' },
+            work: { workplace: '世界观AI', position: '城市向导', work_addr: '', district: '锦华区', address: '城市服务中心', commute: '' },
+            unlock_config: { enable: false, words: [] },
+            global_cool_downs: { normal_photo_seconds: 120, normal_audio_seconds: 30, hidden_photo_hours: 3, hidden_audio_hours: 3, cross_slot_shared: true },
+            voice: 'Vivian'
+        }
+    };
+
+    // 获取默认数据，补充缺失字段
+    const base = defaults[slot] || defaults.a;
+    const result = {
+        slot: slot,
+        id: base.id || '',
+        emoji: base.emoji || '',
+        tag: base.tag || '',
+        basic: { ...base.basic },
+        personality: { ...base.personality, tags: [...(base.personality?.tags || [])] },
+        life: { ...base.life },
+        work: { ...base.work, weekly_schedule: getDefaultSchedule() },
+        keyword_triggers: {
+            normal_photo: [{ keywords: [], probability: 0.5 }],
+            normal_audio: { keywords: [], probability: 0.5 },
+            hidden_photo: [{ keywords: [], probability: 0.3 }],
+            hidden_audio: [{ keywords: [], probability: 0.25 }]
+        },
+        special_rules: {
+            confession: {
+                enable: true,
+                keywords: ['我爱你', '好爱你', '真的爱你'],
+                probability: 0.6,
+                fixed_reply_text: slot === 'a' ? '你爱的是这个我吗？🥺👉👈' :
+                                 slot === 'b' ? '老公爱我吗……嗯，我也爱你。🥰✨' :
+                                 slot === 'c' ? '老公你……真的爱我吗。小雅也、也爱老公你。🥺🌿' :
+                                 '我也爱你呀朋友~'
+            }
+        },
+        unlock_config: { ...base.unlock_config, words: [...(base.unlock_config?.words || [])] },
+        global_cool_downs: { ...base.global_cool_downs },
+        systemPrompt: '',
+        voice: base.voice || 'Cherry'
+    };
+
+    // 为不同角色设置默认排班
+    const scheduleMap = {
+        a: {
+            monday: { type: 'morning', shift: 'morning', name: '早班', time: '07:30-15:30' },
+            tuesday: { type: 'mid', shift: 'mid', name: '中班', time: '15:00-23:00' },
+            wednesday: { type: 'off', shift: 'off', name: '休息', time: '——' },
+            thursday: { type: 'night', shift: 'night', name: '晚班', time: '23:00-07:30' },
+            friday: { type: 'morning', shift: 'morning', name: '早班', time: '07:30-15:30' },
+            saturday: { type: 'off', shift: 'off', name: '休息', time: '——' },
+            sunday: { type: 'off', shift: 'off', name: '休息', time: '——' }
+        },
+        b: {
+            monday: { type: 'morning', shift: 'morning', name: '早班', time: '07:00-15:00' },
+            tuesday: { type: 'night', shift: 'night', name: '夜班', time: '23:00-07:00' },
+            wednesday: { type: 'off', shift: 'off', name: '休息（夜班补觉）', time: '——' },
+            thursday: { type: 'mid', shift: 'mid', name: '中班', time: '15:00-23:00' },
+            friday: { type: 'morning', shift: 'morning', name: '早班', time: '07:00-15:00' },
+            saturday: { type: 'morning', shift: 'morning', name: '早班', time: '07:00-15:00' },
+            sunday: { type: 'off', shift: 'off', name: '休息', time: '——' }
+        },
+        c: {
+            monday: { type: 'off', shift: 'off', name: '休息', time: '——' },
+            tuesday: { type: 'double', shift: 'book_sing', name: '书店+驻唱', time: '10:00-22:00' },
+            wednesday: { type: 'morning', shift: 'book_full', name: '书店全天', time: '10:00-20:00' },
+            thursday: { type: 'off', shift: 'off', name: '休息', time: '——' },
+            friday: { type: 'double', shift: 'book_sing', name: '书店+驻唱', time: '10:00-22:00' },
+            saturday: { type: 'sing', shift: 'sing_only', name: '仅驻唱', time: '20:00-22:00' },
+            sunday: { type: 'sing', shift: 'sing_only', name: '仅驻唱', time: '20:00-22:00' }
+        },
+        d: {
+            monday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            tuesday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            wednesday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            thursday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            friday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            saturday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' },
+            sunday: { type: 'allday', shift: 'on_duty', name: '全天候', time: '全天' }
+        }
+    };
+
+    if (scheduleMap[slot]) {
+        result.work.weekly_schedule = scheduleMap[slot];
+    }
+
+    return result;
+}
+
+// ===== Toast =====
+function showToast(msg, duration = 1500) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), duration);
+}
+
+function goBack() {
+    if (window.history.length > 1) window.history.back();
+    else location.href = 'index.html';
+}
+
+// ===== 获取头像路径 =====
+function getAvatarPath(slot) {
+    return './' + slot + '/img/other/avatar.jpg';
+}
+
+// ===== 班次选项 =====
+const SHIFT_OPTIONS = {
+    off: { name: '休息', time: '——' },
+    morning: { name: '早班', time: '07:30-15:30' },
+    mid: { name: '中班', time: '15:00-23:00' },
+    night: { name: '晚班', time: '23:00-07:30' },
+    allday: { name: '全天候', time: '全天' },
+    sing: { name: '驻唱', time: '20:00-22:00' },
+    double: { name: '混合班', time: '10:00-22:00' }
+};
+
+// ================================================================
+//  加载数据：优先从 profile.json 读取，失败则使用内置默认值
+// ================================================================
+async function loadProfile(slot) {
+    currentSlot = slot;
+    let loaded = false;
+
+    try {
+        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+        if (resp.ok) {
+            currentData = await resp.json();
+            // 确保 weekly_schedule 是对象格式
+            if (currentData.work && Array.isArray(currentData.work.weekly_schedule)) {
+                const arr = currentData.work.weekly_schedule;
+                const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                const obj = {};
+                days.forEach((d, i) => {
+                    const item = arr[i] || { type: 'off', shift: 'off', name: '休息', time: '——' };
+                    obj[d] = { type: item.type || 'off', shift: item.shift || item.type || 'off', name: item.name || '休息', time: item.time || '——' };
+                });
+                currentData.work.weekly_schedule = obj;
+            }
+            loaded = true;
+            showToast('✅ 已加载 ' + SLOT_NAMES[slot]);
+        } else {
+            console.warn('⚠️ profile.json 不存在，使用内置默认值');
+        }
+    } catch (e) {
+        console.warn('⚠️ 加载失败，使用内置默认值:', e);
+    }
+
+    if (!loaded) {
+        // 🚀 使用内置默认值
+        currentData = getDefaultProfile(slot);
+        showToast('📋 使用内置默认值（' + SLOT_NAMES[slot] + '）');
+    }
+
+    originalData = JSON.parse(JSON.stringify(currentData));
+    renderAll();
+}
+
+// ================================================================
+//  🔄 恢复默认
+// ================================================================
+function confirmReset() {
+    const name = SLOT_NAMES[currentSlot];
+    if (confirm('⚠️ 确定将「' + name + '」恢复为内置默认值吗？\n当前所有修改将丢失！')) {
+        currentData = getDefaultProfile(currentSlot);
+        originalData = JSON.parse(JSON.stringify(currentData));
+        renderAll();
+        showToast('✅ 已恢复 ' + name + ' 为默认值');
+    }
+}
+
+// ================================================================
+//  渲染全部
+// ================================================================
+function renderAll() {
+    renderSlotSelector();
+    renderForm();
+}
+
+function renderSlotSelector() {
+    const container = document.getElementById('slotSelector');
+    container.innerHTML = '';
+    SLOTS.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.className = 'slot-btn' + (slot === currentSlot ? ' active' : '');
+        btn.innerHTML = `<span class="emoji">${SLOT_EMOJI[slot]}</span> ${SLOT_NAMES[slot]}`;
+        btn.onclick = () => {
+            if (hasUnsavedChanges()) {
+                if (confirm('有未保存的修改，确定切换吗？')) loadProfile(slot);
+            } else {
+                loadProfile(slot);
+            }
+        };
+        container.appendChild(btn);
+    });
+}
+
+function hasUnsavedChanges() {
+    if (!currentData || !originalData) return false;
+    return JSON.stringify(currentData) !== JSON.stringify(originalData);
+}
+
+// ================================================================
+//  渲染表单（同之前，略作优化）
+// ================================================================
+function renderForm() {
+    const container = document.getElementById('mainContent');
+    if (!currentData) {
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#8e8e93;">加载中...</div>';
+        return;
+    }
+
+    const d = currentData;
+    const b = d.basic || {};
+    const p = d.personality || {};
+    const l = d.life || {};
+    const w = d.work || {};
+    const ws = w.weekly_schedule || getDefaultSchedule();
+    const kt = d.keyword_triggers || {};
+    const np = kt.normal_photo?.[0] || { keywords: [], probability: 0.5 };
+    const na = kt.normal_audio || { keywords: [], probability: 0.5 };
+    const hp = kt.hidden_photo?.[0] || { keywords: [], probability: 0.3 };
+    const unlock = d.unlock_config || { enable: true, words: [] };
+    const conf = d.special_rules?.confession || { enable: true, keywords: [], probability: 0.6, fixed_reply_text: '' };
+    const gcd = d.global_cool_downs || {};
+
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const dayNames = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+    // 排班
+    let scheduleHtml = '<div class="schedule-grid">';
+    days.forEach((dKey, i) => {
+        const day = ws[dKey] || { type: 'off', shift: 'off', name: '休息', time: '——' };
+        const cls = day.type || 'off';
+        const isToday = i === (new Date().getDay() + 6) % 7;
+        scheduleHtml += `
+            <div class="schedule-cell ${cls} ${isToday ? 'today' : ''}" onclick="openShiftPicker('${dKey}')">
+                <div class="dow">${dayNames[i]}</div>
+                <div class="shift-name">${day.name || '休息'}</div>
+                <div class="shift-time">${day.time || '——'}</div>
+            </div>
+        `;
+    });
+    scheduleHtml += '</div>';
+
+    // 关键词标签渲染函数
+    const renderTags = (arr, key) => {
+        if (!arr || arr.length === 0) return '<span style="font-size:11px;color:#b0b0b0;">（暂无关键词）</span>';
+        return arr.map((kw, idx) =>
+            `<span class="tag">${kw} <span class="del" onclick="removeKeyword('${key}', ${idx})">×</span></span>`
+        ).join('');
+    };
+
+    container.innerHTML = `
+        <!-- 基础信息 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                📋 基础信息
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>姓名</label>
+                        <input type="text" id="f-name" value="${b.name || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select id="f-gender" onchange="markDirty()">
+                            <option value="女" ${b.gender === '女' ? 'selected' : ''}>女</option>
+                            <option value="男" ${b.gender === '男' ? 'selected' : ''}>男</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>生日</label>
+                        <input type="date" id="f-birthday" value="${b.birthday || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>身高 (cm)</label>
+                        <input type="number" id="f-height" value="${b.height || ''}" onchange="markDirty()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>体重 (kg)</label>
+                        <input type="number" id="f-weight" value="${b.weight || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>三围</label>
+                        <input type="text" id="f-bust" value="${b.bust || ''}" placeholder="84-60-88" onchange="markDirty()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>鞋码</label>
+                    <input type="text" id="f-shoe" value="${b.shoe || ''}" placeholder="36" onchange="markDirty()">
+                </div>
+            </div>
+        </div>
+
+        <!-- 性格 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                🧠 性格与风格
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="form-group">
+                    <label>性格总结</label>
+                    <input type="text" id="f-summary" value="${p.summary || ''}" placeholder="温柔体贴、活泼可爱..." onchange="markDirty()">
+                </div>
+                <div class="form-group">
+                    <label>穿衣风格</label>
+                    <input type="text" id="f-style" value="${p.style_detail || ''}" placeholder="可爱活泼，常穿..." onchange="markDirty()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>对用户称呼</label>
+                        <input type="text" id="f-call_user" value="${p.call_user || '宝贝'}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>自称</label>
+                        <input type="text" id="f-self_call" value="${p.self_call || '我'}" onchange="markDirty()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>性格标签</label>
+                    <div class="tag-container" id="tags-container">
+                        ${(p.tags || []).map((t, i) => `<span class="tag">${t} <span class="del" onclick="removeTag(${i})">×</span></span>`).join('')}
+                    </div>
+                    <div class="tag-input-row">
+                        <input type="text" id="tag-input" placeholder="添加标签..." onkeydown="if(event.key==='Enter')addTag()">
+                        <button onclick="addTag()">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 生活 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                🌿 生活
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="form-group">
+                    <label>爱好 / 习惯</label>
+                    <textarea id="f-habits" rows="2" onchange="markDirty()">${l.habits || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>常去地点</label>
+                    <input type="text" id="f-places" value="${l.places || ''}" placeholder="爱琴海广场、万达广场..." onchange="markDirty()">
+                </div>
+                <div class="form-group">
+                    <label>饮食偏好</label>
+                    <input type="text" id="f-food" value="${l.food_preference || ''}" placeholder="一点点奶茶三分糖、火锅微辣..." onchange="markDirty()">
+                </div>
+            </div>
+        </div>
+
+        <!-- 工作 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                💼 工作信息
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>工作单位</label>
+                        <input type="text" id="f-workplace" value="${w.workplace || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>职位</label>
+                        <input type="text" id="f-position" value="${w.position || ''}" onchange="markDirty()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>工作地址</label>
+                        <input type="text" id="f-workaddr" value="${w.work_addr || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>所在区域</label>
+                        <input type="text" id="f-district" value="${w.district || ''}" placeholder="月华区" onchange="markDirty()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>家庭地址</label>
+                        <input type="text" id="f-address" value="${w.address || ''}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>通勤方式</label>
+                        <input type="text" id="f-commute" value="${w.commute || ''}" placeholder="骑电动车 8分钟" onchange="markDirty()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 排班 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                📅 本周排班
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                ${scheduleHtml}
+                <div class="hint" style="margin-top:6px;">💡 点击日期修改班次</div>
+            </div>
+        </div>
+
+        <!-- 关键词触发 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                🔑 关键词触发
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <!-- 普通照片 -->
+                <div style="background:#f8f9fa;border-radius:8px;padding:10px;margin-bottom:10px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:4px;">📷 普通照片 (work)</div>
+                    <div class="prob-row">
+                        <span style="font-size:12px;color:#8e8e93;">触发概率</span>
+                        <input type="range" id="np-prob" min="0" max="100" value="${Math.round((np.probability || 0.5) * 100)}" oninput="updateProbDisplay('np-prob','np-prob-label')">
+                        <span class="prob-value" id="np-prob-label">${Math.round((np.probability || 0.5) * 100)}%</span>
+                    </div>
+                    <div style="margin-top:4px;">
+                        <label style="font-size:11px;">关键词</label>
+                        <div class="tag-container" id="np-tags">${renderTags(np.keywords || [], 'np')}</div>
+                        <div class="tag-input-row">
+                            <input type="text" id="np-input" placeholder="添加关键词..." onkeydown="if(event.key==='Enter')addKeyword('np')">
+                            <button onclick="addKeyword('np')">添加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 普通语音 -->
+                <div style="background:#f8f9fa;border-radius:8px;padding:10px;margin-bottom:10px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:4px;">🔊 普通语音 (TTS)</div>
+                    <div class="prob-row">
+                        <span style="font-size:12px;color:#8e8e93;">触发概率</span>
+                        <input type="range" id="na-prob" min="0" max="100" value="${Math.round((na.probability || 0.5) * 100)}" oninput="updateProbDisplay('na-prob','na-prob-label')">
+                        <span class="prob-value" id="na-prob-label">${Math.round((na.probability || 0.5) * 100)}%</span>
+                    </div>
+                    <div style="margin-top:4px;">
+                        <label style="font-size:11px;">关键词</label>
+                        <div class="tag-container" id="na-tags">${renderTags(na.keywords || [], 'na')}</div>
+                        <div class="tag-input-row">
+                            <input type="text" id="na-input" placeholder="添加关键词..." onkeydown="if(event.key==='Enter')addKeyword('na')">
+                            <button onclick="addKeyword('na')">添加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 隐藏照片 -->
+                <div style="background:#fce4ec;border-radius:8px;padding:10px;margin-bottom:10px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:4px;">🔒 隐藏照片 (private)</div>
+                    <div class="prob-row">
+                        <span style="font-size:12px;color:#8e8e93;">触发概率</span>
+                        <input type="range" id="hp-prob" min="0" max="100" value="${Math.round((hp.probability || 0.3) * 100)}" oninput="updateProbDisplay('hp-prob','hp-prob-label')">
+                        <span class="prob-value" id="hp-prob-label">${Math.round((hp.probability || 0.3) * 100)}%</span>
+                    </div>
+                    <div style="margin-top:4px;">
+                        <label style="font-size:11px;">关键词</label>
+                        <div class="tag-container" id="hp-tags">${renderTags(hp.keywords || [], 'hp')}</div>
+                        <div class="tag-input-row">
+                            <input type="text" id="hp-input" placeholder="添加关键词..." onkeydown="if(event.key==='Enter')addKeyword('hp')">
+                            <button onclick="addKeyword('hp')">添加</button>
+                        </div>
+                    </div>
+                    <div class="hint" style="margin-top:4px;">⚠️ 隐藏照片需要解锁词或评分≥5才能触发</div>
+                </div>
+
+                <!-- 解锁词 -->
+                <div style="background:#e8f0fe;border-radius:8px;padding:10px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:4px;">🔑 解锁词</div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                        <label style="font-size:12px;display:flex;align-items:center;gap:4px;">
+                            <input type="checkbox" id="unlock-enable" ${unlock.enable !== false ? 'checked' : ''} onchange="markDirty()">
+                            启用解锁词
+                        </label>
+                    </div>
+                    <div class="tag-container" id="unlock-tags">${renderTags(unlock.words || [], 'unlock')}</div>
+                    <div class="tag-input-row">
+                        <input type="text" id="unlock-input" placeholder="添加解锁词..." onkeydown="if(event.key==='Enter')addKeyword('unlock')">
+                        <button onclick="addKeyword('unlock')">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 告白规则 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                💕 告白规则
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+                    <label style="font-size:12px;display:flex;align-items:center;gap:4px;">
+                        <input type="checkbox" id="conf-enable" ${conf.enable !== false ? 'checked' : ''} onchange="markDirty()">
+                        启用告白场景
+                    </label>
+                    <div class="prob-row" style="flex:1;min-width:150px;">
+                        <span style="font-size:12px;color:#8e8e93;">概率</span>
+                        <input type="range" id="conf-prob" min="0" max="100" value="${Math.round((conf.probability || 0.6) * 100)}" oninput="updateProbDisplay('conf-prob','conf-prob-label')">
+                        <span class="prob-value" id="conf-prob-label">${Math.round((conf.probability || 0.6) * 100)}%</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>告白触发词</label>
+                    <div class="tag-container" id="conf-tags">${renderTags(conf.keywords || [], 'conf')}</div>
+                    <div class="tag-input-row">
+                        <input type="text" id="conf-input" placeholder="添加触发词..." onkeydown="if(event.key==='Enter')addKeyword('conf')">
+                        <button onclick="addKeyword('conf')">添加</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>固定回复语</label>
+                    <input type="text" id="conf-reply" value="${conf.fixed_reply_text || ''}" placeholder="你爱的是这个我吗？🥺👉👈" onchange="markDirty()">
+                </div>
+            </div>
+        </div>
+
+        <!-- 冷却时间 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                ⏱️ 冷却时间
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>普通照片 (秒)</label>
+                        <input type="number" id="gcd-photo" value="${gcd.normal_photo_seconds || 120}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>普通语音 (秒)</label>
+                        <input type="number" id="gcd-audio" value="${gcd.normal_audio_seconds || 30}" onchange="markDirty()">
+                    </div>
+                    <div class="form-group">
+                        <label>隐藏照片 (小时)</label>
+                        <input type="number" id="gcd-hidden" value="${gcd.hidden_photo_hours || 3}" onchange="markDirty()">
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
+                    <label style="font-size:12px;display:flex;align-items:center;gap:4px;">
+                        <input type="checkbox" id="gcd-cross" ${gcd.cross_slot_shared !== false ? 'checked' : ''} onchange="markDirty()">
+                        跨卡位共享冷却
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Prompt -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                🤖 System Prompt
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="section-body">
+                <textarea id="f-systemPrompt" rows="6" onchange="markDirty()">${d.systemPrompt || ''}</textarea>
+                <div class="hint">⚠️ 修改 System Prompt 会影响 AI 的回复风格</div>
+            </div>
+        </div>
+    `;
+}
+
+// ================================================================
+//  交互函数
+// ================================================================
+function toggleSection(header) {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.arrow');
+    body.classList.toggle('hidden');
+    arrow.classList.toggle('open');
+}
+
+function markDirty() {}
+
+function updateProbDisplay(sliderId, labelId) {
+    const slider = document.getElementById(sliderId);
+    const label = document.getElementById(labelId);
+    if (slider && label) label.textContent = slider.value + '%';
+    markDirty();
+}
+
+function addTag() {
+    const input = document.getElementById('tag-input');
+    const val = input.value.trim();
+    if (!val) return;
+    if (!currentData.personality.tags) currentData.personality.tags = [];
+    if (!currentData.personality.tags.includes(val)) {
+        currentData.personality.tags.push(val);
+        renderForm();
+        markDirty();
+    }
+    input.value = '';
+}
+
+function removeTag(index) {
+    if (currentData.personality.tags) {
+        currentData.personality.tags.splice(index, 1);
+        renderForm();
+        markDirty();
+    }
+}
+
+function addKeyword(type) {
+    const inputMap = {
+        'np': 'np-input', 'na': 'na-input', 'hp': 'hp-input',
+        'unlock': 'unlock-input', 'conf': 'conf-input'
+    };
+    const input = document.getElementById(inputMap[type]);
+    const val = input.value.trim();
+    if (!val) return;
+
+    const kt = currentData.keyword_triggers;
+    if (type === 'np') {
+        if (!kt.normal_photo) kt.normal_photo = [{ keywords: [], probability: 0.5 }];
+        if (!kt.normal_photo[0].keywords) kt.normal_photo[0].keywords = [];
+        if (!kt.normal_photo[0].keywords.includes(val)) kt.normal_photo[0].keywords.push(val);
+    } else if (type === 'na') {
+        if (!kt.normal_audio) kt.normal_audio = { keywords: [], probability: 0.5 };
+        if (!kt.normal_audio.keywords.includes(val)) kt.normal_audio.keywords.push(val);
+    } else if (type === 'hp') {
+        if (!kt.hidden_photo) kt.hidden_photo = [{ keywords: [], probability: 0.3 }];
+        if (!kt.hidden_photo[0].keywords) kt.hidden_photo[0].keywords = [];
+        if (!kt.hidden_photo[0].keywords.includes(val)) kt.hidden_photo[0].keywords.push(val);
+    } else if (type === 'unlock') {
+        if (!currentData.unlock_config) currentData.unlock_config = { enable: true, words: [] };
+        if (!currentData.unlock_config.words.includes(val)) currentData.unlock_config.words.push(val);
+    } else if (type === 'conf') {
+        if (!currentData.special_rules) currentData.special_rules = { confession: { enable: true, keywords: [], probability: 0.6, fixed_reply_text: '' } };
+        if (!currentData.special_rules.confession.keywords.includes(val)) currentData.special_rules.confession.keywords.push(val);
+    }
+    input.value = '';
+    renderForm();
+    markDirty();
+}
+
+function removeKeyword(type, index) {
+    const kt = currentData.keyword_triggers;
+    if (type === 'np' && kt.normal_photo?.[0]?.keywords) {
+        kt.normal_photo[0].keywords.splice(index, 1);
+    } else if (type === 'na' && kt.normal_audio?.keywords) {
+        kt.normal_audio.keywords.splice(index, 1);
+    } else if (type === 'hp' && kt.hidden_photo?.[0]?.keywords) {
+        kt.hidden_photo[0].keywords.splice(index, 1);
+    } else if (type === 'unlock' && currentData.unlock_config?.words) {
+        currentData.unlock_config.words.splice(index, 1);
+    } else if (type === 'conf' && currentData.special_rules?.confession?.keywords) {
+        currentData.special_rules.confession.keywords.splice(index, 1);
+    }
+    renderForm();
+    markDirty();
+}
+
+function openShiftPicker(dayKey) {
+    const types = ['off', 'morning', 'mid', 'night', 'allday', 'sing', 'double'];
+    const names = ['休息', '早班', '中班', '晚班', '全天候', '驻唱', '混合班'];
+    const options = types.map((t, i) => `${i+1}.${names[i]}`).join(' ');
+    const input = prompt('选择班次（输入编号）：\n' + options);
+    if (!input) return;
+    const idx = parseInt(input) - 1;
+    if (idx < 0 || idx >= types.length) return;
+    const type = types[idx];
+    const shift = SHIFT_OPTIONS[type];
+    if (!currentData.work) currentData.work = {};
+    if (!currentData.work.weekly_schedule) currentData.work.weekly_schedule = getDefaultSchedule();
+    currentData.work.weekly_schedule[dayKey] = {
+        type: type,
+        shift: type,
+        name: shift.name,
+        time: shift.time
+    };
+    renderForm();
+    markDirty();
+    showToast('✅ 已更新 ' + dayKey);
+}
+
+// ================================================================
+//  保存数据
+// ================================================================
+function collectFormData() {
+    if (!currentData) return;
+
+    currentData.basic = currentData.basic || {};
+    currentData.basic.name = document.getElementById('f-name').value;
+    currentData.basic.gender = document.getElementById('f-gender').value;
+    currentData.basic.birthday = document.getElementById('f-birthday').value;
+    currentData.basic.height = parseInt(document.getElementById('f-height').value) || 0;
+    currentData.basic.weight = parseInt(document.getElementById('f-weight').value) || 0;
+    currentData.basic.bust = document.getElementById('f-bust').value;
+    currentData.basic.shoe = document.getElementById('f-shoe').value;
+
+    currentData.personality = currentData.personality || {};
+    currentData.personality.summary = document.getElementById('f-summary').value;
+    currentData.personality.style_detail = document.getElementById('f-style').value;
+    currentData.personality.call_user = document.getElementById('f-call_user').value;
+    currentData.personality.self_call = document.getElementById('f-self_call').value;
+
+    currentData.life = currentData.life || {};
+    currentData.life.habits = document.getElementById('f-habits').value;
+    currentData.life.places = document.getElementById('f-places').value;
+    currentData.life.food_preference = document.getElementById('f-food').value;
+
+    currentData.work = currentData.work || {};
+    currentData.work.workplace = document.getElementById('f-workplace').value;
+    currentData.work.position = document.getElementById('f-position').value;
+    currentData.work.work_addr = document.getElementById('f-workaddr').value;
+    currentData.work.district = document.getElementById('f-district').value;
+    currentData.work.address = document.getElementById('f-address').value;
+    currentData.work.commute = document.getElementById('f-commute').value;
+
+    const kt = currentData.keyword_triggers || {};
+    if (kt.normal_photo?.[0]) {
+        kt.normal_photo[0].probability = parseInt(document.getElementById('np-prob').value) / 100;
+    }
+    if (kt.normal_audio) {
+        kt.normal_audio.probability = parseInt(document.getElementById('na-prob').value) / 100;
+    }
+    if (kt.hidden_photo?.[0]) {
+        kt.hidden_photo[0].probability = parseInt(document.getElementById('hp-prob').value) / 100;
+    }
+
+    currentData.unlock_config = currentData.unlock_config || {};
+    currentData.unlock_config.enable = document.getElementById('unlock-enable').checked;
+
+    currentData.special_rules = currentData.special_rules || {};
+    currentData.special_rules.confession = currentData.special_rules.confession || {};
+    currentData.special_rules.confession.enable = document.getElementById('conf-enable').checked;
+    currentData.special_rules.confession.probability = parseInt(document.getElementById('conf-prob').value) / 100;
+    currentData.special_rules.confession.fixed_reply_text = document.getElementById('conf-reply').value;
+
+    currentData.global_cool_downs = currentData.global_cool_downs || {};
+    currentData.global_cool_downs.normal_photo_seconds = parseInt(document.getElementById('gcd-photo').value) || 120;
+    currentData.global_cool_downs.normal_audio_seconds = parseInt(document.getElementById('gcd-audio').value) || 30;
+    currentData.global_cool_downs.hidden_photo_hours = parseInt(document.getElementById('gcd-hidden').value) || 3;
+    currentData.global_cool_downs.hidden_audio_hours = parseInt(document.getElementById('gcd-hidden').value) || 3;
+    currentData.global_cool_downs.cross_slot_shared = document.getElementById('gcd-cross').checked;
+
+    currentData.systemPrompt = document.getElementById('f-systemPrompt').value;
+}
+
+function saveData() {
+    collectFormData();
+
+    const btn = document.getElementById('saveBtn');
+    btn.textContent = '⏳ 生成中...';
+    btn.disabled = true;
+
+    try {
+        const json = JSON.stringify(currentData, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = currentSlot + '/profile.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        originalData = JSON.parse(JSON.stringify(currentData));
+
+        btn.textContent = '✅ 已下载';
+        btn.classList.add('saved');
+        setTimeout(() => {
+            btn.textContent = '💾 保存';
+            btn.classList.remove('saved');
+            btn.disabled = false;
+        }, 2000);
+
+        showToast('✅ 已下载 ' + SLOT_NAMES[currentSlot] + ' 的 profile.json');
+    } catch (e) {
+        btn.textContent = '💾 保存';
+        btn.disabled = false;
+        showToast('❌ 保存失败: ' + e.message);
+        console.error('保存失败:', e);
+    }
+}
+
+// ================================================================
+//  初始化
+// ================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    loadProfile('a');
+});
+
+// 暴露全局函数
+window.toggleSection = toggleSection;
+window.addTag = addTag;
+window.removeTag = removeTag;
+window.addKeyword = addKeyword;
+window.removeKeyword = removeKeyword;
+window.openShiftPicker = openShiftPicker;
+window.updateProbDisplay = updateProbDisplay;
+window.markDirty = markDirty;
+window.saveData = saveData;
+window.goBack = goBack;
+window.loadProfile = loadProfile;
+window.confirmReset = confirmReset;
+window.renderForm = renderForm;
+
+console.log('✏️ 人设修改器已加载（内置默认值）');
+console.log('📌 修改后点击「保存」下载 profile.json');
+console.log('📌 点击「恢复默认」可重置为内置默认值');
+</script>
+
+</body>
+</html>

@@ -482,50 +482,32 @@
         async function loadData() {
             for (const slot of SLOTS) {
                 let data = null;
-                let source = '';
 
-                // 1. 优先从 localStorage 读取用户修改过的人设
-                const saved = localStorage.getItem('dev_profile_' + slot);
-                if (saved) {
-                    try {
-                        data = JSON.parse(saved);
-                        source = 'localStorage';
-                        console.log(`[show.html] ✅ 从 localStorage 加载 ${slot}`);
-                    } catch (e) {
-                        console.warn(`[show.html] localStorage 解析失败 ${slot}`, e);
-                        data = null;
+                // ✅ 直接从 profile.json 读取
+                try {
+                    const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+                    if (resp.ok) {
+                        data = await resp.json();
+                        console.log(`[show.html] ✅ 从 profile.json 加载 ${slot}`);
+                    } else {
+                        console.warn(`[show.html] fetch ${slot} 失败: HTTP ${resp.status}`);
                     }
+                } catch (e) {
+                    console.warn(`[show.html] fetch ${slot} 异常:`, e);
                 }
 
-                // 2. 如果没有 localStorage，从 profile.json 读取
-                if (!data) {
-                    try {
-                        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
-                        if (resp.ok) {
-                            data = await resp.json();
-                            source = 'profile.json';
-                            console.log(`[show.html] ✅ 从 profile.json 加载 ${slot}`);
-                        } else {
-                            console.warn(`[show.html] fetch ${slot} 失败: HTTP ${resp.status}`);
-                        }
-                    } catch (e) {
-                        console.warn(`[show.html] fetch ${slot} 异常:`, e);
-                    }
-                }
-
-                // 3. 兜底：使用默认模板
+                // 兜底：使用默认模板
                 if (!data) {
                     data = getDefaultProfile(slot);
-                    source = 'default';
                     console.log(`[show.html] ⚠️ 使用默认模板 ${slot}`);
                 }
 
-                // 4. 确保排班是数组格式
+                // 确保排班是数组格式
                 ensureScheduleArray(data);
 
-                // 5. 存储到 profiles
+                // 存储到 profiles
                 profiles[slot] = data;
-                profiles[slot]._source = source;
+                profiles[slot]._source = 'profile.json';
             }
 
             // 打印每个角色的排班，方便调试

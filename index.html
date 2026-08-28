@@ -35,7 +35,6 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            /* 安全区适配 */
             padding-top: env(safe-area-inset-top, 20px);
             padding-bottom: env(safe-area-inset-bottom, 0px);
         }
@@ -136,8 +135,6 @@
             height: 100%;
             object-fit: cover;
         }
-
-
 
         .chat-item .info {
             flex: 1;
@@ -749,7 +746,7 @@
             <button class="tab-item" onclick="location.href='world.html'">
                 <span class="icon">🌍</span>世界
             </button>
-            <button class="tab-item" id="tabBtnMe" onclick="location.href='index.html#me'">
+            <button class="tab-item" id="tabBtnMe" onclick="switchToTab('me')">
                 <span class="icon">👤</span>我的
             </button>
         </div>
@@ -758,6 +755,12 @@
     <div class="toast" id="toast"></div>
 
     <script>
+        // ================================================================
+        //  index.html · 主入口
+        //  ✅ API Key 保留 localStorage（用户配置）
+        //  ❌ 不再读写 dev_profile_*（人设已统一为 profile.json）
+        // ================================================================
+
         // ===== 角色数据 =====
         const SLOTS = ['a', 'b', 'c', 'd'];
         const PERSONA_NAMES = { a: '甜小朵', b: '白洁', c: '小雅', d: '小舒' };
@@ -826,11 +829,11 @@
                 const emoji = PERSONA_EMOJI[slot];
                 const status = PERSONA_STATUS[slot];
                 const avatarPath = getAvatarPath(slot);
-                
+
                 html += `
                 <div class="chat-item" onclick="openChat('${slot}')">
                     <div class="avatar">
-                        <img src="${avatarPath}" alt="${name}" onerror="...">
+                        <img src="${avatarPath}" alt="${name}" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">
                     </div>
                     <div class="info">
                         <div class="top">
@@ -921,6 +924,7 @@
             const container = document.getElementById('profileContainer');
             const savedApi = localStorage.getItem('ai_api_key') || '';
             const savedTts = localStorage.getItem('ai_tts_api_key') || '';
+
             container.innerHTML = `
             <div class="user-card">
                 <div class="avatar">🧑‍💻</div>
@@ -929,6 +933,7 @@
                     <div class="sub">👨‍💻 程序员 · 锦华区 · 1996</div>
                 </div>
             </div>
+
             <div class="settings-section">
                 <div class="section-title">🔑 API 配置</div>
                 <div class="setting-card">
@@ -954,6 +959,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="settings-section">
                 <div class="section-title">💾 数据管理</div>
                 <div class="setting-card">
@@ -974,14 +980,16 @@
                     </div>
                 </div>
             </div>
+
             <div class="settings-section">
-                <div class="section-title">🛠️ 高级</div>
+                <div class="section-title">📖 人设查看</div>
                 <div class="setting-card">
                     <div class="setting-item" style="padding:4px 14px;">
-                        <button class="btn dev-tool" onclick="location.href='dev.html'">🛠️ 开发者工具</button>
+                        <button class="btn dev-tool" onclick="location.href='dev.html'">📖 查看人设</button>
                     </div>
                 </div>
             </div>
+
             <div class="settings-section">
                 <div class="section-title">ℹ️ 关于</div>
                 <div class="setting-card">
@@ -991,7 +999,8 @@
                 </div>
             </div>
         `;
-            document.getElementById('saveApiBtn').addEventListener('click', function () {
+
+            document.getElementById('saveApiBtn').addEventListener('click', function() {
                 const apiKey = document.getElementById('apiKeyInput').value.trim();
                 const ttsKey = document.getElementById('ttsKeyInput').value.trim();
                 if (apiKey) localStorage.setItem('ai_api_key', apiKey);
@@ -1013,10 +1022,9 @@
                 data.apiKeys.deepseek = localStorage.getItem('ai_api_key') || '';
                 data.apiKeys.tts = localStorage.getItem('ai_tts_api_key') || '';
                 SLOTS.forEach(slot => {
-                    const profile = localStorage.getItem('dev_profile_' + slot);
-                    if (profile) data.profiles[slot] = JSON.parse(profile);
                     const chat = localStorage.getItem('chat_' + slot);
                     if (chat) data.chats[slot] = JSON.parse(chat);
+                    // ❌ 不再导出 dev_profile_*，因为人设统一为 profile.json
                 });
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
@@ -1035,24 +1043,27 @@
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.json';
-            input.onchange = function (e) {
+            input.onchange = function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
                 const reader = new FileReader();
-                reader.onload = function (ev) {
+                reader.onload = function(ev) {
                     try {
                         const data = JSON.parse(ev.target.result);
-                        if (!data.version || !data.profiles) { showToast('❌ 无效的备份文件'); return; }
+                        if (!data.version || !data.chats) { showToast('❌ 无效的备份文件'); return; }
                         let count = 0;
                         SLOTS.forEach(slot => {
-                            if (data.profiles[slot]) { localStorage.setItem('dev_profile_' + slot, JSON.stringify(data.profiles[slot])); count++; }
-                            if (data.chats && data.chats[slot]) { localStorage.setItem('chat_' + slot, JSON.stringify(data.chats[slot])); }
+                            if (data.chats && data.chats[slot]) {
+                                localStorage.setItem('chat_' + slot, JSON.stringify(data.chats[slot]));
+                                count++;
+                            }
                         });
                         if (data.apiKeys) {
                             if (data.apiKeys.deepseek) localStorage.setItem('ai_api_key', data.apiKeys.deepseek);
                             if (data.apiKeys.tts) localStorage.setItem('ai_tts_api_key', data.apiKeys.tts);
                         }
-                        showToast('✅ 导入成功，更新了 ' + count + ' 个人设');
+                        // ❌ 不再导入 dev_profile_*，因为人设统一为 profile.json
+                        showToast('✅ 导入成功，恢复了 ' + count + ' 个聊天记录');
                         renderProfile();
                         renderChatList();
                     } catch (err) { showToast('❌ 导入失败: ' + err.message); }
@@ -1079,6 +1090,8 @@
             renderProfile();
             checkHash();
             console.log('💬 朵聊已启动');
+            console.log('📌 人设统一从 profile.json 加载');
+            console.log('📌 API Key 存储在 localStorage');
         }
 
         window.openChat = openChat;

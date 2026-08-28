@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>开发者工具</title>
+    <title>人设查看 · 舒心市</title>
     <style>
         * {
             margin: 0;
@@ -65,32 +65,38 @@
             display: flex;
             gap: 6px;
             align-items: center;
+            flex-shrink: 0;
         }
-        .nav-header .restore-btn {
-            padding: 6px 12px;
-            background: transparent;
-            color: #ff3b30;
-            border: 0.5px solid #ff3b30;
-            border-radius: 8px;
-            font-size: 12px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.15s;
-        }
-        .nav-header .restore-btn:active { opacity: 0.6; }
-        .nav-header .save-btn {
-            padding: 6px 16px;
+        .nav-header .refresh-btn {
+            padding: 4px 10px;
             background: #3a7bd5;
             color: #fff;
             border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
+            border-radius: 6px;
+            font-size: 12px;
             cursor: pointer;
             font-family: inherit;
-            min-height: 36px;
+            transition: opacity 0.15s;
         }
-        .nav-header .save-btn:active { opacity: 0.7; }
+        .nav-header .refresh-btn:active { opacity: 0.7; }
+        .nav-header .refresh-btn.refreshing {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .nav-header .last-refresh {
+            font-size: 10px;
+            color: #8e8e93;
+            white-space: nowrap;
+        }
+        .readonly-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            font-size: 10px;
+            color: #8e8e93;
+            border: 0.5px solid #d9d9d9;
+        }
 
         .main-content {
             flex: 1;
@@ -239,6 +245,17 @@
         }
         textarea { resize: vertical; min-height: 80px; }
 
+        input:disabled, select:disabled, textarea:disabled {
+            background: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
+            border-color: #d9d9d9;
+            background: #f5f5f5;
+        }
+
         .keyword-group {
             background: #f8f8f8;
             border-radius: 10px;
@@ -287,40 +304,15 @@
             gap: 6px;
         }
         .keyword-chip .remove {
-            cursor: pointer;
-            color: #b0b0b0;
+            cursor: not-allowed;
+            color: #d0d0d0;
             font-size: 14px;
             line-height: 1;
         }
-        .keyword-chip .remove:active { color: #ff3b30; }
 
         .keyword-input-add {
-            display: flex;
-            gap: 6px;
+            display: none;
         }
-        .keyword-input-add input {
-            flex: 1;
-            padding: 6px 10px;
-            border: 0.5px solid #d9d9d9;
-            border-radius: 8px;
-            font-size: 12px;
-            background: #ffffff;
-            min-height: 32px;
-        }
-        .keyword-input-add button {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: none;
-            background: #3a7bd5;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .keyword-input-add button:active { opacity: 0.7; }
 
         .keyword-stats {
             display: grid;
@@ -348,15 +340,16 @@
             border-radius: 4px;
             background: #d9d9d9;
             outline: none;
-            cursor: pointer;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
         .prob-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: #3a7bd5;
-            cursor: pointer;
+            background: #b0b0b0;
+            cursor: not-allowed;
         }
         .prob-label {
             font-size: 12px;
@@ -383,9 +376,10 @@
             height: 24px;
             background: #d9d9d9;
             border-radius: 12px;
-            cursor: pointer;
+            cursor: not-allowed;
             transition: background 0.25s;
             flex-shrink: 0;
+            opacity: 0.6;
         }
         .switch.on { background: #4ade80; }
         .switch::after {
@@ -416,7 +410,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            cursor: default;
             border: 2px solid transparent;
             transition: all 0.15s;
             font-size: 10px;
@@ -424,7 +418,6 @@
             background: #f5f5f5;
             min-height: 52px;
         }
-        .schedule-cell:active { transform: scale(0.95); }
         .schedule-cell .day-name { font-size: 9px; color: #8e8e93; }
         .schedule-cell .shift-name { font-size: 11px; font-weight: 600; }
         .schedule-cell .shift-time { font-size: 8px; opacity: 0.7; }
@@ -442,22 +435,8 @@
         }
 
         .schedule-toolbar {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
+            display: none;
         }
-        .schedule-toolbar button {
-            padding: 4px 12px;
-            border: 0.5px solid #d9d9d9;
-            border-radius: 6px;
-            background: #ffffff;
-            font-size: 11px;
-            cursor: pointer;
-            font-family: inherit;
-            color: #333;
-        }
-        .schedule-toolbar button:active { background: #f5f5f5; }
 
         .template-list {
             display: grid;
@@ -470,10 +449,9 @@
             background: #f8f8f8;
             border: 0.5px solid #e8e8e8;
             border-radius: 10px;
-            cursor: pointer;
+            cursor: default;
             transition: all 0.15s;
         }
-        .template-item:active { transform: scale(0.97); background: #f0f0f0; }
         .template-item.default {
             background: #e3f2fd;
             border-color: #3a7bd5;
@@ -585,8 +563,6 @@
         .btn-cancel:active { background: #e8e8e8; }
         .btn-primary { background: #3a7bd5; color: #fff; }
         .btn-primary:active { background: #2b5ca8; }
-        .btn-danger { background: #ff3b30; color: #fff; }
-        .btn-danger:active { background: #d63031; }
 
         .toast {
             position: fixed;
@@ -619,22 +595,21 @@
             .schedule-cell { min-height: 44px; font-size: 9px; }
             .slot-card .slot-avatar { width: 40px; height: 40px; font-size: 18px; }
             .nav-header .title { font-size: 15px; }
-            .nav-header .restore-btn { font-size: 10px; padding: 4px 8px; }
-            .nav-header .save-btn { font-size: 11px; padding: 4px 12px; }
+            .nav-header .last-refresh { display: none; }
         }
     </style>
 </head>
 <body>
 
 <div class="app">
-    <!-- ===== 顶部导航（无状态栏） ===== -->
+    <!-- ===== 顶部导航（只读模式 + 刷新按钮） ===== -->
     <div class="nav-header">
         <button class="back-btn" id="backBtn">‹</button>
-        <div class="title">🔧 开发者工具</div>
+        <div class="title">📖 人设查看器</div>
         <div class="header-right">
-          <button onclick="forceReloadFromProfile()" style="padding:4px 10px;background:#ff9800;color:#fff;border:none;border-radius:6px;font-size:11px;cursor:pointer;">📥 强制恢复</button>
-            <!-- <button class="restore-btn" onclick="restoreDefault()">🔄 恢复默认</button> -->
-            <button class="save-btn" id="saveBtn">保存</button>
+            <span class="last-refresh" id="lastRefreshTime"></span>
+            <button class="refresh-btn" id="refreshBtn" onclick="refreshData()">🔄 刷新</button>
+            <span class="readonly-badge">🔒 只读</span>
         </div>
     </div>
 
@@ -656,11 +631,11 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>姓名</label>
-                    <input type="text" id="f-name" placeholder="姓名">
+                    <input type="text" id="f-name" placeholder="姓名" disabled>
                 </div>
                 <div class="form-group">
                     <label>性别</label>
-                    <select id="f-gender">
+                    <select id="f-gender" disabled>
                         <option value="女">女</option>
                         <option value="男">男</option>
                     </select>
@@ -669,45 +644,45 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>生日</label>
-                    <input type="date" id="f-birthday">
+                    <input type="date" id="f-birthday" disabled>
                 </div>
                 <div class="form-group">
                     <label>身高 (cm)</label>
-                    <input type="number" id="f-height" placeholder="160">
+                    <input type="number" id="f-height" placeholder="160" disabled>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label>体重 (kg)</label>
-                    <input type="number" id="f-weight" placeholder="50">
+                    <input type="number" id="f-weight" placeholder="50" disabled>
                 </div>
                 <div class="form-group">
                     <label>三围</label>
-                    <input type="text" id="f-bust" placeholder="84-60-88">
+                    <input type="text" id="f-bust" placeholder="84-60-88" disabled>
                 </div>
             </div>
 
             <div class="section-title">性格与风格</div>
             <div class="form-group">
                 <label>性格标签</label>
-                <input type="text" id="f-tags" placeholder="温柔,活泼,可爱">
+                <input type="text" id="f-tags" placeholder="温柔,活泼,可爱" disabled>
             </div>
             <div class="form-group">
                 <label>穿衣风格</label>
-                <input type="text" id="f-style" placeholder="JK制服,连衣裙">
+                <input type="text" id="f-style" placeholder="JK制服,连衣裙" disabled>
             </div>
             <div class="form-group">
                 <label>爱好 / 习惯</label>
-                <textarea id="f-habits" rows="2" placeholder="日常习惯、爱好..."></textarea>
+                <textarea id="f-habits" rows="2" placeholder="日常习惯、爱好..." disabled></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label>对用户称呼</label>
-                    <input type="text" id="f-call_user" placeholder="宝贝">
+                    <input type="text" id="f-call_user" placeholder="宝贝" disabled>
                 </div>
                 <div class="form-group">
                     <label>自称</label>
-                    <input type="text" id="f-self_call" placeholder="我">
+                    <input type="text" id="f-self_call" placeholder="我" disabled>
                 </div>
             </div>
 
@@ -715,25 +690,23 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>职业</label>
-                    <input type="text" id="f-position" placeholder="儿科护士">
+                    <input type="text" id="f-position" placeholder="儿科护士" disabled>
                 </div>
                 <div class="form-group">
                     <label>工作地点</label>
-                    <input type="text" id="f-workplace" placeholder="舒心市综合人民医院">
+                    <input type="text" id="f-workplace" placeholder="舒心市综合人民医院" disabled>
                 </div>
             </div>
         </div>
 
-        <!-- ===== 排班设置 ===== -->
+        <!-- ===== 排班设置（只读） ===== -->
         <div class="tab-content" id="tab-schedule">
             <div class="section-title">📋 排班模板</div>
             <div class="template-list" id="templateList"></div>
 
             <div class="section-title">📅 本周排班</div>
             <div class="schedule-toolbar">
-                <button onclick="batchSetOff()">😴 全部休息</button>
-                <button onclick="batchSetWork()">💼 周一至周五上班</button>
-                <button onclick="copyLastWeek()">📋 复制上周</button>
+                <!-- 所有按钮已隐藏 -->
             </div>
             <div class="schedule-week" id="scheduleWeek"></div>
 
@@ -768,21 +741,20 @@
             <div class="time-slot-list" id="previewTimeSlotList"></div>
         </div>
 
-        <!-- ===== 关键词触发 ===== -->
+        <!-- ===== 关键词触发（只读） ===== -->
         <div class="tab-content" id="tab-keywords">
             <!-- 普通照片 -->
             <div class="keyword-group">
                 <div class="keyword-header">
                     <div class="keyword-title">📷 普通照片 <span class="badge normal">work</span></div>
                     <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="normalPhoto" min="0.05" max="1.0" step="0.05" value="0.5">
+                        <input type="range" class="prob-slider" data-key="normalPhoto" min="0.05" max="1.0" step="0.05" value="0.5" disabled>
                         <span class="prob-label" id="plabel-normalPhoto">50%</span>
                     </div>
                 </div>
                 <div class="keyword-inputs" id="kw-normalPhoto"></div>
                 <div class="keyword-input-add">
-                    <input type="text" class="kw-input" data-key="normalPhoto" placeholder="添加关键词" onkeypress="if(event.key==='Enter')addKeyword('normalPhoto', this)">
-                    <button onclick="addKeyword('normalPhoto', this.previousElementSibling)">+</button>
+                    <!-- 隐藏添加按钮 -->
                 </div>
                 <div class="keyword-stats">
                     <div class="stat-item"><div class="stat-value" id="count-normalPhoto">0</div><div class="stat-label">关键词数</div></div>
@@ -796,14 +768,13 @@
                 <div class="keyword-header">
                     <div class="keyword-title">🔊 普通语音 <span class="badge normal">TTS</span></div>
                     <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="normalAudio" min="0.05" max="1.0" step="0.05" value="0.5">
+                        <input type="range" class="prob-slider" data-key="normalAudio" min="0.05" max="1.0" step="0.05" value="0.5" disabled>
                         <span class="prob-label" id="plabel-normalAudio">50%</span>
                     </div>
                 </div>
                 <div class="keyword-inputs" id="kw-normalAudio"></div>
                 <div class="keyword-input-add">
-                    <input type="text" class="kw-input" data-key="normalAudio" placeholder="添加关键词" onkeypress="if(event.key==='Enter')addKeyword('normalAudio', this)">
-                    <button onclick="addKeyword('normalAudio', this.previousElementSibling)">+</button>
+                    <!-- 隐藏添加按钮 -->
                 </div>
                 <div class="keyword-stats">
                     <div class="stat-item"><div class="stat-value" id="count-normalAudio">0</div><div class="stat-label">关键词数</div></div>
@@ -817,14 +788,13 @@
                 <div class="keyword-header">
                     <div class="keyword-title">🔒 隐藏照片 <span class="badge hidden">private</span></div>
                     <div class="prob-slider-wrap">
-                        <input type="range" class="prob-slider" data-key="hiddenPhoto" min="0.05" max="1.0" step="0.05" value="0.3">
+                        <input type="range" class="prob-slider" data-key="hiddenPhoto" min="0.05" max="1.0" step="0.05" value="0.3" disabled>
                         <span class="prob-label" id="plabel-hiddenPhoto">30%</span>
                     </div>
                 </div>
                 <div class="keyword-inputs" id="kw-hiddenPhoto"></div>
                 <div class="keyword-input-add">
-                    <input type="text" class="kw-input" data-key="hiddenPhoto" placeholder="添加关键词" onkeypress="if(event.key==='Enter')addKeyword('hiddenPhoto', this)">
-                    <button onclick="addKeyword('hiddenPhoto', this.previousElementSibling)">+</button>
+                    <!-- 隐藏添加按钮 -->
                 </div>
                 <div class="keyword-stats">
                     <div class="stat-item"><div class="stat-value" id="count-hiddenPhoto">0</div><div class="stat-label">关键词数</div></div>
@@ -839,35 +809,34 @@
                             <div class="switch-label">💯 分值解锁</div>
                             <div class="switch-desc">评分 ≥ 5 自动解锁</div>
                         </div>
-                        <div class="switch on" id="sw-scoreUnlock" onclick="toggleSwitch(this)"></div>
+                        <div class="switch on" id="sw-scoreUnlock" onclick="return false;"></div>
                     </div>
                     <div class="switch-row">
                         <div>
                             <div class="switch-label">🧿 解锁词触发</div>
                             <div class="switch-desc">发送暗号词触发</div>
                         </div>
-                        <div class="switch on" id="sw-wordUnlock" onclick="toggleSwitch(this)"></div>
+                        <div class="switch on" id="sw-wordUnlock" onclick="return false;"></div>
                     </div>
                     <div class="keyword-inputs" id="kw-unlockWords" style="margin-top:6px;"></div>
                     <div class="keyword-input-add">
-                        <input type="text" class="kw-input" data-key="unlockWords" placeholder="添加解锁词" onkeypress="if(event.key==='Enter')addKeyword('unlockWords', this)">
-                        <button onclick="addKeyword('unlockWords', this.previousElementSibling)">+</button>
+                        <!-- 隐藏添加按钮 -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ===== 系统提示 ===== -->
+        <!-- ===== 系统提示（只读） ===== -->
         <div class="tab-content" id="tab-system">
             <div class="section-title">System Prompt</div>
             <div class="form-group">
-                <textarea id="f-systemPrompt" rows="8" placeholder="编辑 AI 的人设指令..."></textarea>
+                <textarea id="f-systemPrompt" rows="8" placeholder="编辑 AI 的人设指令..." disabled></textarea>
             </div>
 
             <div class="section-title">🎙️ 音色设置</div>
             <div class="form-group">
                 <label>TTS 音色</label>
-                <select id="f-voice">
+                <select id="f-voice" disabled>
                     <option value="Cherry">Cherry（芊悦·阳光）</option>
                     <option value="Serena">Serena（苏瑶·温柔）</option>
                     <option value="Momo">Momo（茉兔·撒娇）</option>
@@ -882,11 +851,11 @@
                     <div class="switch-label">启用告白场景</div>
                     <div class="switch-desc">发送"我爱你"等触发特殊回复</div>
                 </div>
-                <div class="switch on" id="sw-confession" onclick="toggleSwitch(this)"></div>
+                <div class="switch on" id="sw-confession" onclick="return false;"></div>
             </div>
             <div class="form-group" style="margin-top:8px;">
                 <label>告白触发词</label>
-                <input type="text" id="f-confessionWords" placeholder="我爱你,好爱你,真的爱你">
+                <input type="text" id="f-confessionWords" placeholder="我爱你,好爱你,真的爱你" disabled>
             </div>
         </div>
     </div>
@@ -895,56 +864,28 @@
 </div>
 
 <!-- Toast -->
-<div class="toast" id="toast">保存成功</div>
+<div class="toast" id="toast">只读模式</div>
 
 <!-- 确认模态框 -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-        <h3 id="modalTitle">确认</h3>
-        <p id="modalText">确定执行此操作吗？</p>
+        <h3 id="modalTitle">提示</h3>
+        <p id="modalText">当前为只读模式，不可编辑</p>
         <div class="modal-actions">
-            <button class="btn btn-cancel" onclick="closeModal()">取消</button>
-            <button class="btn btn-primary" id="modalConfirmBtn" onclick="confirmModal()">确定</button>
+            <button class="btn btn-primary" onclick="closeModal()">确定</button>
         </div>
     </div>
 </div>
 
 <script>
 // ================================================================
-//  开发者工具 · 最终修复版
-//  修复：collectFormData() 不再错误覆盖 keyword_triggers
-//  修复：restoreDefault() 强制刷新页面
-//  修复：移除顶部假状态栏
+//  人设查看器 · dev.html（只读模式 + 手动刷新）
+//  ✅ 只从 profile.json 读取，不用 localStorage
+//  ❌ 禁止所有编辑功能
+//  ✅ 点击「刷新」按钮重新加载
+//  ✅ 快捷键 Ctrl+R 刷新
 // ================================================================
-// ===== 强制从 profile.json 重新加载（调试用） =====
-async function forceReloadFromProfile() {
-    const slot = currentSlot;
-    try {
-        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        const freshData = await resp.json();
-        
-        if (freshData.work?.weekly_schedule && !Array.isArray(freshData.work.weekly_schedule)) {
-            const ws = freshData.work.weekly_schedule;
-            const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-            freshData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
-        }
-        
-        currentData = freshData;
-        localStorage.setItem('dev_profile_' + slot, JSON.stringify(freshData));
-        fillForm(currentData);
-        renderKeywords();
-        renderSchedule();
-        renderTemplates();
-        renderRhythmPreview();
-        renderAll();
-        modified = false;
-        showToast('✅ 强制恢复成功！');
-        console.log('关键词:', currentData.keyword_triggers?.normal_photo?.[0]?.keywords);
-    } catch (e) {
-        showToast('❌ 强制恢复失败: ' + e.message);
-    }
-}
+
 // ===== 1. 返回逻辑 =====
 function goBack() {
     if (window.history.length > 1) {
@@ -961,8 +902,7 @@ const SLOT_EMOJI = { a: '🌸', b: '🌙', c: '📚', d: '🌆' };
 
 let currentSlot = 'a';
 let currentData = null;
-let modified = false;
-let modalCallback = null;
+let isRefreshing = false;
 
 // ===== 3. 获取头像路径 =====
 function getAvatarPath(slot) {
@@ -971,8 +911,15 @@ function getAvatarPath(slot) {
 
 // ===== 4. 默认排班 =====
 function getDefaultSchedule() {
-    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    return days.map(() => ({ type: 'off', name: '休息', time: '——' }));
+    return [
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' },
+        { type: 'off', name: '休息', time: '——' }
+    ];
 }
 
 // ===== 5. 默认 Profile =====
@@ -997,48 +944,91 @@ function getDefaultProfile(slot) {
     };
 }
 
-// ===== 6. 加载人设 =====
+// ===== 6. 加载人设（只从 profile.json） =====
 async function loadProfile(slot) {
     currentSlot = slot;
 
-    // 1. 优先从 localStorage 读取
-    const saved = localStorage.getItem('dev_profile_' + slot);
-    if (saved) {
-        try {
-            currentData = JSON.parse(saved);
-            console.log('[dev] 从 localStorage 加载:', slot);
-            fillForm(currentData);
-            renderAll();
-            return;
-        } catch (e) {}
-    }
-
-    // 2. 从 profile.json 读取
     try {
         const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
         if (resp.ok) {
             currentData = await resp.json();
-            // 转换排班格式（对象→数组）
             if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
                 const ws = currentData.work.weekly_schedule;
                 const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
                 currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
             }
-            console.log('[dev] 从 profile.json 加载:', slot);
+            console.log('[dev] ✅ 从 profile.json 加载:', slot);
             fillForm(currentData);
             renderAll();
+            updateRefreshTime();
             return;
+        } else {
+            console.warn('[dev] fetch ' + slot + ' 失败: HTTP ' + resp.status);
         }
-    } catch (e) {}
+    } catch (e) {
+        console.warn('[dev] fetch ' + slot + ' 异常:', e);
+    }
 
-    // 3. 兜底
     currentData = getDefaultProfile(slot);
-    console.log('[dev] 使用默认模板:', slot);
+    console.log('[dev] ⚠️ 使用默认模板:', slot);
     fillForm(currentData);
     renderAll();
 }
 
-// ===== 7. 填充表单 =====
+// ===== 7. 刷新数据（手动触发） =====
+async function refreshData() {
+    if (isRefreshing) return;
+    isRefreshing = true;
+
+    const btn = document.getElementById('refreshBtn');
+    btn.textContent = '⏳ 刷新中';
+    btn.classList.add('refreshing');
+
+    try {
+        const slot = currentSlot;
+        const name = SLOT_NAMES[slot];
+        showToast('🔄 正在刷新 ' + name + '...');
+
+        const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
+        if (resp.ok) {
+            currentData = await resp.json();
+
+            if (currentData.work?.weekly_schedule && !Array.isArray(currentData.work.weekly_schedule)) {
+                const ws = currentData.work.weekly_schedule;
+                const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                currentData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
+            }
+
+            fillForm(currentData);
+            renderAll();
+            updateRefreshTime();
+
+            showToast('✅ ' + name + ' 已刷新');
+            console.log('[dev] ✅ 手动刷新成功:', slot);
+        } else {
+            showToast('❌ 刷新失败: HTTP ' + resp.status);
+            console.warn('[dev] 刷新失败:', resp.status);
+        }
+    } catch (e) {
+        showToast('❌ 刷新失败: ' + e.message);
+        console.warn('[dev] 刷新异常:', e);
+    }
+
+    isRefreshing = false;
+    btn.textContent = '🔄 刷新';
+    btn.classList.remove('refreshing');
+}
+
+// ===== 8. 更新刷新时间 =====
+function updateRefreshTime() {
+    const el = document.getElementById('lastRefreshTime');
+    if (el) {
+        const now = new Date();
+        el.textContent = '🕐 ' + now.toLocaleTimeString('zh-CN', { hour12: false });
+    }
+}
+
+// ===== 9. 填充表单（只读） =====
 function fillForm(data) {
     if (!data) return;
     const b = data.basic || {};
@@ -1072,114 +1062,7 @@ function fillForm(data) {
     document.getElementById('sw-wordUnlock').className = 'switch' + (data.unlock_config?.enable !== false ? ' on' : '');
 }
 
-// ===== 8. 收集表单数据（修复版） =====
-function collectFormData() {
-    if (!currentData) return;
-
-    // ✅ 只更新 basic、personality、life、work 等字段
-    // ⚠️ 不要动 keyword_triggers、systemPrompt、special_rules 等字段
-    currentData.basic = currentData.basic || {};
-    currentData.basic.name = document.getElementById('f-name').value;
-    currentData.basic.gender = document.getElementById('f-gender').value;
-    currentData.basic.birthday = document.getElementById('f-birthday').value;
-    currentData.basic.height = parseInt(document.getElementById('f-height').value) || 0;
-    currentData.basic.weight = parseInt(document.getElementById('f-weight').value) || 0;
-    currentData.basic.bust = document.getElementById('f-bust').value;
-
-    currentData.personality = currentData.personality || {};
-    currentData.personality.tags = document.getElementById('f-tags').value.split(/[,，]/).map(s => s.trim()).filter(Boolean);
-    currentData.personality.style_detail = document.getElementById('f-style').value;
-    currentData.personality.call_user = document.getElementById('f-call_user').value;
-    currentData.personality.self_call = document.getElementById('f-self_call').value;
-
-    currentData.life = currentData.life || {};
-    currentData.life.habits = document.getElementById('f-habits').value;
-
-    currentData.work = currentData.work || {};
-    currentData.work.position = document.getElementById('f-position').value;
-    currentData.work.workplace = document.getElementById('f-workplace').value;
-
-    // ✅ 更新 systemPrompt
-    currentData.systemPrompt = document.getElementById('f-systemPrompt').value;
-    currentData.voice = document.getElementById('f-voice').value;
-
-    // ✅ 更新 special_rules.confession
-    currentData.special_rules = currentData.special_rules || {};
-    currentData.special_rules.confession = currentData.special_rules.confession || {};
-    currentData.special_rules.confession.enable = document.getElementById('sw-confession').classList.contains('on');
-    currentData.special_rules.confession.keywords = document.getElementById('f-confessionWords').value.split(/[,，]/).map(s => s.trim()).filter(Boolean);
-
-    currentData.scoring = currentData.scoring || {};
-    currentData.scoring.enable = document.getElementById('sw-scoreUnlock').classList.contains('on');
-
-    currentData.unlock_config = currentData.unlock_config || {};
-    currentData.unlock_config.enable = document.getElementById('sw-wordUnlock').classList.contains('on');
-
-    // ✅ keyword_triggers 已经在关键词 Tab 里通过 addKeyword/removeKeyword 单独维护
-    // ✅ 不要在这里覆盖 keyword_triggers！
-}
-
-// ===== 9. 保存 =====
-function saveData() {
-    collectFormData();
-    localStorage.setItem('dev_profile_' + currentSlot, JSON.stringify(currentData));
-    modified = false;
-    showToast('✅ 已保存');
-}
-
-// ===== 10. 恢复默认（修复版） =====
-// ===== 恢复默认（强制从 profile.json 读取） =====
-// ===== 恢复默认（直接从 profile.json 加载，覆盖 localStorage） =====
-function restoreDefault() {
-    const slot = currentSlot;
-    const name = SLOT_NAMES[slot] || '当前角色';
-
-    document.getElementById('modalTitle').textContent = '⚠️ 恢复默认';
-    document.getElementById('modalText').textContent = '确定将「' + name + '」的所有设置恢复为默认值吗？这将从 profile.json 重新加载并覆盖所有修改！';
-    document.getElementById('modalConfirmBtn').textContent = '确定恢复';
-    document.getElementById('modalConfirmBtn').className = 'btn btn-danger';
-
-    modalCallback = async function() {
-        try {
-            showToast('📥 正在从 profile.json 加载...');
-            
-            const resp = await fetch('./' + slot + '/profile.json?t=' + Date.now());
-            if (!resp.ok) throw new Error('HTTP ' + resp.status);
-            
-            const freshData = await resp.json();
-            
-            // 转换排班格式
-            if (freshData.work?.weekly_schedule && !Array.isArray(freshData.work.weekly_schedule)) {
-                const ws = freshData.work.weekly_schedule;
-                const order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                freshData.work.weekly_schedule = order.map(day => ws[day] || { type: 'off', name: '休息', time: '——' });
-            }
-            
-            // 覆盖内存和 localStorage
-            currentData = freshData;
-            localStorage.setItem('dev_profile_' + slot, JSON.stringify(freshData));
-            
-            // 重新渲染
-            fillForm(currentData);
-            renderKeywords();
-            renderSchedule();
-            renderTemplates();
-            renderRhythmPreview();
-            renderAll();
-            
-            modified = false;
-            showToast('✅ 已从 profile.json 恢复「' + name + '」');
-            
-        } catch (e) {
-            showToast('❌ 恢复失败: ' + e.message);
-            console.error('[恢复默认] 错误:', e);
-        }
-        modalCallback = null;
-    };
-
-    document.getElementById('modalOverlay').classList.add('show');
-}
-// ===== 11. 渲染卡位选择器 =====
+// ===== 10. 渲染卡位选择器 =====
 function renderSlotSelector() {
     const container = document.getElementById('slotSelector');
     container.innerHTML = '';
@@ -1197,18 +1080,12 @@ function renderSlotSelector() {
             </div>
             <span class="slot-name">${name}</span>
         `;
-        div.onclick = () => {
-            if (modified) {
-                confirmAction('切换角色', () => loadProfile(slot));
-            } else {
-                loadProfile(slot);
-            }
-        };
+        div.onclick = () => loadProfile(slot);
         container.appendChild(div);
     });
 }
 
-// ===== 12. 切换标签 =====
+// ===== 11. 切换标签 =====
 function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(el => {
         el.classList.toggle('active', el.dataset.tab === tabId);
@@ -1218,7 +1095,7 @@ function switchTab(tabId) {
     });
 }
 
-// ===== 13. 关键词渲染 =====
+// ===== 12. 关键词渲染（只读） =====
 function renderKeywords() {
     if (!currentData) return;
     const kt = currentData.keyword_triggers || {};
@@ -1250,15 +1127,10 @@ function renderChips(containerId, keywords) {
         container.innerHTML = '<span style="font-size:11px;color:#b0b0b0;">（暂无关键词）</span>';
         return;
     }
-    keywords.forEach((word, idx) => {
+    keywords.forEach((word) => {
         const chip = document.createElement('span');
         chip.className = 'keyword-chip';
-        chip.innerHTML = word + ' <span class="remove" data-idx="' + idx + '">×</span>';
-        chip.querySelector('.remove').onclick = function(e) {
-            e.stopPropagation();
-            const key = containerId.replace('kw-', '');
-            removeKeyword(key, idx);
-        };
+        chip.innerHTML = word + ' <span class="remove">×</span>';
         container.appendChild(chip);
     });
 }
@@ -1273,45 +1145,7 @@ function setProbSlider(key, value) {
     if (stat) stat.textContent = pct + '%';
 }
 
-function addKeyword(key, input) {
-    const word = input.value.trim();
-    if (!word) return;
-    if (!currentData.keyword_triggers) currentData.keyword_triggers = {};
-
-    if (key === 'normalPhoto') {
-        if (!currentData.keyword_triggers.normal_photo) currentData.keyword_triggers.normal_photo = [{ keywords: [], probability: 0.5 }];
-        currentData.keyword_triggers.normal_photo[0].keywords.push(word);
-    } else if (key === 'normalAudio') {
-        if (!currentData.keyword_triggers.normal_audio) currentData.keyword_triggers.normal_audio = { keywords: [], probability: 0.5 };
-        currentData.keyword_triggers.normal_audio.keywords.push(word);
-    } else if (key === 'hiddenPhoto') {
-        if (!currentData.keyword_triggers.hidden_photo) currentData.keyword_triggers.hidden_photo = [{ keywords: [], probability: 0.3 }];
-        currentData.keyword_triggers.hidden_photo[0].keywords.push(word);
-    } else if (key === 'unlockWords') {
-        if (!currentData.unlock_config) currentData.unlock_config = { enable: true, words: [] };
-        if (!currentData.unlock_config.words) currentData.unlock_config.words = [];
-        currentData.unlock_config.words.push(word);
-    }
-    input.value = '';
-    modified = true;
-    renderKeywords();
-}
-
-function removeKeyword(key, idx) {
-    if (key === 'normalPhoto') {
-        currentData.keyword_triggers.normal_photo[0].keywords.splice(idx, 1);
-    } else if (key === 'normalAudio') {
-        currentData.keyword_triggers.normal_audio.keywords.splice(idx, 1);
-    } else if (key === 'hiddenPhoto') {
-        currentData.keyword_triggers.hidden_photo[0].keywords.splice(idx, 1);
-    } else if (key === 'unlockWords') {
-        if (currentData.unlock_config?.words) currentData.unlock_config.words.splice(idx, 1);
-    }
-    modified = true;
-    renderKeywords();
-}
-
-// ===== 14. 排班渲染 =====
+// ===== 13. 排班渲染（只读） =====
 const DAY_NAMES = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 const SHIFT_TYPES = {
     morning: { name: '早班', time: '07:30-15:30', cls: 'shift-morning' },
@@ -1341,65 +1175,12 @@ function renderSchedule() {
             <div class="shift-name">${day.name || shift.name}</div>
             <div class="shift-time">${day.time || shift.time}</div>
         `;
-        el.onclick = () => showShiftPicker(idx);
+        el.style.cursor = 'default';
         container.appendChild(el);
     });
 }
 
-function showShiftPicker(dayIdx) {
-    const types = ['morning', 'mid', 'night', 'off', 'allday', 'sing', 'double'];
-    const names = ['早班', '中班', '夜班', '休息', '全天候', '驻唱', '混合班'];
-    const options = types.map((t, i) => `${i+1}.${names[i]}`).join(' ');
-    const input = prompt('选择班次（输入编号）：\n' + options);
-    if (!input) return;
-    const idx = parseInt(input) - 1;
-    if (idx < 0 || idx >= types.length) return;
-    const type = types[idx];
-    if (!currentData.work) currentData.work = {};
-    if (!currentData.work.weekly_schedule) currentData.work.weekly_schedule = getDefaultSchedule();
-    const shift = SHIFT_TYPES[type];
-    currentData.work.weekly_schedule[dayIdx] = { type: type, name: shift.name, time: shift.time };
-    modified = true;
-    renderSchedule();
-    renderRhythmPreview();
-    showToast('✅ 已更新');
-}
-
-function batchSetOff() {
-    if (!currentData.work) currentData.work = {};
-    currentData.work.weekly_schedule = getDefaultSchedule().map(() => ({ type: 'off', name: '休息', time: '——' }));
-    modified = true;
-    renderSchedule();
-    renderRhythmPreview();
-    showToast('✅ 已全部设为休息');
-}
-
-function batchSetWork() {
-    if (!currentData.work) currentData.work = {};
-    const sched = getDefaultSchedule();
-    for (let i = 0; i < 5; i++) {
-        sched[i] = { type: 'morning', name: '早班', time: '09:00-18:00' };
-    }
-    for (let i = 5; i < 7; i++) {
-        sched[i] = { type: 'off', name: '休息', time: '——' };
-    }
-    currentData.work.weekly_schedule = sched;
-    modified = true;
-    renderSchedule();
-    renderRhythmPreview();
-    showToast('✅ 已设为周一至周五上班');
-}
-
-function copyLastWeek() {
-    if (!currentData.work?.weekly_schedule) return;
-    const sched = currentData.work.weekly_schedule.map(d => ({ ...d }));
-    currentData.work.weekly_schedule = sched;
-    modified = true;
-    renderSchedule();
-    showToast('✅ 已复制');
-}
-
-// ===== 15. 排班合理性校验 =====
+// ===== 14. 排班合理性校验 =====
 function runScheduleValidator() {
     const container = document.getElementById('validatorResult');
     const schedule = currentData?.work?.weekly_schedule || getDefaultSchedule();
@@ -1429,7 +1210,7 @@ function runScheduleValidator() {
     }
 }
 
-// ===== 16. 时间预览 =====
+// ===== 15. 时间预览 =====
 let previewWeekday = 0;
 
 function selectWeekday(day) {
@@ -1450,18 +1231,7 @@ function renderRhythmPreview() {
     const dayIdx = previewWeekday;
     const day = schedule[dayIdx] || { type: 'off' };
 
-    const colors = {
-        'morning': '#4caf50',
-        'mid': '#ff9800',
-        'night': '#7c4dff',
-        'off': '#e0e0e0',
-        'allday': '#4caf50',
-        'sing': '#e91e63',
-        'double': '#3f51b5'
-    };
-
     const type = day.type || 'off';
-    const color = colors[type] || '#e0e0e0';
 
     bar.innerHTML = '';
     for (let h = 0; h < 24; h++) {
@@ -1474,7 +1244,7 @@ function renderRhythmPreview() {
                        (type === 'double' && h >= 10 && h < 22) ||
                        (type === 'sing' && h >= 20 && h < 22);
         const isSleep = (type === 'night' && h >= 7 && h < 15) ||
-                        (type === 'off' && h >= 0 && h < 24);
+                        (type === 'off');
         let bg = '#e8e8e8';
         if (isWork) bg = '#4caf50';
         else if (isSleep) bg = '#7c4dff';
@@ -1517,7 +1287,7 @@ function renderRhythmPreview() {
     let status = '🟢 正常回复';
     let level = 1;
     if (type === 'night' && (h >= 7 && h < 15)) { status = '🟣 不回复（睡觉）'; level = 3; }
-    else if (type === 'off' && (h >= 0 && h < 24)) { status = '🟡 休息日 · 慢回复'; level = 2; }
+    else if (type === 'off') { status = '🟡 休息日 · 慢回复'; level = 2; }
     else if (type === 'morning' && (h < 7 || h > 15)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
     else if (type === 'mid' && (h < 15 || h > 23)) { status = '🟡 非工作时间 · 慢回复'; level = 2; }
 
@@ -1529,7 +1299,7 @@ function renderRhythmPreview() {
     `;
 }
 
-// ===== 17. 模板渲染 =====
+// ===== 16. 模板渲染（只读） =====
 function renderTemplates() {
     const container = document.getElementById('templateList');
     const templates = [
@@ -1539,169 +1309,74 @@ function renderTemplates() {
         { key: 'off', name: '💤 全休息', desc: '一周全部休息' }
     ];
     container.innerHTML = templates.map(t =>
-        `<div class="template-item" onclick="applyTemplate('${t.key}')">
+        `<div class="template-item default">
             <div class="tpl-name">${t.name}</div>
             <div class="tpl-desc">${t.desc}</div>
         </div>`
     ).join('');
 }
 
-function applyTemplate(key) {
-    if (!currentData.work) currentData.work = {};
-    const sched = getDefaultSchedule();
-    if (key === 'morning') {
-        for (let i = 0; i < 7; i++) sched[i] = { type: 'morning', name: '早班', time: '07:30-15:30' };
-    } else if (key === 'night') {
-        for (let i = 0; i < 7; i++) sched[i] = { type: 'night', name: '夜班', time: '23:00-07:30' };
-    } else if (key === 'off') {
-        for (let i = 0; i < 7; i++) sched[i] = { type: 'off', name: '休息', time: '——' };
-    } else {
-        const defMap = {
-            a: ['morning', 'mid', 'off', 'night', 'morning', 'off', 'off'],
-            b: ['morning', 'night', 'off', 'mid', 'morning', 'morning', 'off'],
-            c: ['off', 'double', 'morning', 'off', 'double', 'sing', 'sing'],
-            d: ['allday', 'allday', 'allday', 'allday', 'allday', 'allday', 'allday']
-        };
-        const types = defMap[currentSlot] || ['morning', 'mid', 'off', 'night', 'morning', 'off', 'off'];
-        for (let i = 0; i < 7; i++) {
-            const t = types[i] || 'off';
-            const shift = SHIFT_TYPES[t] || SHIFT_TYPES.off;
-            sched[i] = { type: t, name: shift.name, time: shift.time };
-        }
-    }
-    currentData.work.weekly_schedule = sched;
-    modified = true;
-    renderSchedule();
-    renderRhythmPreview();
-    showToast('✅ 已应用模板');
-}
-
-// ===== 18. 开关切换 =====
-function toggleSwitch(el) {
-    el.classList.toggle('on');
-    modified = true;
-}
-
-// ===== 19. 确认对话框 =====
-function confirmAction(title, callback) {
-    document.getElementById('modalTitle').textContent = '有未保存的修改';
-    document.getElementById('modalText').textContent = '你修改了参数但还没保存，确定要切换吗？';
-    document.getElementById('modalConfirmBtn').textContent = '不保存继续';
-    document.getElementById('modalConfirmBtn').className = 'btn btn-danger';
-    modalCallback = callback;
-    document.getElementById('modalOverlay').classList.add('show');
-}
-
-function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('show');
-    modalCallback = null;
-}
-
-function confirmModal() {
-    closeModal();
-    if (modalCallback) {
-        modified = false;
-        modalCallback();
-        modalCallback = null;
-    }
-}
-
-// ===== 20. Toast =====
+// ===== 17. Toast =====
 function showToast(msg) {
     const el = document.getElementById('toast');
     el.textContent = msg;
     el.classList.add('show');
     clearTimeout(el._timer);
-    el._timer = setTimeout(() => el.classList.remove('show'), 1500);
+    el._timer = setTimeout(() => el.classList.remove('show'), 2000);
 }
 
-// ===== 21. 渲染全部 =====
+// ===== 18. 关闭模态框 =====
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// ===== 19. 渲染全部 =====
 function renderAll() {
     renderSlotSelector();
     renderKeywords();
     renderSchedule();
     renderTemplates();
     renderRhythmPreview();
-    document.querySelector('.title').textContent = '🔧 ' + (SLOT_NAMES[currentSlot] || '开发者工具');
+    document.querySelector('.title').textContent = '📖 ' + (SLOT_NAMES[currentSlot] || '人设查看器');
 }
 
-// ===== 22. 保存快捷键 =====
-document.getElementById('saveBtn').addEventListener('click', saveData);
-document.getElementById('backBtn').addEventListener('click', goBack);
-
-// ===== 23. 标签切换 =====
+// ===== 20. 标签切换 =====
 document.querySelectorAll('.tab-btn').forEach(el => {
     el.addEventListener('click', function() {
-        if (modified) {
-            confirmAction('切换标签', () => switchTab(this.dataset.tab));
-        } else {
-            switchTab(this.dataset.tab);
-        }
+        switchTab(this.dataset.tab);
     });
 });
 
-// ===== 24. 概率滑块 =====
-document.querySelectorAll('.prob-slider').forEach(slider => {
-    slider.addEventListener('input', function() {
-        const key = this.dataset.key;
-        const val = parseFloat(this.value);
-        const label = document.getElementById('plabel-' + key);
-        const stat = document.getElementById('prob-' + key);
-        const pct = Math.round(val * 100);
-        if (label) label.textContent = pct + '%';
-        if (stat) stat.textContent = pct + '%';
-
-        if (key === 'normalPhoto') {
-            if (!currentData.keyword_triggers) currentData.keyword_triggers = {};
-            if (!currentData.keyword_triggers.normal_photo) currentData.keyword_triggers.normal_photo = [{ keywords: [], probability: 0.5 }];
-            currentData.keyword_triggers.normal_photo[0].probability = val;
-        } else if (key === 'normalAudio') {
-            if (!currentData.keyword_triggers) currentData.keyword_triggers = {};
-            if (!currentData.keyword_triggers.normal_audio) currentData.keyword_triggers.normal_audio = { keywords: [], probability: 0.5 };
-            currentData.keyword_triggers.normal_audio.probability = val;
-        } else if (key === 'hiddenPhoto') {
-            if (!currentData.keyword_triggers) currentData.keyword_triggers = {};
-            if (!currentData.keyword_triggers.hidden_photo) currentData.keyword_triggers.hidden_photo = [{ keywords: [], probability: 0.3 }];
-            currentData.keyword_triggers.hidden_photo[0].probability = val;
-        }
-        modified = true;
-    });
-});
-
-// ===== 25. 键盘事件 =====
-document.querySelectorAll('.kw-input').forEach(input => {
-    input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            const key = this.dataset.key;
-            addKeyword(key, this);
-        }
-    });
-});
-
-// ===== 26. 键盘快捷键 =====
+// ===== 21. 键盘快捷键 =====
 document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    // Ctrl+R 刷新
+    if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
         e.preventDefault();
-        saveData();
+        refreshData();
     }
     if (e.key === 'Escape') {
         closeModal();
     }
 });
 
-// ===== 27. 手机返回键支持 =====
+// ===== 22. 手机返回键支持 =====
 window.addEventListener('popstate', function() {
-    if (modified) {
-        confirmAction('退出', () => {
-            modified = false;
-            goBack();
-        });
-    } else {
-        goBack();
-    }
+    goBack();
 });
 
-// ===== 28. 初始化 =====
+// ===== 23. 暴露函数给 HTML =====
+window.goBack = goBack;
+window.closeModal = closeModal;
+window.selectWeekday = selectWeekday;
+window.renderRhythmPreview = renderRhythmPreview;
+window.runScheduleValidator = runScheduleValidator;
+window.showToast = showToast;
+window.loadProfile = loadProfile;
+window.switchTab = switchTab;
+window.refreshData = refreshData;
+
+// ===== 24. 初始化 =====
+document.getElementById('backBtn').addEventListener('click', goBack);
 loadProfile('a');
 </script>
 
